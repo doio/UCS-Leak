@@ -1,6 +1,6 @@
 # Ultrpowa's Development Group Projects
 
-All programs developed by the Ultrapowa Development Team are licensed by the Apache License v2.0
+All programs developed by the Ultrapowa Development Team are licensed by a own license
 
 # Projects
 
