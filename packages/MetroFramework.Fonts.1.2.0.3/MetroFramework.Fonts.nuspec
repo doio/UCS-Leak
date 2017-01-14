@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MetroFramework.Fonts</id>
+    <version>1.2.0.3</version>
+    <title>MetroFramework (Fonts)</title>
+    <authors>Jens Thiel</authors>
+    <owners>Jens Thiel</owners>
+    <licenseUrl>http://raw.github.com/thielj/MetroFramework/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://thielj.github.io/MetroFramework</projectUrl>
+    <iconUrl>http://thielj.github.io/MetroFramework/MetroFramework.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Additional fonts for the MetroFramework package. 
+		
+		This package includes the Open Sans family of fonts which is used
+		on machines that don't have the Segoe UI font family installed.
+		The Open Sans fonts are licensed under the Apache 2.0 license.</description>
+    <summary>Additional fonts for the MetroFramework package.</summary>
+    <releaseNotes>See website for details.</releaseNotes>
+    <copyright>Copyright (c) 2013 Jens Thiel</copyright>
+    <tags>Windows Forms Metro Framework UI MetroFramework ModernUI</tags>
+    <dependencies>
+      <dependency id="MetroFramework.RunTime" version="1.2.0.3" />
+    </dependencies>
+    <references>
+      <reference file="MetroFramework.Fonts.dll" />
+    </references>
+  </metadata>
+</package>

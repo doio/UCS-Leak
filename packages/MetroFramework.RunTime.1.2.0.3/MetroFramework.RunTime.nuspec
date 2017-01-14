@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MetroFramework.RunTime</id>
+    <version>1.2.0.3</version>
+    <title>MetroFramework (Run-Time)</title>
+    <authors>Jens Thiel</authors>
+    <owners>Jens Thiel</owners>
+    <licenseUrl>http://raw.github.com/thielj/MetroFramework/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://thielj.github.io/MetroFramework</projectUrl>
+    <iconUrl>http://thielj.github.io/MetroFramework/MetroFramework.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Run-time files for the MetroFramework package. 
+		
+		This package includes the MetroFramework.dll. Please install the main
+		MetroFramework package to pull-in all required dependencies.</description>
+    <summary>Run-time files for the MetroFramework package.</summary>
+    <releaseNotes>See website for details.</releaseNotes>
+    <copyright>Copyright (c) 2013 Jens Thiel</copyright>
+    <tags>Windows Forms Metro Framework UI MetroFramework ModernUI</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="MetroFramework.dll" />
+    </references>
+  </metadata>
+</package>

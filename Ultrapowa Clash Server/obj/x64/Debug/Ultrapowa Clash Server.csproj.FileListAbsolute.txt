@@ -1,0 +1,3 @@
+C:\Users\User\Desktop\UCS\Ultrapowa Clash Server\obj\x64\Debug\UCS.g.resources
+C:\Users\User\Desktop\UCS\Ultrapowa Clash Server\obj\x64\Debug\UCS.UCSUI.resources
+C:\Users\User\Desktop\UCS\Ultrapowa Clash Server\obj\x64\Debug\Ultrapowa Clash Server.csproj.GenerateResource.Cache

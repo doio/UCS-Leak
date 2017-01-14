@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MetroFramework</id>
+    <version>1.2.0.3</version>
+    <title>MetroFramework Installer</title>
+    <authors>Jens Thiel</authors>
+    <owners>Jens Thiel</owners>
+    <licenseUrl>http://raw.github.com/thielj/MetroFramework/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://thielj.github.io/MetroFramework</projectUrl>
+    <iconUrl>http://thielj.github.io/MetroFramework/MetroFramework.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Metro UI of Windows 8 for .NET Windows Forms applications.
+		
+		Install this package to automatically pull in required dependencies.</description>
+    <summary>Metro UI of Windows 8 for .NET Windows Forms applications.</summary>
+    <releaseNotes>See website for details.</releaseNotes>
+    <copyright>Copyright (c) 2013 Jens Thiel</copyright>
+    <tags>Windows Forms Metro Framework UI MetroFramework ModernUI</tags>
+    <dependencies>
+      <dependency id="MetroFramework.RunTime" version="1.2.0.3" />
+      <dependency id="MetroFramework.Design" version="1.2.0.3" />
+      <dependency id="MetroFramework.Fonts" version="1.2.0.3" />
+    </dependencies>
+  </metadata>
+</package>

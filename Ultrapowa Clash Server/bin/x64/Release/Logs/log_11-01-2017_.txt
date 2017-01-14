@@ -1,0 +1,1909 @@
+Log file created at 11.01.2017 20:30:22
+
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:30:44
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:30:44
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:30:44
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24324 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24338 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:30:45
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:30:45
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:30:53
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:30:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:30:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:30:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:30:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:30:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:02
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:08
+[LOG]    Command '532' is handled at 11.01.2017 19:31:08
+[LOG]    Command '0' is unhandled at 11.01.2017 19:31:08
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 19:31:10
+[LOG]    Server Message 20113 was sent at 11.01.2017 19:31:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:15
+[LOG]    Command '532' is handled at 11.01.2017 19:31:15
+[LOG]    Command '8' is unhandled at 11.01.2017 19:31:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:16
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:18
+[LOG]    Command '500' is handled at 11.01.2017 19:31:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:20
+[LOG]    Command '504' is handled at 11.01.2017 19:31:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:22
+[LOG]    Command '502' is handled at 11.01.2017 19:31:22
+[LOG]    Building To Upgrade : Bomb Tower (500000011) at 11.01.2017 19:31:22
+[LOG]    Command '504' is handled at 11.01.2017 19:31:23
+[LOG]    Command '502' is handled at 11.01.2017 19:31:23
+[LOG]    Building To Upgrade : Bomb Tower (500000011) at 11.01.2017 19:31:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:24
+[LOG]    Command '504' is handled at 11.01.2017 19:31:24
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:31
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:35
+[LOG]    Command '502' is handled at 11.01.2017 19:31:35
+[LOG]    Building To Upgrade : Bomb Tower (500000011) at 11.01.2017 19:31:35
+[LOG]    Command '504' is handled at 11.01.2017 19:31:35
+[LOG]    Command '502' is handled at 11.01.2017 19:31:35
+[LOG]    Building To Upgrade : Bomb Tower (500000011) at 11.01.2017 19:31:35
+[LOG]    Command '504' is handled at 11.01.2017 19:31:35
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:31:36
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:31:36
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:31:36
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:31:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:37
+[LOG]    Message TopGlobalAlliancesMessage is handled at 11.01.2017 19:31:38
+[LOG]    Server Message 24401 was sent at 11.01.2017 19:31:38
+[LOG]    Message TopGlobalAlliancesMessage is handled at 11.01.2017 19:31:38
+[LOG]    Server Message 24402 was sent at 11.01.2017 19:31:38
+[LOG]    Message TopGlobalPlayersMessage is handled at 11.01.2017 19:31:38
+[LOG]    Server Message 24403 was sent at 11.01.2017 19:31:38
+[LOG]    Message TopLocalPlayersMessage is handled at 11.01.2017 19:31:38
+[LOG]    Server Message 24404 was sent at 11.01.2017 19:31:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:39
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:31:40
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:31:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:41
+[LOG]    Command '553' is handled at 11.01.2017 19:31:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:42
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:31:45
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:31:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:46
+[LOG]    Command '560' is handled at 11.01.2017 19:31:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:47
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:52
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:31:52
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:31:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:52
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:31:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:31:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:31:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:16
+[LOG]    Command '560' is handled at 11.01.2017 19:32:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:23
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:23
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:23
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:24
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:24
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:24
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:24
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:25
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:25
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:25
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:25
+[LOG]    Command '553' is handled at 11.01.2017 19:32:25
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:32:25
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:32:25
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:27
+[LOG]    Command '553' is handled at 11.01.2017 19:32:27
+[LOG]    Message ChatToAllianceStreamMessage is handled at 11.01.2017 19:32:29
+[LOG]    Server Message 24312 was sent at 11.01.2017 19:32:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:37
+[LOG]    Command '502' is handled at 11.01.2017 19:32:37
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:37
+[LOG]    Command '504' is handled at 11.01.2017 19:32:37
+[LOG]    Command '502' is handled at 11.01.2017 19:32:37
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:38
+[LOG]    Command '504' is handled at 11.01.2017 19:32:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:47
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:54
+[LOG]    Command '502' is handled at 11.01.2017 19:32:54
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:55
+[LOG]    Command '504' is handled at 11.01.2017 19:32:55
+[LOG]    Command '502' is handled at 11.01.2017 19:32:55
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:56
+[LOG]    Command '504' is handled at 11.01.2017 19:32:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:32:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:32:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:32:58
+[LOG]    Command '502' is handled at 11.01.2017 19:32:58
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:58
+[LOG]    Command '504' is handled at 11.01.2017 19:32:58
+[LOG]    Command '502' is handled at 11.01.2017 19:32:58
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:32:58
+[LOG]    Command '504' is handled at 11.01.2017 19:32:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:03
+[LOG]    Message AskForAllianceDataMessage is handled at 11.01.2017 19:33:03
+[LOG]    Server Message 24301 was sent at 11.01.2017 19:33:03
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:33:03
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:33:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:06
+[LOG]    Command '523' is handled at 11.01.2017 19:33:06
+[LOG]    Command '523' is handled at 11.01.2017 19:33:06
+[LOG]    Command '523' is handled at 11.01.2017 19:33:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:33:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:33:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:33:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:34:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:34:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:34:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:35:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:35:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:35:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:36:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:36:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:36:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:37:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:37:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:37:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:38:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:38:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:38:03
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:40:24
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:40:24
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:40:24
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:40:26
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:40:26
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:40:26
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:40:27
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:40:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:33
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:39
+[LOG]    Message ChangeAvatarNameMessage is handled at 11.01.2017 19:40:41
+[LOG]    Server Message 24111 was sent at 11.01.2017 19:40:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:43
+[LOG]    Command '3' is unhandled at 11.01.2017 19:40:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:43
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:43
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:40:43
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:40:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:46
+[LOG]    Command '519' is handled at 11.01.2017 19:40:46
+[LOG]    Command '523' is handled at 11.01.2017 19:40:46
+[LOG]    Command '523' is handled at 11.01.2017 19:40:46
+[LOG]    Command '523' is handled at 11.01.2017 19:40:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:48
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:50
+[LOG]    Command '508' is handled at 11.01.2017 19:40:50
+[LOG]    Command '508' is handled at 11.01.2017 19:40:50
+[LOG]    Command '508' is handled at 11.01.2017 19:40:50
+[LOG]    Command '513' is handled at 11.01.2017 19:40:50
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 19:40:52
+[LOG]    Server Message 20113 was sent at 11.01.2017 19:40:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:53
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:54
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 19:40:55
+[LOG]    Server Message 24133 was sent at 11.01.2017 19:40:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:40:58
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:40:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:40:59
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 19:40:59
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:40:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:41:01
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:42:10
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:42:10
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:42:10
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:42:11
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:42:11
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:42:11
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:42:11
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:42:12
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:42:18
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:42:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:42:19
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:42:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:42:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:42:23
+[LOG]    Command '508' is handled at 11.01.2017 19:42:24
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:49:14
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:49:14
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:49:14
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:49:15
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:49:16
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:49:16
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:49:16
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:49:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:49:20
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:49:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:21
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:24
+[LOG]    Command '508' is handled at 11.01.2017 19:49:24
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:49:25
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:49:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:49:30
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:49:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:32
+[LOG]    Command '513' is handled at 11.01.2017 19:49:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:33
+[LOG]    Command '700' is handled at 11.01.2017 19:49:33
+[LOG]    Server Message 24107 was sent at 11.01.2017 19:49:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:35
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:49:35
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:49:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:35
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 19:49:36
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:49:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:49:37
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:49:49
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:49:49
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:49:49
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:49:50
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:49:50
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:49:50
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:49:50
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:49:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:49:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:49:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:07
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:18
+[LOG]    Message ChangeAvatarNameMessage is handled at 11.01.2017 19:50:18
+[LOG]    Server Message 24111 was sent at 11.01.2017 19:50:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:20
+[LOG]    Command '3' is unhandled at 11.01.2017 19:50:20
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:50:21
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:50:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:22
+[LOG]    Command '519' is handled at 11.01.2017 19:50:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:24
+[LOG]    Command '523' is handled at 11.01.2017 19:50:24
+[LOG]    Command '523' is handled at 11.01.2017 19:50:24
+[LOG]    Command '523' is handled at 11.01.2017 19:50:24
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:50:25
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:50:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:27
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 19:50:27
+[LOG]    Server Message 20113 was sent at 11.01.2017 19:50:27
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:50:28
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:50:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:29
+[LOG]    Command '523' is handled at 11.01.2017 19:50:29
+[LOG]    Command '523' is handled at 11.01.2017 19:50:29
+[LOG]    Command '523' is handled at 11.01.2017 19:50:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:31
+[LOG]    Command '523' is handled at 11.01.2017 19:50:31
+[LOG]    Command '523' is handled at 11.01.2017 19:50:31
+[LOG]    Command '523' is handled at 11.01.2017 19:50:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:34
+[LOG]    Command '520' is handled at 11.01.2017 19:50:34
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 11.01.2017 19:50:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:36
+[LOG]    Command '501' is handled at 11.01.2017 19:50:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:41
+[LOG]    Command '508' is handled at 11.01.2017 19:50:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:50:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:50:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:50:43
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:51:49
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:51:49
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:51:49
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:51:50
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:51:51
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:51:51
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:51:51
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:51:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:51:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:51:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:51:59
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:52:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:52:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:52:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:52:03
+[LOG]    Command '508' is handled at 11.01.2017 19:52:03
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:53:13
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:53:13
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:53:13
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:53:14
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:53:14
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:53:14
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:53:14
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:53:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:21
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:25
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:27
+[LOG]    Command '508' is handled at 11.01.2017 19:53:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:30
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:32
+[LOG]    Command '513' is handled at 11.01.2017 19:53:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:33
+[LOG]    Command '700' is handled at 11.01.2017 19:53:33
+[LOG]    Server Message 24107 was sent at 11.01.2017 19:53:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:35
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:35
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 19:53:36
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:53:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:38
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 19:53:38
+[LOG]    Server Message 20113 was sent at 11.01.2017 19:53:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:39
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 19:53:40
+[LOG]    Server Message 24133 was sent at 11.01.2017 19:53:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:40
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:44
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:45
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:45
+[LOG]    Command '600' is handled at 11.01.2017 19:53:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:46
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:47
+[LOG]    Command '603' is handled at 11.01.2017 19:53:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:47
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 19:53:47
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:53:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:49
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:50
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:51
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 19:53:51
+[LOG]    Server Message 24133 was sent at 11.01.2017 19:53:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:53:55
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:53:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:55
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 19:53:55
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:53:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:53:58
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:53:59
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:53:59
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:54:00
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:54:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:54:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:54:01
+[LOG]    Command '523' is handled at 11.01.2017 19:54:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:54:05
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:54:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:54:06
+[LOG]    Message SessionRequest is handled at 11.01.2017 19:54:18
+[LOG]    Server Message 20100 was sent at 11.01.2017 19:54:18
+[LOG]    Message LoginMessage is handled at 11.01.2017 19:54:18
+[LOG]    Server Message 20104 was sent at 11.01.2017 19:54:19
+[LOG]    Server Message 24412 was sent at 11.01.2017 19:54:19
+[LOG]    Server Message 24411 was sent at 11.01.2017 19:54:19
+[LOG]    Server Message 24101 was sent at 11.01.2017 19:54:19
+[LOG]    Server Message 24340 was sent at 11.01.2017 19:54:19
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:54:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:54:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:05
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:06
+[LOG]    Message ChangeAvatarNameMessage is handled at 11.01.2017 19:55:10
+[LOG]    Server Message 24111 was sent at 11.01.2017 19:55:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:11
+[LOG]    Command '3' is unhandled at 11.01.2017 19:55:11
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 19:55:11
+[LOG]    Server Message 24334 was sent at 11.01.2017 19:55:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:12
+[LOG]    Command '519' is handled at 11.01.2017 19:55:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:15
+[LOG]    Command '523' is handled at 11.01.2017 19:55:15
+[LOG]    Command '523' is handled at 11.01.2017 19:55:15
+[LOG]    Command '523' is handled at 11.01.2017 19:55:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:19
+[LOG]    Command '508' is handled at 11.01.2017 19:55:19
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:21
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 19:55:21
+[LOG]    Server Message 20113 was sent at 11.01.2017 19:55:21
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:22
+[LOG]    Command '508' is handled at 11.01.2017 19:55:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:25
+[LOG]    Command '502' is handled at 11.01.2017 19:55:26
+[LOG]    Building To Upgrade : Barrack (500000010) at 11.01.2017 19:55:26
+[LOG]    Command '504' is handled at 11.01.2017 19:55:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:27
+[LOG]    Command '513' is handled at 11.01.2017 19:55:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:29
+[LOG]    Command '508' is handled at 11.01.2017 19:55:29
+[LOG]    Command '508' is handled at 11.01.2017 19:55:29
+[LOG]    Command '508' is handled at 11.01.2017 19:55:29
+[LOG]    Command '508' is handled at 11.01.2017 19:55:29
+[LOG]    Command '508' is handled at 11.01.2017 19:55:30
+[LOG]    Command '508' is handled at 11.01.2017 19:55:30
+[LOG]    Command '508' is handled at 11.01.2017 19:55:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:31
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:33
+[LOG]    Command '513' is handled at 11.01.2017 19:55:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:36
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 19:55:36
+[LOG]    Server Message 24133 was sent at 11.01.2017 19:55:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:45
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:46
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:55:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:55:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:55:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:16
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:31
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:56:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:56:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:56:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:16
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:31
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:57:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:57:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:57:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:16
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:58:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:58:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:58:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 19:59:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 19:59:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 19:59:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:02
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:52
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:00:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:00:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:00:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:12
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:37
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:01:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:01:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:01:49
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:04:06
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:04:06
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:04:06
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:04:07
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:04:07
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:04:07
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:04:08
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:04:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:10
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:15
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:20
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:22
+[LOG]    Command '508' is handled at 11.01.2017 20:04:22
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:25
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:26
+[LOG]    Command '513' is handled at 11.01.2017 20:04:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:27
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 20:04:27
+[LOG]    Server Message 24133 was sent at 11.01.2017 20:04:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:30
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:31
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 20:04:31
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:04:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:35
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:04:36
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:04:49
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:04:49
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:04:49
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:04:50
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:04:50
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:04:50
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:04:50
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:04:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:04:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:04:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:00
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:00
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:03
+[LOG]    Message ChangeAvatarNameMessage is handled at 11.01.2017 20:05:05
+[LOG]    Server Message 24111 was sent at 11.01.2017 20:05:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:07
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 20:05:07
+[LOG]    Server Message 24334 was sent at 11.01.2017 20:05:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:08
+[LOG]    Command '3' is unhandled at 11.01.2017 20:05:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:09
+[LOG]    Command '523' is handled at 11.01.2017 20:05:09
+[LOG]    Command '523' is handled at 11.01.2017 20:05:10
+[LOG]    Command '523' is handled at 11.01.2017 20:05:10
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:14
+[LOG]    Command '508' is handled at 11.01.2017 20:05:15
+[LOG]    Command '508' is handled at 11.01.2017 20:05:15
+[LOG]    Command '508' is handled at 11.01.2017 20:05:15
+[LOG]    Command '508' is handled at 11.01.2017 20:05:15
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:05:16
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:05:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:18
+[LOG]    Command '513' is handled at 11.01.2017 20:05:19
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:24
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 20:05:24
+[LOG]    Server Message 24133 was sent at 11.01.2017 20:05:24
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:28
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 20:05:28
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:05:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:42
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:47
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:48
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:52
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:53
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:05:57
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:05:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:05:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:02
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:03
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:07
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:07
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:12
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:12
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:17
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:17
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:18
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:22
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:22
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:23
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:06:27
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:06:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:06:28
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:07:30
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:07:30
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:07:30
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:07:31
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:07:31
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:07:31
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:07:31
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:07:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:07:37
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:07:37
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:39
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:07:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:07:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:42
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:45
+[LOG]    Command '508' is handled at 11.01.2017 20:07:45
+[LOG]    Command '508' is handled at 11.01.2017 20:07:45
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:07:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:07:46
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:51
+[LOG]    Command '513' is handled at 11.01.2017 20:07:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:07:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:07:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:52
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:53
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 20:07:53
+[LOG]    Server Message 24133 was sent at 11.01.2017 20:07:53
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:07:54
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:07:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:07:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:07:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:56
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 20:07:56
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:07:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:07:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:08:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:08:01
+[LOG]    Message AskForAvatarProfileMessage is handled at 11.01.2017 20:08:02
+[LOG]    Server Message 24334 was sent at 11.01.2017 20:08:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:08:02
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:08:04
+[LOG]    Command '523' is handled at 11.01.2017 20:08:04
+[LOG]    Command '523' is handled at 11.01.2017 20:08:04
+[LOG]    Command '523' is handled at 11.01.2017 20:08:05
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:09:12
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:09:12
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:09:12
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:09:13
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:09:13
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:09:13
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:09:13
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:09:14
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:09:20
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:09:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:09:22
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:09:23
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:09:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:09:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:09:25
+[LOG]    Command '508' is handled at 11.01.2017 20:09:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:09:28
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:09:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:09:29
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:10:25
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:10:25
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:10:25
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:10:26
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:10:26
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:10:26
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:10:26
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:10:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:32
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:32
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:34
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:38
+[LOG]    Command '508' is handled at 11.01.2017 20:10:38
+[LOG]    Command '508' is handled at 11.01.2017 20:10:38
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:42
+[LOG]    Command '508' is handled at 11.01.2017 20:10:42
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:46
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:47
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:10:48
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:10:48
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:49
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:52
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:10:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:10:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:10:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:02
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:07
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:12
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:16
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:16
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:17
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:21
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:21
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:22
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:26
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:26
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:27
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:31
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:32
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:36
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:36
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:37
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:41
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:42
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:46
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:46
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:47
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:51
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:51
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:52
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:11:56
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:11:56
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:11:57
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:12:01
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:12:01
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:12:02
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:12:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:12:06
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:12:41
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:12:41
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:12:41
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:12:42
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:12:42
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:12:42
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:12:42
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:12:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:12:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:12:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:12:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:12:53
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:12:53
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:12:54
+[LOG]    Command '508' is handled at 11.01.2017 20:12:54
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:12:58
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:12:58
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:12:59
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:03
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:03
+[LOG]    Command '513' is handled at 11.01.2017 20:13:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:04
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 20:13:04
+[LOG]    Server Message 24133 was sent at 11.01.2017 20:13:04
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:13:06
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:13:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:07
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:08
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:08
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 20:13:08
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:13:08
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:10
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:13
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:13
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:14
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:18
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:18
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:19
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Command '508' is handled at 11.01.2017 20:13:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:23
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:23
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:24
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:28
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:28
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:29
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:33
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:33
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:34
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:38
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:38
+[LOG]    Command '513' is handled at 11.01.2017 20:13:38
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:40
+[LOG]    Message AttackNpcMessage is handled at 11.01.2017 20:13:40
+[LOG]    Server Message 24133 was sent at 11.01.2017 20:13:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:43
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:13:43
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:13:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:43
+[LOG]    Message GoHomeMessage is handled at 11.01.2017 20:13:43
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:13:43
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:13:45
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:16:55
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:16:55
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:16:55
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:16:55
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:16:56
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:16:56
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:16:56
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:16:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:17:03
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:17:03
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:17:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:17:06
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:17:06
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:17:08
+[LOG]    Command '508' is handled at 11.01.2017 20:17:08
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:17:11
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:17:11
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:17:12
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:19:02
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:19:03
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:19:03
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:19:03
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:19:04
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:19:04
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:19:04
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:19:04
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:10
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:12
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:14
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:19
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:21
+[LOG]    Command '508' is handled at 11.01.2017 20:19:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:24
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:25
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:19:27
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:19:27
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:28
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:29
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:34
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:34
+[LOG]    Command '508' is handled at 11.01.2017 20:19:34
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:39
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:40
+[LOG]    Command '508' is handled at 11.01.2017 20:19:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:44
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:45
+[LOG]    Command '508' is handled at 11.01.2017 20:19:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:47
+[LOG]    Command '508' is handled at 11.01.2017 20:19:47
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:49
+[LOG]    Command '508' is handled at 11.01.2017 20:19:49
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:54
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:19:57
+[LOG]    Command '508' is handled at 11.01.2017 20:19:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:19:59
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:19:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:00
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:04
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:09
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:10
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:14
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:19
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:24
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:25
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:29
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:31
+[LOG]    Command '509' is handled at 11.01.2017 20:20:31
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:33
+[LOG]    Command '509' is handled at 11.01.2017 20:20:33
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:34
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:36
+[LOG]    Command '509' is handled at 11.01.2017 20:20:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:39
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:40
+[LOG]    Command '508' is handled at 11.01.2017 20:20:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:44
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:47
+[LOG]    Command '513' is handled at 11.01.2017 20:20:47
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:20:54
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:20:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:20:55
+[LOG]    Message SessionRequest is handled at 11.01.2017 20:21:33
+[LOG]    Server Message 20100 was sent at 11.01.2017 20:21:33
+[LOG]    Message LoginMessage is handled at 11.01.2017 20:21:33
+[LOG]    Server Message 20104 was sent at 11.01.2017 20:21:34
+[LOG]    Server Message 24412 was sent at 11.01.2017 20:21:34
+[LOG]    Server Message 24411 was sent at 11.01.2017 20:21:34
+[LOG]    Server Message 24101 was sent at 11.01.2017 20:21:34
+[LOG]    Server Message 24340 was sent at 11.01.2017 20:21:34
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:21:40
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:21:41
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:42
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:21:44
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:21:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:49
+[LOG]    Command '508' is handled at 11.01.2017 20:21:49
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:21:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:21:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:21:54
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:21:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:55
+[LOG]    Message GetDeviceTokenMessage is handled at 11.01.2017 20:21:57
+[LOG]    Server Message 20113 was sent at 11.01.2017 20:21:57
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:21:58
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:21:59
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:21:59
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:00
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:04
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:09
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:13
+[LOG]    Command '508' is handled at 11.01.2017 20:22:13
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:14
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:15
+[LOG]    Command '509' is handled at 11.01.2017 20:22:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:19
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:19
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:24
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:24
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:25
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:29
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:29
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:34
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:34
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:35
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:39
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:39
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:44
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:44
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:45
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:49
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:54
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:22:54
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:22:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:22:59
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:00
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:04
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:04
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:09
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:09
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:10
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:14
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:14
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:19
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:24
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:25
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:29
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:30
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:34
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:35
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:39
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:40
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:44
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:45
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:49
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:50
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:54
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:23:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:23:55
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:23:59
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:00
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:04
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:05
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:09
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:10
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:14
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:15
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:19
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:20
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:24
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:29
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:34
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:40
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:45
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:50
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:24:55
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:24:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:24:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:00
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:05
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:10
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:15
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:20
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:25
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:30
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:35
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:40
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:45
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:50
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:25:55
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:25:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:25:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:00
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:05
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:10
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:11
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:15
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:15
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:16
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:20
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:20
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:21
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:25
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:25
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:26
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:30
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:30
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:31
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:35
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:35
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:36
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:40
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:40
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:41
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:45
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:45
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:46
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:50
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:50
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:51
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:26:55
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:26:55
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:26:56
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:27:00
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:27:00
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:27:01
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:27:05
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:27:05
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:27:06
+[LOG]    Message KeepAliveMessage is handled at 11.01.2017 20:27:10
+[LOG]    Server Message 20108 was sent at 11.01.2017 20:27:10
+[LOG]    Message ExecuteCommandsMessage is handled at 11.01.2017 20:27:11

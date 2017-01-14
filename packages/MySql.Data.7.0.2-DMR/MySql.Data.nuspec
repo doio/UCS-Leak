@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>MySql.Data</id>
+    <version>7.0.2-DMR</version>
+    <authors>Oracle</authors>
+    <owners>Oracle</owners>
+    <licenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</licenseUrl>
+    <projectUrl>http://dev.mysql.com/downloads/</projectUrl>
+    <iconUrl>http://www.mysql.com/common/logos/logo-mysql-170x115.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>ADO.Net driver for MySQL</description>
+    <releaseNotes>Review Readme.txt for details.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>MySql MySql.Data Connector/NET</tags>
+    <dependencies>
+      <dependency id="Google.ProtocolBuffers" version="2.4.1.555" />
+    </dependencies>
+  </metadata>
+</package>

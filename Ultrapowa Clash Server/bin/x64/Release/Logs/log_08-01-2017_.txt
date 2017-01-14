@@ -1,0 +1,1923 @@
+Log file created at 08.01.2017 10:12:41
+
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:14:02
+[LOG]    Server Message 20000 was sent at 08.01.2017 09:14:02
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:14:03
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:14:03
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:14:03
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:14:03
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:14:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:09
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:09
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:11
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:13
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:13
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:14
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:17
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:18
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:18
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:18
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:19
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:20
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:20
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:21
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:21
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:23
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:24
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:14:25
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:14:25
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:26
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:28
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:29
+[LOG]    Command '577' is handled at 08.01.2017 09:14:29
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:33
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:33
+[LOG]    Command '577' is handled at 08.01.2017 09:14:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:35
+[LOG]    Command '577' is handled at 08.01.2017 09:14:35
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:38
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:38
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:14:39
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:14:39
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:39
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:43
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:43
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:44
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:48
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:53
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:14:58
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:14:58
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:14:59
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:03
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:03
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:04
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:15:04
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:15:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:05
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:15:06
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:15:06
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:07
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:08
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:09
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:13
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:14
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:17
+[LOG]    Command '568' is handled at 08.01.2017 09:15:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:18
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:19
+[LOG]    Command '567' is handled at 08.01.2017 09:15:19
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:23
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:24
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:28
+[LOG]    Command '700' is handled at 08.01.2017 09:15:28
+[LOG]    Server Message 24107 was sent at 08.01.2017 09:15:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:28
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:29
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:30
+[LOG]    Message GoHomeMessage is handled at 08.01.2017 09:15:30
+[LOG]    Unable to obtain attack info. at 08.01.2017 09:15:30
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:15:31
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:15:33
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:15:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:15:34
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:45:51
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:46:23
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:46:24
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:46:24
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:46:25
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:46:26
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:46:26
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:46:26
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:46:26
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:46:28
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:46:28
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:46:28
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:46:28
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:46:29
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:46:29
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:46:29
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:46:29
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:34
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:34
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:35
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:39
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:39
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:40
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:46:41
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:46:41
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:42
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:44
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:44
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:45
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:47
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:46:48
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:46:49
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:50
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:50
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:46:50
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:46:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:51
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:52
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:55
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:55
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:56
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:46:56
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:46:56
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:46:56
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:46:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:46:57
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:00
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:00
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:47:01
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:01
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:47:01
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:01
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:02
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:47:02
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:47:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:04
+[LOG]    Command '3' is unhandled at 08.01.2017 09:47:04
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:05
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:05
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:47:05
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:47:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:07
+[LOG]    Command '523' is handled at 08.01.2017 09:47:08
+[LOG]    Command '523' is handled at 08.01.2017 09:47:08
+[LOG]    Command '523' is handled at 08.01.2017 09:47:08
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:47:09
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:47:09
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:10
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:10
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:10
+[LOG]    Command '520' is handled at 08.01.2017 09:47:10
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:47:10
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:12
+[LOG]    Message CreateAllianceMessage is handled at 08.01.2017 09:47:14
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:47:14
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:47:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:15
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:15
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:16
+[LOG]    Command '1' is unhandled at 08.01.2017 09:47:16
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:16
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:16
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:17
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:47:17
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:47:17
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:47:17
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:47:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:18
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:47:18
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:47:18
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:47:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:20
+[LOG]    Command '1' is unhandled at 08.01.2017 09:47:20
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:20
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:20
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:21
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:47:53
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:47:55
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:47:55
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:47:55
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:47:55
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:47:55
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:47:55
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:47:56
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:47:56
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:47:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:47:57
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:08
+[LOG]    Command '502' is handled at 08.01.2017 09:48:08
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:08
+[LOG]    Command '504' is handled at 08.01.2017 09:48:08
+[LOG]    Command '502' is handled at 08.01.2017 09:48:08
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:09
+[LOG]    Command '504' is handled at 08.01.2017 09:48:09
+[LOG]    Command '502' is handled at 08.01.2017 09:48:09
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:09
+[LOG]    Command '504' is handled at 08.01.2017 09:48:09
+[LOG]    Command '502' is handled at 08.01.2017 09:48:09
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:09
+[LOG]    Command '504' is handled at 08.01.2017 09:48:09
+[LOG]    Command '502' is handled at 08.01.2017 09:48:09
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:09
+[LOG]    Command '504' is handled at 08.01.2017 09:48:09
+[LOG]    Command '502' is handled at 08.01.2017 09:48:10
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:10
+[LOG]    Command '504' is handled at 08.01.2017 09:48:10
+[LOG]    Command '502' is handled at 08.01.2017 09:48:10
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:10
+[LOG]    Command '504' is handled at 08.01.2017 09:48:10
+[LOG]    Command '502' is handled at 08.01.2017 09:48:10
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:10
+[LOG]    Command '504' is handled at 08.01.2017 09:48:10
+[LOG]    Command '502' is handled at 08.01.2017 09:48:10
+[LOG]    Building To Upgrade : Town Hall (500000000) at 08.01.2017 09:48:10
+[LOG]    Command '504' is handled at 08.01.2017 09:48:10
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:10
+[LOG]    Command '501' is handled at 08.01.2017 09:48:10
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:18
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:18
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:48:18
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:48:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:19
+[LOG]    Command '3' is unhandled at 08.01.2017 09:48:19
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:48:19
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:48:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:21
+[LOG]    Command '519' is handled at 08.01.2017 09:48:21
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:48:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:23
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:48:23
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:48:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:23
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:23
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:48:23
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:48:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:23
+[LOG]    Command '520' is handled at 08.01.2017 09:48:23
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:48:23
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:48:24
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:48:24
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:48:24
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:25
+[LOG]    Command '1' is unhandled at 08.01.2017 09:48:25
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:48:27
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:48:27
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:27
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:48:27
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:48:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:28
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:48:28
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:48:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:28
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:28
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:48:29
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:48:29
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:48:29
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:48:29
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:29
+[LOG]    Command '523' is handled at 08.01.2017 09:48:29
+[LOG]    Command '523' is handled at 08.01.2017 09:48:29
+[LOG]    Command '523' is handled at 08.01.2017 09:48:30
+[LOG]    Command '523' is handled at 08.01.2017 09:48:30
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:53
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:48:55
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:48:55
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:48:55
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:48:55
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:48:55
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:48:55
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:48:55
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:48:56
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:48:56
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:48:57
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:48:57
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:48:57
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:48:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:48:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:48:59
+[LOG]    Command '523' is handled at 08.01.2017 09:48:59
+[LOG]    Command '523' is handled at 08.01.2017 09:48:59
+[LOG]    Command '523' is handled at 08.01.2017 09:48:59
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:01
+[LOG]    Command '523' is handled at 08.01.2017 09:49:01
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:03
+[LOG]    Command '523' is handled at 08.01.2017 09:49:03
+[LOG]    Command '523' is handled at 08.01.2017 09:49:03
+[LOG]    Command '523' is handled at 08.01.2017 09:49:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:07
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:14
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:14
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:49:14
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:14
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:16
+[LOG]    Command '3' is unhandled at 08.01.2017 09:49:16
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:49:16
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:49:16
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:18
+[LOG]    Command '519' is handled at 08.01.2017 09:49:18
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:49:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:19
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:20
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:49:21
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:49:21
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:49:21
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:49:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:21
+[LOG]    Command '520' is handled at 08.01.2017 09:49:22
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:49:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:22
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:49:22
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:22
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:23
+[LOG]    Command '1' is unhandled at 08.01.2017 09:49:23
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:49:24
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:49:24
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:24
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:24
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:28
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:49:31
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:49:31
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:49:31
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:49:32
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:49:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:32
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:49:32
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:49:32
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:49:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:38
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:38
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:49:40
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:49:40
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:41
+[LOG]    Command '553' is handled at 08.01.2017 09:49:41
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:42
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:43
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:44
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:47
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:49:47
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:48
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:48
+[LOG]    Command '3' is unhandled at 08.01.2017 09:49:49
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:49:49
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:49:49
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:51
+[LOG]    Command '519' is handled at 08.01.2017 09:49:51
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:49:52
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:52
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:49:53
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:49:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:53
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:49:53
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:49:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:53
+[LOG]    Command '520' is handled at 08.01.2017 09:49:53
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:49:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:54
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:54
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:49:54
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:54
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:49:54
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:55
+[LOG]    Command '1' is unhandled at 08.01.2017 09:49:55
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:49:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:49:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:49:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:18
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:50:21
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:50:21
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:50:21
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:50:21
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:50:21
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:50:22
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:50:22
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:50:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:31
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:36
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:41
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:42
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:50:42
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:50:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:43
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:44
+[LOG]    Command '3' is unhandled at 08.01.2017 09:50:44
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:50:44
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:50:44
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:45
+[LOG]    Command '519' is handled at 08.01.2017 09:50:45
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:46
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:46
+[LOG]    Command '523' is handled at 08.01.2017 09:50:46
+[LOG]    Command '523' is handled at 08.01.2017 09:50:46
+[LOG]    Command '523' is handled at 08.01.2017 09:50:47
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:47
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:50:48
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:50:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:48
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:50:48
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:50:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:49
+[LOG]    Command '520' is handled at 08.01.2017 09:50:49
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:50:49
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:50:49
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:50:49
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:50:49
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:50:49
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:50:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:51
+[LOG]    Command '1' is unhandled at 08.01.2017 09:50:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:51
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:50:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:50:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:50:58
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:50:58
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:50:58
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:50:59
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:50:59
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:50:59
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:50:59
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:50:59
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:50:59
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:02
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:51:02
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:51:02
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:51:02
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:51:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:03
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:51:05
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:51:05
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:05
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:06
+[LOG]    Command '553' is handled at 08.01.2017 09:51:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:12
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:14
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:51:15
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:15
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:51:16
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:51:16
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:18
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:18
+[LOG]    Command '3' is unhandled at 08.01.2017 09:51:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:18
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:51:19
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:51:19
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:51:19
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:51:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:20
+[LOG]    Command '520' is handled at 08.01.2017 09:51:20
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:51:20
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:51:20
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:20
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:20
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:21
+[LOG]    Command '1' is unhandled at 08.01.2017 09:51:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:27
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:51:27
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:51:28
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:51:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:28
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:51:28
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:51:28
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:51:28
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:51:28
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:51:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:34
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:34
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:40
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:40
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:51:41
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:41
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:51:41
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:41
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:42
+[LOG]    Command '3' is unhandled at 08.01.2017 09:51:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:43
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:51:44
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:51:44
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:45
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:45
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:46
+[LOG]    Command '519' is handled at 08.01.2017 09:51:46
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:51:46
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:51:47
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:51:47
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:47
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:51:47
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:51:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:47
+[LOG]    Command '520' is handled at 08.01.2017 09:51:48
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:51:48
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:51:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:48
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:48
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:51:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:49
+[LOG]    Command '1' is unhandled at 08.01.2017 09:51:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:53
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:51:57
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:51:57
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:51:57
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:51:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:51:57
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:51:57
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:51:57
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:51:57
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:51:57
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:51:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:51:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:03
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:04
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:08
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:52:08
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:52:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:10
+[LOG]    Command '553' is handled at 08.01.2017 09:52:10
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:18
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:52:19
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:21
+[LOG]    Command '3' is unhandled at 08.01.2017 09:52:21
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:52:21
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:52:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:23
+[LOG]    Command '519' is handled at 08.01.2017 09:52:23
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:52:23
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:52:24
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:52:24
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:52:25
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:52:25
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:25
+[LOG]    Command '520' is handled at 08.01.2017 09:52:25
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:52:25
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:52:25
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:25
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:27
+[LOG]    Command '1' is unhandled at 08.01.2017 09:52:27
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:32
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:52:33
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:52:33
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:52:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:33
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:52:34
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:52:34
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:52:34
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:52:34
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:52:34
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:40
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:40
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:45
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:45
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:46
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:47
+[LOG]    Message ChangeAvatarNameMessage is handled at 08.01.2017 09:52:47
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:49
+[LOG]    Command '3' is unhandled at 08.01.2017 09:52:49
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:52:49
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:52:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:50
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:51
+[LOG]    Command '519' is handled at 08.01.2017 09:52:51
+[LOG]    Command '21000012' is unhandled at 08.01.2017 09:52:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:52
+[LOG]    Message AskForJoinableAlliancesListMessage is handled at 08.01.2017 09:52:53
+[LOG]    Server Message 24304 was sent at 08.01.2017 09:52:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:53
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:52:53
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:52:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:53
+[LOG]    Command '520' is handled at 08.01.2017 09:52:53
+[LOG]    Unlocking Building: Alliance Castle (500000004) at 08.01.2017 09:52:54
+[LOG]    Message JoinAllianceMessage is handled at 08.01.2017 09:52:54
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:54
+[LOG]    Server Message 24111 was sent at 08.01.2017 09:52:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:55
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:55
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:55
+[LOG]    Command '1' is unhandled at 08.01.2017 09:52:55
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:52:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:52:57
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:52:57
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:52:57
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:52:58
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:52:58
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:59
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:52:59
+[LOG]    Command '553' is handled at 08.01.2017 09:52:59
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:53:00
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:53:00
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:53:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:53:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:53:03
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:53:17
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:53:17
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:53:17
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:53:17
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:53:17
+[LOG]    Server Message 24324 was sent at 08.01.2017 09:53:17
+[LOG]    Server Message 24338 was sent at 08.01.2017 09:53:17
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:53:18
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:53:18
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:53:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:53:24
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:53:24
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:53:26
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:53:28
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:53:28
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:53:28
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:53:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:53:29
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:53:30
+[LOG]    Command '560' is handled at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:31
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:53:32
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:54:54
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:54:54
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:54:55
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:54:55
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:54:55
+[LOG]    Server Message 24324 was sent at 08.01.2017 09:54:55
+[LOG]    Server Message 24338 was sent at 08.01.2017 09:54:55
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:54:56
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:54:56
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:54:56
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:03
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:55:06
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:55:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:06
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:07
+[LOG]    Command '553' is handled at 08.01.2017 09:55:07
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:55:09
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:55:09
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:11
+[LOG]    Command '560' is handled at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:11
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:12
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:55:12
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:12
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:16
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:16
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:17
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 09:55:18
+[LOG]    Server Message 20113 was sent at 08.01.2017 09:55:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:19
+[LOG]    Command '519' is handled at 08.01.2017 09:55:19
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:21
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:23
+[LOG]    Command '519' is handled at 08.01.2017 09:55:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:26
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:30
+[LOG]    Command '519' is handled at 08.01.2017 09:55:30
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:31
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:31
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:42
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:47
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:51
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:52
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:55:56
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:55:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:55:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:01
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:56:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:56:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:56:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:42
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:57:42
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:57:42
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 09:57:42
+[LOG]    Server Message 24334 was sent at 08.01.2017 09:57:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:43
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:45
+[LOG]    Command '523' is handled at 08.01.2017 09:57:45
+[LOG]    Command '523' is handled at 08.01.2017 09:57:45
+[LOG]    Command '523' is handled at 08.01.2017 09:57:45
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:47
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:57:47
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:57:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:49
+[LOG]    Command '560' is handled at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:50
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:51
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:51
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:57:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:57:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:57:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:57:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:33
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:58:35
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:58:36
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:37
+[LOG]    Command '553' is handled at 08.01.2017 09:58:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:58:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:58:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:58:43
+[LOG]    Message SessionRequest is handled at 08.01.2017 09:59:24
+[LOG]    Server Message 20100 was sent at 08.01.2017 09:59:24
+[LOG]    Message LoginMessage is handled at 08.01.2017 09:59:25
+[LOG]    Server Message 20104 was sent at 08.01.2017 09:59:25
+[LOG]    Server Message 24412 was sent at 08.01.2017 09:59:26
+[LOG]    Server Message 24324 was sent at 08.01.2017 09:59:26
+[LOG]    Server Message 24338 was sent at 08.01.2017 09:59:26
+[LOG]    Server Message 24411 was sent at 08.01.2017 09:59:26
+[LOG]    Server Message 24101 was sent at 08.01.2017 09:59:26
+[LOG]    Server Message 24340 was sent at 08.01.2017 09:59:26
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:59:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:59:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:59:33
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 09:59:35
+[LOG]    Server Message 24301 was sent at 08.01.2017 09:59:35
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:59:36
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 09:59:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 09:59:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:59:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 09:59:39
+[LOG]    Command '560' is handled at 08.01.2017 09:59:39
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:39
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:39
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Server Message 24335 was sent at 08.01.2017 09:59:40
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:00:07
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:00:08
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:00:08
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:00:08
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:00:09
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:00:09
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:00:09
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:00:09
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:00:09
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:00:09
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:15
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:15
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:16
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:19
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:20
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:24
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:24
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:25
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:29
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:29
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:00:30
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:00:30
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:34
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:34
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:35
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:39
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:39
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:40
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:44
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:45
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:45
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:49
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:50
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:54
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:00:55
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:00:55
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:00:59
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:01:00
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:01:01
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:01:04
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:01:04
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:01:04
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:01:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:01:06
+[LOG]    Command '560' is handled at 08.01.2017 10:01:06
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:06
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:01:07
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:02:05
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:02:05
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:02:06
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:02:06
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:02:07
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:02:07
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:02:07
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:02:07
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:02:07
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:02:07
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:13
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:27
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:02:28
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:02:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:02:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:02:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:02:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:03:57
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:03:57
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:03:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:13
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:43
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:04:44
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:04:45
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:04:45
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:04:45
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:04:45
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:50
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:53
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:04:55
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:04:55
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:55
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:55
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:56
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:57
+[LOG]    Command '560' is handled at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:57
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:58
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:58
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:58
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:58
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:04:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:04:58
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:04:58
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:04:58
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:00
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:00
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:01
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:03
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:03
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:05:04
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:05:04
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:05
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:05
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:07
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:08
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:10
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:10
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:11
+[LOG]    Command '519' is handled at 08.01.2017 10:05:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:14
+[LOG]    Command '519' is handled at 08.01.2017 10:05:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:15
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:15
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:17
+[LOG]    Command '519' is handled at 08.01.2017 10:05:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:18
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:20
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:20
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:22
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:23
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:25
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:25
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:26
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:30
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:30
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:35
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:35
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:36
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:38
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:38
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:05:39
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:05:39
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 10:05:39
+[LOG]    Server Message 24334 was sent at 08.01.2017 10:05:39
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:40
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:40
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:41
+[LOG]    Command '523' is handled at 08.01.2017 10:05:41
+[LOG]    Command '523' is handled at 08.01.2017 10:05:41
+[LOG]    Command '523' is handled at 08.01.2017 10:05:41
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:42
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:43
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:05:43
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:05:43
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 10:05:43
+[LOG]    Server Message 24334 was sent at 08.01.2017 10:05:43
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:44
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:44
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:45
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:45
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:05:46
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:05:46
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 10:05:46
+[LOG]    Server Message 24334 was sent at 08.01.2017 10:05:46
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:46
+[LOG]    Command '523' is handled at 08.01.2017 10:05:46
+[LOG]    Command '523' is handled at 08.01.2017 10:05:46
+[LOG]    Command '523' is handled at 08.01.2017 10:05:46
+[LOG]    Command '523' is handled at 08.01.2017 10:05:46
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:47
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:48
+[LOG]    Command '523' is handled at 08.01.2017 10:05:48
+[LOG]    Command '523' is handled at 08.01.2017 10:05:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:50
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:50
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:53
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:53
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:55
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:55
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:56
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:05:58
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:05:58
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:05:59
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:00
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:00
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:01
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:03
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:03
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:04
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:05
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:05
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:08
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:09
+[LOG]    Command '519' is handled at 08.01.2017 10:06:09
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:10
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:10
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:13
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:15
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:15
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:15
+[LOG]    Command '519' is handled at 08.01.2017 10:06:16
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:16
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:18
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:18
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:20
+[LOG]    Command '519' is handled at 08.01.2017 10:06:20
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:20
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:20
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:23
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:23
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:24
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:25
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:25
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:06:25
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:06:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:27
+[LOG]    Command '553' is handled at 08.01.2017 10:06:27
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:06:27
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:06:27
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:28
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:28
+[LOG]    Command '553' is handled at 08.01.2017 10:06:29
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:30
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:30
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:33
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:33
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:34
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:35
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:35
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:06:35
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:06:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:37
+[LOG]    Command '560' is handled at 08.01.2017 10:06:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:38
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:06:39
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:39
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:39
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:39
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:43
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:43
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:06:43
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:06:43
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:06:44
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:06:44
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:44
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:06:44
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:06:44
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:06:44
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:06:44
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:06:44
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:06:44
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:47
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:48
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:48
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:49
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:49
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:49
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:50
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:53
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:53
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:06:54
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:06:54
+[LOG]    Message AskForAvatarProfileMessage is handled at 08.01.2017 10:06:54
+[LOG]    Server Message 24334 was sent at 08.01.2017 10:06:54
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:54
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:54
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:55
+[LOG]    Command '553' is handled at 08.01.2017 10:06:55
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:06:58
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:06:58
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:06:59
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:07:03
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:07:03
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:07:04
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:11:01
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:11:01
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:11:01
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:11:02
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:11:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:11:08
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:11:08
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:11:09
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:11:11
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:11:11
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:11:13
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:11:13
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:11:13
+[LOG]    Command '560' is handled at 08.01.2017 10:11:13
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:13
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:11:14
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:11:49
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:11:49
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:11:49
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:11:50
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:11:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:11:56
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:11:56
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:11:57
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:11:59
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:11:59
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:01
+[LOG]    Command '560' is handled at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:12:01
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:12:02
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:12:02
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:12:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:12:06
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:07
+[LOG]    Command '519' is handled at 08.01.2017 10:12:07
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:10
+[LOG]    Command '519' is handled at 08.01.2017 10:12:10
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:12:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:12:11
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:12:12
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:12:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:14
+[LOG]    Command '519' is handled at 08.01.2017 10:12:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:12:16
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:12:16
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:12:21
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:12:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:12:22
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:13:25
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:13:25
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:13:25
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:13:25
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:13:26
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:13:26
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:13:26
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:13:26
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:13:26
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:13:26
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:13:32
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:13:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:13:33
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:13:35
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:13:35
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:13:36
+[LOG]    Command '560' is handled at 08.01.2017 10:13:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:37
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:13:38
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:13:38
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:13:38
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:14:34
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:14:34
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:14:34
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:14:35
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:14:35
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:14:35
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:14:35
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:14:35
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:14:36
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:14:36
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:14:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:14:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:14:42
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:14:45
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:14:45
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:14:46
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:14:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:14:46
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:14:47
+[LOG]    Command '560' is handled at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:47
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:48
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:48
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:48
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:14:48
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:19:52
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:19:52
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:19:52
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:19:53
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:19:54
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:19:54
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:19:54
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:19:54
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:19:54
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:19:54
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:20:00
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:20:00
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:20:01
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:20:03
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:20:03
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:20:04
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:20:04
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:20:04
+[LOG]    Command '560' is handled at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:05
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:20:06
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:21:23
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:21:23
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:21:23
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:21:24
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:21:24
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:21:30
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:21:30
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:21:31
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:21:33
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:21:33
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:21:35
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:21:35
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:21:35
+[LOG]    Command '560' is handled at 08.01.2017 10:21:35
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:35
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:35
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:35
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:21:36
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:22:19
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:22:19
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:22:19
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:22:20
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:22:21
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:27
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:28
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:31
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:31
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:22:32
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:22:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:32
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:34
+[LOG]    Command '560' is handled at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:22:34
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:41
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:42
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:22:42
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:22:42
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:43
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:46
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:47
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:49
+[LOG]    Command '519' is handled at 08.01.2017 10:22:49
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:51
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:51
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:53
+[LOG]    Command '519' is handled at 08.01.2017 10:22:53
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:22:56
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:22:56
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:22:56
+[LOG]    Command '519' is handled at 08.01.2017 10:22:56
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:01
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:01
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:06
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:07
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:11
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:12
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:16
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:16
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:21
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:22
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:26
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:27
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:31
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:31
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:41
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:42
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:46
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:46
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:47
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:51
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:51
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:52
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:23:56
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:23:56
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:23:57
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:01
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:01
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:24:02
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:06
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:06
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:24:07
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:11
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:11
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:24:12
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:16
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:16
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:24:40
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:24:40
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:24:40
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:24:41
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:24:41
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:24:42
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:24:42
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:24:42
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:24:42
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:24:42
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:48
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:48
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:24:49
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:24:51
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:24:51
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:24:52
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:24:52
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:24:53
+[LOG]    Command '560' is handled at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:53
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:54
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:54
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:54
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:24:54
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:26:29
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:26:29
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:26:30
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:26:30
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:26:31
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:26:31
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:26:31
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:26:31
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:26:31
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:26:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:26:37
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:26:37
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:26:38
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:26:41
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:26:41
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:26:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:26:41
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:26:43
+[LOG]    Command '560' is handled at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:43
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:44
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:44
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:26:44
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:27:12
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:27:12
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:27:12
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:27:13
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:27:14
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:27:19
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:27:19
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:27:20
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:27:24
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:27:24
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:27:24
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:27:24
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:27:25
+[LOG]    Command '560' is handled at 08.01.2017 10:27:25
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:25
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:27:26
+[LOG]    Message SessionRequest is handled at 08.01.2017 10:28:04
+[LOG]    Server Message 20100 was sent at 08.01.2017 10:28:05
+[LOG]    Message LoginMessage is handled at 08.01.2017 10:28:05
+[LOG]    Server Message 20104 was sent at 08.01.2017 10:28:05
+[LOG]    Server Message 24412 was sent at 08.01.2017 10:28:06
+[LOG]    Server Message 24324 was sent at 08.01.2017 10:28:06
+[LOG]    Server Message 24338 was sent at 08.01.2017 10:28:06
+[LOG]    Server Message 24411 was sent at 08.01.2017 10:28:06
+[LOG]    Server Message 24101 was sent at 08.01.2017 10:28:06
+[LOG]    Server Message 24340 was sent at 08.01.2017 10:28:06
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:12
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:12
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:13
+[LOG]    Message AskForAllianceDataMessage is handled at 08.01.2017 10:28:14
+[LOG]    Server Message 24301 was sent at 08.01.2017 10:28:14
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:16
+[LOG]    Command '560' is handled at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:16
+[LOG]    Server Message 24335 was sent at 08.01.2017 10:28:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:17
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:17
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:17
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:21
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:21
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:22
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:25
+[LOG]    Command '519' is handled at 08.01.2017 10:28:25
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:26
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:26
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:27
+[LOG]    Message GetDeviceTokenMessage is handled at 08.01.2017 10:28:27
+[LOG]    Server Message 20113 was sent at 08.01.2017 10:28:27
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:28
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:31
+[LOG]    Command '519' is handled at 08.01.2017 10:28:31
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:31
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:31
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:32
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:36
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:36
+[LOG]    Message ExecuteCommandsMessage is handled at 08.01.2017 10:28:37
+[LOG]    Command '519' is handled at 08.01.2017 10:28:37
+[LOG]    Message KeepAliveMessage is handled at 08.01.2017 10:28:41
+[LOG]    Server Message 20108 was sent at 08.01.2017 10:28:41

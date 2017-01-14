@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MarkerMetro.Unity.Ionic.Zlib</id>
+    <version>2.0.0.14</version>
+    <title>MarkerMetro.Unity.Ionic.Zlib</title>
+    <authors>MarkerMetro</authors>
+    <owners>MarkerMetro</owners>
+    <licenseUrl>https://github.com/MarkerMetro/MarkerMetro.Unity.Ionic.Zlib/raw/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/MarkerMetro/MarkerMetro.Unity.Ionic.Zlib</projectUrl>
+    <iconUrl>http://www.markermetro.com/wp-content/uploads/2015/01/mm-boxlogo-128px.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Ionic.Zlib Windows Store and Windows Phone Unity Plugin</description>
+    <copyright>Copyright Marker Metro © 2015</copyright>
+  </metadata>
+</package>
