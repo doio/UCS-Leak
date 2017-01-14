@@ -12,7 +12,7 @@ namespace UCS.Logic.StreamEntry
 
         public override byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddInt32(m_vEventType);
             data.AddInt64(m_vAvatarId);
@@ -21,7 +21,8 @@ namespace UCS.Logic.StreamEntry
         }
 
         public override int GetStreamEntryType() => 4;
-        //event id
+       
+        //event id's
         // 1 = kicked from clan
         // 2 = accecpted to clan
         // 3 = join clan
@@ -35,7 +36,6 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            base.Load(jsonObject);
             m_vAvatarName = jsonObject["avatar_name"].ToObject<string>();
             m_vEventType = jsonObject["event_type"].ToObject<int>();
             m_vAvatarId = jsonObject["avatar_id"].ToObject<long>();
@@ -43,7 +43,6 @@ namespace UCS.Logic.StreamEntry
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject = base.Save(jsonObject);
             jsonObject.Add("avatar_name", m_vAvatarName);
             jsonObject.Add("event_type", m_vEventType);
             jsonObject.Add("avatar_id", m_vAvatarId);

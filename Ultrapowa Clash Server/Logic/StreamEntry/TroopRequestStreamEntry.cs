@@ -20,7 +20,7 @@ namespace UCS.Logic.StreamEntry
 
         public override byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddInt32(ID); // ID
             data.AddInt32(m_vMaxTroop); // Max Troops
@@ -67,7 +67,6 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            base.Load(jsonObject);
             ID = jsonObject["rid"].ToObject<int>();
             m_vMaxTroop = jsonObject["max_troops"].ToObject<int>();
             m_vMaxSpell = jsonObject["max_spells"].ToObject<int>();
@@ -94,7 +93,6 @@ namespace UCS.Logic.StreamEntry
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject = base.Save(jsonObject);
             jsonObject.Add("rid", ID);
             jsonObject.Add("max_troops", m_vMaxTroop);
             jsonObject.Add("max_spells", m_vMaxSpell);

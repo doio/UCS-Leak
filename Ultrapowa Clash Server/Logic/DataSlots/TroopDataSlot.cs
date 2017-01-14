@@ -32,7 +32,7 @@ namespace UCS.Logic.DataSlots
 
         public byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddInt32(Data.GetGlobalID());
             data.AddInt32(Value);
             data.AddInt32(Value1);

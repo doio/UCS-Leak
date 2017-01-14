@@ -35,7 +35,7 @@ namespace UCS.Logic.StreamEntry
 
         public virtual byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddInt32(GetStreamEntryType());
             data.AddInt32(0);
             data.AddInt32(m_vId);

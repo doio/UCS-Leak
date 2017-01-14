@@ -19,7 +19,7 @@ namespace UCS.Logic.StreamEntry
 
         public override byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddInt32(Unknown1);
             data.AddInt32(Unknown2);
@@ -38,7 +38,6 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            base.Load(jsonObject);
             Unknown1 = jsonObject["unknown1"].ToObject<int>();
             Unknown2 = jsonObject["unknown2"].ToObject<int>();
             Unknown3 = jsonObject["unknown3"].ToObject<int>();
@@ -53,7 +52,6 @@ namespace UCS.Logic.StreamEntry
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject = base.Save(jsonObject);
             jsonObject.Add("unknown1", Unknown1);
             jsonObject.Add("unknown2", Unknown2);
             jsonObject.Add("unknown3", Unknown3);

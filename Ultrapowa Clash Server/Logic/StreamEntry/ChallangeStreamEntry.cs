@@ -16,7 +16,7 @@ namespace UCS.Logic.StreamEntry
 
         public override byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddString(Message);
             data.AddInt32(0);
@@ -32,7 +32,6 @@ namespace UCS.Logic.StreamEntry
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject = base.Save(jsonObject);
             jsonObject.Add("Message", Message);
             return jsonObject;
         }

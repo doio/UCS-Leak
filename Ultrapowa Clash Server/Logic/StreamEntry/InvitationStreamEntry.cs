@@ -10,7 +10,7 @@ namespace UCS.Logic.StreamEntry
 
         public override byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddString(Message);
             data.AddString(m_vJudge);
@@ -22,7 +22,6 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            base.Load(jsonObject);
             Message = jsonObject["message"].ToObject<string>();
             m_vJudge = jsonObject["judge"].ToObject<string>();
             m_vState = jsonObject["state"].ToObject<int>();
@@ -30,7 +29,6 @@ namespace UCS.Logic.StreamEntry
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject = base.Save(jsonObject);
             jsonObject.Add("message", Message);
             jsonObject.Add("judge", m_vJudge);
             jsonObject.Add("state", m_vState);

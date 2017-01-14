@@ -24,7 +24,7 @@ namespace UCS.Logic.DataSlots
 
         public byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddInt64(Value);
             return data.ToArray();
         }
