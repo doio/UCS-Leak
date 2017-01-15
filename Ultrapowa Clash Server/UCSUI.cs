@@ -20,6 +20,7 @@ using UCS.Packets.Messages.Server;
 using System.Timers;
 using UCS.Logic.AvatarStreamEntry;
 using UCS.Core.Settings;
+using UCS.Logic;
 
 namespace UCS
 {
@@ -736,7 +737,7 @@ namespace UCS
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                var alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 txtAllianceName.Text = alliance.GetAllianceName();
                 txtAllianceLevel.Text = alliance.GetAllianceLevel().ToString();
                 txtAllianceDescription.Text = alliance.GetAllianceDescription();
@@ -760,10 +761,11 @@ namespace UCS
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                var alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 alliance.SetAllianceName(txtAllianceName.Text);
                 alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
                 alliance.SetAllianceDescription(txtAllianceDescription.Text);
+                DatabaseManager.Single().Save(alliance);
             }
             else
             {
