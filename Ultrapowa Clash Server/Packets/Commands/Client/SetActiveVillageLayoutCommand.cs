@@ -17,7 +17,7 @@ namespace UCS.Packets.Commands.Client
         }
         public override void Execute(Level level)
         {
-            level.GetPlayerAvatar().SetActiveLayout(Layout);
+            //level.GetPlayerAvatar().SetActiveLayout(Layout);
         }
     }
 }
