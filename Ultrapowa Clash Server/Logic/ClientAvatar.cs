@@ -109,7 +109,7 @@ namespace UCS.Logic
             EndShieldTime          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             m_vCurrentGems         = ToInt32(AppSettings["startingGems"]);
             m_vScore               = AppSettings["startingTrophies"] == "random"
-                ? rnd.Next(1500, 4900)
+                ? rnd.Next(1500, 4999)
                 : ToInt32(AppSettings["startingTrophies"]);
 
             TutorialStepsCount     = 0x0A;
