@@ -5,6 +5,7 @@ using System.Threading;
 using UCS.Core.Settings;
 using UCS.Core.Threading;
 using UCS.Helpers;
+using UCS.WebAPI;
 
 namespace UCS
 {
@@ -51,6 +52,7 @@ namespace UCS
                 new MemoryThread();
                 new NetworkThread();
                 new ParserThread();
+                new API();
 
                 //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
             }).Start();
