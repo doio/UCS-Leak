@@ -48,11 +48,12 @@ namespace UCS
                 Console.ResetColor();
                 Console.WriteLine("\n[UCS]    Prepearing Server...\n");
 
+
+                new API();
                 new CheckThread();
                 new MemoryThread();
                 new NetworkThread();
-                new ParserThread();
-                new API();
+                new ParserThread();                
 
                 //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
             }).Start();
