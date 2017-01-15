@@ -19,6 +19,7 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
+            // Database change is needed for the Player
         }
     }
 }
