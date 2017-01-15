@@ -24,11 +24,11 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
-            if (Layout != level.GetPlayerAvatar().GetActiveLayout())
+            /*if (Layout != level.GetPlayerAvatar().GetActiveLayout())
             {
                 GameObject go = level.GameObjectManager.GetGameObjectByID(BuildingID);
                 go.SetPositionXY(X, Y, Layout);
-            }
+            } */
         }
 
     }
