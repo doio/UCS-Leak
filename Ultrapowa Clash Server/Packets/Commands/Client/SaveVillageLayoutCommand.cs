@@ -18,7 +18,6 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
-            DatabaseManager.Single().Save(level);
         }
     }
 }
