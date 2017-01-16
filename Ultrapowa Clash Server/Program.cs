@@ -18,7 +18,7 @@ namespace UCS
 
         public static int OP = 0;
 
-        public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2016 | Online Players: ";
+        public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2017 | Online Players: ";
 
         public static void Main(string[] args)
         {
