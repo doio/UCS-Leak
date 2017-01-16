@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UCS.Core;
+using UCS.Helpers;
 
 namespace UCS.WebAPI
 {
@@ -14,7 +15,7 @@ namespace UCS.WebAPI
     {
         private static IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         private static HttpListener Listener;
-        private static int Port = 88; // TODO: Add it to the config File
+        private static int Port = Utils.ParseConfigInt("APIPort"); // TODO: Add it to the config File
         private static string IP = ipHostInfo.AddressList[0].ToString();
         private static string URL = "http://" + IP + ":" + Port + "/";
 
@@ -42,6 +43,13 @@ namespace UCS.WebAPI
                 {
                     Logger.Say("The current System doesn't support the WebAPI.");
                     return;
+                }
+
+                if(Port == 80)
+                {
+                    Console.WriteLine("[UCS]    Can't start the API on Port 80 using now default Port(88)");
+                    Port = 88;
+                    URL = "http://" + IP + ":" + Port + "/";
                 }
 
                 Listener = new HttpListener();

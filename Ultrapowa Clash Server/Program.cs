@@ -48,8 +48,11 @@ namespace UCS
                 Console.ResetColor();
                 Console.WriteLine("\n[UCS]    Prepearing Server...\n");
 
-
-                new API();
+                if(Utils.ParseConfigBoolean("UseWebAPI"))
+                {
+                    new API();
+                }  
+                              
                 new CheckThread();
                 new MemoryThread();
                 new NetworkThread();

@@ -272,7 +272,7 @@ namespace UCS.Logic
 
             data.AddInt32(m_vAlliance_Gold);
             data.AddInt32(m_vAlliance_Elixir); 
-            data.AddInt32(m_vAlliance_DarkElixir); // Castle Dark Elexir
+            data.AddInt32(m_vAlliance_DarkElixir); 
             data.AddInt32(0);
             data.Add(1);
             data.AddInt64(946720861000);

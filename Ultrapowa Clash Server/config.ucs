@@ -32,6 +32,10 @@
 	
   <add key="databaseConnectionName" value="sqlite" />
       <!-- Choose mysql or sqlite-->
+    <add key="UseWebAPI" value="true" />
+      <!-- Choose mysql or sqlite-->
+    <add key="APIPort" value="88" />
+      <!-- The Port of the WebAPI-->
   <add key="UseRC4" value="false" />
       <!-- Default Crypto is Pepper-->
   <add key="ServerPort" value="9339"/>
