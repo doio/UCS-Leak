@@ -240,6 +240,7 @@
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
     <Compile Include="Core\Threading\CheckThread.cs" />
+    <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
     <Compile Include="WebAPI\API.cs" />
     <Compile Include="Logic\DataSlots\DonationSlot.cs" />
     <Compile Include="Logic\DataSlots\UnitSlot.cs" />

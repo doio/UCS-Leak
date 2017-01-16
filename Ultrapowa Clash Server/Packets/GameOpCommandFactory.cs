@@ -23,6 +23,7 @@ namespace UCS.Packets
             m_vCommands.Add("/sysmsg", typeof(SystemMessageGameOpCommand));
             m_vCommands.Add("/id", typeof(GetIdGameopCommand));
             m_vCommands.Add("/max", typeof(MaxRessourcesCommand));
+            m_vCommands.Add("/min", typeof(MinRessourcesCommand));
             m_vCommands.Add("/maxbase", typeof(MaxBaseGameOpCommand)); // just for testing!
             m_vCommands.Add("/saveacc", typeof(SaveAccountGameOpCommand));
             m_vCommands.Add("/saveall", typeof(SaveAllGameOpCommand));
