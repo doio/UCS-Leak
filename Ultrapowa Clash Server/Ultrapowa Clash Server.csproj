@@ -1006,10 +1006,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icone-ucs.ico" />
     <None Include="WebAPI\HTML\Statistics.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="icone-ucs.ico" />
     <Content Include="Tools\database.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

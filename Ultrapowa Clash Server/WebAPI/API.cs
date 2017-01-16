@@ -14,7 +14,7 @@ namespace UCS.WebAPI
     {
         private static IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         private static HttpListener Listener;
-        private static int Port = 88;
+        private static int Port = 88; // TODO: Add it to the config File
         private static string IP = ipHostInfo.AddressList[0].ToString();
         private static string URL = "http://" + IP + ":" + Port + "/";
 
