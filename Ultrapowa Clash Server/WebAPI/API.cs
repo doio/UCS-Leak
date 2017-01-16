@@ -57,11 +57,17 @@ namespace UCS.WebAPI
                     {
                         ThreadPool.QueueUserWorkItem((c) =>
                         {
-                            HttpListenerContext ctx = (HttpListenerContext)c;
-                            byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
-                            ctx.Response.ContentLength64 = responseBuf.Length;
-                            ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
-                            ctx.Response.OutputStream.Close();
+                            try
+                            {
+                                HttpListenerContext ctx = (HttpListenerContext)c;
+                                byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
+                                ctx.Response.ContentLength64 = responseBuf.Length;
+                                ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
+                                ctx.Response.OutputStream.Close();
+                            }
+                            catch(Exception)
+                            {
+                            }
 
                         }, Listener.GetContext());
                     }
