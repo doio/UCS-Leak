@@ -26,7 +26,7 @@ Projects developed by the Ultrapowa Development Team include:
 Ultrapowa Projects are proudly licensed!
 You can read the full license in a file named "LICENSE.md"! 
 ```
-   Copyright 2016 Ultrapowa
+   Copyright 2017 Ultrapowa
 
    This is not free and unencumbered software released into the public domain.
 
