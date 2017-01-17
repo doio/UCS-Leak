@@ -37,54 +37,57 @@ namespace UCS.WebAPI
 
         public API()
         {
-            try
+            new Thread(() =>
             {
-                if(!HttpListener.IsSupported)
+                try
                 {
-                    Logger.Say("The current System doesn't support the WebAPI.");
-                    return;
-                }
-
-                if(Port == 80)
-                {
-                    Console.WriteLine("[UCS]    Can't start the API on Port 80 using now default Port(88)");
-                    Port = 88;
-                    URL = "http://" + IP + ":" + Port + "/";
-                }
-
-                Listener = new HttpListener();
-                Listener.Prefixes.Add(URL);
-                Listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
-                Listener.Start();
-
-                Console.WriteLine("[UCS]    The WebAPI has been started on '" + Port + "'");
-
-                ThreadPool.QueueUserWorkItem((o) =>
-                {
-                    while (Listener.IsListening)
+                    if (!HttpListener.IsSupported)
                     {
-                        ThreadPool.QueueUserWorkItem((c) =>
-                        {
-                            try
-                            {
-                                HttpListenerContext ctx = (HttpListenerContext)c;
-                                byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
-                                ctx.Response.ContentLength64 = responseBuf.Length;
-                                ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
-                                ctx.Response.OutputStream.Close();
-                            }
-                            catch(Exception)
-                            {
-                            }
-
-                        }, Listener.GetContext());
+                        Logger.Say("The current System doesn't support the WebAPI.");
+                        return;
                     }
-                });
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("[UCS]    Please check if the Port '" + Port + "' is not in use.");
-            }
+
+                    if (Port == 80)
+                    {
+                        Console.WriteLine("[UCS]    Can't start the API on Port 80 using now default Port(88)");
+                        Port = 88;
+                        URL = "http://" + IP + ":" + Port + "/";
+                    }
+
+                    Listener = new HttpListener();
+                    Listener.Prefixes.Add(URL);
+                    Listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
+                    Listener.Start();
+
+                    Console.WriteLine("[UCS]    The WebAPI has been started on '" + Port + "'");
+
+                    ThreadPool.QueueUserWorkItem((o) =>
+                    {
+                        while (Listener.IsListening)
+                        {
+                            ThreadPool.QueueUserWorkItem((c) =>
+                            {
+                                try
+                                {
+                                    HttpListenerContext ctx = (HttpListenerContext)c;
+                                    byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
+                                    ctx.Response.ContentLength64 = responseBuf.Length;
+                                    ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
+                                    ctx.Response.OutputStream.Close();
+                                }
+                                catch (Exception)
+                                {
+                                }
+
+                            }, Listener.GetContext());
+                        }
+                    });
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("[UCS]    Please check if the Port '" + Port + "' is not in use.");
+                }
+            }).Start();
         }
 
         public static void Stop()
