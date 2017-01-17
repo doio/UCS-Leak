@@ -32,7 +32,7 @@
 	
   <add key="databaseConnectionName" value="sqlite" />
       <!-- Choose mysql or sqlite-->
-    <add key="UseWebAPI" value="true" />
+    <add key="UseWebAPI" value="false" />
       <!-- Choose if you want to use the Web API-->
     <add key="APIPort" value="88" />
       <!-- The Port of the WebAPI-->
