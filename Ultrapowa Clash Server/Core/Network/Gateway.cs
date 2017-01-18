@@ -40,7 +40,7 @@ namespace UCS.Core.Network
             }
             catch (Exception)
             {
-                Error("Gateway failed to start. Restarting");
+                Error("Gateway failed to start. Restarting...");
                 Thread.Sleep(5000);
                 UCSControl.UCSRestart();
             }

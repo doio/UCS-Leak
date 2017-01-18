@@ -48,7 +48,7 @@ namespace UCS
                 Console.ResetColor();
                 Console.WriteLine("\n[UCS]    Prepearing Server...\n");
 
-                if(Utils.ParseConfigBoolean("UseWebAPI"))
+                if (Utils.ParseConfigBoolean("UseWebAPI"))
                 {
                     new API();
                 }  
@@ -56,9 +56,9 @@ namespace UCS
                 new CheckThread();
                 new MemoryThread();
                 new NetworkThread();
-                new ParserThread();                
+                new ParserThread();
 
-                //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0, (UIntPtr)0xFFFFFFFF);
+                SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0, (UIntPtr)0xFFFFFFFF);
             }).Start();
         }
 

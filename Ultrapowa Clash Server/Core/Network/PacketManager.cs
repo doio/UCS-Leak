@@ -12,9 +12,15 @@ namespace UCS.Core.Network
 	{
 		public static void Receive(this Message p)
 		{
-            p.Decrypt();
-			p.Decode();
-			p.Process(p.Client.GetLevel());
+            try
+            {
+                p.Decrypt();
+                p.Decode();
+                p.Process(p.Client.GetLevel());
+            }
+            catch(Exception)
+            {
+            }
 		}
 
 		public static async void Send(this Message p)

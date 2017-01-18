@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UCS.Core.Settings;
-using UCS.Logic;
+using UCS.Packets;
 using Timer = System.Timers.Timer;
 
 namespace UCS.Core.Threading
@@ -14,18 +14,28 @@ namespace UCS.Core.Threading
         {
             new Thread(() =>
             {
+                Thread.Sleep(6000);
+
                 Timer t = new Timer();
+                bool Running = false;
                 t.Interval = 5000;
                 t.Elapsed += (s, a) =>
                 {
-                    foreach (Level p in ResourcesManager.GetInMemoryLevels())
+                    if (!Running)
                     {
-                        if (!p.GetClient().IsClientSocketConnected())
-                            ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
-                    }
+                        Running = true;
 
-                    GC.Collect(GC.MaxGeneration);
-                    GC.WaitForPendingFinalizers();
+                        foreach (Client p in ResourcesManager.GetConnectedClients())
+                        {
+                            if (!p.IsClientSocketConnected())
+                                ResourcesManager.DropClient(p.GetSocketHandle());
+                        }
+
+                        GC.Collect(GC.MaxGeneration);
+                        GC.WaitForPendingFinalizers();
+
+                        Running = false;
+                    }
                 };
                 t.Enabled = true;
             }).Start();
