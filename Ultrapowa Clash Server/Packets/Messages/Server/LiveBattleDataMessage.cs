@@ -1,4 +1,4 @@
-﻿namespace UCS.PacketProcessing.Messages.Server
+﻿namespace UCS.Packets.Messages.Server
 {
     // Packet 24118
     internal class LiveBattleDataMessage : Message
