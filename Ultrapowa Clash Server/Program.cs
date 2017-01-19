@@ -58,7 +58,7 @@ namespace UCS
                 new NetworkThread();
                 new ParserThread();
 
-                //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0, (UIntPtr)0xFFFFFFFF);
+                SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)int.MaxValue, (UIntPtr)int.MaxValue);
             }).Start();
         }
 
