@@ -62,12 +62,12 @@ namespace UCS.Packets.Messages.Client
 
                         if (badword)
                         {
-                            foreach(Level pl in ResourcesManager.GetOnlinePlayers())
+                            foreach (Level pl in ResourcesManager.GetOnlinePlayers())
                             {
                                 GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
                                 string NewMessage = "";
 
-                                for(int i = 0; i < Message.Length; i++)
+                                for (int i = 0; i < Message.Length; i++)
                                 {
                                     NewMessage += "*";
                                 }
@@ -80,17 +80,19 @@ namespace UCS.Packets.Messages.Client
                                 p.Send();
                             }
                         }
-
-                        foreach(Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                        else
                         {
-                            GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                            p.SetPlayerName(senderName);
-                            p.SetChatMessage(Message);
-                            p.SetPlayerId(senderId);
-                            p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                            p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                            p.Send();
-                            Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
+                            foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                            {
+                                GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
+                                p.SetPlayerName(senderName);
+                                p.SetChatMessage(Message);
+                                p.SetPlayerId(senderId);
+                                p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                                p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
+                                p.Send();
+                                Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
+                            }
                         }
                     }
                 }
