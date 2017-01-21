@@ -25,10 +25,14 @@ namespace UCS.Core.Threading
                     {
                         Running = true;
 
-                        foreach (Client p in ResourcesManager.GetConnectedClients())
+                        GC.WaitForPendingFinalizers();
+
+                        foreach(Client p in ResourcesManager.GetConnectedClients())
                         {
                             if (!p.IsClientSocketConnected())
+                            {
                                 ResourcesManager.DropClient(p.GetSocketHandle());
+                            }
                         }
 
                         GC.Collect(GC.MaxGeneration);
