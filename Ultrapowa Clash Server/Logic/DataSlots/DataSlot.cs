@@ -44,6 +44,5 @@ namespace UCS.Logic
             jsonObject.Add("value", Value);
             return jsonObject;
         }
-
     }
 }

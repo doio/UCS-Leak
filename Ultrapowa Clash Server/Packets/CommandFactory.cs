@@ -81,6 +81,7 @@ namespace UCS.Packets
             m_vCommands.Add(574, typeof(ChallangeCommand));
             m_vCommands.Add(577, typeof(MoveBuildingsCommand)); 
 	        m_vCommands.Add(584, typeof(BoostBarracksCommand));
+            m_vCommands.Add(586, typeof(RenameQuickTrainCommand));
             m_vCommands.Add(590, typeof(EventsSeenCommand)); 
             m_vCommands.Add(600, typeof(PlaceAttackerCommand));
             m_vCommands.Add(603, typeof(EndOfBattleCommand));

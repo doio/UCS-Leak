@@ -12,8 +12,8 @@ namespace UCS.Packets.Commands.Client
 	{
 		public TrainQuickUnitsCommand(PacketReader br)
 		{
-			DataSlotID = br.ReadInt32(); // ID for the DataSlot
-			Tick = br.ReadInt32(); // Tick
+			DataSlotID = br.ReadInt32(); 
+			Tick = br.ReadInt32(); 
 		}
 
 		public int DataSlotID { get; set; }
@@ -28,7 +28,7 @@ namespace UCS.Packets.Commands.Client
 			{
 				foreach (var i in player.QuickTrain1)
 				{
-					var ds = new DataSlot(i.Data, i.Value);
+					DataSlot ds = new DataSlot(i.Data, i.Value);
 					units.Add(ds);
 				}
 			}
@@ -36,7 +36,7 @@ namespace UCS.Packets.Commands.Client
 			{
 				foreach (var i in player.QuickTrain2)
 				{
-					var ds = new DataSlot(i.Data, i.Value);
+					DataSlot ds = new DataSlot(i.Data, i.Value);
 					units.Add(ds);
 				}
 			}
@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands.Client
 			{
 				foreach (var i in player.QuickTrain3)
 				{
-					var ds = new DataSlot(i.Data, i.Value);
+					DataSlot ds = new DataSlot(i.Data, i.Value);
 					units.Add(ds);
 				}
 			}			
