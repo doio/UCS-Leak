@@ -78,6 +78,7 @@ namespace UCS.Packets
             m_vCommands.Add(570, typeof(TogglePlayerWarStateCommand));
             m_vCommands.Add(571, typeof(FilterChatCommand));
             m_vCommands.Add(572, typeof(ToggleHeroAttackModeCommand));
+            m_vCommands.Add(573, typeof(RemoveShieldToAttackCommand));
             m_vCommands.Add(574, typeof(ChallangeCommand));
             m_vCommands.Add(577, typeof(MoveBuildingsCommand)); 
 	        m_vCommands.Add(584, typeof(BoostBarracksCommand));
