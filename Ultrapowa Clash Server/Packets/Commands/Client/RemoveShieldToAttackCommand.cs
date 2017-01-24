@@ -15,7 +15,7 @@ namespace UCS.Packets.Commands.Client
             //Todo
         }
 
-        public int Tic { get; set; }
+        public int Tick { get; set; }
 
         public override void Execute(Level level)
         {
