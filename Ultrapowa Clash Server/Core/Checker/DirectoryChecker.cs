@@ -13,6 +13,22 @@ namespace UCS.Core.Checker
         {
             Directorys();
             Files();
+            LoadFilter();
+        }
+
+        public static List<string> badwords = new List<string>();
+
+        public static void LoadFilter()
+        {
+            if (File.Exists("filter.ucs"))
+            {
+                StreamReader sr = new StreamReader(@"filter.ucs");
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    badwords.Add(line);
+                }
+            }
         }
 
         public static void Directorys()

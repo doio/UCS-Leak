@@ -123,7 +123,7 @@ namespace UCS.Core
         }
 
 
-        /*public static Level GetRandomOnlinePlayerWithoutShield()
+        public static Level GetRandomOnlinePlayerWithoutShield()
         {
             Level l = GetRandomOnlinePlayer();
             ClientAvatar ca = l.GetPlayerAvatar();
@@ -136,7 +136,7 @@ namespace UCS.Core
             {
                 return GetRandomOnlinePlayerWithoutShield(); // Insane loop?
             }
-        }*/
+        }
 
         public static Level GetRandomPlayerFromAll()
         {
