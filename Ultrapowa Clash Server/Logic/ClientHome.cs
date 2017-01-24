@@ -9,8 +9,9 @@ namespace UCS.Logic
     internal class ClientHome : Base
     {
         readonly long m_vId;
-        int m_vRemainingShieldTime;
         string village;
+        int m_vShieldTime;
+        int m_vProtectionTime;
 
         public ClientHome() : base(0)
         {
@@ -27,8 +28,10 @@ namespace UCS.Logic
 
             List<byte> data = new List<byte>();
             data.AddInt64(m_vId);
-            data.AddInt32(m_vRemainingShieldTime);
-            data.AddInt32(1800);
+
+            data.AddInt32(m_vShieldTime); // Shield
+            data.AddInt32(m_vProtectionTime); // Protection
+
             data.AddInt32(0);
             data.Add(1);
             data.AddCompressedString(village);
@@ -39,16 +42,14 @@ namespace UCS.Logic
 
         public string GetHomeJSON() => village;
 
-        public void SetHomeJSON(string json)
-        {
-            village = json;
-        }
+        public void SetHomeJSON(string json) => village = json;
 
-        public void SetShieldTime(int seconds)
-        {
-            m_vRemainingShieldTime = seconds;
-        }
+        public void SetShieldTime(int seconds) => m_vShieldTime = seconds;
 
-        public int GetShieldTime() => m_vRemainingShieldTime;
+        public int GetShieldTime() => m_vShieldTime;
+
+        public void SetProtectionTime(int time) => m_vProtectionTime = time;
+
+        public int GetProtectionTime() => m_vProtectionTime;
     }
 }

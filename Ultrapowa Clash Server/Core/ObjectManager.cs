@@ -122,6 +122,22 @@ namespace UCS.Core
             return ResourcesManager.GetInMemoryLevels().ElementAt(index);
         }
 
+
+        /*public static Level GetRandomOnlinePlayerWithoutShield()
+        {
+            Level l = GetRandomOnlinePlayer();
+            ClientAvatar ca = l.GetPlayerAvatar();
+
+            if (l != null || ca.GetShieldTime == null || ca.GetProtectionTime == null)
+            {
+                return l;
+            }
+            else
+            {
+                return GetRandomOnlinePlayerWithoutShield(); // Insane loop?
+            }
+        }*/
+
         public static Level GetRandomPlayerFromAll()
         {
             int index = new Random().Next(0, ResourcesManager.GetAllPlayerIds().Count);

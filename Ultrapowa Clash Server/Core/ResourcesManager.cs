@@ -33,9 +33,15 @@ namespace UCS.Core
 
         public static void AddClient(Socket s)
         {
-            Client c = new Client(s);
-            c.CIPAddress = ((System.Net.IPEndPoint)s.RemoteEndPoint).Address.ToString();
-            m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
+            try
+            {
+                Client c = new Client(s);
+                c.CIPAddress = ((System.Net.IPEndPoint)s.RemoteEndPoint).Address.ToString();
+                m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         public static void DropClient(long socketHandle)

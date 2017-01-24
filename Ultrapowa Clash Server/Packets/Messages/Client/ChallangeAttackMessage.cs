@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
+using UCS.Files.Logic;
 using UCS.Helpers;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
@@ -31,12 +32,35 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
+            for (int i = 0; i < 31; i++)
+            {
+                Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
+                CharacterData combatData = (CharacterData)unitData;
+                int maxLevel = combatData.GetUpgradeLevelCount();
+                DataSlot unitSlot = new DataSlot(unitData, 1000);
+
+                level.GetPlayerAvatar().GetUnits().Add(unitSlot);
+                level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+            }
+
+            for (int i = 0; i < 19; i++)
+            {
+                Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
+                SpellData combatData = (SpellData)spellData;
+                int maxLevel = combatData.GetUpgradeLevelCount();
+                DataSlot spellSlot = new DataSlot(spellData, 1000);
+
+                level.GetPlayerAvatar().GetSpells().Add(spellSlot);
+                level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+            }
+
             Alliance a = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
             Level defender = ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
             if (defender != null)
             {
                 defender.Tick();
                 new ChallangeAttackDataMessage(Client, defender).Send();
+                level.GetPlayerAvatar().State = ClientAvatar.UserState.CHA;
             }
             else
             {

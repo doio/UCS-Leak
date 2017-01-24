@@ -79,6 +79,7 @@ namespace UCS.Core.Network
 			}
 			catch
 			{
+                Disconnect(read.Socket);
 			}
 		}
 

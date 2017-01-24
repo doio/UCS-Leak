@@ -17,9 +17,16 @@ namespace UCS.Core.Network
 
 		public Reader(Socket socket, IncomingReadHandler readHandler)
 		{
-			Socket = socket;
-			_readHandler = readHandler;
-			Socket.BeginReceive(_buffer, 0, BufferSize, 0, OnReceive, this);
+            try
+            {
+                Socket = socket;
+                _readHandler = readHandler;
+                Socket.BeginReceive(_buffer, 0, BufferSize, 0, OnReceive, this);
+            }
+            catch (Exception)
+            {
+                Gateway.Disconnect(Socket);
+            }
 		}
 
 		private void OnReceive(IAsyncResult result)
@@ -38,6 +45,7 @@ namespace UCS.Core.Network
 			}
 			catch (Exception)
 			{
+                Gateway.Disconnect(Socket);
 			}
 		}
 	}

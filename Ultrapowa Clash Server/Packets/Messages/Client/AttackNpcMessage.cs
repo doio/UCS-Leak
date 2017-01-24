@@ -47,7 +47,9 @@ namespace UCS.Packets.Messages.Client
 
                 level.GetPlayerAvatar().GetSpells().Add(spellSlot);
                 level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
-            } 
+            }
+
+            level.GetPlayerAvatar().State = ClientAvatar.UserState.PVE;
 
             new NpcDataMessage(Client, level, this).Send();
         }

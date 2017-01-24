@@ -34,6 +34,8 @@ namespace UCS.Logic
         int m_vAlliance_Gold;
         int m_vAlliance_Elixir;
         int m_vAlliance_DarkElixir;
+        int m_vShieldTime;
+        int m_vProtectionTime;
 
         // Byte
         byte m_vNameChangingLeft;
@@ -141,15 +143,6 @@ namespace UCS.Logic
 
 
         public uint Region { get; set; }
-
-        public int RemainingShieldTime
-        {
-            get
-            {
-                var rest = EndShieldTime - (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-                return rest > 0 ? rest : 0;
-            }
-        }
 
         void updateLeague()
         {
@@ -411,6 +404,10 @@ namespace UCS.Logic
 
         public long GetId() => m_vId;
 
+        public int GetShieldTime => m_vShieldTime;
+
+        public int GetProtectionTime => m_vProtectionTime;
+
         public int GetLeagueId() => m_vLeagueId;
 
         public int GetScore()
@@ -453,6 +450,8 @@ namespace UCS.Logic
             SetScore(jsonObject["score"].ToObject<int>());
             m_vNameChangingLeft = jsonObject["nameChangesLeft"].ToObject<byte>();
             m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
+            m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
+            m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
 
             var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
             foreach (JObject jobject in jsonBookmarkedClan)
@@ -615,6 +614,8 @@ namespace UCS.Logic
             jsonData.Add("score", GetScore());
             jsonData.Add("nameChangesLeft", m_vNameChangingLeft);
             jsonData.Add("nameChosenByUser", (ushort) m_vnameChosenByUser);
+            jsonData.Add("shield_time", m_vShieldTime);
+            jsonData.Add("protection_time", m_vProtectionTime);
 
             JArray jsonBookmarkClan = new JArray();
             foreach (var clan in BookmarkedClan)
@@ -757,7 +758,11 @@ namespace UCS.Logic
 
         public void SetAlliance_Elixir(int elixir) => m_vAlliance_Elixir = elixir;
 
-        public void SetAlliance_DarkElixir(int drkelixir) => m_vAlliance_DarkElixir = drkelixir; 
+        public void SetAlliance_DarkElixir(int drkelixir) => m_vAlliance_DarkElixir = drkelixir;
+
+        public void SetShieldTime(int time) => m_vShieldTime = time;
+
+        public void SetProtectionTime(int time) => m_vProtectionTime = time;
 
         public void SetAllianceId(long id) => m_vAllianceId = id;
 

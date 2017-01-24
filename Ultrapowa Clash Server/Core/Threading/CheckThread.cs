@@ -14,7 +14,7 @@ namespace UCS.Core.Threading
                 new VersionChecker();
                 new DirectoryChecker(); 
                 new Logger();
-            }).Start();
+            }).Start();  // Is this Thread really needed?!?
         }
     }
 }

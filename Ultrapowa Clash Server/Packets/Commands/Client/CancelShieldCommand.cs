@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UCS.Helpers;
 using UCS.Logic;
@@ -9,19 +10,25 @@ namespace UCS.Packets.Commands.Client
     {
         public CancelShieldCommand(PacketReader br)
         {
+            Tick = br.ReadInt32();
         }
+
+        public int Tick { get; set; }
 
         public override void Execute(Level level)
         {
-            /*var Avatar = level.GetPlayerAvatar();
-            var home = new ClientHome(Avatar.GetId());
+            ClientAvatar player = level.GetPlayerAvatar();
 
-            var shield = home.GetShieldTime();
-
-            if(shield >= 1)
+            if (player.GetShieldTime != null)
             {
-                home.SetShieldTime(0);
-            }     */
+                player.SetShieldTime(0);
+                //player.SetProtectionTime(1800);
+            }
+            /*else 
+            {
+                player.SetShieldTime(0);
+                player.SetProtectionTime(0);
+            }*/
         }
     }      
 }

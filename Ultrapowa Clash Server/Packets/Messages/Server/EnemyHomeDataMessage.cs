@@ -20,8 +20,9 @@ namespace UCS.Packets.Messages.Server
             m_vOwnerLevel.GetPlayerAvatar().State = ClientAvatar.UserState.PVP;
             List<byte> data = new List<byte>();
             ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
-            ch.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().RemainingShieldTime);
+            ch.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);
             ch.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
+            ch.SetProtectionTime(m_vOwnerLevel.GetPlayerAvatar().GetProtectionTime);
 
             data.AddInt32((int)TimeSpan.FromSeconds(100).TotalSeconds);
             data.AddInt32(-1);

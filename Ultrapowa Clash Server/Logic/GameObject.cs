@@ -31,7 +31,7 @@ namespace UCS.Logic
 
         public int Y { get; set; }
 
-        public int L1X { get; set; }
+        /*public int L1X { get; set; }
 
         public int L1Y { get; set; }
 
@@ -41,7 +41,7 @@ namespace UCS.Logic
 
         public int L3X { get; set; }
 
-        public int L3Y { get; set; }
+        public int L3Y { get; set; }*/
 
         /*public int GetLayoutByID(int id)
         {

@@ -70,10 +70,11 @@ namespace UCS.Packets.Messages.Client
                     DatabaseManager.Single().Save(attacker);
                     DatabaseManager.Single().Save(defender);
                 } */
+                player.State = UserState.Home;
             }
             if (player.State == UserState.CHA)
             {
-                //Attack 
+                player.State = UserState.Home;
             }
 
             if (State == 1)

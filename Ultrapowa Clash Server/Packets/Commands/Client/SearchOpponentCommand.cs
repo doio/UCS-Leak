@@ -43,15 +43,21 @@ namespace UCS.Packets.Commands.Client
                 level.GetPlayerAvatar().GetSpells().Add(spellSlot); 
                 level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
             }
-            
+
+            level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
             Level l = ObjectManager.GetRandomOnlinePlayer();
 
             if (l != null)
             {
-                level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
                 l.Tick();
                 new EnemyHomeDataMessage(level.GetClient(), l, level).Send();
             }
+
+            // New Method
+            /*level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
+            Level Defender = ObjectManager.GetRandomOnlinePlayerWithoutShield();
+            Defender.Tick();
+            new EnemyHomeDataMessage(level.GetClient(), Defender, level).Send();  */
         }
     }
 }

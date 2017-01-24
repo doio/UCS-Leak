@@ -21,7 +21,8 @@ namespace UCS.Packets.Messages.Server
 
             List<byte> data = new List<byte>();
             ClientHome ownerHome = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
-            ownerHome.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().RemainingShieldTime);
+            ownerHome.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);
+            ownerHome.SetProtectionTime(m_vOwnerLevel.GetPlayerAvatar().GetProtectionTime);
             ownerHome.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
 
             data.AddInt32(-1);

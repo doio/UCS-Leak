@@ -40,7 +40,7 @@ namespace UCS.Logic
             m_vIPAddress = "0.0.0.0";
         }
 
-        public ucsdbEntities SaveToDatabse(ucsdbEntities context)
+        /*public ucsdbEntities SaveToDatabse(ucsdbEntities context)
         {
             var p = context.player.Find(GetPlayerAvatar().GetId());
             if (p != null)
@@ -67,7 +67,7 @@ namespace UCS.Logic
                     );
             }
             return context;
-        }
+        }*/ // Not needed
 
         public byte GetAccountPrivileges() => m_vAccountPrivileges;
 

@@ -13,19 +13,25 @@ namespace UCS.Packets.Commands.Client
         public BuyShieldCommand(PacketReader br)
         {
             ShieldId = br.ReadInt32WithEndian(); 
-            Unknown1 = br.ReadUInt32WithEndian();
+            Tick = br.ReadInt32WithEndian();
         }
 
         public override void Execute(Level level)
         {
-            /*Console.WriteLine("Shield ID: " + ShieldId);
-            Console.WriteLine("Shiled TID: " + ((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TID);
-            Console.WriteLine("Cooldown: " + ((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).CooldownS);
-            Console.WriteLine("Duration: " + ((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH);*/
-            //Console.WriteLine(Unknown1);
+            ClientAvatar player = level.GetPlayerAvatar();
+            /*if (ShieldId == 20000000)
+            {
+                player.SetProtectionTime(Convert.ToInt32(TimeSpan.FromHours(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH).TotalSeconds));
+                player.UseDiamonds(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).Diamonds);
+            }
+            else
+            {*/
+                player.SetShieldTime(player.GetShieldTime + Convert.ToInt32(TimeSpan.FromHours(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH).TotalSeconds));
+                player.UseDiamonds(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).Diamonds);
+            //}
         }
 
         public int ShieldId { get; set; }
-        public uint Unknown1 { get; set; }
+        public int Tick { get; set; }
     }
 }

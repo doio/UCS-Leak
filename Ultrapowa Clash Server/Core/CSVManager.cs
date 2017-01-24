@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UCS.Files.CSV;
 using UCS.Files.Logic;
@@ -48,7 +49,7 @@ namespace UCS.Core
                 */
                 _DataTables = new DataTables();
                 int Size = 0;
-                foreach(var _File in _gameFiles)
+                foreach (var _File in _gameFiles)
                 {
                     _DataTables.InitDataTable(new CSVTable(_File.Item2), _File.Item3);
                     Size += System.Text.Encoding.UTF8.GetByteCount(_File.Item1);
@@ -65,7 +66,6 @@ namespace UCS.Core
                 Error("     -> Please check to these errors");
                 Console.ReadKey();
                 Environment.Exit(0);
-
             }
         }
         public static List<Tuple<string, string, int>> Gamefiles => _gameFiles;
@@ -73,3 +73,4 @@ namespace UCS.Core
         public static DataTables DataTables => _DataTables;
     }
 }
+                                                                                                       
