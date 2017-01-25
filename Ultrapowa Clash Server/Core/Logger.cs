@@ -41,6 +41,11 @@ namespace UCS.Core
             }
         }
 
+        public static void Print(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         public static void Say(string message)
         {
             Console.WriteLine("[UCS]    " + message);

@@ -44,20 +44,19 @@ namespace UCS.Packets.Commands.Client
                 level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
             }
 
-            level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
+            /*level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
             Level l = ObjectManager.GetRandomOnlinePlayer();
 
             if (l != null)
             {
                 l.Tick();
                 new EnemyHomeDataMessage(level.GetClient(), l, level).Send();
-            }
+            } */
 
             // New Method
-            /*level.GetPlayerAvatar().State = ClientAvatar.UserState.Searching;
             Level Defender = ObjectManager.GetRandomOnlinePlayerWithoutShield();
             Defender.Tick();
-            new EnemyHomeDataMessage(level.GetClient(), Defender, level).Send();  */
+            new EnemyHomeDataMessage(level.GetClient(), Defender, level).Send();  
         }
     }
 }
