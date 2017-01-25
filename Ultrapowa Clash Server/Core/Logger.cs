@@ -51,11 +51,6 @@ namespace UCS.Core
             Console.WriteLine();
         }
 
-        public static void Print(string message)
-        {
-            Console.WriteLine(message);
-        }
-
         public static void Error(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;

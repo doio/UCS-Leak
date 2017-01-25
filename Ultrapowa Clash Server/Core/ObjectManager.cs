@@ -15,7 +15,6 @@ using Timer = System.Threading.Timer;
 using static UCS.Core.Logger;
 
 namespace UCS.Core
-
 {
     internal class ObjectManager : IDisposable
     {
@@ -121,7 +120,6 @@ namespace UCS.Core
             int index = new Random().Next(0, ResourcesManager.GetInMemoryLevels().Count);
             return ResourcesManager.GetInMemoryLevels().ElementAt(index);
         }
-
 
         public static Level GetRandomOnlinePlayerWithoutShield()
         {
