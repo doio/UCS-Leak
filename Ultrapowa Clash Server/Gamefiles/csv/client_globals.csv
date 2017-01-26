@@ -49,13 +49,11 @@
 ,,,,,"iPad1",
 ,,,,,"iPhone2",
 ,,,,,"st25i",
-"MEDIUM_GFX_DEVICES",,,,,"iPad2,5",
-,,,,,"iPad2,6",
-,,,,,"iPad2,7",
-,,,,,"iPad2,1",
+"MEDIUM_GFX_DEVICES",,,,,"iPad2,1",
 ,,,,,"iPad2,2",
 ,,,,,"iPad2,3",
 ,,,,,"iPad2,4",
+,,,,,"iPod5",
 "LOW_GFX_DEVICES",,,,,"iPod1",
 ,,,,,"iPod2",
 ,,,,,"iPod3",
@@ -64,6 +62,10 @@
 ,,,,,"iPhone1",
 ,,,,,"iPhone2",
 ,,,,,"iPhone3",
+,,,,,"iPhone4",
+,,,,,"iPad2,5",
+,,,,,"iPad2,6",
+,,,,,"iPad2,7",
 "DROID_SANS_FALLBACK_ON_LOW_MEM_DEVICES",,"TRUE",,,,
 "GOOGLE_SERVICE_ACHIEVEMENTS_BUTTON",,"TRUE",,,,
 "ASH_CNT",250,,,,,
@@ -249,7 +251,7 @@
 "GENERATE_CODE_TH_LEVEL_REQUIREMENT",3,,,,,
 "DEVICE_LINK_CHECK_BOUND_TO_KUNLUN",,"TRUE",,,,
 "SHOW_CONTEXT_MENU_FOR_PLAYER",,"TRUE",,,,
-"SHOW_IAP_INFO_IN_KOREA",,"TRUE",,,,
+"SHOW_IAP_INFO_IN_KOREA",,"FALSE",,,,
 "USE_HELPSHIFT_LINKS",,"FALSE",,,,
 "USE_TOS_AND_PP_FIRST_POPUP",,"TRUE",,,,
 "TERMS_AND_CONDITIONS_HELPSHIFT_URL",,,"https://supercell.helpshift.com/a/clash-of-clans/?p=web&s=privacy-policy-terms-of-service",,,
@@ -262,7 +264,7 @@
 "ANIMATE_WAR_BUTTON_ON_ACTIVITY",,"TRUE",,,,
 "HELPSHIFT_MIN_IOS_VERSION",,,"7.0",,,
 "USE_TREASURY_WINDOW",,"TRUE",,,,
-"APPLY_REPLAY_COMPATIBILITY_IF_CONTENT_VERSION",0,,,,,
+"APPLY_REPLAY_COMPATIBILITY_IF_CONTENT_VERSION",3,,,,,
 "MIN_COMPATIBLE_CONTENT_VERSION_FOR_REPLAY",0,,,,,
 "ENABLE_SCREENRECORDING",,"FALSE",,,,
 "DISABLE_SCREENSHAKE_WHILE_RECORDING",,"TRUE",,,,
@@ -316,3 +318,8 @@
 "SPECIAL_URLS",,,,,"EN","https://www.youtube.com/watch?v=-KOohzZfoss"
 ,,,,,"CN","http://www.youku.com"
 "SHOW_VILLAGE_OBJECTS",,"FALSE",,,,
+"PRELOAD_SOUNDS",,"FALSE",,,,
+"GIFT_PACK_LOCAL_EXTENSION",,,,,"CN","_chinese"
+,,,,,"CNT","_chinese"
+,,,,,"KR","_chinese"
+,,,,,"JP","_chinese"

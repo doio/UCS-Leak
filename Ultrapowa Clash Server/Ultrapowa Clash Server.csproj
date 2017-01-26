@@ -393,11 +393,17 @@
     <None Include="Gamefiles\csv\billing_packages.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Gamefiles\csv\boombox.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Gamefiles\csv\client_globals.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\csv\credits.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Gamefiles\csv\event_entries.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\csv\faq.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -424,7 +430,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\fingerprint.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\level\NPC\level1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -900,6 +906,9 @@
     <None Include="Gamefiles\logic\building_classes.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Gamefiles\logic\calendar_event_functions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Gamefiles\logic\characters.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -911,6 +920,9 @@
     </None>
     <None Include="Gamefiles\logic\experience_levels.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Gamefiles\logic\gem_bundles.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\logic\globals.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -956,6 +968,9 @@
     </None>
     <None Include="Gamefiles\logic\variables.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Gamefiles\logic\village_objects.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Gamefiles\logic\war.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
