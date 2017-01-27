@@ -17,7 +17,7 @@ namespace UCS.Packets.Messages.Server
 
         public override void Encode()
         {
-            string StreamTest = @"{""loot"":[[3000002,999999999],[3000001,999999999]],""availableLoot"":[[3000000,0],[3000001,145430],[3000002,142872],[3000003,517]],""units"":[[4000001,58]],""spells"":[],""levels"":[[4000001,4]],""stats"":{""townhallDestroyed"":true,""battleEnded"":true,""allianceUsed"":false,""destructionPercentage"":22,""battleTime"":90,""originalAttackerScore"":6022,""attackerScore"":29,""originalDefenderScore"":1056,""defenderScore"":18,""allianceName"":""Ultrapowa"",""attackerStars"":1,""homeID"":[0,5],""allianceBadge"":1644180309,""allianceBadge2"":1660949336,""allianceID"":[88,884629],""deployedHousingSpace"":168,""armyDeploymentPercentage"":20}}";
+            string StreamTest = @"{""loot"":[[3000002,999999999],[3000001,999999999]],""availableLoot"":[[3000000,0],[3000001,145430],[3000002,142872],[3000003,517]],""units"":[[4000001,58]],""spells"":[],""levels"":[[4000001,4]],""stats"":{""townhallDestroyed"":true,""battleEnded"":true,""allianceUsed"":false,""destructionPercentage"":22,""battleTime"":90,""originalAttackerScore"":6022,""attackerScore"":29,""originalDefenderScore"":1056,""defenderScore"":18,""allianceName"":""Ultrapowa"",""attackerStars"":1,""homeID"":[0,5],""allianceBadge"":1526735450,""allianceBadge2"":1660949336,""allianceID"":[88,884629],""deployedHousingSpace"":168,""armyDeploymentPercentage"":20}}";
 
             ClientAvatar pl = Client.GetLevel().GetPlayerAvatar();
             List<byte> pack = new List<byte>();

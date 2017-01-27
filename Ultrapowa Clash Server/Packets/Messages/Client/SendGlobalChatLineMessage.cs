@@ -56,34 +56,40 @@ namespace UCS.Packets.Messages.Client
                     {
                         foreach (Level pl in ResourcesManager.GetOnlinePlayers())
                         {
-                            GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
-                            string NewMessage = "";
-
-                            for (int i = 0; i < Message.Length; i++)
+                            if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
                             {
-                                NewMessage += "*";
-                            }
+                                GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
+                                string NewMessage = "";
 
-                            p.SetPlayerName(senderName);
-                            p.SetChatMessage(NewMessage);
-                            p.SetPlayerId(senderId);
-                            p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                            p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                            p.Send();
+                                for (int i = 0; i < Message.Length; i++)
+                                {
+                                    NewMessage += "*";
+                                }
+
+                                p.SetPlayerName(senderName);
+                                p.SetChatMessage(NewMessage);
+                                p.SetPlayerId(senderId);
+                                p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                                p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
+                                p.Send();
+                            }
                         }
                     }
                     else
                     {
                         foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                         {
-                            GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                            p.SetPlayerName(senderName);
-                            p.SetChatMessage(Message);
-                            p.SetPlayerId(senderId);
-                            p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                            p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                            p.Send();
-                            Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
+                            if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
+                            {
+                                GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
+                                p.SetPlayerName(senderName);
+                                p.SetChatMessage(Message);
+                                p.SetPlayerId(senderId);
+                                p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                                p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
+                                p.Send();
+                                Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
+                            }
                         }
                     }
                 }

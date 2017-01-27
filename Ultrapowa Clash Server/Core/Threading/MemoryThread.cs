@@ -12,13 +12,15 @@ namespace UCS.Core.Threading
     {    
         public MemoryThread()
         {
+            Timer t = new Timer();
+            bool Running = false;
+            t.Interval = 2000;
+            t.Enabled = true;
+
             new Thread(() =>
             {
                 Thread.Sleep(6000);
 
-                Timer t = new Timer();
-                bool Running = false;
-                t.Interval = 5000;
                 t.Elapsed += (s, a) =>
                 {
                     if (!Running)
@@ -35,13 +37,13 @@ namespace UCS.Core.Threading
                             }
                         }
 
+                        GC.WaitForPendingFinalizers();
                         GC.Collect(GC.MaxGeneration);
                         GC.WaitForPendingFinalizers();
 
                         Running = false;
                     }
                 };
-                t.Enabled = true;
             }).Start();
         }
     }

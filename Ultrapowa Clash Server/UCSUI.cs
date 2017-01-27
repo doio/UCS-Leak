@@ -47,9 +47,9 @@ namespace UCS
             labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.GetOnlinePlayers().Count);
             labelConnectedPlayers.Text = Convert.ToString(ResourcesManager.GetConnectedClients().Count);
             labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.GetInMemoryLevels().Count);
-            //materialLabel14.Text = Convert.ToString(ResourcesManager.GetAllPlayerIds().Count + ResourcesManager.GetAllClanIds().Count);
-			//materialLabel15.Text = Convert.ToString(ResourcesManager.GetAllClanIds().Count);
-			materialLabel16.Text = Convert.ToString(ResourcesManager.GetAllPlayerIds().Count);
+            materialLabel14.Text = Convert.ToString(ObjectManager.GetMaxPlayerID() + ObjectManager.GetMaxAllianceID());
+			materialLabel15.Text = Convert.ToString(ObjectManager.GetMaxAllianceID());
+			materialLabel16.Text = Convert.ToString(ObjectManager.GetMaxPlayerID());
 
 			// CONFIG EDITOR
 			txtStartingGems.Text = ConfigurationManager.AppSettings["startingGems"];

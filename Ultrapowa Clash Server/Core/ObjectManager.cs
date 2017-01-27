@@ -29,6 +29,8 @@ namespace UCS.Core
         public static Dictionary<int, string> NpcLevels;
         public static Dictionary<int, string> m_vRandomBases;
         public static FingerPrint FingerPrint;
+        static int MaxPlayerID;
+        static int MaxAllianceID;
 
         public ObjectManager()
         {
@@ -39,8 +41,8 @@ namespace UCS.Core
             m_vRandomBases = new Dictionary<int, string>();
             FingerPrint = new FingerPrint();
 
-            int MaxPlayerID = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
-            int MaxAllianceID = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+            MaxPlayerID = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
+            MaxAllianceID = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
 
             m_vAvatarSeed = MaxPlayerID;
             m_vAllianceSeed = MaxAllianceID;
@@ -170,6 +172,10 @@ namespace UCS.Core
         {
             ResourcesManager.RemoveAllianceFromMemory(id);
         }
+
+        public static int GetMaxAllianceID() => MaxAllianceID;
+
+        public static int GetMaxPlayerID() => MaxPlayerID;
 
         public static int RandomBaseCount() => m_vRandomBaseAmount;
 
