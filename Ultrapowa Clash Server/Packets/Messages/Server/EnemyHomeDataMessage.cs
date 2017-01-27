@@ -17,7 +17,6 @@ namespace UCS.Packets.Messages.Server
 
         public override void Encode()
         {
-            m_vOwnerLevel.GetPlayerAvatar().State = ClientAvatar.UserState.PVP;
             List<byte> data = new List<byte>();
             ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
             ch.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);

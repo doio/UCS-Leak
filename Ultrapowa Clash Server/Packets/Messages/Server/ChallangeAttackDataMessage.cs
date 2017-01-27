@@ -18,7 +18,6 @@ namespace UCS.Packets.Messages.Server
             SetMessageType(24107);
             m_vOwnerLevel = level;
             m_vVisitorLevel = client.GetLevel();
-            level.GetPlayerAvatar().State = ClientAvatar.UserState.CHA;
         }
 
         public override void Encode()

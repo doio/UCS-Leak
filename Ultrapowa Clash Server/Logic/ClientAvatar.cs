@@ -56,11 +56,7 @@ namespace UCS.Logic
         public enum UserState : int
         {
             Home      = 0,
-            Searching = 1,
-            PVP       = 2,
-            PVE       = 3,
-            CHA       = 4,
-            Editmode  = 5,
+            Editmode  = 1,
         }
 
         public struct AttackInfo
@@ -713,7 +709,7 @@ namespace UCS.Logic
 
         public void AddUsedTroop(CombatItemData cid, int value)
         {
-            if (State == UserState.PVP)
+            /*if (State == UserState.PVP)
             { 
             var info = default(AttackInfo);
             if (!AttackingInfo.TryGetValue(GetId(), out info))
@@ -734,7 +730,7 @@ namespace UCS.Logic
                     DataSlot ds = new DataSlot(cid, value);
                     info.UsedTroop.Add(ds);
                 }
-            }
+            }*/
             //else
               //  Logger.Write("Unsuppored state! AddUsedTroop only for PVP for now.PVE Comming Soon");
         }

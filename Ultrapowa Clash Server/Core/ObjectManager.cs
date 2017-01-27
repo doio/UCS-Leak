@@ -126,7 +126,7 @@ namespace UCS.Core
             Level l = GetRandomOnlinePlayer();
             ClientAvatar ca = l.GetPlayerAvatar();
 
-            if (l != null || ca.GetShieldTime == null || ca.GetProtectionTime == null)
+            if (l != null) // Have to find a better method to find Players without Shield
             {
                 return l;
             }

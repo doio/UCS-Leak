@@ -26,7 +26,7 @@ namespace UCS.Packets.Messages.Client
                 Checksum = br.ReadUInt32WithEndian();
                 NumberOfCommands = br.ReadUInt32WithEndian();
 
-                if (NumberOfCommands > 0 && NumberOfCommands < 300)
+                if (NumberOfCommands > 0 && NumberOfCommands < 135)
                 {
                     NestedCommands = br.ReadBytes(GetLength() - 12);
                 }
@@ -43,7 +43,7 @@ namespace UCS.Packets.Messages.Client
             {
                 level.Tick();
 
-                if (NumberOfCommands > 0 && NumberOfCommands < 300)
+                if (NumberOfCommands > 0 && NumberOfCommands < 135)
                     using (PacketReader br = new PacketReader(new MemoryStream(NestedCommands)))
                         for (int i = 0; i < NumberOfCommands; i++)
                         {

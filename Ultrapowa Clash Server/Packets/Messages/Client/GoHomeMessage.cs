@@ -34,9 +34,9 @@ namespace UCS.Packets.Messages.Client
         {
             ClientAvatar player = level.GetPlayerAvatar();
 
-            if (player.State == UserState.PVP)
+            /*if (player.State == UserState.PVP)
             {
-                /*var info = default(ClientAvatar.AttackInfo);
+                var info = default(ClientAvatar.AttackInfo);
                 if (!level.GetPlayerAvatar().AttackingInfo.TryGetValue(level.GetPlayerAvatar().GetId(), out info))
                 {
                     Logger.Write("Unable to obtain attack info.");
@@ -69,14 +69,9 @@ namespace UCS.Packets.Messages.Client
 
                     DatabaseManager.Single().Save(attacker);
                     DatabaseManager.Single().Save(defender);
-                } */
+                } 
                 player.State = UserState.Home;
-            }
-            if (player.State == UserState.CHA)
-            {
-                player.State = UserState.Home;
-            }
-
+            }*/
             if (State == 1)
             {                
                 player.State = UserState.Editmode;

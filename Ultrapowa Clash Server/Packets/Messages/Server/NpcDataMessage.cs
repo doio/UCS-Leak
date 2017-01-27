@@ -26,7 +26,6 @@ namespace UCS.Packets.Messages.Server
             ownerHome.SetProtectionTime(Player.GetPlayerAvatar().GetProtectionTime);
             ownerHome.SetHomeJSON(JsonBase);
 
-            Player.GetPlayerAvatar().State = ClientAvatar.UserState.PVE;
             List<byte> data = new List<byte>();
 
             data.AddInt32(0);
