@@ -31,9 +31,9 @@ namespace UCS.Logic
         int m_vDonatedUnits;
         int m_vRecievedUnits;
         int m_vActiveLayout;
-        int m_vAlliance_Gold;
-        int m_vAlliance_Elixir;
-        int m_vAlliance_DarkElixir;
+        int m_vAlliance_Gold       = 2800000;
+        int m_vAlliance_Elixir     = 2800000;
+        int m_vAlliance_DarkElixir = 14400;
         int m_vShieldTime;
         int m_vProtectionTime;
 
@@ -101,9 +101,6 @@ namespace UCS.Logic
             m_vAvatarLevel         = ToInt32(AppSettings["startingLevel"]);
             m_vAllianceId          = 0;
             m_vExperience          = 0;
-            m_vAlliance_Gold       = 2800000;
-            m_vAlliance_Elixir     = 2800000;
-            m_vAlliance_DarkElixir = 14400;
             EndShieldTime          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             m_vCurrentGems         = ToInt32(AppSettings["startingGems"]);
             m_vScore               = AppSettings["startingTrophies"] == "random"

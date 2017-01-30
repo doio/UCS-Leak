@@ -23,7 +23,7 @@ namespace UCS.Core.Network
             }
 		}
 
-		public static async void Send(this Message p)
+		public static void Send(this Message p)
 		{
 			try
 			{
@@ -34,19 +34,8 @@ namespace UCS.Core.Network
                     p.Client.UpdateKey(sessionKey);
                 }
                 p.Process(p.Client.GetLevel());
-                p.Client.Socket.BeginSend(p.GetRawData(), 0, p.GetRawData().Length, 0, new AsyncCallback(SendCallback), p.Client.Socket);
+                p.Client.Socket.BeginSend(p.GetRawData(), 0, p.GetRawData().Length, 0, null, p.Client.Socket);
             }
-			catch (Exception)
-			{
-			}
-		}
-
-		private static void SendCallback(IAsyncResult ar)
-		{
-			try
-			{
-				Socket handler = (Socket)ar.AsyncState;
-			}
 			catch (Exception)
 			{
 			}

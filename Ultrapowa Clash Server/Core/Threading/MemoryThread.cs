@@ -27,17 +27,16 @@ namespace UCS.Core.Threading
                     {
                         Running = true;
 
-                        GC.WaitForPendingFinalizers();
+                        /*GC.WaitForPendingFinalizers();
 
-                        foreach(Client p in ResourcesManager.GetConnectedClients())
+                        foreach (Client p in ResourcesManager.GetConnectedClients())
                         {
                             if (!p.IsClientSocketConnected())
                             {
                                 ResourcesManager.DropClient(p.GetSocketHandle());
                             }
-                        }
+                        }*/
 
-                        GC.WaitForPendingFinalizers();
                         GC.Collect(GC.MaxGeneration);
                         GC.WaitForPendingFinalizers();
 

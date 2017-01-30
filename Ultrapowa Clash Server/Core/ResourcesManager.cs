@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using UCS.Core.Network;
+using UCS.Core.Threading;
 using UCS.Helpers;
 using UCS.Logic;
 using UCS.Packets;
@@ -24,11 +25,14 @@ namespace UCS.Core
 
         public ResourcesManager()
         {
-            m_vDatabase = new DatabaseManager();
-            m_vOnlinePlayers = new List<Level>();
-            m_vClients = new ConcurrentDictionary<long, Client>();
-            m_vInMemoryLevels = new ConcurrentDictionary<long, Level>();
-            m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
+            new Thread(() =>
+            {
+                m_vDatabase = new DatabaseManager();
+                m_vOnlinePlayers = new List<Level>();
+                m_vClients = new ConcurrentDictionary<long, Client>();
+                m_vInMemoryLevels = new ConcurrentDictionary<long, Level>();
+                m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
+            }).Start();
         }
 
         public static void AddClient(Socket s)

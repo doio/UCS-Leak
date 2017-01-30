@@ -14,36 +14,38 @@ namespace UCS.Core.Network
 {
 	internal class Gateway
     {
-        static Thread T { get; set; }
         public static ManualResetEvent AllDone = new ManualResetEvent(false);
         public Gateway()
         {
-            try
+            new Thread(() =>
             {
-                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress.ToString()), Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]));
-                Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                listener.Bind(localEndPoint);
-                listener.Listen(0);
-
-                Say();
-                Say("TCP Gateway started at " + ipAddress + ":" + localEndPoint.Port);
-
-                while (true)
+                try
                 {
-                    AllDone.Reset();
-                    listener.BeginAccept(new AsyncCallback(AcceptCallback), listener);
-                    AllDone.WaitOne();
+                    IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+                    IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress.ToString()), Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]));
+                    Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                    listener.Bind(localEndPoint);
+                    listener.Listen(0);
+
+                    Say();
+                    Say("TCP Gateway started at " + ipAddress + ":" + localEndPoint.Port);
+
+                    while (true)
+                    {
+                        AllDone.Reset();
+                        listener.BeginAccept(new AsyncCallback(AcceptCallback), listener);
+                        AllDone.WaitOne();
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                Error("Gateway failed to start. Restarting...");
-                Thread.Sleep(5000);
-                UCSControl.UCSRestart();
-            }
+                catch (Exception)
+                {
+                    Error("Gateway failed to start. Restarting...");
+                    Thread.Sleep(5000);
+                    UCSControl.UCSRestart();
+                }
+            }).Start();
 		}
 
         private void AcceptCallback(IAsyncResult ar)

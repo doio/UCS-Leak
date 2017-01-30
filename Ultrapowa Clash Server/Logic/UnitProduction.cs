@@ -4,36 +4,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UCS.Core;
 using UCS.Files.Logic;
 
 namespace UCS.Logic
 {
     internal class UnitProduction
     {
-        public UnitProduction(CombatItemData cd)
+        public UnitProduction(Level level, CombatItemData cd, bool IsSpellForge)
         {
             m_vUnits = new List<DataSlot>();
             Unit = cd;
             m_vTimer = null;
+            m_vLevel = level;
+            m_vIsSpellForge = IsSpellForge;
         }
 
-        public void AddUnitToQueue(CombatItemData cd)
+        public void AddUnitToQueue(CombatItemData cd, int count)
         {
-            for (var i = 0; i < m_vUnits.Count; i++)
+            for (int i = 0; i < m_vUnits.Count; i++)
             {
                 if ((CombatItemData)m_vUnits[i].Data == cd)
                 {
-                    m_vUnits[i].Value++;
-                    return;
+                    if (count != 1)
+                    {
+                        m_vUnits[i].Value += count;
+                        return;
+                    }
+                    else
+                    {
+                        m_vUnits[i].Value++;
+                        return;
+                    }
                 }
             }
 
-            var ds = new DataSlot(cd, 1);
+            DataSlot ds = new DataSlot(cd, count);
             m_vUnits.Add(ds);
 
             if (m_vTimer == null)
             {
-
+                m_vTimer = new Timer();
+                int trainingTime = cd.GetTrainingTime(m_vLevel.GetPlayerAvatar().GetUnitUpgradeLevel(cd));
+                m_vTimer.StartTimer(trainingTime, m_vLevel.GetTime());
             }
         }
 
@@ -43,32 +56,58 @@ namespace UCS.Logic
 
         public CombatItemData GetUnit(int index) => (CombatItemData)m_vUnits[index].Data;
 
+        public int GetTotalCount()
+        {
+            int count = 0;
+            if (GetSlotCount() >= 1)
+            {
+                for (int  i = 0; i < GetSlotCount(); i++)
+                {
+                    int cnt = m_vUnits[i].Value;
+                    int housingSpace = ((CombatItemData)m_vUnits[i].Data).GetHousingSpace();
+                    count += cnt * housingSpace;
+                }
+            }
+            if (m_vIsSpellForge)
+            {
+                count += m_vLevel.GetComponentManager().GetTotalUsedHousing(true);
+            }
+            return count;
+        }
+
+        /*public int GetMaxTrainCount()
+        {
+            return 0;
+        }*/
+
+        //public bool CanAddUnitToQueue(CombatItemData cd) => GetMaxTrainCount() >= GetTotalCount() + cd.GetHousingSpace();
+
         /*public override void Load(JObject jsonObject)
         {
-            var unitProdObject = (JObject)jsonObject["unit_prod"];
+            JObject unitProdObject = (JObject)jsonObject["unit_prod"];
             m_vIsSpellForge = unitProdObject["unit_type"].ToObject<int>() == 1;
-            var timeToken = unitProdObject["t"];
+            JToken timeToken = unitProdObject["t"];
             if (timeToken != null)
             {
                 m_vTimer = new Timer();
-                var remainingTime = timeToken.ToObject<int>();
-                m_vTimer.StartTimer(remainingTime, GetParent().GetLevel().GetTime());
+                int remainingTime = timeToken.ToObject<int>();
+                m_vTimer.StartTimer(remainingTime, m_vLevel.GetTime());
             }
-            var unitJsonArray = (JArray)unitProdObject["slots"];
+            JArray unitJsonArray = (JArray)unitProdObject["slots"];
             if (unitJsonArray != null)
             {
                 foreach (JObject unitJsonObject in unitJsonArray)
                 {
-                    var id = unitJsonObject["id"].ToObject<int>();
-                    var cnt = unitJsonObject["cnt"].ToObject<int>();
+                    int id = unitJsonObject["id"].ToObject<int>();
+                    int cnt = unitJsonObject["cnt"].ToObject<int>();
                     m_vUnits.Add(new DataSlot(CSVManager.DataTables.GetDataById(id), cnt));
                 }
             }
-        }*/
+        }
 
-        /*public override JObject Save(JObject jsonObject)
+        public override JObject Save(JObject jsonObject)
         {
-            var unitProdObject = new JObject();
+            JObject unitProdObject = new JObject();
             if (m_vIsSpellForge)
                 unitProdObject.Add("unit_type", 1);
             else
@@ -76,7 +115,7 @@ namespace UCS.Logic
 
             if (m_vTimer != null)
             {
-                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()));
+                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(m_vLevel.GetTime()));
             }
 
             if (GetSlotCount() >= 1)
@@ -98,6 +137,10 @@ namespace UCS.Logic
         Timer m_vTimer;
 
         readonly List<DataSlot> m_vUnits;
+
+        Level m_vLevel;
+
+        bool m_vIsSpellForge;
 
         public CombatItemData Unit { get; set; }
     }

@@ -2,6 +2,8 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+using UCS.Core;
+using UCS.Core.Network;
 using UCS.Core.Settings;
 using UCS.Core.Threading;
 using UCS.Helpers;
@@ -57,6 +59,7 @@ namespace UCS
                 new MemoryThread();
                 new NetworkThread();
                 new ParserThread();
+                //new GlobalChatThread();
 
                 SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)int.MaxValue, (UIntPtr)int.MaxValue);
             }).Start();
