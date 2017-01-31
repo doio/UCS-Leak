@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UCS.Core.Settings;
+using UCS.Logic;
 using UCS.Packets;
 using Timer = System.Timers.Timer;
 
@@ -21,19 +22,27 @@ namespace UCS.Core.Threading
         {
             new Thread(() =>
             {
+                bool r = false;
                 Timer t = new Timer();
-                t.Interval = 5000;
+                t.Interval = 60000;
                 t.Elapsed += (s, a) =>
                 {
-                    foreach (var p in ResourcesManager.GetInMemoryLevels())
+                    if (!r)
                     {
-                        if (!p.GetClient().IsClientSocketConnected())
-                            ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
-                    }
+                        r = true;
 
-                    GC.Collect(GC.MaxGeneration);
-                    GC.WaitForPendingFinalizers();
-                    SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
+                        foreach (Level p in ResourcesManager.GetInMemoryLevels())
+                        {
+                            if (!p.GetClient().IsClientSocketConnected())
+                                ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
+                        }
+
+                        GC.Collect(GC.MaxGeneration);
+                        GC.WaitForPendingFinalizers();
+                        //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)long.MaxValue);
+
+                        r = false;
+                    }
                 };
                 t.Enabled = true;
             }).Start();
