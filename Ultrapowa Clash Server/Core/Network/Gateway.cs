@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UCS.Core.Checker;
 using UCS.Core.Settings;
 using UCS.Core.Threading;
 using UCS.Packets;
@@ -17,36 +18,33 @@ namespace UCS.Core.Network
         public static ManualResetEvent AllDone = new ManualResetEvent(false);
         public Gateway()
         {
-            new Thread(() =>
+            try
             {
-                try
+                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress.ToString()), Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]));
+                Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                listener.Bind(localEndPoint);
+                listener.Listen(0);
+
+                Say();
+                Say("TCP Gateway started at " + ipAddress + ":" + localEndPoint.Port);
+
+                while (true)
                 {
-                    IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-                    IPAddress ipAddress = ipHostInfo.AddressList[0];
-                    IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress.ToString()), Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]));
-                    Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                    listener.Bind(localEndPoint);
-                    listener.Listen(0);
-
-                    Say();
-                    Say("TCP Gateway started at " + ipAddress + ":" + localEndPoint.Port);
-
-                    while (true)
-                    {
-                        AllDone.Reset();
-                        listener.BeginAccept(new AsyncCallback(AcceptCallback), listener);
-                        AllDone.WaitOne();
-                    }
+                    AllDone.Reset();
+                    listener.BeginAccept(AcceptCallback, listener);
+                    AllDone.WaitOne();
                 }
-                catch (Exception)
-                {
-                    Error("Gateway failed to start. Restarting...");
-                    Thread.Sleep(5000);
-                    UCSControl.UCSRestart();
-                }
-            }).Start();
-		}
+            }
+            catch (Exception)
+            {
+                Error("Gateway failed to start. Restarting...");
+                Thread.Sleep(5000);
+                UCSControl.UCSRestart();
+            }
+        }
 
         private void AcceptCallback(IAsyncResult ar)
         {        
@@ -60,8 +58,15 @@ namespace UCS.Core.Network
                 //Say("New TCP Client connected -> " + ((IPEndPoint)handler.RemoteEndPoint).Address);
                 //Logger.Write("New TCP Client connected -> " + ((IPEndPoint)handler.RemoteEndPoint).Address);
 
-				ResourcesManager.AddClient(handler);
-                new Reader(handler, ProcessPacket);
+                if (!ConnectionBlocker.IsAddressBanned(((IPEndPoint)handler.RemoteEndPoint).Address.ToString()))
+                {
+                    ResourcesManager.AddClient(handler);
+                    new Reader(handler, ProcessPacket);
+                }
+                else
+                {
+                    Disconnect(handler);
+                }
             }
             catch (Exception)
             {

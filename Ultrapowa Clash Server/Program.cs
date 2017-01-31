@@ -13,16 +13,11 @@ namespace UCS
 {
     class Program
     {
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize,
-            UIntPtr maximumWorkingSetSize);
-
         public static int OP = 0;
 
         public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2017 | Online Players: ";
 
-        public static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             new Thread(() =>
             {
@@ -60,8 +55,6 @@ namespace UCS
                 new NetworkThread();
                 new ParserThread();
                 //new GlobalChatThread();
-
-                SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)int.MaxValue, (UIntPtr)int.MaxValue);
             }).Start();
         }
 

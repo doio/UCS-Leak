@@ -16,6 +16,7 @@ namespace UCS.Core.Threading
                 new ResourcesManager();
                 new CSVManager();
                 new ObjectManager();
+                new Gateway();
             }).Start();
         }
 

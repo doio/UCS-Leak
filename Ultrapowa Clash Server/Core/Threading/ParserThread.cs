@@ -16,6 +16,7 @@ using UCS.Logic;
 using UCS.Packets.Messages.Server;
 using UCS.Core.Threading;
 using System.Threading.Tasks;
+using UCS.Core.Checker;
 
 namespace UCS.Helpers
 {
@@ -44,19 +45,37 @@ namespace UCS.Helpers
                             Say("/restart           - Restarts UCS instantly.");
                             Say("/shutdown          - Shuts UCS down instantly.");
                             Say("/addpremium        - Add a Premium Player.");
+                            Say("/banned            - Writes all Banned IP's into the Console.");
+                            Say("/addip             - Add an IP to the Blacklist");
                             Say("/maintenance       - Begin Server Maintenance.");
                             Say("/saveall           - Saves everything to the Database");
                             Say("/info 'command'    - More Info On a Command. Ex: /info gui");
                             Print("------------------------------------------------------------------------------>");
                             break;
+
+                        case "/banned":
+                            Console.WriteLine("------------------------------------->");
+                            Say("Banned IP Addresses:");
+                            ConnectionBlocker.GetBannedIPs();
+                            Console.WriteLine("------------------------------------->");
+                            break;
+                        case "/addip":
+                            Console.WriteLine("------------------------------------->");
+                            Console.Write("IP: ");
+                            string s = Console.ReadLine();
+                            ConnectionBlocker.AddNewIpToBlackList(s);
+                            Console.WriteLine("------------------------------------->");
+                            break;
                         case "/saveall":
                             Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("----------------------------------------------------->");
                             Say("Starting saving of all Players... (" + ResourcesManager.GetInMemoryLevels().Count + ")");
                             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
                             Say("Finished saving of all Players!");
                             Say("Starting saving of all Alliances... (" + ResourcesManager.GetInMemoryAlliances().Count + ")");
                             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
                             Say("Finished saving of all Alliances!");
+                            Console.WriteLine("----------------------------------------------------->");
                             Console.ResetColor();
                             break;
                         case "/addpremium":

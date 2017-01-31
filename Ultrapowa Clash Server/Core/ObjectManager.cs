@@ -35,31 +35,26 @@ namespace UCS.Core
 
         public ObjectManager()
         {
-            new Thread(() =>
-            {
-                m_vTimerCanceled = false;
+            m_vTimerCanceled = false;
 
-                m_vDatabase = new DatabaseManager();
-                NpcLevels = new Dictionary<int, string>();
-                m_vRandomBases = new Dictionary<int, string>();
-                FingerPrint = new FingerPrint();
+            m_vDatabase = new DatabaseManager();
+            NpcLevels = new Dictionary<int, string>();
+            m_vRandomBases = new Dictionary<int, string>();
+            FingerPrint = new FingerPrint();
 
-                MaxPlayerID = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
-                MaxAllianceID = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+            MaxPlayerID = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
+            MaxAllianceID = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
 
-                m_vAvatarSeed = MaxPlayerID;
-                m_vAllianceSeed = MaxAllianceID;
-                using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
-                    m_vHomeDefault = sr.ReadToEnd();
+            m_vAvatarSeed = MaxPlayerID;
+            m_vAllianceSeed = MaxAllianceID;
+            using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
+                m_vHomeDefault = sr.ReadToEnd();
 
-                LoadNpcLevels();
-                //LoadRandomBase(); // Useless atm
+            LoadNpcLevels();
+            //LoadRandomBase(); // Useless atm
 
-                TimerReference = new Timer(Save, null, 0, 30000);
-                Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
-
-                new Gateway();
-            }).Start();
+            TimerReference = new Timer(Save, null, 10000, 30000);
+            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 
         private void Save(object state)

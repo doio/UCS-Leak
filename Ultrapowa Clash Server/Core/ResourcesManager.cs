@@ -21,18 +21,14 @@ namespace UCS.Core
         private static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances;
         private static List<Level> m_vOnlinePlayers;
         private static DatabaseManager m_vDatabase;
-        private static object m_vOnlinePlayersLock = new object();
 
         public ResourcesManager()
         {
-            new Thread(() =>
-            {
-                m_vDatabase = new DatabaseManager();
-                m_vOnlinePlayers = new List<Level>();
-                m_vClients = new ConcurrentDictionary<long, Client>();
-                m_vInMemoryLevels = new ConcurrentDictionary<long, Level>();
-                m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
-            }).Start();
+            m_vDatabase = new DatabaseManager();
+            m_vOnlinePlayers = new List<Level>();
+            m_vClients = new ConcurrentDictionary<long, Client>();
+            m_vInMemoryLevels = new ConcurrentDictionary<long, Level>();
+            m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
         }
 
         public static void AddClient(Socket s)
@@ -57,26 +53,35 @@ namespace UCS.Core
                 if (c.GetLevel() != null)
                     LogPlayerOut(c.GetLevel());
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
             }
         }
 
-        public static List<long> GetAllPlayerIds() => m_vDatabase.GetAllPlayerIds();
+        public static List<long> GetAllPlayerIds()
+        {
+            return m_vDatabase.GetAllPlayerIds();
+        }
 
-        public static Client GetClient(long socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
+        public static Client GetClient(long socketHandle)
+        {
+            return m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
+        }
 
-        public static List<Client> GetConnectedClients() => m_vClients.Values.ToList();
+        public static List<Client> GetConnectedClients()
+        {
+            return m_vClients.Values.ToList();
+        }
 
         public static List<Level> GetInMemoryLevels()
         {
-            List<Level> levels = new List<Level>();
-            lock (m_vInMemoryLevels)
-                levels.AddRange(m_vInMemoryLevels.Values);
-            return levels;
+            return m_vInMemoryLevels.Values.ToList();
         }
 
-        public static List<Level> GetOnlinePlayers() => m_vOnlinePlayers;
+        public static List<Level> GetOnlinePlayers()
+        {
+            return m_vOnlinePlayers;
+        }
 
         public static Level GetPlayer(long id, bool persistent = false)
         {
@@ -90,9 +95,15 @@ namespace UCS.Core
             return result;
         }
 
-        public static bool IsClientConnected(long socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
+        public static bool IsClientConnected(long socketHandle)
+        {
+            return m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
+        }
 
-        public static bool IsPlayerOnline(Level l) => m_vOnlinePlayers.Contains(l);
+        public static bool IsPlayerOnline(Level l)
+        {
+            return m_vOnlinePlayers.Contains(l);
+        }
 
         public static void LoadLevel(Level level)
         {
@@ -104,39 +115,37 @@ namespace UCS.Core
             l.SetClient(c);
             c.SetLevel(l);
 
-            lock (m_vOnlinePlayersLock)
+            if (!m_vOnlinePlayers.Contains(l))
             {
-                if (!m_vOnlinePlayers.Contains(l))
-                {
-                    m_vOnlinePlayers.Add(l);
-                    LoadLevel(l);
-                    Program.TitleU();
-                }
+                m_vOnlinePlayers.Add(l);
+                LoadLevel(l);
+                Program.TitleU();
+            }
+            else
+            {
+                int i = m_vOnlinePlayers.IndexOf(l);
+                m_vOnlinePlayers[i] = l;
             }
         }
 
         public static void LogPlayerOut(Level level)
         {
-            if(level != null)
-            {
-                DatabaseManager.Single().Save(level);
-                m_vOnlinePlayers.Remove(level);
-                m_vInMemoryLevels.TryRemove(level.GetPlayerAvatar().GetId());
-                m_vClients.TryRemove(level.GetClient().GetSocketHandle());
-                Program.TitleD();
-            }
-            else
-            {
-                m_vOnlinePlayers.Remove(level);
-                m_vInMemoryLevels.TryRemove(level.GetPlayerAvatar().GetId());
-                m_vClients.TryRemove(level.GetClient().GetSocketHandle());
-                Program.TitleD();
-            }
+            DatabaseManager.Single().Save(level);
+            m_vOnlinePlayers.Remove(level);
+            m_vInMemoryLevels.TryRemove(level.GetPlayerAvatar().GetId());
+            m_vClients.TryRemove(level.GetClient().GetSocketHandle());
+            Program.TitleD();
         }
 
-        private static Level GetInMemoryPlayer(long id) => m_vInMemoryLevels.ContainsKey(id) ? m_vInMemoryLevels[id] : null;
+        private static Level GetInMemoryPlayer(long id)
+        {
+            return m_vInMemoryLevels.ContainsKey(id) ? m_vInMemoryLevels[id] : null;
+        }
 
-        public static List<Alliance> GetInMemoryAlliances() => m_vInMemoryAlliances.Values.ToList();
+        public static List<Alliance> GetInMemoryAlliances()
+        {
+            return m_vInMemoryAlliances.Values.ToList();
+        }
 
         public static void AddAllianceInMemory(Alliance all)
         {
@@ -152,9 +161,15 @@ namespace UCS.Core
             }
         }
 
-        public static bool InMemoryAlliancesContain(long key) => m_vInMemoryAlliances.Keys.Contains(key);
+        public static bool InMemoryAlliancesContain(long key)
+        {
+            return m_vInMemoryAlliances.Keys.Contains(key);
+        }
 
-        public static bool InMemoryAlliancesContain(Alliance all) => m_vInMemoryAlliances.Values.Contains(all);
+        public static bool InMemoryAlliancesContain(Alliance all)
+        {
+            return m_vInMemoryAlliances.Values.Contains(all);
+        }
 
         public static Alliance GetInMemoryAlliance(long key)
         {
@@ -168,20 +183,11 @@ namespace UCS.Core
             m_vInMemoryAlliances.TryRemove(key);
         }
 
-        public static void RemovePlayerFromMemory(Level l)
-        {
-            m_vInMemoryLevels.TryRemove(l.GetPlayerAvatar().GetId());
-        }
-        public static void DisconnectClient(Client c)
-        {
-            new OutOfSyncMessage(c).Send();
-            DropClient(c.GetSocketHandle());
-        }
-
         public static void SetGameObject(Level level, string json)
         {
             level.GetHomeOwnerAvatar().LoadFromJSON(json);
-            DisconnectClient(level.GetClient());
+
+            LogPlayerOut(level);
         }
     }
 }

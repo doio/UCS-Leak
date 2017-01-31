@@ -12,7 +12,8 @@ namespace UCS.Core.Threading
             {
                 //LicenseChecker.CheckForSavedKey(); //disabled atm
                 new VersionChecker();
-                new DirectoryChecker(); 
+                new DirectoryChecker();
+                new ConnectionBlocker();
                 new Logger();
             }).Start();  // Is this Thread really needed?!?
         }
