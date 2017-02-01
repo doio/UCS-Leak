@@ -16,7 +16,7 @@ namespace UCS.Core.Checker
         {
             if (!File.Exists("Banned_IP's.ini"))
             {
-                File.Create("Banned_IP's.ini");
+                File.Create("Banned_IP's.ini").Close();
 
                 using (StreamReader sr = new StreamReader("Banned_IP's.ini"))
                 {
