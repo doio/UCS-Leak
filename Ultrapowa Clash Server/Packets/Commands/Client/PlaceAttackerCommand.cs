@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
 using UCS.Logic;
@@ -20,6 +21,20 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
+            /*ClientAvatar p = level.GetPlayerAvatar();
+            if (p.State == ClientAvatar.UserState.Searching)
+            {
+                p.State = ClientAvatar.UserState.PVP;
+            }
+            else if (p.State == ClientAvatar.UserState.Home)
+            {
+                p.State = ClientAvatar.UserState.PVE;
+            }
+            else 
+            {
+                ResourcesManager.DisconnectClient(level.GetClient());
+            }*/
+
             level.GetPlayerAvatar().AddUsedTroop(Unit, 1); //Deactive this when this funtion work again
             var components = level.GetComponentManager().GetComponents(0);
             for (var i = 0; i < components.Count; i++)

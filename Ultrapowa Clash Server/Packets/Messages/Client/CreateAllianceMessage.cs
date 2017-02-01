@@ -46,40 +46,96 @@ namespace UCS.Packets.Messages.Client
         {
             if (m_vAllianceName == null)
                 m_vAllianceName = "Clan";
-        
-            Alliance  alliance = ObjectManager.CreateAlliance(0);
-            alliance.SetAllianceName(m_vAllianceName);
-            alliance.SetAllianceDescription(m_vAllianceDescription);
-            alliance.SetAllianceType(m_vAllianceType);
-            alliance.SetRequiredScore(m_vRequiredScore);
-            alliance.SetAllianceBadgeData(m_vAllianceBadgeData);
-            alliance.SetAllianceOrigin(m_vAllianceOrigin);
-            alliance.SetWarFrequency(m_vWarFrequency);
-            alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-            level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
 
-            AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
-            member.SetRole(2);
-            alliance.AddAllianceMember(member);
+            if (m_vAllianceName.Length < 16 || m_vAllianceName.Length < 1)
+            {
+                if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
+                {
+                    if (m_vAllianceBadgeData < 1 || m_vAllianceBadgeData < 10000000000)
+                    {
+                        if (m_vAllianceType < 0 || m_vAllianceType < 10)
+                        {
+                            if (m_vRequiredScore < 0 || m_vRequiredScore < 4201)
+                            {
+                                if (m_vWarFrequency < 0 || m_vWarFrequency < 10)
+                                {
+                                    if (m_vAllianceOrigin < 0 || m_vAllianceOrigin < 42000000)
+                                    {
+                                        if (m_vWarAndFriendlyStatus < 0 || m_vWarAndFriendlyStatus < 5)
+                                        {
+                                            Alliance alliance = ObjectManager.CreateAlliance(0);
+                                            alliance.SetAllianceName(m_vAllianceName);
+                                            alliance.SetAllianceDescription(m_vAllianceDescription);
+                                            alliance.SetAllianceType(m_vAllianceType);
+                                            alliance.SetRequiredScore(m_vRequiredScore);
+                                            alliance.SetAllianceBadgeData(m_vAllianceBadgeData);
+                                            alliance.SetAllianceOrigin(m_vAllianceOrigin);
+                                            alliance.SetWarFrequency(m_vWarFrequency);
+                                            alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
+                                            level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
 
-            JoinedAllianceCommand b = new JoinedAllianceCommand();
-            b.SetAlliance(alliance);
+                                            AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
+                                            member.SetRole(2);
+                                            alliance.AddAllianceMember(member);
 
-            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand();
-            d.SetAlliance(alliance);
-            d.SetRole(2);
-            d.Tick(level);
+                                            JoinedAllianceCommand b = new JoinedAllianceCommand();
+                                            b.SetAlliance(alliance);
 
-            AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
-            a.SetCommandId(1);
-            a.SetCommand(b);
+                                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand();
+                                            d.SetAlliance(alliance);
+                                            d.SetRole(2);
+                                            d.Tick(level);
 
-            AvailableServerCommandMessage c = new AvailableServerCommandMessage(Client);
-            c.SetCommandId(8);
-            c.SetCommand(d);
+                                            AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
+                                            a.SetCommandId(1);
+                                            a.SetCommand(b);
 
-            a.Send();
-            c.Send();
+                                            AvailableServerCommandMessage c = new AvailableServerCommandMessage(Client);
+                                            c.SetCommandId(8);
+                                            c.SetCommand(d);
+
+                                            a.Send();
+                                            c.Send();
+                                        }
+                                        else
+                                        {
+                                            ResourcesManager.DisconnectClient(Client);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ResourcesManager.DisconnectClient(Client);
+                                    }
+                                }
+                                else
+                                {
+                                    ResourcesManager.DisconnectClient(Client);
+                                }
+                            }
+                            else
+                            {
+                                ResourcesManager.DisconnectClient(Client);
+                            }
+                        }
+                        else
+                        {
+                            ResourcesManager.DisconnectClient(Client);
+                        }
+                    }
+                    else
+                    {
+                        ResourcesManager.DisconnectClient(Client);
+                    }
+                }
+                else
+                {
+                    ResourcesManager.DisconnectClient(Client);
+                }
+            }
+            else
+            {
+                ResourcesManager.DisconnectClient(Client);
+            }
         }
     }
 }

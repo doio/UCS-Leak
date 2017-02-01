@@ -45,32 +45,39 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            List<Alliance> alliances = ObjectManager.GetInMemoryAlliances();
-
-            if (ObjectManager.GetInMemoryAlliances().Count == 0)
-                 alliances = DatabaseManager.Single().GetAllAlliances();
-
-            List<Alliance> joinableAlliances = new List<Alliance>();
-            int i = 0;
-            int j = 0;
-            while (j < m_vAllianceLimit && i < alliances.Count)
+            if (m_vSearchString.Length > 15)
             {
-                if (alliances[i].GetAllianceMembers().Count != 0)
-                {
-                    if (alliances[i].GetAllianceName().Contains(m_vSearchString, StringComparison.OrdinalIgnoreCase))
-                    {
-                        joinableAlliances.Add(alliances[i]);
-                        j++;
-                    }
-                    i++;
-                }
+                ResourcesManager.DisconnectClient(Client);
             }
-            joinableAlliances = joinableAlliances.ToList();
+            else
+            {
+                List<Alliance> alliances = ObjectManager.GetInMemoryAlliances();
 
-            AllianceListMessage p = new AllianceListMessage(Client);
-            p.SetAlliances(joinableAlliances);
-            p.SetSearchString(m_vSearchString);
-            p.Send();
+                if (ObjectManager.GetInMemoryAlliances().Count == 0)
+                    alliances = DatabaseManager.Single().GetAllAlliances();
+
+                List<Alliance> joinableAlliances = new List<Alliance>();
+                int i = 0;
+                int j = 0;
+                while (j < m_vAllianceLimit && i < alliances.Count)
+                {
+                    if (alliances[i].GetAllianceMembers().Count != 0)
+                    {
+                        if (alliances[i].GetAllianceName().Contains(m_vSearchString, StringComparison.OrdinalIgnoreCase))
+                        {
+                            joinableAlliances.Add(alliances[i]);
+                            j++;
+                        }
+                        i++;
+                    }
+                }
+                joinableAlliances = joinableAlliances.ToList();
+
+                AllianceListMessage p = new AllianceListMessage(Client);
+                p.SetAlliances(joinableAlliances);
+                p.SetSearchString(m_vSearchString);
+                p.Send();
+            }
         }
     }
 }

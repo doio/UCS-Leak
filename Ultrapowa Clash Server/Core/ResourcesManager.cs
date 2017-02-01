@@ -95,6 +95,12 @@ namespace UCS.Core
             return result;
         }
 
+        public static void DisconnectClient(Client c)
+        {
+            new OutOfSyncMessage(c).Send();
+            DropClient(c.GetSocketHandle());
+        }
+
         public static bool IsClientConnected(long socketHandle)
         {
             return m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();

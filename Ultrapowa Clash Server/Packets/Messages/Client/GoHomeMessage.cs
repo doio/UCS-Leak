@@ -76,6 +76,10 @@ namespace UCS.Packets.Messages.Client
             {                
                 player.State = UserState.Editmode;
             }
+            else if (player.State == UserState.Home)
+            {
+                ResourcesManager.DisconnectClient(Client);
+            }
             else
             {
                 player.State = UserState.Home;

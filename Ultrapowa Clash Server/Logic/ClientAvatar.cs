@@ -56,7 +56,11 @@ namespace UCS.Logic
         public enum UserState : int
         {
             Home      = 0,
-            Editmode  = 1,
+            PVP       = 1,
+            PVE       = 2,
+            CHA       = 3,
+            Editmode  = 4,
+            Searching = 5,
         }
 
         public struct AttackInfo

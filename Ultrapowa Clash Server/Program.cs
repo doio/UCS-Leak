@@ -51,7 +51,7 @@ namespace UCS
                 }  
                               
                 new CheckThread();
-                new MemoryThread();
+                //new MemoryThread();
                 new NetworkThread();
                 new ParserThread();
                 //new GlobalChatThread();

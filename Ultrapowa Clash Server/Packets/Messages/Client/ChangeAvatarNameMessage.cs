@@ -1,4 +1,5 @@
 using System.IO;
+using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
 using UCS.Logic;
@@ -25,10 +26,17 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            level.GetPlayerAvatar().SetName(PlayerName);
-            AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(Client);
-            p.SetAvatarName(level.GetPlayerAvatar().GetAvatarName());
-            p.Send();
+            if (string.IsNullOrEmpty(PlayerName) || PlayerName.Length > 15)
+            {
+                ResourcesManager.DisconnectClient(Client);
+            }
+            else
+            {
+                level.GetPlayerAvatar().SetName(PlayerName);
+                AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(Client);
+                p.SetAvatarName(level.GetPlayerAvatar().GetAvatarName());
+                p.Send();
+            }
             //new RequestConfirmChangeNameMessage(Client, PlayerName);
         }
     }

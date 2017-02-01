@@ -32,10 +32,17 @@ namespace UCS.Packets.Messages.Client
             Level l = ResourcesManager.GetPlayer(id);
             if (l != null)
             {
-                l.GetPlayerAvatar().SetName(PlayerName);
-                AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
-                p.SetAvatarName(PlayerName);
-                p.Send();
+                if (PlayerName.Length > 15)
+                {
+                    ResourcesManager.DisconnectClient(Client);
+                }
+                else
+                {
+                    l.GetPlayerAvatar().SetName(PlayerName);
+                    AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
+                    p.SetAvatarName(PlayerName);
+                    p.Send();
+                }
             }
         }
     }

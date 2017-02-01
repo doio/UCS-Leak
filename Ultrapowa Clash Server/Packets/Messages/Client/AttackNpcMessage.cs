@@ -27,32 +27,43 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            if (level.GetPlayerAvatar().GetUnits().Count < 10)
+            ClientAvatar p = level.GetPlayerAvatar();
+            if (p.State == ClientAvatar.UserState.PVE || p.State == ClientAvatar.UserState.PVP)
             {
-                for (int i = 0; i < 31; i++)
+                ResourcesManager.DisconnectClient(Client);
+            }
+            else
+            {
+                if (LevelId > 0 || LevelId < 1000000)
                 {
-                    Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
-                    CharacterData combatData = (CharacterData)unitData;
-                    int maxLevel = combatData.GetUpgradeLevelCount();
-                    DataSlot unitSlot = new DataSlot(unitData, 1000);
+                    if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                    {
+                        for (int i = 0; i < 31; i++)
+                        {
+                            Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
+                            CharacterData combatData = (CharacterData)unitData;
+                            int maxLevel = combatData.GetUpgradeLevelCount();
+                            DataSlot unitSlot = new DataSlot(unitData, 1000);
 
-                    level.GetPlayerAvatar().GetUnits().Add(unitSlot);
-                    level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
-                }
+                            level.GetPlayerAvatar().GetUnits().Add(unitSlot);
+                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                        }
 
-                for (int i = 0; i < 18; i++)
-                {
-                    Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
-                    SpellData combatData = (SpellData)spellData;
-                    int maxLevel = combatData.GetUpgradeLevelCount();
-                    DataSlot spellSlot = new DataSlot(spellData, 1000);
+                        for (int i = 0; i < 18; i++)
+                        {
+                            Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
+                            SpellData combatData = (SpellData)spellData;
+                            int maxLevel = combatData.GetUpgradeLevelCount();
+                            DataSlot spellSlot = new DataSlot(spellData, 1000);
 
-                    level.GetPlayerAvatar().GetSpells().Add(spellSlot);
-                    level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                            level.GetPlayerAvatar().GetSpells().Add(spellSlot);
+                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                        }
+                    }
+                    p.State = ClientAvatar.UserState.PVE;
+                    new NpcDataMessage(Client, level, this).Send();
                 }
             }
-
-            new NpcDataMessage(Client, level, this).Send();
         }
     }
 }
