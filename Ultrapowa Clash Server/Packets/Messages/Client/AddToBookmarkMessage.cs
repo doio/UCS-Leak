@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Client
         {
             BookmarkSlot ds = new BookmarkSlot(id);
             level.GetPlayerAvatar().BookmarkedClan.Add(ds);
-            new BookmarkAddAllianceMessage(level.GetClient()).Send();
+            PacketManager.Send(new BookmarkAddAllianceMessage(Client));
             DatabaseManager.Single().Save(level);
         }
     }

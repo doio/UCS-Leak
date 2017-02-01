@@ -367,7 +367,7 @@ namespace UCS
                 pm.SetPlayerId(0);
                 pm.SetLeagueId(22);
                 pm.SetPlayerName(textBox22.Text);
-                pm.Send();
+                PacketManager.Send(pm);
             }
         }
 
@@ -391,7 +391,7 @@ namespace UCS
             {
                 var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                 p.SetAvatarStreamEntry(mail);
-                p.Send();
+                PacketManager.Send(p);
             }
         }
 
@@ -529,7 +529,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = ResourcesManager.GetPlayer(id);
-                new OutOfSyncMessage(player.GetClient()).Send();
+                PacketManager.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
@@ -541,11 +541,11 @@ namespace UCS
             }
             else
             {
-                var id = Convert.ToInt64(txtPlayerID.Text);
-                var player = ResourcesManager.GetPlayer(id);
+                long id = Convert.ToInt64(txtPlayerID.Text);
+                Level player = ResourcesManager.GetPlayer(id);
                 player.SetAccountStatus(100);
                 DatabaseManager.Single().Save(player);
-                new OutOfSyncMessage(player.GetClient()).Send();
+                PacketManager.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
@@ -635,7 +635,7 @@ namespace UCS
                     pm.SetPlayerId(0);
                     pm.SetLeagueId(22);
                     pm.SetPlayerName(Name);
-                    pm.Send();
+                    PacketManager.Send(pm);
                 });
 
                 Count++;
@@ -651,7 +651,7 @@ namespace UCS
                         pm.SetPlayerId(0);
                         pm.SetLeagueId(22);
                         pm.SetPlayerName(Name);
-                        pm.Send();
+                        PacketManager.Send(pm);
                     });
                     Count++;
                     materialLabel13.Text = Convert.ToString(Count);

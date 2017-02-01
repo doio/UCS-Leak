@@ -13,6 +13,8 @@ namespace UCS.Core.Threading
         {
             new Thread(() =>
             {
+                new PacketManager();
+                new MessageManager();
                 new ResourcesManager();
                 new CSVManager();
                 new ObjectManager();

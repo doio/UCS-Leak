@@ -73,7 +73,7 @@ namespace UCS.Packets.GameOpCommands
 
                             AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.GetClient());
                             p.SetAvatarStreamEntry(mail);
-                            p.Send();
+                            PacketManager.Send(p);
                         }
                     }
                     catch (Exception)
@@ -83,7 +83,7 @@ namespace UCS.Packets.GameOpCommands
                         c.SetPlayerId(level.GetPlayerAvatar().GetId());
                         c.SetLeagueId(22);
                         c.SetPlayerName("Ultrapowa Clash Server");
-                        c.Send();
+                        PacketManager.Send(c);
                         return;
                     }
                 }
@@ -94,7 +94,7 @@ namespace UCS.Packets.GameOpCommands
                     b.SetPlayerId(level.GetPlayerAvatar().GetId());
                     b.SetLeagueId(22);
                     b.SetPlayerName("Ultrapowa Clash Server");
-                    b.Send();
+                    PacketManager.Send(b);
                 }
             }
         }

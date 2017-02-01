@@ -94,8 +94,8 @@ namespace UCS.Packets.Messages.Client
                                             c.SetCommandId(8);
                                             c.SetCommand(d);
 
-                                            a.Send();
-                                            c.Send();
+                                            PacketManager.Send(a);
+                                            PacketManager.Send(c);
                                         }
                                         else
                                         {

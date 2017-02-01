@@ -49,7 +49,7 @@ namespace UCS.Packets.Messages.Client
                         AvailableServerCommandMessage d = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
                         d.SetCommandId(8);
                         d.SetCommand(c);
-                        d.Send();
+                        PacketManager.Send(d);
                     }
                     done = true;
                     break;
@@ -78,7 +78,7 @@ namespace UCS.Packets.Messages.Client
                                 AvailableServerCommandMessage f = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
                                 f.SetCommandId(8);
                                 f.SetCommand(e);
-                                f.Send();
+                                PacketManager.Send(f);
                             }
                             break;
                         }
@@ -92,7 +92,7 @@ namespace UCS.Packets.Messages.Client
             AvailableServerCommandMessage b = new AvailableServerCommandMessage(Client);
             b.SetCommandId(2);
             b.SetCommand(a);
-            b.Send();
+            PacketManager.Send(b);
 
             alliance.RemoveMember(avatar.GetId());
             avatar.SetAllianceId(0);
@@ -111,14 +111,14 @@ namespace UCS.Packets.Messages.Client
                     {
                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
                         p.SetStreamEntry(eventStreamEntry);
-                        p.Send();
+                        PacketManager.Send(p);
                     }
             }
             else
             {
                 DatabaseManager.Single().RemoveAlliance(alliance);
             }
-            new LeaveAllianceOkMessage(Client, alliance).Send();
+            PacketManager.Send(new LeaveAllianceOkMessage(Client, alliance));
         }
     }
 }

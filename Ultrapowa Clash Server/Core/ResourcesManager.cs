@@ -97,7 +97,7 @@ namespace UCS.Core
 
         public static void DisconnectClient(Client c)
         {
-            new OutOfSyncMessage(c).Send();
+            PacketManager.Send(new OutOfSyncMessage(c));
             DropClient(c.GetSocketHandle());
         }
 

@@ -76,7 +76,7 @@ namespace UCS.Packets.Messages.Client
                 AllianceListMessage p = new AllianceListMessage(Client);
                 p.SetAlliances(joinableAlliances);
                 p.SetSearchString(m_vSearchString);
-                p.Send();
+                PacketManager.Send(p);
             }
         }
     }

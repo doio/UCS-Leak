@@ -33,7 +33,7 @@ namespace UCS.Core.Threading
                         {
                             foreach (GlobalChatLineMessage cl in Messages)
                             {
-                                cl.Send();
+                                PacketManager.Send(cl);
                                 Messages.Remove(cl);
                             }
                         }

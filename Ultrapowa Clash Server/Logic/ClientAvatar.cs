@@ -61,6 +61,7 @@ namespace UCS.Logic
             CHA       = 3,
             Editmode  = 4,
             Searching = 5,
+            Visiting  = 6,
         }
 
         public struct AttackInfo

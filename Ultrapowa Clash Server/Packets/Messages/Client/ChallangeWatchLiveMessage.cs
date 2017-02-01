@@ -23,7 +23,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            new OwnHomeDataMessage(Client, level).Send();
+            PacketManager.Send(new OwnHomeDataMessage(Client, level));
         }
     }
 }

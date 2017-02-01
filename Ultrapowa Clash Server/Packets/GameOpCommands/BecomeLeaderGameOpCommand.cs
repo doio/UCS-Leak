@@ -40,7 +40,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetPlayerId(0);
                 p.SetLeagueId(22);
                 p.SetPlayerName("UCS Bot");
-                p.Send();
+                PacketManager.Send(p);
             }
         }
     }

@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Client
             Level targetLevel = ResourcesManager.GetPlayer(AvatarId);
             targetLevel.Tick();
             Alliance clan = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            new VisitedHomeDataMessage(Client, targetLevel, level).Send();
+            PacketManager.Send(new VisitedHomeDataMessage(Client, targetLevel, level));
             /*if (clan != null)
                 new AllianceStreamMessage(Client, clan).Send();*/
         }

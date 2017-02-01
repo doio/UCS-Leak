@@ -22,7 +22,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            new AllianceWarDataMessage(Client).Send();
+            PacketManager.Send(new AllianceWarDataMessage(Client));
         }
     }
 }

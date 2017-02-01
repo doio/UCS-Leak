@@ -15,7 +15,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            new KeepAliveOkMessage(Client, this).Send();
+            PacketManager.Send(new KeepAliveOkMessage(Client, this));
         }
     }
 }

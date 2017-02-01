@@ -53,10 +53,10 @@ namespace UCS.Packets.Messages.Client
                     d.SetCommandId(8);
                     d.SetCommand(c);
 
-                    a.Send();
-                    d.Send();
-                    
-                     //new AllianceStreamMessage(Client, alliance).Send();
+                    PacketManager.Send(a);
+                    PacketManager.Send(d);
+
+                    //new AllianceStreamMessage(Client, alliance).Send();
                 }
             }
         }

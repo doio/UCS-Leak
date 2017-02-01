@@ -35,7 +35,7 @@ namespace UCS.Packets.Messages.Client
                     Level player = ResourcesManager.GetPlayer(op.GetAvatarId());
                     if (player.GetClient() != null)
                     {
-                        new AllianceStreamEntryRemovedMessage(Client, s.GetId()).Send();
+                        PacketManager.Send(new AllianceStreamEntryRemovedMessage(Client, s.GetId()));
                     }                                                   
                 }
             }

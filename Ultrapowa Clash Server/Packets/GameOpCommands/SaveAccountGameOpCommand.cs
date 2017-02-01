@@ -23,7 +23,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetPlayerId(0);
                 p.SetLeagueId(22);
                 p.SetPlayerName("UCS Bot");
-                p.Send();
+                PacketManager.Send(p);
             }
             else
             {
@@ -32,7 +32,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetPlayerId(0);
                 p.SetLeagueId(22);
                 p.SetPlayerName("UCS Bot");
-                p.Send();
+                PacketManager.Send(p);
             }
         }
         readonly string[] m_vArgs;

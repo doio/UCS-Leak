@@ -55,7 +55,7 @@ namespace UCS.Packets.GameOpCommands
 
                     var p = new AvatarStreamEntryMessage(level.GetClient());
                     p.SetAvatarStreamEntry(mail);
-                    p.Send();
+                    PacketManager.Send(p);
                 }
             }
             else

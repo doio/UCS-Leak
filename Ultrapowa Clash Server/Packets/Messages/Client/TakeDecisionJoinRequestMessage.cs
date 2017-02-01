@@ -67,8 +67,9 @@ namespace UCS.Packets.Messages.Client
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.GetClient());
                             p.SetStreamEntry(eventStreamEntry);
                             c.SetStreamEntry(e);
-                            p.Send();
-                            c.Send();
+
+                            PacketManager.Send(p);
+                            PacketManager.Send(c);
                         }
                     }
                     if (ResourcesManager.IsPlayerOnline(requester))
@@ -89,10 +90,10 @@ namespace UCS.Packets.Messages.Client
                         c.SetCommandId(8);
                         c.SetCommand(d);
 
-                        new AnswerJoinRequestAllianceMessage(Client).Send();
-                        availableServerCommandMessage.Send();
-                        c.Send();
-                        new AllianceStreamMessage(requester.GetClient(), a).Send();
+                        PacketManager.Send(new AnswerJoinRequestAllianceMessage(Client));
+                        PacketManager.Send(availableServerCommandMessage);
+                        PacketManager.Send(c);
+                        PacketManager.Send(new AllianceStreamMessage(requester.GetClient(), a));                        
                     }
                 }
             }

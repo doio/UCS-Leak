@@ -46,7 +46,7 @@ namespace UCS.Packets.Commands
                     Level alliancemembers = ResourcesManager.GetPlayer(op.GetAvatarId());
                     if (alliancemembers.GetClient() != null)
                     {
-                        new AllianceStreamEntryRemovedMessage(alliancemembers.GetClient(), s.GetId()).Send();
+                        PacketManager.Send(new AllianceStreamEntryRemovedMessage(alliancemembers.GetClient(), s.GetId()));
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace UCS.Packets.Commands
                 {
                     AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.GetClient());
                     p.SetStreamEntry(cm);
-                    p.Send();
+                    PacketManager.Send(p);
                 }
             }
         }

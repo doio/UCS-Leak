@@ -62,7 +62,7 @@ namespace UCS.Packets.Messages.Client
             if (defender != null)
             {
                 defender.Tick();
-                new ChallangeAttackDataMessage(Client, defender).Send();
+                PacketManager.Send(new ChallangeAttackDataMessage(Client, defender));
             }
             else
             {
@@ -82,7 +82,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
                         p.SetStreamEntry(s);
-                        p.Send();
+                        PacketManager.Send(p);
                     }
                 }
             }

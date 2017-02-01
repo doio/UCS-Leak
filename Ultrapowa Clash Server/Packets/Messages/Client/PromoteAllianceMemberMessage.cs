@@ -88,11 +88,11 @@ namespace UCS.Packets.Messages.Client
                         pa.SetCommand(p);
                         if (ResourcesManager.IsPlayerOnline(target))
                         {
-                            ta.Send();
-                            rub.Send();
+                            PacketManager.Send(ta);
+                            PacketManager.Send(rub);
                         }
-                        rup.Send();
-                        pa.Send();
+                        PacketManager.Send(rup);
+                        PacketManager.Send(pa);
 
                         foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                         {
@@ -105,8 +105,8 @@ namespace UCS.Packets.Messages.Client
                                 a.SetStreamEntry(demote);
                                 b.SetStreamEntry(promote);
 
-                                a.Send();
-                                b.Send();
+                                PacketManager.Send(a);
+                                PacketManager.Send(b);
                             }
 
                         }
@@ -141,8 +141,8 @@ namespace UCS.Packets.Messages.Client
 
                         if (ResourcesManager.IsPlayerOnline(target))
                         {
-                            ta.Send();
-                            ru.Send();
+                            PacketManager.Send(ta);
+                            PacketManager.Send(ru);
                         }
 
                         foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())

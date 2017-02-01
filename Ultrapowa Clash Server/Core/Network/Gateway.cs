@@ -81,8 +81,8 @@ namespace UCS.Core.Network
 				Client c = ResourcesManager.GetClient(socketHandle);
 				c.DataStream.AddRange(data);
 				Message p;
-                	while (c.TryGetPacket(out p))
-                    		p.Receive();
+                while (c.TryGetPacket(out p))
+                    PacketManager.ProcessIncomingPacket(p);
 			}
 			catch
 			{

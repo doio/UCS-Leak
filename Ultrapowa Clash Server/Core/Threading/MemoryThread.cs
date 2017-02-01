@@ -31,14 +31,14 @@ namespace UCS.Core.Threading
                     {
                         r = true;
 
-                        foreach (Level p in ResourcesManager.GetInMemoryLevels())
+                        /*foreach (Level p in ResourcesManager.GetInMemoryLevels())
                         {
                             if (!p.GetClient().IsClientSocketConnected())
                                 ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
-                        }
+                        }*/
 
                         GC.Collect(GC.MaxGeneration);
-                        GC.WaitForPendingFinalizers();
+                        //GC.WaitForPendingFinalizers();
                         //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)long.MaxValue);
 
                         r = false;

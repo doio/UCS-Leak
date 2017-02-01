@@ -28,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                         var l = ResourcesManager.GetPlayer(id);
                         if (ResourcesManager.IsPlayerOnline(l))
                         {
-                            new OutOfSyncMessage(l.GetClient()).Send();
+                            PacketManager.Send(new OutOfSyncMessage(l.GetClient()));
                         }
                         else
                         {

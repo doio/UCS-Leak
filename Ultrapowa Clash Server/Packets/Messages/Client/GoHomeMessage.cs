@@ -87,7 +87,7 @@ namespace UCS.Packets.Messages.Client
 
             level.Tick();
             Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            new OwnHomeDataMessage(Client, level).Send();
+            PacketManager.Send(new OwnHomeDataMessage(Client, level));
             if (alliance != null)
             {
                 //new AllianceStreamMessage(Client, alliance).Send(); 

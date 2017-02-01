@@ -32,7 +32,7 @@ namespace UCS.Packets.Messages.Client
             {
                 level.GetPlayerAvatar().BookmarkedClan.Remove(al);
             }
-            new BookmarkRemoveAllianceMessage(Client).Send();
+            PacketManager.Send(new BookmarkRemoveAllianceMessage(Client));
         } 
     }
 }

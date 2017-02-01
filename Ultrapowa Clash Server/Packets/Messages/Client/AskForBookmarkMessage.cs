@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            new BookmarkListMessage(Client).Send();
+            PacketManager.Send(new BookmarkListMessage(Client));
         }
     }
 }

@@ -49,7 +49,7 @@ namespace UCS.Packets.Commands.Client
                             var availableServerCommandMessage = new AvailableServerCommandMessage(targetAccount.GetClient());
                             availableServerCommandMessage.SetCommandId(2);
                             availableServerCommandMessage.SetCommand(leaveAllianceCommand);
-                            availableServerCommandMessage.Send();
+                            PacketManager.Send(availableServerCommandMessage);
 
                             var kickOutStreamEntry = new AllianceKickOutStreamEntry();
                             kickOutStreamEntry.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
@@ -62,7 +62,7 @@ namespace UCS.Packets.Commands.Client
 
                             var p = new AvatarStreamEntryMessage(targetAccount.GetClient());
                             p.SetAvatarStreamEntry(kickOutStreamEntry);
-                            p.Send();
+                            PacketManager.Send(p);
                         }
 
                         var eventStreamEntry = new AllianceEventStreamEntry();
@@ -80,7 +80,7 @@ namespace UCS.Packets.Commands.Client
                             {
                                 AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.GetClient());
                                 p.SetStreamEntry(eventStreamEntry);
-                                p.Send();
+                                PacketManager.Send(p);
                             }
                         }
                     }

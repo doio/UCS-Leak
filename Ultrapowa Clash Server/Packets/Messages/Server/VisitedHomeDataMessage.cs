@@ -20,6 +20,8 @@ namespace UCS.Packets.Messages.Server
         {
 
             List<byte> data = new List<byte>();
+            ClientAvatar p = m_vVisitorLevel.GetPlayerAvatar();
+            p.State = ClientAvatar.UserState.Visiting;
             ClientHome ownerHome = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
             ownerHome.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);
             ownerHome.SetProtectionTime(m_vOwnerLevel.GetPlayerAvatar().GetProtectionTime);

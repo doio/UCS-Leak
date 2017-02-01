@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands.Client
                         {
                             var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                             p.SetAvatarStreamEntry(mail);
-                            p.Send();
+                            PacketManager.Send(p);
                         }
                 }
             }

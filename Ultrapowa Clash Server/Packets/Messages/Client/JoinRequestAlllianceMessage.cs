@@ -52,7 +52,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
                     p.SetStreamEntry(cm);
-                    p.Send();
+                    PacketManager.Send(p);
                 }
             }
         }

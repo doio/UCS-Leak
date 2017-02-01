@@ -28,7 +28,7 @@ namespace UCS.Packets.Messages.Client
         {
             var alliance = ObjectManager.GetAlliance(m_vAllianceId);
             if (alliance != null)
-                new AllianceDataMessage(Client, alliance).Send();
+            PacketManager.Send(new AllianceDataMessage(Client, alliance));
         }
     }
 }
