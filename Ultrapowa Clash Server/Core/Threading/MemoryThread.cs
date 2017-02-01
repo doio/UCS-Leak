@@ -12,41 +12,28 @@ namespace UCS.Core.Threading
 {
     class MemoryThread
     {
-        private static Thread T { get; set; }
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetProcessWorkingSetSize(IntPtr process, UIntPtr minimumWorkingSetSize,UIntPtr maximumWorkingSetSize);
+        static bool r = false;
 
         public MemoryThread()
         {
-            new Thread(() =>
+            Timer t = new Timer();
+            t.Interval = 800;
+            t.Elapsed += (s, a) =>
             {
-                bool r = false;
-                Timer t = new Timer();
-                t.Interval = 60000;
-                t.Elapsed += (s, a) =>
+                if (!r)
                 {
-                    if (!r)
+                    r = true;
+
+                    foreach (Client p in ResourcesManager.GetConnectedClients())
                     {
-                        r = true;
-
-                        /*foreach (Level p in ResourcesManager.GetInMemoryLevels())
-                        {
-                            if (!p.GetClient().IsClientSocketConnected())
-                                ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
-                        }*/
-
-                        GC.WaitForPendingFinalizers();
-                        GC.Collect(GC.MaxGeneration);
-                        GC.WaitForPendingFinalizers();
-                        //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)long.MaxValue);
-
-                        r = false;
+                        if (!p.IsClientSocketConnected())
+                            ResourcesManager.DropClient(p.GetSocketHandle());
                     }
-                };
-                t.Enabled = true;
-            }).Start();
+
+                    r = false;
+                }
+            };
+            t.Enabled = true;
         }
     }
 }
