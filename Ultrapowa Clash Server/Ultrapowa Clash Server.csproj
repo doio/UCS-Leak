@@ -235,7 +235,6 @@
     <Compile Include="Core\Crypto\Key.cs" />
     <Compile Include="Core\CSVManager.cs" />
     <Compile Include="Core\ExitHandler.cs" />
-    <Compile Include="Core\MessageManager.cs" />
     <Compile Include="Core\Network\Reader.cs" />
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />

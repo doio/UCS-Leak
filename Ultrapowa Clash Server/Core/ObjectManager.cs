@@ -53,7 +53,7 @@ namespace UCS.Core
             LoadNpcLevels();
             //LoadRandomBase(); // Useless atm
 
-            TimerReference = new Timer(Save, null, 10000, 30000);
+            TimerReference = new Timer(Save, null, 0, 30000);
             Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 

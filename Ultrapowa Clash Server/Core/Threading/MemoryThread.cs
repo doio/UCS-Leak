@@ -37,8 +37,9 @@ namespace UCS.Core.Threading
                                 ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
                         }*/
 
+                        GC.WaitForPendingFinalizers();
                         GC.Collect(GC.MaxGeneration);
-                        //GC.WaitForPendingFinalizers();
+                        GC.WaitForPendingFinalizers();
                         //SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, (UIntPtr)0xFFFFFFFF, (UIntPtr)long.MaxValue);
 
                         r = false;
