@@ -15,7 +15,7 @@ namespace UCS.Core.Network
             p.Decrypt();
             p.Decode();
             p.Process(p.Client.GetLevel());
-        }
+        }               
 
         public static void Send(Message p)
         {
@@ -28,7 +28,7 @@ namespace UCS.Core.Network
                     p.Client.UpdateKey(sessionKey);
                 }
                 p.Process(p.Client.GetLevel());
-                p.Client.Socket.BeginSend(p.GetRawData(), 0, p.GetRawData().Length, 0, null, p.Client.Socket);
+                p.Client.Socket.Send(p.GetRawData());
             }
             catch (Exception)
             {
