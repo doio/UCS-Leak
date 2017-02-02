@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using UCS.Files;
 using UCS.Files.CSV;
 using UCS.Files.Logic;
 using static UCS.Core.Logger;
@@ -71,6 +72,18 @@ namespace UCS.Core
         public static List<Tuple<string, string, int>> Gamefiles => _gameFiles;
 
         public static DataTables DataTables => _DataTables;
+
+        public static void DownloadLatestCSVFiles()
+        {
+            try
+            {
+                string sha = ObjectManager.FingerPrint.sha;
+                string DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + sha + "/" + "fingerprint.json";
+            }
+            catch (Exception)
+            { 
+            }
+        } 
     }
 }
                                                                                                        

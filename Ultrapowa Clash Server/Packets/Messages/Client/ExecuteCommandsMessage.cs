@@ -26,11 +26,7 @@ namespace UCS.Packets.Messages.Client
                 Checksum = br.ReadUInt32WithEndian();
                 NumberOfCommands = br.ReadUInt32WithEndian();
 
-                if (NumberOfCommands > 135)
-                {
-                    ResourcesManager.DisconnectClient(Client);
-                }
-                else if (NumberOfCommands > 0 && NumberOfCommands < 135)
+                if (NumberOfCommands > 0 && NumberOfCommands < 135)
                 {
                     NestedCommands = br.ReadBytes(GetLength() - 12);
                 }

@@ -53,6 +53,10 @@ namespace UCS.Core.Checker
             {
                 Directory.CreateDirectory("Gamefiles");
             }
+            if (!Directory.Exists("Gamefiles/update"))
+            {
+                Directory.CreateDirectory("Gamefiles/update");
+            }
         }
 
         public static void Files()
