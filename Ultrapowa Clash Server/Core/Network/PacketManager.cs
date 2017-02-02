@@ -12,12 +12,28 @@ namespace UCS.Core.Network
     {
         public static void Receive(Message p)
         {
-            p.Decrypt();
-            p.Decode();
-            p.Process(p.Client.GetLevel());
+            ProcessIncommingPacket(p);
         }               
 
         public static void Send(Message p)
+        {
+            try
+            {
+                ProcessOutgoingPacket(p);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public static void ProcessIncommingPacket(Message p)
+        {
+            p.Decrypt();
+            p.Decode();
+            p.Process(p.Client.GetLevel());
+        }
+
+        public static void ProcessOutgoingPacket(Message p)
         {
             try
             {
@@ -30,9 +46,7 @@ namespace UCS.Core.Network
                 p.Process(p.Client.GetLevel());
                 p.Client.Socket.Send(p.GetRawData());
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
     }
 }

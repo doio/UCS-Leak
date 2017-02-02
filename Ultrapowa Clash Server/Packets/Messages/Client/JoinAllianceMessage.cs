@@ -56,7 +56,7 @@ namespace UCS.Packets.Messages.Client
                     PacketManager.Send(a);
                     PacketManager.Send(d);
 
-                    //new AllianceStreamMessage(Client, alliance).Send();
+                    PacketManager.Send(new AllianceStreamMessage(Client, alliance));
                 }
             }
         }

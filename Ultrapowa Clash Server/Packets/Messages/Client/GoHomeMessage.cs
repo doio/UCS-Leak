@@ -90,7 +90,7 @@ namespace UCS.Packets.Messages.Client
             PacketManager.Send(new OwnHomeDataMessage(Client, level));
             if (alliance != null)
             {
-                //new AllianceStreamMessage(Client, alliance).Send(); 
+                PacketManager.Send(new AllianceStreamMessage(Client, alliance));
             }
         }
 

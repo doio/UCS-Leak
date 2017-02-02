@@ -221,7 +221,7 @@ namespace UCS.Packets.Messages.Client
             if (alliance != null)
             {
                 PacketManager.Send(new AllianceFullEntryMessage(Client, alliance));
-                //new AllianceStreamMessage(Client, alliance).Send();
+                PacketManager.Send(new AllianceStreamMessage(Client, alliance));
                 PacketManager.Send(new AllianceWarHistoryMessage(Client, alliance));
             }
             PacketManager.Send(new AvatarStreamMessage(Client));
