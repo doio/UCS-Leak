@@ -25,7 +25,6 @@ namespace UCS.Core.Network
             }
             catch (Exception)
             {
-                Gateway.Disconnect(Socket);
             }
 		}
 
@@ -45,7 +44,6 @@ namespace UCS.Core.Network
 			}
 			catch (Exception)
 			{
-                Gateway.Disconnect(Socket);
 			}
 		}
 	}
