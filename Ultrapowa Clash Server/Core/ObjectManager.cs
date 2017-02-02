@@ -104,7 +104,7 @@ namespace UCS.Core
             Alliance alliance;
             if (ResourcesManager.InMemoryAlliancesContain(allianceId))
                 return ResourcesManager.GetInMemoryAlliance(allianceId);
-            else
+            else 
             {
                 alliance = m_vDatabase.GetAlliance(allianceId);
                 if (alliance != null)

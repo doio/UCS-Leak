@@ -17,12 +17,21 @@ namespace UCS.Packets.Messages.Client
         {
             using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
             {
-                // TODO
+                Unknown = br.ReadBoolean(); // Unknown 
+                UserID = br.ReadString(); // Facebook UserID (https://www.facebook.com/ + UserID)
             }
         }
 
+        public string UserID { get; set; }
+
+        public bool Unknown { get; set; }
+
         public override void Process(Level level)
         {
+            // Todo's:
+            //       - Send Message to User that Login was succesfull.
+            //       - Save UserID in ClientAvatar
+            //       - Send Message to login to the CoC Acc
         }
     }
 }
