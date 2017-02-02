@@ -17,7 +17,7 @@ namespace UCS.Packets.Messages.Client
         {
             using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
             {
-                Unknown = br.ReadBoolean(); // Unknown 
+                Unknown = br.ReadBoolean(); // Unknown, maybe if Logged in True if no False
                 UserID = br.ReadString(); // Facebook UserID (https://www.facebook.com/ + UserID)
             }
         }
@@ -31,7 +31,7 @@ namespace UCS.Packets.Messages.Client
             // Todo's:
             //       - Send Message to User that Login was succesfull.
             //       - Save UserID in ClientAvatar
-            //       - Send Message to login to the CoC Acc
+            //       - Send Message to login into the CoC Acc
         }
     }
 }
