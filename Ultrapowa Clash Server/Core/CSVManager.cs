@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using UCS.Files;
 using UCS.Files.CSV;
@@ -17,6 +18,8 @@ namespace UCS.Core
 
         public CSVManager()
         {
+            DownloadLatestCSVFiles();
+
             try
             {
                 _gameFiles.Add(new Tuple<string, string, int>("Buildings", @"Gamefiles/logic/buildings.csv", 0));
@@ -78,12 +81,33 @@ namespace UCS.Core
             try
             {
                 string sha = ObjectManager.FingerPrint.sha;
-                string DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + sha + "/" + "fingerprint.json";
+                string DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + sha + "/";
+
+                
             }
             catch (Exception)
             { 
             }
         } 
+
+        public static void DownloadFileFromWebServer(string Link, string sublink, string folder)
+        {
+            try
+            {
+                string _FileLink = Link + sublink;
+
+                if (folder == "csv")
+                {
+                    if (!Directory.Exists("Gamefiles/update/csv"))
+                    {
+                        Directory.CreateDirectory("Gamefiles/update/csv");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }
                                                                                                        

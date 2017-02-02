@@ -3,37 +3,33 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using UCS.Core.Settings;
 using UCS.Logic;
 using UCS.Packets;
-using Timer = System.Timers.Timer;
 
 namespace UCS.Core.Threading
 {
-    class MemoryThread
+    internal class MemoryThread
     {
-        static bool r = false;
-
         public MemoryThread()
         {
-            Timer t = new Timer();
-            t.Interval = 5000;
-            t.Elapsed += (s, a) =>
+            new Thread((ThreadStart)(() =>
             {
-                if (!r)
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.Interval = 5000.0;
+                timer.Elapsed += (ElapsedEventHandler)((s, a) =>
                 {
-                    r = true;
-
-                    foreach (Client _Client in ResourcesManager.GetConnectedClients())
+                    foreach (Level inMemoryLevel in ResourcesManager.GetInMemoryLevels())
                     {
-                        if (!_Client.IsClientSocketConnected())
-                            ResourcesManager.DropClient(_Client.GetSocketHandle());
-                    } // Removes disconnected Players from Memory.
-
-                    r = false;
-                }
-            };
-            t.Enabled = true;
+                        if (!inMemoryLevel.GetClient().IsClientSocketConnected())
+                            ResourcesManager.DropClient(inMemoryLevel.GetClient().GetSocketHandle());
+                    }
+                    GC.Collect(GC.MaxGeneration);
+                    GC.WaitForPendingFinalizers();
+                });
+                timer.Enabled = true;
+            })).Start();
         }
     }
 }

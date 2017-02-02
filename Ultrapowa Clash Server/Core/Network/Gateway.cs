@@ -82,7 +82,9 @@ namespace UCS.Core.Network
 				c.DataStream.AddRange(data);
 				Message p;
                 while (c.TryGetPacket(out p))
+                {
                     PacketManager.Receive(p);
+                }
 			}
 			catch
 			{
