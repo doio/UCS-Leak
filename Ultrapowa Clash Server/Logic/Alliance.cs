@@ -202,6 +202,8 @@ namespace UCS.Logic
                         se = new AllianceEventStreamEntry();
                     else if (jsonMessage["type"].ToObject<int>() == 5)
                         se = new ShareStreamEntry();
+                    else if (jsonMessage["type"].ToObject<int>() == 12)
+                        se = new ChallangeStreamEntry();
                     se.Load(jsonMessage);
                     m_vChatMessages.Add(se);
                 }
