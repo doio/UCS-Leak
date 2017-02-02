@@ -17,18 +17,18 @@ namespace UCS.Core.Threading
         public MemoryThread()
         {
             Timer t = new Timer();
-            t.Interval = 800;
+            t.Interval = 5000;
             t.Elapsed += (s, a) =>
             {
                 if (!r)
                 {
                     r = true;
 
-                    foreach (Client p in ResourcesManager.GetConnectedClients())
+                    foreach (Client _Client in ResourcesManager.GetConnectedClients())
                     {
-                        if (!p.IsClientSocketConnected())
-                            ResourcesManager.DropClient(p.GetSocketHandle());
-                    }
+                        if (!_Client.IsClientSocketConnected())
+                            ResourcesManager.DropClient(_Client.GetSocketHandle());
+                    } // Removes disconnected Players from Memory.
 
                     r = false;
                 }
