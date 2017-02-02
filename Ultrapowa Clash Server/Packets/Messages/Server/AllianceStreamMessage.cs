@@ -27,13 +27,7 @@ namespace UCS.Packets.Messages.Server
             pack.AddInt32(chatMessages.Count);
             foreach(var chatMessage in chatMessages)
             {
-				if (chatMessage.GetStreamEntryType() == 12)
-				{
-				}
-				else
-				{
-					pack.AddRange(chatMessage.Encode());
-				}
+                pack.AddRange(chatMessage.Encode());
             }
             Encrypt(pack.ToArray());
         }
