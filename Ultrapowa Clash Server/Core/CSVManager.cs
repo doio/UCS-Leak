@@ -80,9 +80,7 @@ namespace UCS.Core
         {
             try
             {
-                string sha = ObjectManager.FingerPrint.sha;
-                string DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + sha + "/";
-
+                string _DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + ObjectManager.FingerPrint.sha + "/";
                 
             }
             catch (Exception)
@@ -90,18 +88,25 @@ namespace UCS.Core
             }
         } 
 
-        public static void DownloadFileFromWebServer(string Link, string sublink, string folder)
+        public static void DownloadFileFromWebServer(string _Link, string _Sublink, string _Folder)
         {
             try
             {
-                string _FileLink = Link + sublink;
+                string _FileLink = _Link + _Sublink;
 
-                if (folder == "csv")
+                if (_Folder == "csv")
                 {
                     if (!Directory.Exists("Gamefiles/update/csv"))
                     {
                         Directory.CreateDirectory("Gamefiles/update/csv");
                     }
+                }
+                else if (_Folder == "logic")
+                {
+                    if(!Directory.Exists("Gamefiles/update/logic"))
+                    {
+                        Directory.CreateDirectory("Gamefiles/update/logic");
+                    }  
                 }
             }
             catch (Exception)

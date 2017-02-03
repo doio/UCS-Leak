@@ -14,7 +14,7 @@ using UCS.Packets.Messages.Server;
 
 namespace UCS.Core
 {
-    internal class ResourcesManager
+    internal class ResourcesManager : IDisposable
     {
         private static ConcurrentDictionary<long, Client> m_vClients;
         private static ConcurrentDictionary<long, Level> m_vInMemoryLevels;
@@ -194,6 +194,13 @@ namespace UCS.Core
             level.GetHomeOwnerAvatar().LoadFromJSON(json);
 
             LogPlayerOut(level);
+        }
+
+        public void Dispose()
+        {
+            GetInMemoryAlliances().Clear();
+            GetInMemoryLevels().Clear();
+            GetOnlinePlayers().Clear();
         }
     }
 }

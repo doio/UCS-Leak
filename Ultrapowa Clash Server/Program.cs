@@ -6,6 +6,7 @@ using UCS.Core;
 using UCS.Core.Network;
 using UCS.Core.Settings;
 using UCS.Core.Threading;
+using UCS.Core.Web;
 using UCS.Helpers;
 using UCS.WebAPI;
 
@@ -45,20 +46,32 @@ namespace UCS
                     Console.WriteLine("[UCS]    > UCS is running under Pepper mode. Please make sure client key is modded.");
                 Console.Write("[UCS]    ");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
-                Console.ResetColor();
-                Console.WriteLine("\n[UCS]    Prepearing Server...\n");
 
-                if (Utils.ParseConfigBoolean("UseWebAPI"))
+                if (VersionChecker.GetVersionString() == Constants.Version)
                 {
-                    new API();
-                }
+                    Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
 
-                new CheckThread();
-                new MemoryThread();
-                new NetworkThread();
-                new ParserThread();
-                //new GlobalChatThread();
+                    Console.ResetColor();
+                    Console.WriteLine("\n[UCS]    Prepearing Server...\n");
+
+                    if (Utils.ParseConfigBoolean("UseWebAPI"))
+                    {
+                        new API();
+                    }
+
+                    new CheckThread();
+                    new MemoryThread();
+                    new NetworkThread();
+                    new ParserThread();
+                    //new GlobalChatThread();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("> UCS is not up-to-date! New Version: " + VersionChecker.GetVersionString() + ". Aborting...");
+                    Thread.Sleep(5000);
+                    Environment.Exit(0);
+                }
             }).Start();
         }
 

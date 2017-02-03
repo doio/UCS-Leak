@@ -15,22 +15,6 @@ namespace UCS.Core.Web
 {
     internal class VersionChecker
     {
-        public VersionChecker()
-        {
-            try
-            {
-                WebClient wc = new WebClient();
-                string Version = wc.DownloadString("https://clashoflights.xyz/UCS/versionUCS.txt");
-
-                if (Version != Constants.Version)
-                    DownloadUpdater();
-            }
-            catch (Exception)
-            {
-                Error("Problem with checking for the UCS version, check your Network");
-            }
-        }
-        
         public static void DownloadUpdater()
         {
             WebClient client = new WebClient();
@@ -38,6 +22,19 @@ namespace UCS.Core.Web
             Thread.Sleep(1000);
             Process.Start(@"Tools/Updater.exe");
             Environment.Exit(0);
+        }
+
+        public static string GetVersionString()
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                return wc.DownloadString("https://clashoflights.xyz/UCS/versionUCS.txt");
+            }
+            catch (Exception)
+            {
+                return "Error";
+            }
         }
     }
 }

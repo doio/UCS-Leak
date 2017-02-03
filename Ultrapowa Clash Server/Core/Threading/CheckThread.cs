@@ -11,7 +11,6 @@ namespace UCS.Core.Threading
             new Thread(() =>
             {
                 //LicenseChecker.CheckForSavedKey(); //disabled atm
-                new VersionChecker();
                 new DirectoryChecker();
                 new ConnectionBlocker();
                 new Logger();
