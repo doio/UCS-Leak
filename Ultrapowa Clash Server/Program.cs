@@ -17,10 +17,14 @@ namespace UCS
 
         public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2017 | Online Players: ";
 
+        public static Stopwatch _Stopwatch = new Stopwatch();
+
         internal static void Main(string[] args)
         {
             new Thread(() =>
             {
+                _Stopwatch.Start();
+
                 Console.Title = Title + OP;
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(

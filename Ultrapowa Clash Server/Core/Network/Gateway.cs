@@ -29,7 +29,8 @@ namespace UCS.Core.Network
                 listener.Listen(0);
 
                 Say();
-                Say("TCP Gateway started at " + ipAddress + ":" + localEndPoint.Port);
+                Say("UCS has been started at " + ipAddress + ":" + localEndPoint.Port + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds.");
+                Program._Stopwatch.Stop();
 
                 while (true)
                 {
