@@ -13,10 +13,10 @@ namespace UCS.Logic
     {
         public UnitProduction(Level level, CombatItemData cd, bool IsSpellForge)
         {
-            m_vUnits = new List<DataSlot>();
-            Unit = cd;
-            m_vTimer = null;
-            m_vLevel = level;
+            m_vUnits        = new List<DataSlot>();
+            Unit            = cd;
+            m_vTimer        = null;
+            m_vLevel        = level;
             m_vIsSpellForge = IsSpellForge;
         }
 
@@ -44,7 +44,7 @@ namespace UCS.Logic
 
             if (m_vTimer == null)
             {
-                m_vTimer = new Timer();
+                m_vTimer         = new Timer();
                 int trainingTime = cd.GetTrainingTime(m_vLevel.GetPlayerAvatar().GetUnitUpgradeLevel(cd));
                 m_vTimer.StartTimer(trainingTime, m_vLevel.GetTime());
             }

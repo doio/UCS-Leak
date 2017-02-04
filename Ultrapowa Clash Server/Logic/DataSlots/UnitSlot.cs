@@ -13,15 +13,15 @@ namespace UCS.Logic
         public UnitSlot(CombatItemData cd, int level, int count)
         {
             UnitData = cd;
-            Level = level;
-            Count = count;
+            Level    = level;
+            Count    = count;
         }
 
         public void Decode(PacketReader br)
         {
             UnitData = (CombatItemData) br.ReadDataReference();
-            Level = br.ReadInt32WithEndian();
-            Count = br.ReadInt32WithEndian();
+            Level    = br.ReadInt32WithEndian();
+            Count    = br.ReadInt32WithEndian();
         }
     }
 }

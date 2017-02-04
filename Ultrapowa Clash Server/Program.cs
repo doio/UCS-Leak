@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using UCS.Core;
@@ -15,11 +16,8 @@ namespace UCS
     class Program
     {
         public static int OP = 0;
-
         public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2017 | Online Players: ";
-
         public static Stopwatch _Stopwatch = new Stopwatch();
-
         public static string Version { get; set; }
 
         internal static void Main(string[] args)

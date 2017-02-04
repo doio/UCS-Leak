@@ -10,14 +10,14 @@ namespace UCS.Logic
     { 
         public AllianceMemberEntry(long avatarId)
         {
-            m_vAvatarId = avatarId;
-            m_vIsNewMember = 0;
-            m_vOrder = 1;
-            m_vPreviousOrder = 1;
-            m_vRole = 1;
-            m_vDonatedTroops = 200;
+            m_vAvatarId       = avatarId;
+            m_vIsNewMember    = 0;
+            m_vOrder          = 1;
+            m_vPreviousOrder  = 1;
+            m_vRole           = 1;
+            m_vDonatedTroops  = 200;
             m_vReceivedTroops = 100;
-            m_vWarCooldown = 0;
+            m_vWarCooldown    = 0;
             m_vWarOptInStatus = 1;
         }
 

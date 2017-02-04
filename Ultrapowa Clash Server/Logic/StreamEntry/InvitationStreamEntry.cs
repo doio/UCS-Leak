@@ -22,7 +22,7 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            Message = jsonObject["message"].ToObject<string>();
+            Message  = jsonObject["message"].ToObject<string>();
             m_vJudge = jsonObject["judge"].ToObject<string>();
             m_vState = jsonObject["state"].ToObject<int>();
         }

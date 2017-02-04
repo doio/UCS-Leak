@@ -10,11 +10,11 @@ namespace UCS.Logic
     {
         public ConstructionItem(Data data, Level level) : base(data, level)
         {
-            m_vLevel = level;
-            IsBoosted = false;
-            m_vBoostEndTime = level.GetTime();
+            m_vLevel          = level;
+            IsBoosted         = false;
+            m_vBoostEndTime   = level.GetTime();
             m_vIsConstructing = false;
-            UpgradeLevel = -1;
+            UpgradeLevel      = -1;
         }
 
         protected bool Locked;
@@ -29,7 +29,7 @@ namespace UCS.Logic
 
         public void BoostBuilding()
         {
-            IsBoosted = true;
+            IsBoosted       = true;
             m_vBoostEndTime = GetLevel().GetTime().AddMinutes(GetBoostDuration());
         }
 
@@ -37,28 +37,30 @@ namespace UCS.Logic
         {
             if (IsConstructing())
             {
-                var wasUpgrading = IsUpgrading();
+                bool wasUpgrading = IsUpgrading();
                 m_vIsConstructing = false;
                 if (wasUpgrading)
                 {
                     SetUpgradeLevel(UpgradeLevel);
                 }
-                var bd = GetConstructionItemData();
-                var rd = bd.GetBuildResource(UpgradeLevel + 1);
-                var cost = bd.GetBuildCost(UpgradeLevel + 1);
-                var multiplier = CSVManager.DataTables.GetGlobals().GetGlobalData("BUILD_CANCEL_MULTIPLIER").NumberValue;
-                var resourceCount = (int) ((cost * multiplier * (long) 1374389535) >> 32);
-                resourceCount = Math.Max((resourceCount >> 5) + (resourceCount >> 31), 0);
+                ConstructionItemData bd = GetConstructionItemData();
+                ResourceData rd         = bd.GetBuildResource(UpgradeLevel + 1);
+                int cost                = bd.GetBuildCost(UpgradeLevel + 1);
+                int multiplier          = CSVManager.DataTables.GetGlobals().GetGlobalData("BUILD_CANCEL_MULTIPLIER").NumberValue;
+                int resourceCount       = (int) ((cost * multiplier * (long) 1374389535) >> 32);
+                resourceCount           = Math.Max((resourceCount >> 5) + (resourceCount >> 31), 0);           
                 GetLevel().GetPlayerAvatar().CommodityCountChangeHelper(0, rd, resourceCount);
                 m_vLevel.WorkerManager.DeallocateWorker(this);
                 if (UpgradeLevel == -1)
+                {
                     m_vLevel.GameObjectManager.RemoveGameObject(this);
+                }
             }
         }
 
         public bool CanUpgrade()
         {
-            var result = false;
+            bool result = false;
             if (!IsConstructing())
             {
                 if (UpgradeLevel < GetConstructionItemData().GetUpgradeLevelCount() - 1)
@@ -66,8 +68,8 @@ namespace UCS.Logic
                     result = true;
                     if (ClassId == 0 || ClassId == 4)
                     {
-                        var currentTownHallLevel = GetLevel().GetPlayerAvatar().GetTownHallLevel();
-                        var requiredTownHallLevel = GetRequiredTownHallLevelForUpgrade();
+                        int currentTownHallLevel  = GetLevel().GetPlayerAvatar().GetTownHallLevel();
+                        int requiredTownHallLevel = GetRequiredTownHallLevelForUpgrade();
                         if (currentTownHallLevel < requiredTownHallLevel)
                         {
                             result = false;
@@ -88,14 +90,14 @@ namespace UCS.Logic
                 GetResourceProductionComponent().Reset();
             }
 
-            var constructionTime = GetConstructionItemData().GetConstructionTime(GetUpgradeLevel());
-            var exp = (int)Math.Sqrt(constructionTime);
+            int constructionTime = GetConstructionItemData().GetConstructionTime(GetUpgradeLevel());
+            int exp              = (int)Math.Sqrt(constructionTime);
             GetLevel().GetPlayerAvatar().AddExperience(exp);
 
             if (GetHeroBaseComponent(true) != null) 
             {
-                var data = (BuildingData) GetData();
-                var hd = CSVManager.DataTables.GetHeroByName(data.HeroType);
+                BuildingData data = (BuildingData) GetData();
+                HeroData hd       = CSVManager.DataTables.GetHeroByName(data.HeroType);
                 GetLevel().GetPlayerAvatar().SetUnitUpgradeLevel(hd, 0);
                 GetLevel().GetPlayerAvatar().SetHeroHealth(hd, 0);
                 GetLevel().GetPlayerAvatar().SetHeroState(hd, 3);
@@ -158,7 +160,7 @@ namespace UCS.Logic
 
         public HeroBaseComponent GetHeroBaseComponent(bool enabled = false)
         {
-            var comp = GetComponent(10, enabled);
+            Component comp = GetComponent(10, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (HeroBaseComponent) comp;
@@ -170,13 +172,13 @@ namespace UCS.Logic
 
         public int GetRequiredTownHallLevelForUpgrade()
         {
-            var upgradeLevel = Math.Min(UpgradeLevel + 1, GetConstructionItemData().GetUpgradeLevelCount() - 1);
+            int upgradeLevel = Math.Min(UpgradeLevel + 1, GetConstructionItemData().GetUpgradeLevelCount() - 1);
             return GetConstructionItemData().GetRequiredTownHallLevel(upgradeLevel);
         }
 
         public ResourceProductionComponent GetResourceProductionComponent(bool enabled = false)
         {
-            var comp = GetComponent(5, enabled);
+            Component comp = GetComponent(5, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (ResourceProductionComponent) comp;
@@ -186,7 +188,7 @@ namespace UCS.Logic
 
         public ResourceStorageComponent GetResourceStorageComponent(bool enabled = false)
         {
-            var comp = GetComponent(6, enabled);
+            Component comp = GetComponent(6, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (ResourceStorageComponent) comp;
@@ -196,7 +198,7 @@ namespace UCS.Logic
 
         public UnitProductionComponent GetUnitProductionComponent(bool enabled = false)
         {
-            var comp = GetComponent(3, enabled);
+            Component comp = GetComponent(3, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (UnitProductionComponent) comp;
@@ -206,7 +208,7 @@ namespace UCS.Logic
 
         public UnitStorageComponent GetUnitStorageComponent(bool enabled = false)
         {
-            var comp = GetComponent(0, enabled);
+            Component comp = GetComponent(0, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (UnitStorageComponent) comp;
@@ -216,7 +218,7 @@ namespace UCS.Logic
 
         public UnitUpgradeComponent GetUnitUpgradeComponent(bool enabled = false)
         {
-            var comp = GetComponent(9, enabled);
+            Component comp = GetComponent(9, enabled);
             if (comp != null && comp.Type != -1)
             {
                 return (UnitUpgradeComponent) comp;
@@ -316,9 +318,9 @@ namespace UCS.Logic
         {
             if (IsConstructing())
             {
-                var ca = GetLevel().GetPlayerAvatar();
-                var remainingSeconds = m_vTimer.GetRemainingSeconds(m_vLevel.GetTime());
-                var cost = GamePlayUtil.GetSpeedUpCost(remainingSeconds);
+                ClientAvatar ca      = GetLevel().GetPlayerAvatar();
+                int remainingSeconds = m_vTimer.GetRemainingSeconds(m_vLevel.GetTime());
+                int cost             = GamePlayUtil.GetSpeedUpCost(remainingSeconds);
                 if (ca.HasEnoughDiamonds(cost))
                 {
                     ca.UseDiamonds(cost);
@@ -329,16 +331,16 @@ namespace UCS.Logic
 
         public void StartConstructing(int newX, int newY)
         {
-            X = newX;
-            Y = newY;
-            var constructionTime = GetConstructionItemData().GetConstructionTime(UpgradeLevel + 1);
+            X                    = newX;
+            Y                    = newY;
+            int constructionTime = GetConstructionItemData().GetConstructionTime(UpgradeLevel + 1);
             if (constructionTime < 1)
             {
                 FinishConstruction();
             }
             else
             {
-                m_vTimer = new Timer();
+                m_vTimer          = new Timer();
                 m_vTimer.StartTimer(constructionTime, m_vLevel.GetTime());
                 m_vLevel.WorkerManager.AllocateWorker(this);
                 m_vIsConstructing = true;
@@ -347,7 +349,7 @@ namespace UCS.Logic
 
         public void StartUpgrading()
         {
-            var constructionTime = GetConstructionItemData().GetConstructionTime(UpgradeLevel + 1);
+            int constructionTime = GetConstructionItemData().GetConstructionTime(UpgradeLevel + 1);
             if (constructionTime < 1)
             {
                 FinishConstruction();
@@ -355,7 +357,7 @@ namespace UCS.Logic
             else
             {
                 m_vIsConstructing = true;
-                m_vTimer = new Timer();
+                m_vTimer          = new Timer();
                 m_vTimer.StartTimer(constructionTime, m_vLevel.GetTime());
                 m_vLevel.WorkerManager.AllocateWorker(this);
             }
@@ -368,7 +370,9 @@ namespace UCS.Logic
             if (IsConstructing())
             {
                 if (m_vTimer.GetRemainingSeconds(m_vLevel.GetTime()) <= 0)
+                {
                     FinishConstruction();
+                }
             }
         }
 

@@ -9,14 +9,14 @@ namespace UCS.Logic
     {
         public Avatar()
         {
-            m_vResources = new List<DataSlot>();
-            m_vResourceCaps = new List<DataSlot>();
-            m_vUnitCount = new List<DataSlot>();
-            m_vUnitUpgradeLevel = new List<DataSlot>();
-            m_vHeroHealth = new List<DataSlot>();
-            m_vHeroUpgradeLevel = new List<DataSlot>();
-            m_vHeroState = new List<DataSlot>();
-            m_vSpellCount = new List<DataSlot>();
+            m_vResources         = new List<DataSlot>();
+            m_vResourceCaps      = new List<DataSlot>();
+            m_vUnitCount         = new List<DataSlot>();
+            m_vUnitUpgradeLevel  = new List<DataSlot>();
+            m_vHeroHealth        = new List<DataSlot>();
+            m_vHeroUpgradeLevel  = new List<DataSlot>();
+            m_vHeroState         = new List<DataSlot>();
+            m_vSpellCount        = new List<DataSlot>();
             m_vSpellUpgradeLevel = new List<DataSlot>();
         }
 
@@ -43,11 +43,11 @@ namespace UCS.Logic
             {
                 if (commodityType == 0)
                 {
-                    var resourceCount = GetResourceCount((ResourceData) data);
-                    var newResourceValue = Math.Max(resourceCount + count, 0);
+                    int resourceCount = GetResourceCount((ResourceData) data);
+                    int newResourceValue = Math.Max(resourceCount + count, 0);
                     if (count >= 1)
                     {
-                        var resourceCap = GetResourceCap((ResourceData) data);
+                        int resourceCap = GetResourceCap((ResourceData) data);
                         if (resourceCount < resourceCap)
                         {
                             if (newResourceValue > resourceCap)
@@ -69,10 +69,12 @@ namespace UCS.Logic
 
         public int GetResourceCap(ResourceData rd)
         {
-            var index = GetDataIndex(m_vResourceCaps, rd);
-            var count = 0;
+            int index = GetDataIndex(m_vResourceCaps, rd);
+            int count = 0;
             if (index != -1)
+            {
                 count = m_vResourceCaps[index].Value;
+            }
             return count;
         }
 
@@ -80,10 +82,12 @@ namespace UCS.Logic
 
         public int GetResourceCount(ResourceData rd)
         {
-            var index = GetDataIndex(m_vResources, rd);
-            var count = 0;
+            int index = GetDataIndex(m_vResources, rd);
+            int count = 0;
             if (index != -1)
+            {
                 count = m_vResources[index].Value;
+            }
             return count;
         }
 
@@ -95,18 +99,22 @@ namespace UCS.Logic
 
         public int GetUnitCount(CombatItemData cd)
         {
-            var result = 0;
+            int result = 0;
             if (cd.GetCombatItemType() == 1)
             {
-                var index = GetDataIndex(m_vSpellCount, cd);
+                int index = GetDataIndex(m_vSpellCount, cd);
                 if (index != -1)
+                {
                     result = m_vSpellCount[index].Value;
+                }
             }
             else
             {
-                var index = GetDataIndex(m_vUnitCount, cd);
+                int index = GetDataIndex(m_vUnitCount, cd);
                 if (index != -1)
+                {
                     result = m_vUnitCount[index].Value;
+                }
             }
             return result;
         }
@@ -115,29 +123,35 @@ namespace UCS.Logic
 
         public int GetUnitUpgradeLevel(CombatItemData cd)
         {
-            var result = 0;
+            int result = 0;
             switch (cd.GetCombatItemType())
             {
                 case 2:
                     {
-                        var index = GetDataIndex(m_vHeroUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vHeroUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             result = m_vHeroUpgradeLevel[index].Value;
+                        }
                         break;
                     }
                 case 1:
                     {
-                        var index = GetDataIndex(m_vSpellUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vSpellUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             result = m_vSpellUpgradeLevel[index].Value;
+                        }
                         break;
                     }
 
                 default:
                     {
-                        var index = GetDataIndex(m_vUnitUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vUnitUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             result = m_vUnitUpgradeLevel[index].Value;
+                        }
                         break;
                     }
             }
@@ -146,8 +160,8 @@ namespace UCS.Logic
 
         public int GetUnusedResourceCap(ResourceData rd)
         {
-            var resourceCount = GetResourceCount(rd);
-            var resourceCap = GetResourceCap(rd);
+            int resourceCount = GetResourceCount(rd);
+            int resourceCap   = GetResourceCap(rd);
             return Math.Max(resourceCap - resourceCount, 0);
         }
 
@@ -192,10 +206,10 @@ namespace UCS.Logic
 
         public void SetHeroHealth(HeroData hd, int health)
         {
-            var index = GetDataIndex(m_vHeroHealth, hd);
+            int index = GetDataIndex(m_vHeroHealth, hd);
             if (index == -1)
             {
-                var ds = new DataSlot(hd, health);
+                DataSlot ds = new DataSlot(hd, health);
                 m_vHeroHealth.Add(ds);
             }
             else
@@ -206,10 +220,10 @@ namespace UCS.Logic
 
         public void SetHeroState(HeroData hd, int state)
         {
-            var index = GetDataIndex(m_vHeroState, hd);
+            int index = GetDataIndex(m_vHeroState, hd);
             if (index == -1)
             {
-                var ds = new DataSlot(hd, state);
+                DataSlot ds = new DataSlot(hd, state);
                 m_vHeroState.Add(ds);
             }
             else
@@ -220,10 +234,10 @@ namespace UCS.Logic
 
         public void SetResourceCap(ResourceData rd, int value)
         {
-            var index = GetDataIndex(m_vResourceCaps, rd);
+            int index = GetDataIndex(m_vResourceCaps, rd);
             if (index == -1)
             {
-                var ds = new DataSlot(rd, value);
+                DataSlot ds = new DataSlot(rd, value);
                 m_vResourceCaps.Add(ds);
             }
             else
@@ -234,10 +248,10 @@ namespace UCS.Logic
 
         public void SetResourceCount(ResourceData rd, int value)
         {
-            var index = GetDataIndex(m_vResources, rd);
+            int index = GetDataIndex(m_vResources, rd);
             if (index == -1)
             {
-                var ds = new DataSlot(rd, value);
+                DataSlot ds = new DataSlot(rd, value);
                 m_vResources.Add(ds);
             }
             else
@@ -252,24 +266,28 @@ namespace UCS.Logic
             {
                 case 1:
                     {
-                        var index = GetDataIndex(m_vSpellCount, cd);
+                        int index = GetDataIndex(m_vSpellCount, cd);
                         if (index != -1)
+                        {
                             m_vSpellCount[index].Value = count;
+                        }
                         else
                         {
-                            var ds = new DataSlot(cd, count);
+                            DataSlot ds = new DataSlot(cd, count);
                             m_vSpellCount.Add(ds);
                         }
                         break;
                     }
                 default:
                     {
-                        var index = GetDataIndex(m_vUnitCount, cd);
+                        int index = GetDataIndex(m_vUnitCount, cd);
                         if (index != -1)
+                        {
                             m_vUnitCount[index].Value = count;
+                        }
                         else
                         {
-                            var ds = new DataSlot(cd, count);
+                            DataSlot ds = new DataSlot(cd, count);
                             m_vUnitCount.Add(ds);
                         }
                         break;
@@ -283,36 +301,42 @@ namespace UCS.Logic
             {
                 case 2:
                     {
-                        var index = GetDataIndex(m_vHeroUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vHeroUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             m_vHeroUpgradeLevel[index].Value = level;
+                        }
                         else
                         {
-                            var ds = new DataSlot(cd, level);
+                            DataSlot ds = new DataSlot(cd, level);
                             m_vHeroUpgradeLevel.Add(ds);
                         }
                         break;
                     }
                 case 1:
                     {
-                        var index = GetDataIndex(m_vSpellUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vSpellUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             m_vSpellUpgradeLevel[index].Value = level;
+                        }
                         else
                         {
-                            var ds = new DataSlot(cd, level);
+                            DataSlot ds = new DataSlot(cd, level);
                             m_vSpellUpgradeLevel.Add(ds);
                         }
                         break;
                     }
                 default:
                     {
-                        var index = GetDataIndex(m_vUnitUpgradeLevel, cd);
+                        int index = GetDataIndex(m_vUnitUpgradeLevel, cd);
                         if (index != -1)
+                        {
                             m_vUnitUpgradeLevel[index].Value = level;
+                        }
                         else
                         {
-                            var ds = new DataSlot(cd, level);
+                            DataSlot ds = new DataSlot(cd, level);
                             m_vUnitUpgradeLevel.Add(ds);
                         }
                         break;

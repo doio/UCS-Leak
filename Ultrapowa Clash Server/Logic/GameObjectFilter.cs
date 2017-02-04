@@ -9,7 +9,9 @@ namespace UCS.Logic
         public void AddIgnoreObject(GameObject go)
         {
             if (m_vIgnoredObjects == null)
+            {
                 m_vIgnoredObjects = new List<int>();
+            }
             m_vIgnoredObjects.Add(go.GlobalId);
         }
 
@@ -26,7 +28,7 @@ namespace UCS.Logic
 
         public bool TestGameObject(GameObject go)
         {
-            var result = true;
+            bool result = true;
             if (m_vIgnoredObjects != null)
             {
                 result = m_vIgnoredObjects.IndexOf(go.GlobalId) == -1;

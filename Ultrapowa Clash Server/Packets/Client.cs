@@ -239,9 +239,9 @@ namespace UCS.Packets
 
         public void SetLevel(Level l) => m_vLevel = l;
 
-        public bool TryGetPacket(out Message p)
+        public bool TryGetPacket(out Message _Message)
         {
-            p = null;
+            _Message = null;
             bool result = false;
             if (DataStream.Count >= 5)
             {
@@ -255,7 +255,7 @@ namespace UCS.Packets
                         obj = MessageFactory.Read(this, br, type);
                     if (obj != null)
                     {
-                        p = (Message)obj;
+                        _Message = (Message)obj;
                         result = true;
                     }
                     else

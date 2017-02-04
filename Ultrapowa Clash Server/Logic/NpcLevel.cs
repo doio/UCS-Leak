@@ -16,9 +16,9 @@
 
         public NpcLevel(int index)
         {
-            Index = index;
-            Stars = 0;
-            LootedGold = 0;
+            Index        = index;
+            Stars        = 0;
+            LootedGold   = 0;
             LootedElixir = 0;
         }
     }

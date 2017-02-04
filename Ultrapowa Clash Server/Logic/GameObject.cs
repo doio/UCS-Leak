@@ -12,11 +12,13 @@ namespace UCS.Logic
     {
         public GameObject(Data data, Level level)
         {
-            m_vLevel = level;
-            m_vData = data;
+            m_vLevel      = level;
+            m_vData       = data;
             m_vComponents = new List<Component>();
             for (var i = 0; i < 11; i++)
+            {
                 m_vComponents.Add(new Component());
+            }
         }
 
         readonly List<Component> m_vComponents;
@@ -43,13 +45,6 @@ namespace UCS.Logic
 
         public int L3Y { get; set; }*/
 
-        /*public int GetLayoutByID(int id)
-        {
-            if(id == Convert.ToInt32(Layouts.Layout.Layout2))
-            {
-            }
-        }*/ // TODO: Find Function 
-
         public void AddComponent(Component c)
         {
             if (m_vComponents[c.Type].Type != -1)
@@ -66,7 +61,9 @@ namespace UCS.Logic
         {
             Component result = null;
             if (!test || m_vComponents[index].IsEnabled())
+            {
                 result = m_vComponents[index];
+            }
             return result;
         }
 
@@ -102,7 +99,7 @@ namespace UCS.Logic
                 }
             } */
 
-            foreach(var c in m_vComponents)
+            foreach(Component c in m_vComponents)
             {
                 c.Load(jsonObject);
             }
@@ -139,7 +136,7 @@ namespace UCS.Logic
                 }  
             }*/
 
-            foreach(var c in m_vComponents)
+            foreach(Component c in m_vComponents)
             {
                 c.Save(jsonObject);
             }
@@ -173,7 +170,7 @@ namespace UCS.Logic
 
         public virtual void Tick()
         {
-            foreach(var comp in m_vComponents)
+            foreach(Component comp in m_vComponents)
             {
                 if (comp.IsEnabled())
                     comp.Tick();

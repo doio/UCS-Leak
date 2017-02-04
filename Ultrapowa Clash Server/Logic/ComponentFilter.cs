@@ -13,16 +13,18 @@
 
         public bool TestComponent(Component c)
         {
-            var go = c.GetParent();
+            GameObject go = c.GetParent();
             return TestGameObject(go);
         }
 
         public new bool TestGameObject(GameObject go)
         {
-            var result = false;
-            var c = go.GetComponent(Type, true);
+            bool result = false;
+            Component c = go.GetComponent(Type, true);
             if (c != null)
+            {
                 result = base.TestGameObject(go);
+            }
             return result;
         }
     }

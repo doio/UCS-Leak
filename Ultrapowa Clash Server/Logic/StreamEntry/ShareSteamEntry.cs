@@ -38,16 +38,16 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            Unknown1 = jsonObject["unknown1"].ToObject<int>();
-            Unknown2 = jsonObject["unknown2"].ToObject<int>();
-            Unknown3 = jsonObject["unknown3"].ToObject<int>();
-            Unknown4 = jsonObject["unknown4"].ToObject<byte>();
-            Message = jsonObject["message"].ToObject<string>();
-            EnemyName = jsonObject["enemy"].ToObject<string>();
+            Unknown1   = jsonObject["unknown1"].ToObject<int>();
+            Unknown2   = jsonObject["unknown2"].ToObject<int>();
+            Unknown3   = jsonObject["unknown3"].ToObject<int>();
+            Unknown4   = jsonObject["unknown4"].ToObject<byte>();
+            Message    = jsonObject["message"].ToObject<string>();
+            EnemyName  = jsonObject["enemy"].ToObject<string>();
             ReplayJson = jsonObject["replay"].ToObject<string>();
-            Unknown5 = jsonObject["unknown5"].ToObject<int>();
-            Unknown6 = jsonObject["unknown6"].ToObject<int>();
-            Unknown7 = jsonObject["unknown7"].ToObject<int>();
+            Unknown5   = jsonObject["unknown5"].ToObject<int>();
+            Unknown6   = jsonObject["unknown6"].ToObject<int>();
+            Unknown7   = jsonObject["unknown7"].ToObject<int>();
         }
 
         public override JObject Save(JObject jsonObject)

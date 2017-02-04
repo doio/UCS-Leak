@@ -21,53 +21,24 @@ namespace UCS.Logic
 
         public Level()
         {
-            WorkerManager = new WorkerManager();
-            GameObjectManager = new GameObjectManager(this);
-            m_vClientAvatar = new ClientAvatar();
+            WorkerManager        = new WorkerManager();
+            GameObjectManager    = new GameObjectManager(this);
+            m_vClientAvatar      = new ClientAvatar();
             m_vAccountPrivileges = 0;
-            m_vAccountStatus = 0;
-            m_vIPAddress = "0.0.0.0";
+            m_vAccountStatus     = 0;
+            m_vIPAddress         = "0.0.0.0";
         }
 
         public Level(long id, string token)
         {
-            WorkerManager = new WorkerManager();
-            GameObjectManager = new GameObjectManager(this);
-            m_vClientAvatar = new ClientAvatar(id, token);
+            WorkerManager        = new WorkerManager();
+            GameObjectManager    = new GameObjectManager(this);
+            m_vClientAvatar      = new ClientAvatar(id, token);
             m_vTime = DateTime.UtcNow;
             m_vAccountPrivileges = 0;
-            m_vAccountStatus = 0;
-            m_vIPAddress = "0.0.0.0";
+            m_vAccountStatus     = 0;
+            m_vIPAddress         = "0.0.0.0";
         }
-
-        /*public ucsdbEntities SaveToDatabse(ucsdbEntities context)
-        {
-            var p = context.player.Find(GetPlayerAvatar().GetId());
-            if (p != null)
-            {
-                p.LastUpdateTime = GetTime();
-                p.AccountStatus = GetAccountStatus();
-                p.AccountPrivileges = GetAccountPrivileges();
-                p.Avatar = GetPlayerAvatar().SaveToJSON();
-                p.GameObjects = SaveToJSON();
-                context.Entry(p).State = EntityState.Modified;
-            }
-            else
-            {
-                context.player.Add(
-                    new player
-                    {
-                        PlayerId = GetPlayerAvatar().GetId(),
-                        AccountStatus = GetAccountStatus(),
-                        AccountPrivileges = GetAccountPrivileges(),
-                        LastUpdateTime = GetTime(),
-                        Avatar = GetPlayerAvatar().SaveToJSON(),
-                        GameObjects = SaveToJSON()
-                    }
-                    );
-            }
-            return context;
-        }*/ // Not needed
 
         public byte GetAccountPrivileges() => m_vAccountPrivileges;
 

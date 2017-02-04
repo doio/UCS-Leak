@@ -11,7 +11,7 @@ namespace UCS.Logic
     {
         public DataSlot(Data d, int value)
         {
-            Data = d;
+            Data  = d;
             Value = value;
         }
 
@@ -20,7 +20,7 @@ namespace UCS.Logic
 
         public void Decode(PacketReader br)
         {
-            Data = br.ReadDataReference();
+            Data  = br.ReadDataReference();
             Value = br.ReadInt32WithEndian();
         }
 
@@ -34,7 +34,7 @@ namespace UCS.Logic
 
         public void Load(JObject jsonObject)
         {
-            Data = CSVManager.DataTables.GetDataById(jsonObject["global_id"].ToObject<int>());
+            Data  = CSVManager.DataTables.GetDataById(jsonObject["global_id"].ToObject<int>());
             Value = jsonObject["value"].ToObject<int>();
         }
 

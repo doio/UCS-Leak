@@ -14,8 +14,8 @@ namespace UCS.Logic.DataSlots
     {
         public TroopDataSlot(Data d, int value, int value1)
         {
-            Data = d;
-            Value = value;
+            Data   = d;
+            Value  = value;
             Value1 = value1;
         }
 
@@ -25,8 +25,8 @@ namespace UCS.Logic.DataSlots
 
         public void Decode(PacketReader br)
         {
-            Data = br.ReadDataReference();
-            Value = br.ReadInt32WithEndian();
+            Data   = br.ReadDataReference();
+            Value  = br.ReadInt32WithEndian();
             Value1 = br.ReadInt32WithEndian();
         }
 
@@ -41,8 +41,8 @@ namespace UCS.Logic.DataSlots
 
         public void Load(JObject jsonObject)
         {
-            Data = CSVManager.DataTables.GetDataById(jsonObject["global_id"].ToObject<int>());
-            Value = jsonObject["count"].ToObject<int>();
+            Data   = CSVManager.DataTables.GetDataById(jsonObject["global_id"].ToObject<int>());
+            Value  = jsonObject["count"].ToObject<int>();
             Value1 = jsonObject["level"].ToObject<int>();
         }
 

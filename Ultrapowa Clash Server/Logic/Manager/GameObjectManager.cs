@@ -9,17 +9,17 @@ namespace UCS.Logic.Manager
     {
         public GameObjectManager(Level l)
         {
-            m_vLevel = l;
-            m_vGameObjects = new List<List<GameObject>>();
+            m_vLevel                = l;
+            m_vGameObjects          = new List<List<GameObject>>();
             m_vGameObjectRemoveList = new List<GameObject>();
-            m_vGameObjectsIndex = new List<int>();
+            m_vGameObjectsIndex     = new List<int>();
             for (var i = 0; i < 7; i++)
             {
                 m_vGameObjects.Add(new List<GameObject>());
                 m_vGameObjectsIndex.Add(0);
             }
-            m_vComponentManager = new ComponentManager(m_vLevel);
-			//m_vObstacleManager = new ObstacleManager(m_vLevel);
+            m_vComponentManager     = new ComponentManager(m_vLevel);
+			//m_vObstacleManager      = new ObstacleManager(m_vLevel);
 		}
 
         readonly ComponentManager m_vComponentManager;

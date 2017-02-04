@@ -23,7 +23,7 @@ namespace UCS.Logic
 
         public virtual byte[] Encode()
         {
-            var data = new List<byte>();
+            List<byte> data = new List<byte>();
             data.AddInt32(m_vUnknown1);
             return data.ToArray();
         }

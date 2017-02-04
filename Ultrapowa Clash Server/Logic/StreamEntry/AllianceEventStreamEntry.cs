@@ -37,8 +37,8 @@ namespace UCS.Logic.StreamEntry
         public override void Load(JObject jsonObject)
         {
             m_vAvatarName = jsonObject["avatar_name"].ToObject<string>();
-            m_vEventType = jsonObject["event_type"].ToObject<int>();
-            m_vAvatarId = jsonObject["avatar_id"].ToObject<long>();
+            m_vEventType  = jsonObject["event_type"].ToObject<int>();
+            m_vAvatarId   = jsonObject["avatar_id"].ToObject<long>();
         }
 
         public override JObject Save(JObject jsonObject)

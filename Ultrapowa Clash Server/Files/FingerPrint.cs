@@ -11,7 +11,7 @@ namespace UCS.Files
         public FingerPrint()
         {
 
-            files = new List<GameFile>();
+            files           = new List<GameFile>();
             string fpstring = null;
 
             if (File.Exists(@"Gamefiles/fingerprint.json"))
@@ -31,8 +31,7 @@ namespace UCS.Files
 
         public void LoadFromJson(string jsonString)
         {
-            JObject jsonObject = JObject.Parse(jsonString);
-
+            JObject jsonObject    = JObject.Parse(jsonString);
             JArray jsonFilesArray = (JArray)jsonObject["files"];
             foreach (JObject jsonFile in jsonFilesArray)
             {
@@ -46,9 +45,8 @@ namespace UCS.Files
 
         public string SaveToJson()
         {
-            JObject jsonData = new JObject();
-
-            JArray jsonFilesArray = new JArray();
+            JObject jsonData       = new JObject();
+            JArray jsonFilesArray  = new JArray();
             foreach (GameFile file in files)
             {
                 JObject jsonObject = new JObject();
@@ -70,7 +68,7 @@ namespace UCS.Files
 
         public void Load(JObject jsonObject)
         {
-            sha = jsonObject["sha"].ToObject<string>();
+            sha  = jsonObject["sha"].ToObject<string>();
             file = jsonObject["file"].ToObject<string>();
         }
 

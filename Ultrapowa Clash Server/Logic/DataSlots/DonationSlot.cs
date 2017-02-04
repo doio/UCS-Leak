@@ -18,16 +18,16 @@ namespace UCS.Logic.DataSlots
         public DonationSlot(long did, int id, int ucount, int ulevel)
         {
             DonatorID = did;
-            ID = id;
-            Count = ucount;
+            ID        = id;
+            Count     = ucount;
             UnitLevel = ulevel;
         }
 
         public void Decode(PacketReader br)            
         {
             DonatorID = br.ReadInt64WithEndian();
-            ID = br.ReadInt32WithEndian();
-            Count = br.ReadInt32WithEndian();
+            ID        = br.ReadInt32WithEndian();
+            Count     = br.ReadInt32WithEndian();
             UnitLevel = br.ReadInt32WithEndian();
         }
 
@@ -44,8 +44,8 @@ namespace UCS.Logic.DataSlots
         public void Load(JObject jsonObject)
         {
             DonatorID = jsonObject["donatorid"].ToObject<long>();
-            ID = jsonObject["unitid"].ToObject<int>();
-            Count = jsonObject["unitcount"].ToObject<int>();
+            ID        = jsonObject["unitid"].ToObject<int>();
+            Count     = jsonObject["unitcount"].ToObject<int>();
             UnitLevel = jsonObject["unitlevel"].ToObject<int>();
         }
 

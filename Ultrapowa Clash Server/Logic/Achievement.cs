@@ -10,9 +10,9 @@ namespace UCS.Logic
 
         public Achievement(int index)
         {
-            Index = index;
+            Index    = index;
             Unlocked = false;
-            Value = 0;
+            Value    = 0;
         }
 
         public int Id => m_vType + Index;

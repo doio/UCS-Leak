@@ -10,7 +10,7 @@ namespace UCS.Logic
         public Timer()
         {
             m_vStartTime = new DateTime(1970, 1, 1);
-            m_vSeconds = 0;
+            m_vSeconds   = 0;
         }
 
         public void FastForward(int seconds)
@@ -18,23 +18,23 @@ namespace UCS.Logic
             m_vSeconds -= seconds;
         }
 
-        public int GetRemainingSeconds(DateTime time, bool boost = false, DateTime boostEndTime = default(DateTime),
-            float multiplier = 0f)
+        public int GetRemainingSeconds(DateTime time, bool boost = false, DateTime boostEndTime = default(DateTime), float multiplier = 0f)
         {
-            var result = int.MaxValue;
+            int result = int.MaxValue;
             if (!boost)
-                result = m_vSeconds - (int) time.Subtract(m_vStartTime).TotalSeconds;
+            {
+                result = m_vSeconds - (int)time.Subtract(m_vStartTime).TotalSeconds;
+            }
             else
             {
                 if (boostEndTime >= time)
-                    result = m_vSeconds - (int) (time.Subtract(m_vStartTime).TotalSeconds * multiplier);
+                    result = m_vSeconds - (int)(time.Subtract(m_vStartTime).TotalSeconds * multiplier);
                 else
                 {
-                    var boostedTime = (float) time.Subtract(m_vStartTime).TotalSeconds -
-                                      (float) (time - boostEndTime).TotalSeconds;
-                    var notBoostedTime = (float) time.Subtract(m_vStartTime).TotalSeconds - boostedTime;
+                    Single boostedTime = (float)time.Subtract(m_vStartTime).TotalSeconds - (float)(time - boostEndTime).TotalSeconds;
+                    Single notBoostedTime = (float)time.Subtract(m_vStartTime).TotalSeconds - boostedTime;
 
-                    result = m_vSeconds - (int) (boostedTime * multiplier + notBoostedTime);
+                    result = m_vSeconds - (int)(boostedTime * multiplier + notBoostedTime);
                 }
             }
             if (result <= 0)
@@ -44,9 +44,11 @@ namespace UCS.Logic
 
         public int GetRemainingSeconds(DateTime time)
         {
-            var result = m_vSeconds - (int) time.Subtract(m_vStartTime).TotalSeconds;
+            int result = m_vSeconds - (int) time.Subtract(m_vStartTime).TotalSeconds;
             if (result <= 0)
+            {
                 result = 0;
+            }
             return result;
         }
 

@@ -23,14 +23,14 @@ namespace UCS.Logic.StreamEntry
         private int m_vSenderLeagueId;
         private int m_vSenderLevel;
         private int m_vSenderRole;
-        private int m_vType = -1;
+        private int m_vType        = -1;
         private string m_vSenderName;
         private DateTime m_vMessageTime;
         public string m_vMessage;
         public int m_vMaxTroop;
         public int m_vDonatedTroop = 0;
         public int m_vDonatedSpell = 0;
-        public int m_vState = 1; // 3 Refused - 2 Accepted - 1 Waiting
+        public int m_vState        = 1; // 3 Refused - 2 Accepted - 1 Waiting
         public string m_vJudge;
 
         public virtual byte[] Encode()
@@ -75,15 +75,15 @@ namespace UCS.Logic.StreamEntry
 
         public virtual void Load(JObject jsonObject)
         {
-            m_vType = jsonObject["type"].ToObject<int>();
-            m_vId = jsonObject["id"].ToObject<int>();
-            m_vSenderId = jsonObject["sender_id"].ToObject<long>();
-            m_vHomeId = jsonObject["home_id"].ToObject<long>();
-            m_vSenderLevel = jsonObject["sender_level"].ToObject<int>();
-            m_vSenderName = jsonObject["sender_name"].ToObject<string>();
+            m_vType           = jsonObject["type"].ToObject<int>();
+            m_vId             = jsonObject["id"].ToObject<int>();
+            m_vSenderId       = jsonObject["sender_id"].ToObject<long>();
+            m_vHomeId         = jsonObject["home_id"].ToObject<long>();
+            m_vSenderLevel    = jsonObject["sender_level"].ToObject<int>();
+            m_vSenderName     = jsonObject["sender_name"].ToObject<string>();
             m_vSenderLeagueId = jsonObject["sender_leagueId"].ToObject<int>();
-            m_vSenderRole = jsonObject["sender_role"].ToObject<int>();
-            m_vMessageTime = jsonObject["message_time"].ToObject<DateTime>();
+            m_vSenderRole     = jsonObject["sender_role"].ToObject<int>();
+            m_vMessageTime    = jsonObject["message_time"].ToObject<DateTime>();
         }
 
         public virtual JObject Save(JObject jsonObject)
@@ -103,12 +103,12 @@ namespace UCS.Logic.StreamEntry
 
         public void SetSender(ClientAvatar avatar)
         {
-            m_vSenderId = avatar.GetId();
-            m_vHomeId = avatar.GetId();
-            m_vSenderName = avatar.GetAvatarName();
+            m_vSenderId       = avatar.GetId();
+            m_vHomeId         = avatar.GetId();
+            m_vSenderName     = avatar.GetAvatarName();
             m_vSenderLeagueId = avatar.GetLeagueId();
-            m_vSenderLevel = avatar.GetAvatarLevel();
-            m_vSenderRole = avatar.GetAllianceRole();
+            m_vSenderLevel    = avatar.GetAvatarLevel();
+            m_vSenderRole     = avatar.GetAllianceRole();
         }
 
         public void SetHomeId(long id) => m_vHomeId = id;
@@ -138,12 +138,11 @@ namespace UCS.Logic.StreamEntry
         public void AddDonatedTroop(long did, int id, int value, int level)
         {
             m_vDonatedTroop = m_vDonatedTroop + ((CombatItemData)CSVManager.DataTables.GetDataById(id)).GetHousingSpace();
-            DonationSlot e = m_vUnitDonation.Find(t => t.ID == id && t.UnitLevel == level);
+            DonationSlot e  = m_vUnitDonation.Find(t => t.ID == id && t.UnitLevel == level);
             if (e != null)
             {
-                // Troops already exist.
-                int i = m_vUnitDonation.IndexOf(e);
-                e.Count = e.Count + value;
+                int i              = m_vUnitDonation.IndexOf(e);
+                e.Count            = e.Count + value;
                 m_vUnitDonation[i] = e;
             }
             else
