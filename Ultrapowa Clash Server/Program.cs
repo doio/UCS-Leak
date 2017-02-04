@@ -24,7 +24,7 @@ namespace UCS
 
         internal static void Main(string[] args)
         {
-            new Thread(() =>
+            new Thread((ThreadStart)(() =>
             {
                 _Stopwatch.Start();
 
@@ -86,7 +86,7 @@ namespace UCS
                     Thread.Sleep(5000);
                     Environment.Exit(0);
                 }
-            }).Start();
+            })).Start();
         }
 
         public static void TitleU()

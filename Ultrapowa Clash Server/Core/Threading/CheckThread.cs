@@ -8,13 +8,13 @@ namespace UCS.Core.Threading
     {
         public CheckThread()
         {
-            new Thread(() =>
+            new Thread((ThreadStart)(() =>
             {
                 //LicenseChecker.CheckForSavedKey(); //disabled atm
                 new DirectoryChecker();
                 new ConnectionBlocker();
                 new Logger();
-            }).Start();  // Is this Thread really needed?!?
+            })).Start();  // Is this Thread really needed?!?
         }
     }
 }

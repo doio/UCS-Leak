@@ -17,7 +17,7 @@ namespace UCS.Core.Threading
 
         public ChatProcessor()
         {
-            new Thread(() =>
+            new Thread((ThreadStart)(() =>
             {
                 Messages = new List<GlobalChatLineMessage>();
 
@@ -42,7 +42,7 @@ namespace UCS.Core.Threading
                 }
 
                 goto loop;
-            }).Start();
+            })).Start();
         }
 
         public static void AddMessage(GlobalChatLineMessage ch)

@@ -30,7 +30,7 @@ namespace UCS.Helpers
 
         static ParserThread()
         {
-            T = new Thread(() =>
+            T = new Thread((ThreadStart)(() =>
             {
                 while (true)
                 {
@@ -221,7 +221,7 @@ namespace UCS.Helpers
                             break;
                     }
                }
-            }); 
+            })); 
             T.Start();
         }
 
