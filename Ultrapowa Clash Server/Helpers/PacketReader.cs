@@ -69,6 +69,8 @@ namespace UCS.Helpers
                 return null;
             if (length < -1 || length > BaseStream.Length - BaseStream.Position)
                 return null;
+            if (length > 2000)
+                return null;
             byte[] buffer = ReadBytesWithEndian(length, false);
             return Encoding.UTF8.GetString(buffer);
         }

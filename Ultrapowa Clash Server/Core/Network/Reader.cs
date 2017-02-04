@@ -39,7 +39,7 @@ namespace UCS.Core.Network
 					byte[] read = new byte[bytesRead];
 					Array.Copy(_buffer, 0, read, 0, bytesRead);
 					_readHandler(this, read);
-					Socket.BeginReceive(_buffer, 0, bytesRead, 0, OnReceive, this);
+					Socket.BeginReceive(_buffer, 0, BufferSize, 0, OnReceive, this);
 				}
 			}
 			catch (Exception)

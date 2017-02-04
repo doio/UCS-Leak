@@ -24,11 +24,11 @@ namespace UCS.Core.Threading
                 {
                     AllDone.Reset();
 
-                    /*foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
+                    foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
                     {
                         if (!_Player.GetClient().IsClientSocketConnected())
                             ResourcesManager.DropClient(_Player.GetClient().GetSocketHandle());
-                    }*/ // No more needed
+                    } // No more needed
 
                     GC.Collect(GC.MaxGeneration);
                     GC.WaitForPendingFinalizers();
