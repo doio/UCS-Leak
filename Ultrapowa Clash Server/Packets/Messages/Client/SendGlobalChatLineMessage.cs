@@ -75,7 +75,7 @@ namespace UCS.Packets.Messages.Client
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
                                     p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
 
-                                    GlobalChatThread.AddMessage(p);
+                                    ChatProcessor.AddMessage(p);
                                     //PacketManager.Send(p);
                                 //}
                             }
@@ -93,7 +93,7 @@ namespace UCS.Packets.Messages.Client
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
                                     p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
                                     //PacketManager.Send(p);
-                                    GlobalChatThread.AddMessage(p);
+                                    ChatProcessor.AddMessage(p);
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
                                 //}
                             }

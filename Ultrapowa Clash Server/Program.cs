@@ -66,7 +66,7 @@ namespace UCS
                     new MemoryThread();
                     new NetworkThread();
                     new ParserThread();
-                    new GlobalChatThread();
+                    new ChatProcessor();
                 }
                 else if (Version == "Error")
                 {
