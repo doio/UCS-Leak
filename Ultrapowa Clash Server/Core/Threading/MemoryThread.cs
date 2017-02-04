@@ -12,24 +12,31 @@ namespace UCS.Core.Threading
 {
     internal class MemoryThread
     {
+        public static ManualResetEvent AllDone = new ManualResetEvent(false);
+
         public MemoryThread()
         {
-            new Thread((ThreadStart)(() =>
+            new Thread(() =>
             {
                 System.Timers.Timer timer = new System.Timers.Timer();
-                timer.Interval = 5000.0;
-                timer.Elapsed += (ElapsedEventHandler)((s, a) =>
+                timer.Interval = 5000;
+                timer.Elapsed += ((s, a) =>
                 {
-                    foreach (Level inMemoryLevel in ResourcesManager.GetInMemoryLevels())
+                    AllDone.Reset();
+
+                    /*foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
                     {
-                        if (!inMemoryLevel.GetClient().IsClientSocketConnected())
-                            ResourcesManager.DropClient(inMemoryLevel.GetClient().GetSocketHandle());
-                    }
+                        if (!_Player.GetClient().IsClientSocketConnected())
+                            ResourcesManager.DropClient(_Player.GetClient().GetSocketHandle());
+                    }*/ // No more needed
+
                     GC.Collect(GC.MaxGeneration);
                     GC.WaitForPendingFinalizers();
+
+                    AllDone.WaitOne();
                 });
                 timer.Enabled = true;
-            })).Start();
+            }).Start();
         }
     }
 }

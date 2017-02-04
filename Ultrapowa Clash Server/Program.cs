@@ -20,6 +20,8 @@ namespace UCS
 
         public static Stopwatch _Stopwatch = new Stopwatch();
 
+        public static string Version { get; set; }
+
         internal static void Main(string[] args)
         {
             new Thread(() =>
@@ -46,8 +48,9 @@ namespace UCS
                     Console.WriteLine("[UCS]    > UCS is running under Pepper mode. Please make sure client key is modded.");
                 Console.Write("[UCS]    ");
                 Console.ForegroundColor = ConsoleColor.Blue;
+                Version = VersionChecker.GetVersionString();
 
-                if (VersionChecker.GetVersionString() == Constants.Version)
+                if (Version == Constants.Version)
                 {
                     Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
 
@@ -63,7 +66,18 @@ namespace UCS
                     new MemoryThread();
                     new NetworkThread();
                     new ParserThread();
-                    //new GlobalChatThread();
+                    new GlobalChatThread();
+                }
+                else if (Version == "Error")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("> An Error occured when requesting the Version number.");
+                    Console.WriteLine();
+                    Logger.Say("Please contact the Support at https://ultrapowa.com/forum!");
+                    Console.WriteLine();
+                    Logger.Say("Aborting...");
+                    Thread.Sleep(5000);
+                    Environment.Exit(0);
                 }
                 else
                 {

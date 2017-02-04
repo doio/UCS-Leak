@@ -15,8 +15,6 @@ namespace UCS.Core.Threading
     {
         public static List<GlobalChatLineMessage> Messages;
 
-        // THIS IS JUST FOR TESTING!
-
         public GlobalChatThread()
         {
             new Thread(() =>
@@ -29,16 +27,18 @@ namespace UCS.Core.Threading
                 {
                     try
                     {
-                        lock (Messages)
+                        foreach (GlobalChatLineMessage cl in Messages)
                         {
-                            foreach (GlobalChatLineMessage cl in Messages)
-                            {
-                                PacketManager.Send(cl);
-                                Messages.Remove(cl);
-                            }
+                            PacketManager.Send(cl);
+                            Messages.Remove(cl);
                         }
                     }
                     catch (Exception) { goto loop; }
+                }
+                else if (!MessageIsWaiting())
+                {
+                    Thread.Sleep(1);
+                    goto loop;
                 }
 
                 goto loop;
@@ -60,16 +60,13 @@ namespace UCS.Core.Threading
         {
             try
             {
-                lock (Messages)
+                if (!Messages.Any())
                 {
-                    if (!Messages.Any())
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
             }
             catch (Exception) { return false; }

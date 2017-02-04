@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Checker;
 using UCS.Core.Network;
+using UCS.Core.Threading;
 using UCS.Helpers;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
@@ -58,8 +59,8 @@ namespace UCS.Packets.Messages.Client
                         {
                             foreach (Level pl in ResourcesManager.GetOnlinePlayers())
                             {
-                                if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                {
+                                /*if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
+                                {*/
                                     GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
                                     string NewMessage = "";
 
@@ -73,25 +74,28 @@ namespace UCS.Packets.Messages.Client
                                     p.SetPlayerId(senderId);
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
                                     p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                                    PacketManager.Send(p);
-                                }
+
+                                    GlobalChatThread.AddMessage(p);
+                                    //PacketManager.Send(p);
+                                //}
                             }
                         }
                         else
                         {
                             foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                             {
-                                if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                {
+                                /*if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
+                                {*/
                                     GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
                                     p.SetPlayerName(senderName);
                                     p.SetChatMessage(Message);
                                     p.SetPlayerId(senderId);
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
                                     p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                                    PacketManager.Send(p);
+                                    //PacketManager.Send(p);
+                                    GlobalChatThread.AddMessage(p);
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
-                                }
+                                //}
                             }
                         }
                     }
