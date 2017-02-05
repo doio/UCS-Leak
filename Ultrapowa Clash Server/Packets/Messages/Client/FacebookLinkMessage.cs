@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UCS.Core;
+using UCS.Core.Network;
 using UCS.Helpers;
 using UCS.Logic;
+using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -28,10 +32,19 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            // Todo's:
-            //       - Send Message to User that Login was succesfull.
-            //       - Save UserID in ClientAvatar
-            //       - Send Message to login into the CoC Acc
+            ClientAvatar player = level.GetPlayerAvatar();
+
+            if (ResourcesManager.GetPlayerWithFacebookID(UserID) != null)
+            {
+                Level l = ResourcesManager.GetPlayerWithFacebookID(UserID);
+                PacketManager.Send(new OwnHomeDataMessage(Client, l)); // Not done
+                PacketManager.Send(new OutOfSyncMessage(l.GetClient()));
+            }
+            else
+            {
+                player.SetFacebookID(UserID);
+                PacketManager.Send(new OutOfSyncMessage(Client));
+            }
         }
     }
 }

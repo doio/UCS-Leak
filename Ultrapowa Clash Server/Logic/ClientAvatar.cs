@@ -45,6 +45,7 @@ namespace UCS.Logic
         string m_vAvatarName;
         string m_vToken;
         string m_vRegion;
+        string m_vFacebookID;
 
         // Boolean
         bool m_vPremium;
@@ -390,6 +391,8 @@ namespace UCS.Logic
 
         public int GetActiveLayout() =>  m_vActiveLayout;
 
+        public string GetFacebookID() => m_vFacebookID; 
+
         public string GetAvatarName() => m_vAvatarName;
 
         public long GetCurrentHomeId() => m_vCurrentHomeId;
@@ -450,6 +453,7 @@ namespace UCS.Logic
             m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
             m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
             m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
+            m_vFacebookID = jsonObject["facebookID"].ToObject<string>();
 
             var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
             foreach (JObject jobject in jsonBookmarkedClan)
@@ -614,6 +618,7 @@ namespace UCS.Logic
             jsonData.Add("nameChosenByUser", (ushort) m_vnameChosenByUser);
             jsonData.Add("shield_time", m_vShieldTime);
             jsonData.Add("protection_time", m_vProtectionTime);
+            jsonData.Add("facebookID", m_vFacebookID);
 
             JArray jsonBookmarkClan = new JArray();
             foreach (var clan in BookmarkedClan)
@@ -759,6 +764,8 @@ namespace UCS.Logic
         public void SetAlliance_DarkElixir(int drkelixir) => m_vAlliance_DarkElixir = drkelixir;
 
         public void SetShieldTime(int time) => m_vShieldTime = time;
+
+        public void SetFacebookID(string id) => m_vFacebookID = id;
 
         public void SetProtectionTime(int time) => m_vProtectionTime = time;
 

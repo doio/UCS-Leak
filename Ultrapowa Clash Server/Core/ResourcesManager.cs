@@ -106,6 +106,31 @@ namespace UCS.Core
             return m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
         }
 
+        public static Level GetPlayerWithFacebookID(string id)
+        {
+            foreach (Level p in GetInMemoryLevels())
+            {
+                if (p.GetPlayerAvatar().GetFacebookID() == id)
+                {
+                    return p;
+                }
+                else
+                {
+                    for (long i = 1; i < ObjectManager.GetMaxPlayerID(); i++)
+                    {
+                        Level l = m_vDatabase.GetAccount(i);
+
+                        if (l.GetPlayerAvatar().GetFacebookID() == id)
+                        {
+                            return l;
+                            break;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         public static bool IsPlayerOnline(Level l)
         {
             return m_vOnlinePlayers.Contains(l);
