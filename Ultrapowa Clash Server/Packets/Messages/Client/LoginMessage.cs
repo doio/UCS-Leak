@@ -119,7 +119,7 @@ namespace UCS.Packets.Messages.Client
                                            
                 if(!Constants.IsPremiumServer)
                 {
-                    if (ResourcesManager.GetOnlinePlayers().Count >= 100)
+                    if (ResourcesManager.GetOnlinePlayers().Count >= 200)
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Client);
                         p.SetErrorCode(11);

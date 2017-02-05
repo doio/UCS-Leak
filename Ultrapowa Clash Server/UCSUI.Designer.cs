@@ -150,30 +150,30 @@ namespace UCS
             this.materialTabSelector3 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl3 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.materialRaisedButton21 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.txtAllianceScore = new MaterialSkin.Controls.MaterialLabel();
+            this.txtAllianceLevel = new System.Windows.Forms.TextBox();
+            this.materialLabel39 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialRaisedButton22 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialRaisedButton23 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialRaisedButton24 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.materialLabel43 = new MaterialSkin.Controls.MaterialLabel();
+            this.txtAllianceDescription = new System.Windows.Forms.TextBox();
+            this.alliancename = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel47 = new MaterialSkin.Controls.MaterialLabel();
+            this.txtAllianceName = new System.Windows.Forms.TextBox();
+            this.materialLabel48 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.materialRaisedButton21 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialLabel48 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceName = new System.Windows.Forms.TextBox();
-            this.materialLabel47 = new MaterialSkin.Controls.MaterialLabel();
-            this.alliancename = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceDescription = new System.Windows.Forms.TextBox();
-            this.materialLabel43 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtID = new System.Windows.Forms.TextBox();
-            this.materialRaisedButton24 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialRaisedButton23 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialRaisedButton22 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialLabel39 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceLevel = new System.Windows.Forms.TextBox();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.txtAllianceScore = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -189,8 +189,8 @@ namespace UCS
             this.tabPage7.SuspendLayout();
             this.materialTabControl3.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.tabPage8.SuspendLayout();
             this.tabPage10.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -1607,6 +1607,19 @@ namespace UCS
             this.tabPage9.Text = "Alliance List";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
+            // materialRaisedButton21
+            // 
+            this.materialRaisedButton21.Depth = 0;
+            this.materialRaisedButton21.Location = new System.Drawing.Point(617, 43);
+            this.materialRaisedButton21.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton21.Name = "materialRaisedButton21";
+            this.materialRaisedButton21.Primary = true;
+            this.materialRaisedButton21.Size = new System.Drawing.Size(69, 23);
+            this.materialRaisedButton21.TabIndex = 3;
+            this.materialRaisedButton21.Text = "Refresh";
+            this.materialRaisedButton21.UseVisualStyleBackColor = true;
+            this.materialRaisedButton21.Click += new System.EventHandler(this.materialRaisedButton21_Click);
+            // 
             // listView2
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -1653,190 +1666,6 @@ namespace UCS
             this.columnHeader10.Text = "Trophies";
             this.columnHeader10.Width = 101;
             // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.materialLabel40);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(700, 354);
-            this.tabPage8.TabIndex = 5;
-            this.tabPage8.Text = "About";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // materialLabel40
-            // 
-            this.materialLabel40.AutoSize = true;
-            this.materialLabel40.Depth = 0;
-            this.materialLabel40.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel40.Location = new System.Drawing.Point(214, 158);
-            this.materialLabel40.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel40.Name = "materialLabel40";
-            this.materialLabel40.Size = new System.Drawing.Size(272, 38);
-            this.materialLabel40.TabIndex = 2;
-            this.materialLabel40.Text = "             ©Ultrapowa 2014-2016\r\nThis program is copyrighted worldwide.";
-            // 
-            // materialTabSelector1
-            // 
-            this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
-            this.materialTabSelector1.Depth = 0;
-            this.materialTabSelector1.Location = new System.Drawing.Point(-1, 62);
-            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
-            this.materialTabSelector1.TabIndex = 1;
-            this.materialTabSelector1.Text = "materialTabSelector1";
-            this.materialTabSelector1.Click += new System.EventHandler(this.materialTabSelector1_Click);
-            // 
-            // materialRaisedButton21
-            // 
-            this.materialRaisedButton21.Depth = 0;
-            this.materialRaisedButton21.Location = new System.Drawing.Point(617, 43);
-            this.materialRaisedButton21.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton21.Name = "materialRaisedButton21";
-            this.materialRaisedButton21.Primary = true;
-            this.materialRaisedButton21.Size = new System.Drawing.Size(69, 23);
-            this.materialRaisedButton21.TabIndex = 3;
-            this.materialRaisedButton21.Text = "Refresh";
-            this.materialRaisedButton21.UseVisualStyleBackColor = true;
-            this.materialRaisedButton21.Click += new System.EventHandler(this.materialRaisedButton21_Click);
-            // 
-            // materialLabel48
-            // 
-            this.materialLabel48.AutoSize = true;
-            this.materialLabel48.Depth = 0;
-            this.materialLabel48.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel48.Location = new System.Drawing.Point(184, 226);
-            this.materialLabel48.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel48.Name = "materialLabel48";
-            this.materialLabel48.Size = new System.Drawing.Size(110, 19);
-            this.materialLabel48.TabIndex = 31;
-            this.materialLabel48.Text = "Alliance Score:";
-            // 
-            // txtAllianceName
-            // 
-            this.txtAllianceName.Location = new System.Drawing.Point(298, 61);
-            this.txtAllianceName.Name = "txtAllianceName";
-            this.txtAllianceName.Size = new System.Drawing.Size(108, 20);
-            this.txtAllianceName.TabIndex = 32;
-            // 
-            // materialLabel47
-            // 
-            this.materialLabel47.AutoSize = true;
-            this.materialLabel47.Depth = 0;
-            this.materialLabel47.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel47.Location = new System.Drawing.Point(184, 137);
-            this.materialLabel47.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel47.Name = "materialLabel47";
-            this.materialLabel47.Size = new System.Drawing.Size(148, 19);
-            this.materialLabel47.TabIndex = 33;
-            this.materialLabel47.Text = "Alliance Description:";
-            // 
-            // alliancename
-            // 
-            this.alliancename.AutoSize = true;
-            this.alliancename.Depth = 0;
-            this.alliancename.Font = new System.Drawing.Font("Roboto", 11F);
-            this.alliancename.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.alliancename.Location = new System.Drawing.Point(184, 60);
-            this.alliancename.MouseState = MaterialSkin.MouseState.HOVER;
-            this.alliancename.Name = "alliancename";
-            this.alliancename.Size = new System.Drawing.Size(111, 19);
-            this.alliancename.TabIndex = 37;
-            this.alliancename.Text = "Alliance Name:";
-            // 
-            // txtAllianceDescription
-            // 
-            this.txtAllianceDescription.Location = new System.Drawing.Point(188, 170);
-            this.txtAllianceDescription.Multiline = true;
-            this.txtAllianceDescription.Name = "txtAllianceDescription";
-            this.txtAllianceDescription.Size = new System.Drawing.Size(218, 43);
-            this.txtAllianceDescription.TabIndex = 38;
-            // 
-            // materialLabel43
-            // 
-            this.materialLabel43.AutoSize = true;
-            this.materialLabel43.Depth = 0;
-            this.materialLabel43.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel43.Location = new System.Drawing.Point(184, 25);
-            this.materialLabel43.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel43.Name = "materialLabel43";
-            this.materialLabel43.Size = new System.Drawing.Size(85, 19);
-            this.materialLabel43.TabIndex = 41;
-            this.materialLabel43.Text = "Alliance ID:";
-            // 
-            // txtID
-            // 
-            this.txtID.Location = new System.Drawing.Point(290, 26);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(116, 20);
-            this.txtID.TabIndex = 42;
-            // 
-            // materialRaisedButton24
-            // 
-            this.materialRaisedButton24.Depth = 0;
-            this.materialRaisedButton24.Location = new System.Drawing.Point(430, 24);
-            this.materialRaisedButton24.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton24.Name = "materialRaisedButton24";
-            this.materialRaisedButton24.Primary = true;
-            this.materialRaisedButton24.Size = new System.Drawing.Size(109, 23);
-            this.materialRaisedButton24.TabIndex = 43;
-            this.materialRaisedButton24.Text = "Load Alliance";
-            this.materialRaisedButton24.UseVisualStyleBackColor = true;
-            this.materialRaisedButton24.Click += new System.EventHandler(this.materialRaisedButton24_Click);
-            // 
-            // materialRaisedButton23
-            // 
-            this.materialRaisedButton23.Depth = 0;
-            this.materialRaisedButton23.Location = new System.Drawing.Point(430, 262);
-            this.materialRaisedButton23.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton23.Name = "materialRaisedButton23";
-            this.materialRaisedButton23.Primary = true;
-            this.materialRaisedButton23.Size = new System.Drawing.Size(109, 23);
-            this.materialRaisedButton23.TabIndex = 44;
-            this.materialRaisedButton23.Text = "Save ";
-            this.materialRaisedButton23.UseVisualStyleBackColor = true;
-            this.materialRaisedButton23.Click += new System.EventHandler(this.materialRaisedButton23_Click);
-            // 
-            // materialRaisedButton22
-            // 
-            this.materialRaisedButton22.Depth = 0;
-            this.materialRaisedButton22.Location = new System.Drawing.Point(430, 138);
-            this.materialRaisedButton22.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton22.Name = "materialRaisedButton22";
-            this.materialRaisedButton22.Primary = true;
-            this.materialRaisedButton22.Size = new System.Drawing.Size(109, 23);
-            this.materialRaisedButton22.TabIndex = 45;
-            this.materialRaisedButton22.Text = "Clear";
-            this.materialRaisedButton22.UseVisualStyleBackColor = true;
-            this.materialRaisedButton22.Click += new System.EventHandler(this.materialRaisedButton22_Click);
-            // 
-            // materialLabel39
-            // 
-            this.materialLabel39.AutoSize = true;
-            this.materialLabel39.Depth = 0;
-            this.materialLabel39.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel39.Location = new System.Drawing.Point(184, 100);
-            this.materialLabel39.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel39.Name = "materialLabel39";
-            this.materialLabel39.Size = new System.Drawing.Size(106, 19);
-            this.materialLabel39.TabIndex = 48;
-            this.materialLabel39.Text = "Alliance Level:";
-            this.materialLabel39.Click += new System.EventHandler(this.materialLabel39_Click);
-            // 
-            // txtAllianceLevel
-            // 
-            this.txtAllianceLevel.Location = new System.Drawing.Point(298, 101);
-            this.txtAllianceLevel.Name = "txtAllianceLevel";
-            this.txtAllianceLevel.Size = new System.Drawing.Size(108, 20);
-            this.txtAllianceLevel.TabIndex = 49;
-            this.txtAllianceLevel.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            // 
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.txtAllianceScore);
@@ -1874,6 +1703,177 @@ namespace UCS
             this.txtAllianceScore.TabIndex = 50;
             this.txtAllianceScore.Text = "0";
             // 
+            // txtAllianceLevel
+            // 
+            this.txtAllianceLevel.Location = new System.Drawing.Point(298, 101);
+            this.txtAllianceLevel.Name = "txtAllianceLevel";
+            this.txtAllianceLevel.Size = new System.Drawing.Size(108, 20);
+            this.txtAllianceLevel.TabIndex = 49;
+            this.txtAllianceLevel.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
+            // materialLabel39
+            // 
+            this.materialLabel39.AutoSize = true;
+            this.materialLabel39.Depth = 0;
+            this.materialLabel39.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel39.Location = new System.Drawing.Point(184, 100);
+            this.materialLabel39.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel39.Name = "materialLabel39";
+            this.materialLabel39.Size = new System.Drawing.Size(106, 19);
+            this.materialLabel39.TabIndex = 48;
+            this.materialLabel39.Text = "Alliance Level:";
+            this.materialLabel39.Click += new System.EventHandler(this.materialLabel39_Click);
+            // 
+            // materialRaisedButton22
+            // 
+            this.materialRaisedButton22.Depth = 0;
+            this.materialRaisedButton22.Location = new System.Drawing.Point(430, 138);
+            this.materialRaisedButton22.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton22.Name = "materialRaisedButton22";
+            this.materialRaisedButton22.Primary = true;
+            this.materialRaisedButton22.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton22.TabIndex = 45;
+            this.materialRaisedButton22.Text = "Clear";
+            this.materialRaisedButton22.UseVisualStyleBackColor = true;
+            this.materialRaisedButton22.Click += new System.EventHandler(this.materialRaisedButton22_Click);
+            // 
+            // materialRaisedButton23
+            // 
+            this.materialRaisedButton23.Depth = 0;
+            this.materialRaisedButton23.Location = new System.Drawing.Point(430, 262);
+            this.materialRaisedButton23.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton23.Name = "materialRaisedButton23";
+            this.materialRaisedButton23.Primary = true;
+            this.materialRaisedButton23.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton23.TabIndex = 44;
+            this.materialRaisedButton23.Text = "Save ";
+            this.materialRaisedButton23.UseVisualStyleBackColor = true;
+            this.materialRaisedButton23.Click += new System.EventHandler(this.materialRaisedButton23_Click);
+            // 
+            // materialRaisedButton24
+            // 
+            this.materialRaisedButton24.Depth = 0;
+            this.materialRaisedButton24.Location = new System.Drawing.Point(430, 24);
+            this.materialRaisedButton24.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton24.Name = "materialRaisedButton24";
+            this.materialRaisedButton24.Primary = true;
+            this.materialRaisedButton24.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton24.TabIndex = 43;
+            this.materialRaisedButton24.Text = "Load Alliance";
+            this.materialRaisedButton24.UseVisualStyleBackColor = true;
+            this.materialRaisedButton24.Click += new System.EventHandler(this.materialRaisedButton24_Click);
+            // 
+            // txtID
+            // 
+            this.txtID.Location = new System.Drawing.Point(290, 26);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(116, 20);
+            this.txtID.TabIndex = 42;
+            // 
+            // materialLabel43
+            // 
+            this.materialLabel43.AutoSize = true;
+            this.materialLabel43.Depth = 0;
+            this.materialLabel43.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel43.Location = new System.Drawing.Point(184, 25);
+            this.materialLabel43.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel43.Name = "materialLabel43";
+            this.materialLabel43.Size = new System.Drawing.Size(85, 19);
+            this.materialLabel43.TabIndex = 41;
+            this.materialLabel43.Text = "Alliance ID:";
+            // 
+            // txtAllianceDescription
+            // 
+            this.txtAllianceDescription.Location = new System.Drawing.Point(188, 170);
+            this.txtAllianceDescription.Multiline = true;
+            this.txtAllianceDescription.Name = "txtAllianceDescription";
+            this.txtAllianceDescription.Size = new System.Drawing.Size(218, 43);
+            this.txtAllianceDescription.TabIndex = 38;
+            // 
+            // alliancename
+            // 
+            this.alliancename.AutoSize = true;
+            this.alliancename.Depth = 0;
+            this.alliancename.Font = new System.Drawing.Font("Roboto", 11F);
+            this.alliancename.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.alliancename.Location = new System.Drawing.Point(184, 60);
+            this.alliancename.MouseState = MaterialSkin.MouseState.HOVER;
+            this.alliancename.Name = "alliancename";
+            this.alliancename.Size = new System.Drawing.Size(111, 19);
+            this.alliancename.TabIndex = 37;
+            this.alliancename.Text = "Alliance Name:";
+            // 
+            // materialLabel47
+            // 
+            this.materialLabel47.AutoSize = true;
+            this.materialLabel47.Depth = 0;
+            this.materialLabel47.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel47.Location = new System.Drawing.Point(184, 137);
+            this.materialLabel47.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel47.Name = "materialLabel47";
+            this.materialLabel47.Size = new System.Drawing.Size(148, 19);
+            this.materialLabel47.TabIndex = 33;
+            this.materialLabel47.Text = "Alliance Description:";
+            // 
+            // txtAllianceName
+            // 
+            this.txtAllianceName.Location = new System.Drawing.Point(298, 61);
+            this.txtAllianceName.Name = "txtAllianceName";
+            this.txtAllianceName.Size = new System.Drawing.Size(108, 20);
+            this.txtAllianceName.TabIndex = 32;
+            // 
+            // materialLabel48
+            // 
+            this.materialLabel48.AutoSize = true;
+            this.materialLabel48.Depth = 0;
+            this.materialLabel48.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel48.Location = new System.Drawing.Point(184, 226);
+            this.materialLabel48.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel48.Name = "materialLabel48";
+            this.materialLabel48.Size = new System.Drawing.Size(110, 19);
+            this.materialLabel48.TabIndex = 31;
+            this.materialLabel48.Text = "Alliance Score:";
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.materialLabel40);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(700, 354);
+            this.tabPage8.TabIndex = 5;
+            this.tabPage8.Text = "About";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // materialLabel40
+            // 
+            this.materialLabel40.AutoSize = true;
+            this.materialLabel40.Depth = 0;
+            this.materialLabel40.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel40.Location = new System.Drawing.Point(214, 158);
+            this.materialLabel40.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel40.Name = "materialLabel40";
+            this.materialLabel40.Size = new System.Drawing.Size(272, 38);
+            this.materialLabel40.TabIndex = 2;
+            this.materialLabel40.Text = "             ©Ultrapowa 2014-2016\r\nThis program is copyrighted worldwide.";
+            // 
+            // materialTabSelector1
+            // 
+            this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
+            this.materialTabSelector1.Depth = 0;
+            this.materialTabSelector1.Location = new System.Drawing.Point(-1, 62);
+            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabSelector1.Name = "materialTabSelector1";
+            this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
+            this.materialTabSelector1.TabIndex = 1;
+            this.materialTabSelector1.Text = "materialTabSelector1";
+            this.materialTabSelector1.Click += new System.EventHandler(this.materialTabSelector1_Click);
+            // 
             // UCSUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1908,10 +1908,10 @@ namespace UCS
             this.tabPage7.ResumeLayout(false);
             this.materialTabControl3.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.ResumeLayout(false);
 
         }

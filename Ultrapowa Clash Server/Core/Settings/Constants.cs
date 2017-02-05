@@ -9,7 +9,7 @@ namespace UCS.Core.Settings
     {
         public static string Version                 = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         
-        public const bool IsPremiumServer            = true;  // false = max100 Online Players; true = unlimited Online Players
+        public const bool IsPremiumServer            = true;  // false = max. 200 Online Players; true = unlimited Online Players
         public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
 
         public const string RedisAddr                = "127.0.0.1";

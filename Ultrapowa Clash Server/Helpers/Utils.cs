@@ -215,6 +215,5 @@ namespace UCS.Helpers
 
             return str.IndexOf(substring, comp) >= 0;
         }
-
     }
 }

@@ -51,6 +51,16 @@ namespace UCS
 			materialLabel15.Text = Convert.ToString(ObjectManager.GetMaxAllianceID());
 			materialLabel16.Text = Convert.ToString(ObjectManager.GetMaxPlayerID());
 
+            if (!Core.Settings.Constants.IsPremiumServer)
+            {
+                var message = MessageBox.Show("The User Interface is not available for unpaid Users. Please upgrade to Premium on https://ultrapowa.com/forum", "Not available for unpaid Users.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (message == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
+
 			// CONFIG EDITOR
 			txtStartingGems.Text = ConfigurationManager.AppSettings["startingGems"];
             txtStartingGold.Text = ConfigurationManager.AppSettings["startingGold"];
@@ -628,7 +638,7 @@ namespace UCS
             else
             {
 
-                Parallel.ForEach((ResourcesManager.GetOnlinePlayers()), onlinePlayer =>
+                foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                 {
                     var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
                     pm.SetChatMessage(Message);
@@ -636,7 +646,7 @@ namespace UCS
                     pm.SetLeagueId(22);
                     pm.SetPlayerName(Name);
                     PacketManager.Send(pm);
-                });
+                }
 
                 Count++;
                 materialLabel13.Text = Convert.ToString(Count);
@@ -644,7 +654,7 @@ namespace UCS
                 T.Interval = Interval;
                 T.Elapsed += ((s, o) =>
                 {
-                    Parallel.ForEach((ResourcesManager.GetOnlinePlayers()), onlinePlayer =>
+                    foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                     {
                         var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
                         pm.SetChatMessage(Message);
@@ -652,7 +662,7 @@ namespace UCS
                         pm.SetLeagueId(22);
                         pm.SetPlayerName(Name);
                         PacketManager.Send(pm);
-                    });
+                    }
                     Count++;
                     materialLabel13.Text = Convert.ToString(Count);
                 });

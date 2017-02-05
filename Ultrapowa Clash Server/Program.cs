@@ -26,7 +26,15 @@ namespace UCS
             {
                 _Stopwatch.Start();
 
-                Console.Title = Title + OP;
+                if (Constants.IsPremiumServer)
+                {
+                    Console.Title = Title + OP;
+                }
+                else
+                {
+                    Console.Title = Title + OP + "/200";
+                }
+
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(
 
@@ -89,12 +97,26 @@ namespace UCS
 
         public static void TitleU()
         {
-            Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+            if (Constants.IsPremiumServer)
+            {
+                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+            }
+            else
+            {
+                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString() + "/200";
+            }
         }
 
         public static void TitleD()
         {
-            Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+            if (Constants.IsPremiumServer)
+            {
+                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+            }
+            else
+            {
+                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString() + "/200";
+            }
         }
     }
 }
