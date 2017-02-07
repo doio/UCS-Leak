@@ -24,10 +24,10 @@ namespace UCS.Core
 
         public ResourcesManager()
         {
-            m_vDatabase = new DatabaseManager();
-            m_vOnlinePlayers = new List<Level>();
-            m_vClients = new ConcurrentDictionary<long, Client>();
-            m_vInMemoryLevels = new ConcurrentDictionary<long, Level>();
+            m_vDatabase          = new DatabaseManager();
+            m_vOnlinePlayers     = new List<Level>();
+            m_vClients           = new ConcurrentDictionary<long, Client>();
+            m_vInMemoryLevels    = new ConcurrentDictionary<long, Level>();
             m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
         }
 

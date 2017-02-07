@@ -45,36 +45,36 @@ namespace UCS.Core
 
         public Loader()
         {
-            _Logger = new Logger();
+            _Logger            = new Logger();
+              
+            _DirectoryChecker  = new DirectoryChecker();
 
-            _DirectoryChecker = new DirectoryChecker();
+            _CSVManager        = new CSVManager();
 
-            _CSVManager = new CSVManager();
-
-            _ChatProcessor = new ChatProcessor();
+            _ChatProcessor     = new ChatProcessor();
 
             _ConnectionBlocker = new ConnectionBlocker();
 
             if (Utils.ParseConfigBoolean("UseWebAPI"))
             {
-                _API = new API();
+                _API           = new API();
             }
 
-            _ResourcesManager = new ResourcesManager();
+            _ResourcesManager  = new ResourcesManager();
 
-            _ObjectManager = new ObjectManager();
+            _ObjectManager     = new ObjectManager();
 
-            _CommandFactory = new CommandFactory();
+            _CommandFactory    = new CommandFactory();
 
-            _MessageFactory = new MessageFactory();
+            _MessageFactory    = new MessageFactory();
 
-            _Parser = new ParserThread();
+            _Parser            = new ParserThread();
 
-            _PacketProcessor = new PacketProcessor();
+            _PacketProcessor   = new PacketProcessor();
 
-            _MemThread = new MemoryThread();
+            _MemThread         = new MemoryThread();
 
-            _Gateway = new Gateway();
+            _Gateway           = new Gateway();
         }
     }
 }

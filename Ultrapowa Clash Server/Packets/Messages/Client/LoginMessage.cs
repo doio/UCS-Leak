@@ -98,14 +98,14 @@ namespace UCS.Packets.Messages.Client
                     PacketProcessor.Send(new RC4SessionKey(Client));
                 }
 
-                if(ResourcesManager.GetOnlinePlayers().Count >= 700)
+                /*if(ResourcesManager.GetOnlinePlayers().Count >= 700)
                 {
                     LoginFailedMessage p = new LoginFailedMessage(Client);
                     p.SetErrorCode(12);
                     p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
                     PacketProcessor.Send(p);
                     return;
-                } //TODO: Add it to the config
+                } *///TODO: Add it to the config
 
                 if(ParserThread.GetMaintenanceMode())
                 {
