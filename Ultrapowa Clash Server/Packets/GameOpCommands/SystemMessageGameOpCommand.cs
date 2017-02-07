@@ -43,7 +43,7 @@ namespace UCS.Packets.GameOpCommands
                     {
                         var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                         p.SetAvatarStreamEntry(mail);
-                        PacketManager.Send(p);
+                        PacketProcessor.Send(p);
                     }
                 }
             }

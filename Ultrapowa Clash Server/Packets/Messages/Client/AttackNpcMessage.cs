@@ -61,7 +61,7 @@ namespace UCS.Packets.Messages.Client
                         }
                     }
                     p.State = ClientAvatar.UserState.PVE;
-                    PacketManager.Send(new NpcDataMessage(Client, level, this));
+                    PacketProcessor.Send(new NpcDataMessage(Client, level, this));
                 }
             }
         }

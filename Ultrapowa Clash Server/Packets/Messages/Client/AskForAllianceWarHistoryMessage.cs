@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Client
         public override void Process(Level level)
         {
             Alliance all = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            PacketManager.Send(new AllianceWarHistoryMessage(Client, all));
+            PacketProcessor.Send(new AllianceWarHistoryMessage(Client, all));
         }
     }
 }

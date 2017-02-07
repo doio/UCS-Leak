@@ -16,11 +16,11 @@ namespace UCS.Core
 {
     internal class ResourcesManager : IDisposable
     {
-        private static ConcurrentDictionary<long, Client> m_vClients;
-        private static ConcurrentDictionary<long, Level> m_vInMemoryLevels;
-        private static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances;
-        private static List<Level> m_vOnlinePlayers;
-        private static DatabaseManager m_vDatabase;
+        private static ConcurrentDictionary<long, Client> m_vClients             = null;
+        private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
+        private static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
+        private static List<Level> m_vOnlinePlayers                              = null;
+        private static DatabaseManager m_vDatabase                               = null;
 
         public ResourcesManager()
         {
@@ -31,27 +31,23 @@ namespace UCS.Core
             m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
         }
 
-        public static void AddClient(Socket s)
+        public static void AddClient(Socket _Socket)
         {
-            try
-            {
-                Client c = new Client(s);
-                c.CIPAddress = ((System.Net.IPEndPoint)s.RemoteEndPoint).Address.ToString();
-                m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
-            }
-            catch (Exception)
-            {
-            }
+            Client c = new Client(_Socket);
+            c.CIPAddress = ((System.Net.IPEndPoint)_Socket.RemoteEndPoint).Address.ToString();
+            m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
         }
 
         public static void DropClient(long socketHandle)
         {
             try
             {
-                Client c;
-                m_vClients.TryRemove(socketHandle, out c);
-                if (c.GetLevel() != null)
-                    LogPlayerOut(c.GetLevel());
+                Client _Client = null;
+                m_vClients.TryRemove(socketHandle, out _Client);
+                if (_Client.GetLevel() != null)
+                {
+                    LogPlayerOut(_Client.GetLevel());
+                }
             }
             catch (Exception e)
             {
@@ -90,14 +86,16 @@ namespace UCS.Core
             {
                 result = m_vDatabase.GetAccount(id);
                 if (persistent)
+                {
                     LoadLevel(result);
+                }
             }
             return result;
         }
 
         public static void DisconnectClient(Client c)
         {
-            PacketManager.Send(new OutOfSyncMessage(c));
+            PacketProcessor.Send(new OutOfSyncMessage(c));
             DropClient(c.GetSocketHandle());
         }
 

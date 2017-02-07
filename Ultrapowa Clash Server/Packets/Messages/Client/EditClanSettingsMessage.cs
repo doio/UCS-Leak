@@ -88,7 +88,7 @@ namespace UCS.Packets.Messages.Client
                                             AvailableServerCommandMessage availableServerCommandMessage = new AvailableServerCommandMessage(level.GetClient());
                                             availableServerCommandMessage.SetCommandId(6);
                                             availableServerCommandMessage.SetCommand(edit);
-                                            PacketManager.Send(availableServerCommandMessage);
+                                            PacketProcessor.Send(availableServerCommandMessage);
 
                                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                                             {
@@ -97,7 +97,7 @@ namespace UCS.Packets.Messages.Client
                                                 {
                                                     AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(user.GetClient());
                                                     p.SetStreamEntry(eventStreamEntry);
-                                                    PacketManager.Send(p);
+                                                    PacketProcessor.Send(p);
                                                 }
                                             }
 

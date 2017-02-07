@@ -377,7 +377,7 @@ namespace UCS
                 pm.SetPlayerId(0);
                 pm.SetLeagueId(22);
                 pm.SetPlayerName(textBox22.Text);
-                PacketManager.Send(pm);
+                PacketProcessor.Send(pm);
             }
         }
 
@@ -401,7 +401,7 @@ namespace UCS
             {
                 var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                 p.SetAvatarStreamEntry(mail);
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
             }
         }
 
@@ -539,7 +539,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = ResourcesManager.GetPlayer(id);
-                PacketManager.Send(new OutOfSyncMessage(player.GetClient()));
+                PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
@@ -555,7 +555,7 @@ namespace UCS
                 Level player = ResourcesManager.GetPlayer(id);
                 player.SetAccountStatus(100);
                 DatabaseManager.Single().Save(player);
-                PacketManager.Send(new OutOfSyncMessage(player.GetClient()));
+                PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
@@ -645,7 +645,7 @@ namespace UCS
                     pm.SetPlayerId(0);
                     pm.SetLeagueId(22);
                     pm.SetPlayerName(Name);
-                    PacketManager.Send(pm);
+                    PacketProcessor.Send(pm);
                 }
 
                 Count++;
@@ -661,7 +661,7 @@ namespace UCS
                         pm.SetPlayerId(0);
                         pm.SetLeagueId(22);
                         pm.SetPlayerName(Name);
-                        PacketManager.Send(pm);
+                        PacketProcessor.Send(pm);
                     }
                     Count++;
                     materialLabel13.Text = Convert.ToString(Count);

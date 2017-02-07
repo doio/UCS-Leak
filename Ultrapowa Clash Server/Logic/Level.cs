@@ -34,7 +34,7 @@ namespace UCS.Logic
             WorkerManager        = new WorkerManager();
             GameObjectManager    = new GameObjectManager(this);
             m_vClientAvatar      = new ClientAvatar(id, token);
-            m_vTime = DateTime.UtcNow;
+            m_vTime              = DateTime.UtcNow;
             m_vAccountPrivileges = 0;
             m_vAccountStatus     = 0;
             m_vIPAddress         = "0.0.0.0";

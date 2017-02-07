@@ -95,17 +95,17 @@ namespace UCS.Packets.Messages.Client
                 if (Constants.IsRc4)
                 {
                     Client.ClientSeed = Seed;
-                    PacketManager.Send(new RC4SessionKey(Client));
+                    PacketProcessor.Send(new RC4SessionKey(Client));
                 }
 
-                /*if(ResourcesManager.GetOnlinePlayers().Count >= 1000)
+                if(ResourcesManager.GetOnlinePlayers().Count >= 700)
                 {
                     LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(11);
-                    p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.");
-                    p.Send();
+                    p.SetErrorCode(12);
+                    p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
+                    PacketProcessor.Send(p);
                     return;
-                }*/ //TODO: Add it to the config
+                } //TODO: Add it to the config
 
                 if(ParserThread.GetMaintenanceMode())
                 {
@@ -113,7 +113,7 @@ namespace UCS.Packets.Messages.Client
                     p.SetErrorCode(10);
                     p.RemainingTime(ParserThread.GetMaintenanceTime());
                     p.SetMessageVersion(8);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
                                            
@@ -124,7 +124,7 @@ namespace UCS.Packets.Messages.Client
                         LoginFailedMessage p = new LoginFailedMessage(Client);
                         p.SetErrorCode(11);
                         p.SetReason("This is a free Version of UCS. Please Upgrade to Premium on https://ultrapowa.com/forum");
-                        PacketManager.Send(p);
+                        PacketProcessor.Send(p);
                         return;
                     }
                 }
@@ -136,7 +136,7 @@ namespace UCS.Packets.Messages.Client
                     p.SetErrorCode(10);
                     p.RemainingTime(time);
                     p.SetMessageVersion(8);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
                 
@@ -145,7 +145,7 @@ namespace UCS.Packets.Messages.Client
                     LoginFailedMessage p = new LoginFailedMessage(Client);
                     p.SetErrorCode(10);
                     p.SetReason(ConfigurationManager.AppSettings["CustomMaintenance"]);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
 
@@ -157,7 +157,7 @@ namespace UCS.Packets.Messages.Client
                     p.SetErrorCode(8);
   /*FOR FHX*/       //p.SetReason("Please re-downoad the APK on the Official FHX Site! \n Official Site: \n\n https://fhx-server.com, or \nhttp://fhxservercoc.com \n\n Or click the Update Button below!");
                     p.SetUpdateURL(Convert.ToString(ConfigurationManager.AppSettings["UpdateUrl"]));
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
 
@@ -168,7 +168,7 @@ namespace UCS.Packets.Messages.Client
                     p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
                     p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
                     p.SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
                 CheckClient();
@@ -193,7 +193,7 @@ namespace UCS.Packets.Messages.Client
             l.SetAccountCreatedDate(avatar.GetAccountCreationDate().ToString());
             l.SetStartupCooldownSeconds(0);
             l.SetCountryCode(avatar.GetUserRegion().ToUpper());
-            PacketManager.Send(l);
+            PacketProcessor.Send(l);
 
             Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
 
@@ -215,18 +215,18 @@ namespace UCS.Packets.Messages.Client
                 mail.SetSenderLevel(500);
                 AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.GetClient());
                 p.SetAvatarStreamEntry(mail);
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
             }
 
             if (alliance != null)
             {
-                PacketManager.Send(new AllianceFullEntryMessage(Client, alliance));
-                PacketManager.Send(new AllianceStreamMessage(Client, alliance));
-                PacketManager.Send(new AllianceWarHistoryMessage(Client, alliance));
+                PacketProcessor.Send(new AllianceFullEntryMessage(Client, alliance));
+                PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                PacketProcessor.Send(new AllianceWarHistoryMessage(Client, alliance));
             }
-            PacketManager.Send(new AvatarStreamMessage(Client));
-            PacketManager.Send(new OwnHomeDataMessage(Client, level));
-            PacketManager.Send(new BookmarkMessage(Client));
+            PacketProcessor.Send(new AvatarStreamMessage(Client));
+            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+            PacketProcessor.Send(new BookmarkMessage(Client));
         }
 
         void CheckClient()
@@ -244,7 +244,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     LoginFailedMessage p = new LoginFailedMessage(Client);
                     p.SetErrorCode(11);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
                 if (string.Equals(level.GetPlayerAvatar().GetUserToken(), UserToken, StringComparison.Ordinal))
@@ -257,7 +257,7 @@ namespace UCS.Packets.Messages.Client
                     p.SetErrorCode(11);
 /*FOR FHX*/         //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                  
                     p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                     return;
                 }
             }
@@ -267,7 +267,7 @@ namespace UCS.Packets.Messages.Client
                 p.SetErrorCode(11);
 /*FOR FHX*/     //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                                   
                 p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
                 return;
             }
         }

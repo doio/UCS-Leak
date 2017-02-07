@@ -23,7 +23,7 @@ namespace UCS.Packets.GameOpCommands
                 pm.SetPlayerId(0);
                 pm.SetLeagueId(22);
                 pm.SetPlayerName("UCS Bot");
-                PacketManager.Send(pm);
+                PacketProcessor.Send(pm);
                 DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
                 var p = new GlobalChatLineMessage(level.GetClient());
                 /* Confirmation */
@@ -31,14 +31,14 @@ namespace UCS.Packets.GameOpCommands
                 p.SetPlayerId(0);
                 p.SetLeagueId(22);
                 p.SetPlayerName("UCS Bot");
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
                 /* Starting saving of Clans */
                 var pmm = new GlobalChatLineMessage(level.GetClient());
                 pmm.SetPlayerId(0);
                 pmm.SetLeagueId(22);
                 pmm.SetPlayerName("UCS Bot");
                 pmm.SetChatMessage("Starting with saving of every Clan!");
-                PacketManager.Send(pmm);
+                PacketProcessor.Send(pmm);
                 /* Confirmation */
                 //var clans = DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
                 //clans.Wait();
@@ -47,7 +47,7 @@ namespace UCS.Packets.GameOpCommands
                 pmp.SetLeagueId(22);
                 pmp.SetPlayerName("UCS Bot");
                 pmp.SetChatMessage("All Clans are saved!");
-                PacketManager.Send(pmp);
+                PacketProcessor.Send(pmp);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetPlayerId(0);
                 p.SetLeagueId(22);
                 p.SetPlayerName("UCS Bot");
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
             }
         }
         readonly string[] m_vArgs;

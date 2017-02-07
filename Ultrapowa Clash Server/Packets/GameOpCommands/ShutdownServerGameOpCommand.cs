@@ -23,7 +23,7 @@ namespace UCS.Packets.GameOpCommands
                 {
                     var p = new ShutdownStartedMessage(onlinePlayer.GetClient());
                     p.SetCode(5);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                 }
             }
             else

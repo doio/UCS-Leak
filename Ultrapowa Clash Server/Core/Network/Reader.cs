@@ -10,36 +10,30 @@ namespace UCS.Core.Network
 	internal class Reader
 	{
 		public delegate void IncomingReadHandler(Reader read, byte[] data);
-        public const int BufferSize = 2048;
+        public const int BufferSize = 256;
         private readonly byte[] _buffer = new byte[BufferSize];
 		private readonly IncomingReadHandler _readHandler;
 		public Socket Socket;
 
-		public Reader(Socket socket, IncomingReadHandler readHandler)
+		public Reader(Socket _Socket, IncomingReadHandler readHandler)
 		{
-            try
-            {
-                Socket = socket;
-                _readHandler = readHandler;
-                Socket.BeginReceive(_buffer, 0, BufferSize, 0, OnReceive, this);
-            }
-            catch (Exception)
-            {
-            }
-		}
+            this.Socket = _Socket;
+            this._readHandler = readHandler;
+            this.Socket.BeginReceive(this._buffer, 0, BufferSize, 0, this.OnReceive, this);
+        }
 
-		private void OnReceive(IAsyncResult result)
+		private void OnReceive(IAsyncResult _Ar)
 		{
 			try
 			{
 				SocketError tmp;
-				int bytesRead = Socket.EndReceive(result, out tmp);
+				int bytesRead = this.Socket.EndReceive(_Ar, out tmp);
 				if (tmp == SocketError.Success && bytesRead > 0)
 				{
 					byte[] read = new byte[bytesRead];
-					Array.Copy(_buffer, 0, read, 0, bytesRead);
+					Array.Copy(this._buffer, 0, read, 0, bytesRead);
 					_readHandler(this, read);
-					Socket.BeginReceive(_buffer, 0, BufferSize, 0, OnReceive, this);
+					Socket.BeginReceive(this._buffer, 0, BufferSize, 0, OnReceive, this);
 				}
 			}
 			catch (Exception)

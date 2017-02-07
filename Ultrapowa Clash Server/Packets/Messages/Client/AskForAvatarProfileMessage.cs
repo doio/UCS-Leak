@@ -35,7 +35,7 @@ namespace UCS.Packets.Messages.Client
                 targetLevel.Tick();
                 AvatarProfileMessage p = new AvatarProfileMessage(Client);
                 p.SetLevel(targetLevel);
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
             }
         }
     }

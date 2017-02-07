@@ -8,11 +8,11 @@ using UCS.Packets.Messages.Client;
 
 namespace UCS.Packets
 {
-    internal static class MessageFactory
+    internal class MessageFactory
     {
-        static readonly Dictionary<int, Type> m_vMessages;
+        public static Dictionary<int, Type> m_vMessages;
 
-        static MessageFactory()
+        public MessageFactory()
         {
             m_vMessages = new Dictionary<int, Type>();
             m_vMessages.Add(10100, typeof(SessionRequest));
@@ -23,6 +23,7 @@ namespace UCS.Packets
             m_vMessages.Add(10113, typeof(GetDeviceTokenMessage));
             m_vMessages.Add(10212, typeof(ChangeAvatarNameMessage)); 
             m_vMessages.Add(10502, typeof(AddClashFriendMessage));
+            //m_vMessages.Add(10513, typeof(UnknownFacebookMessage));
             m_vMessages.Add(10905, typeof(NewsSeenMessage));
             m_vMessages.Add(14100, typeof(AttackResultMessage));
             m_vMessages.Add(14101, typeof(GoHomeMessage));

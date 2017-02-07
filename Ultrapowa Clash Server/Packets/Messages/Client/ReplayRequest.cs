@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            PacketManager.Send(new OwnHomeDataMessage(Client, level));
+            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
         }
     }
 }

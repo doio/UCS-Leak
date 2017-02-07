@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            PacketManager.Send(new LocalAlliancesMessage(Client));
+            PacketProcessor.Send(new LocalAlliancesMessage(Client));
         }
     }
 }

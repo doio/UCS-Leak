@@ -53,11 +53,11 @@ namespace UCS.Packets.Messages.Client
                     p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
                     p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
                     p.SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                 }
             }
             else
-            PacketManager.Send(new HandshakeSuccess(Client, this));
+            PacketProcessor.Send(new HandshakeSuccess(Client, this));
         }
 
     }

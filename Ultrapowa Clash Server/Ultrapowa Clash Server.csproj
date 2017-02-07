@@ -235,10 +235,10 @@
     <Compile Include="Core\Crypto\Key.cs" />
     <Compile Include="Core\CSVManager.cs" />
     <Compile Include="Core\ExitHandler.cs" />
+    <Compile Include="Core\Loader.cs" />
     <Compile Include="Core\Network\Reader.cs" />
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
-    <Compile Include="Core\Threading\CheckThread.cs" />
     <Compile Include="Core\Threading\ChatProcessor.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
@@ -1027,14 +1027,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="icone-ucs.ico" />
-    <Content Include="Tools\database.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Tools\ucsdb.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Tools\ucsbuildsha.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Tools\ucsgflzma.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -1153,7 +1153,7 @@
     <Compile Include="Logic\Trap.cs" />
     <Compile Include="Logic\Building.cs" />
     <Compile Include="Core\Network\Gateway.cs" />
-    <Compile Include="Core\Network\PacketManager.cs" />
+    <Compile Include="Core\Network\PacketProcessor.cs" />
     <Compile Include="Packets\Client.cs" />
     <Compile Include="Packets\Commands\Client\CancelShieldCommand.cs" />
     <Compile Include="Packets\Commands\Client\EndOfBattleCommand.cs" />
@@ -1327,7 +1327,7 @@
       <LastGenOutput>ucsdb.cs</LastGenOutput>
     </None>
     <None Include="Tools\patch_generator.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="config.ucs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

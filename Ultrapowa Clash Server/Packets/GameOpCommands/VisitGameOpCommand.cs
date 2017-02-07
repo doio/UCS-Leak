@@ -29,7 +29,7 @@ namespace UCS.Packets.GameOpCommands
                         if (l != null)
                         {
                             l.Tick();
-                            PacketManager.Send(new VisitedHomeDataMessage(level.GetClient(), l, level));
+                            PacketProcessor.Send(new VisitedHomeDataMessage(level.GetClient(), l, level));
                         }
                         else
                         {

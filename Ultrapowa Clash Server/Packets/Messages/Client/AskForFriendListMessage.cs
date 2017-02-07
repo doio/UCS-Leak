@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            PacketManager.Send(new FriendListMessage(Client));
+            PacketProcessor.Send(new FriendListMessage(Client));
         }
     }
 }

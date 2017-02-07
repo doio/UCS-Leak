@@ -60,7 +60,7 @@ namespace UCS.Packets.Commands.Client
                 p.State = ClientAvatar.UserState.Searching;
                 Level Defender = ObjectManager.GetRandomOnlinePlayerWithoutShield();
                 Defender.Tick();
-                PacketManager.Send(new EnemyHomeDataMessage(level.GetClient(), Defender, level));
+                PacketProcessor.Send(new EnemyHomeDataMessage(level.GetClient(), Defender, level));
             } 
         }
     }

@@ -28,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                 {
                     Home = sr.ReadToEnd();
                     ResourcesManager.SetGameObject(level, Home);
-                    PacketManager.Send(new OutOfSyncMessage(level.GetClient()));
+                    PacketProcessor.Send(new OutOfSyncMessage(level.GetClient()));
                 }
             }
             else

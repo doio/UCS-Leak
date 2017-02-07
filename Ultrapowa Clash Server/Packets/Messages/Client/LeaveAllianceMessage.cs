@@ -49,7 +49,7 @@ namespace UCS.Packets.Messages.Client
                         AvailableServerCommandMessage d = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
                         d.SetCommandId(8);
                         d.SetCommand(c);
-                        PacketManager.Send(d);
+                        PacketProcessor.Send(d);
                     }
                     done = true;
                     break;
@@ -78,7 +78,7 @@ namespace UCS.Packets.Messages.Client
                                 AvailableServerCommandMessage f = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
                                 f.SetCommandId(8);
                                 f.SetCommand(e);
-                                PacketManager.Send(f);
+                                PacketProcessor.Send(f);
                             }
                             break;
                         }
@@ -92,7 +92,7 @@ namespace UCS.Packets.Messages.Client
             AvailableServerCommandMessage b = new AvailableServerCommandMessage(Client);
             b.SetCommandId(2);
             b.SetCommand(a);
-            PacketManager.Send(b);
+            PacketProcessor.Send(b);
 
             alliance.RemoveMember(avatar.GetId());
             avatar.SetAllianceId(0);
@@ -111,14 +111,14 @@ namespace UCS.Packets.Messages.Client
                     {
                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
                         p.SetStreamEntry(eventStreamEntry);
-                        PacketManager.Send(p);
+                        PacketProcessor.Send(p);
                     }
             }
             else
             {
                 DatabaseManager.Single().RemoveAlliance(alliance);
             }
-            PacketManager.Send(new LeaveAllianceOkMessage(Client, alliance));
+            PacketProcessor.Send(new LeaveAllianceOkMessage(Client, alliance));
         }
     }
 }

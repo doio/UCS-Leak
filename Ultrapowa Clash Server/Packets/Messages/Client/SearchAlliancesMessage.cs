@@ -53,9 +53,6 @@ namespace UCS.Packets.Messages.Client
             {
                 List<Alliance> alliances = ObjectManager.GetInMemoryAlliances();
 
-                if (ObjectManager.GetInMemoryAlliances().Count == 0)
-                    alliances = DatabaseManager.Single().GetAllAlliances();
-
                 List<Alliance> joinableAlliances = new List<Alliance>();
                 int i = 0;
                 int j = 0;
@@ -76,7 +73,7 @@ namespace UCS.Packets.Messages.Client
                 AllianceListMessage p = new AllianceListMessage(Client);
                 p.SetAlliances(joinableAlliances);
                 p.SetSearchString(m_vSearchString);
-                PacketManager.Send(p);
+                PacketProcessor.Send(p);
             }
         }
     }

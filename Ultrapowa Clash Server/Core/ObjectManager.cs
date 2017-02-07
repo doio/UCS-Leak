@@ -48,12 +48,14 @@ namespace UCS.Core
             m_vAvatarSeed = MaxPlayerID;
             m_vAllianceSeed = MaxAllianceID;
             using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
+            {
                 m_vHomeDefault = sr.ReadToEnd();
+            }
 
             LoadNpcLevels();
             //LoadRandomBase(); // Useless atm
 
-            TimerReference = new Timer(Save, null, 0, 30000);
+            TimerReference = new Timer(Save, null, 7000, 30000);
             Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 
@@ -72,7 +74,9 @@ namespace UCS.Core
         {
             Alliance alliance;
             if (seed == 0)
+            {
                 seed = m_vAllianceSeed;
+            }
             alliance = new Alliance(seed);
             m_vAllianceSeed++;
             m_vDatabase.CreateAlliance(alliance);
@@ -94,17 +98,19 @@ namespace UCS.Core
             return pl;
         }
 
-        public static void LoadAllAlliancesFromDB()
+        /*public static void LoadAllAlliancesFromDB()
         {
             ResourcesManager.AddAllianceInMemory(m_vDatabase.GetAllAlliances());
-        }
+        }*/
 
         public static Alliance GetAlliance(long allianceId)
         {
             Alliance alliance;
             if (ResourcesManager.InMemoryAlliancesContain(allianceId))
+            {
                 return ResourcesManager.GetInMemoryAlliance(allianceId);
-            else 
+            }
+            else
             {
                 alliance = m_vDatabase.GetAlliance(allianceId);
                 if (alliance != null)
@@ -138,20 +144,26 @@ namespace UCS.Core
             }
         }
 
-        public static Level GetRandomPlayerFromAll()
+        /*public static Level GetRandomPlayerFromAll()
         {
             int index = new Random().Next(0, ResourcesManager.GetAllPlayerIds().Count);
             return ResourcesManager.GetPlayer(ResourcesManager.GetAllPlayerIds()[index]);
-        }
+        }*/
 
         public static void LoadNpcLevels()
         {
             int Size = 0;
             NpcLevels.Add(17000000, new StreamReader(@"Gamefiles/level/NPC/tutorial_npc.json").ReadToEnd());
             NpcLevels.Add(17000001, new StreamReader(@"Gamefiles/level/NPC/tutorial_npc2.json").ReadToEnd());
+
             for (int i = 2; i < 50; i++)
+            {
                 using (StreamReader sr = new StreamReader(@"Gamefiles/level/NPC/level" + (i + 1) + ".json"))
+                {
                     NpcLevels.Add(i + 17000000, sr.ReadToEnd());
+                }
+            }
+
             foreach(var s in NpcLevels)
             {
                 Size += System.Text.Encoding.UTF8.GetByteCount(s.Value);
@@ -159,14 +171,14 @@ namespace UCS.Core
             Say("NPC Levels  have been succesfully loaded. (" + Size + ")");
         }
 
-        public static void LoadRandomBase()
+        /*public static void LoadRandomBase()
         {
             m_vRandomBaseAmount = Directory.GetFiles(@"Gamefiles/level/PVP", "Base*.json").Count();
             for (int i = 0; i < m_vRandomBaseAmount; i++)
                 using (StreamReader sr2 = new StreamReader(@"Gamefiles/level/PVP/Base" + (i + 1) + ".json"))
                     m_vRandomBases.Add(i, sr2.ReadToEnd());
             Say("PVP Levels  have been succesfully loaded.");
-        }
+        }*/
 
         public static void RemoveInMemoryAlliance(long id)
         {

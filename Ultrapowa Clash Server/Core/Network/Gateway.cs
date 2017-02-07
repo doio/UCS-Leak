@@ -15,7 +15,9 @@ namespace UCS.Core.Network
 {
 	internal class Gateway
     {
+        public static Thread _Thread           = null;
         public static ManualResetEvent AllDone = new ManualResetEvent(false);
+
         public Gateway()
         {
             try
@@ -23,10 +25,10 @@ namespace UCS.Core.Network
                 IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress.ToString()), Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]));
-                Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                listener.Bind(localEndPoint);
-                listener.Listen(0);
+                _Socket.Bind(localEndPoint);
+                _Socket.Listen(10);
 
                 Say();
                 Say("UCS has been started at " + ipAddress + ":" + localEndPoint.Port + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds.");
@@ -35,7 +37,7 @@ namespace UCS.Core.Network
                 while (true)
                 {
                     AllDone.Reset();
-                    listener.BeginAccept(AcceptCallback, listener);
+                    _Socket.BeginAccept(this.AcceptCallback, _Socket);
                     AllDone.WaitOne();
                 }
             }
@@ -53,20 +55,19 @@ namespace UCS.Core.Network
             {
 				AllDone.Set();
 
-				Socket listener = (Socket)ar.AsyncState;
-                Socket handler = listener.EndAccept(ar);
+				Socket _Listener = (Socket)ar.AsyncState;
+                Socket _Handler = _Listener.EndAccept(ar);
 
-                //Say("New TCP Client connected -> " + ((IPEndPoint)handler.RemoteEndPoint).Address);
-                //Logger.Write("New TCP Client connected -> " + ((IPEndPoint)handler.RemoteEndPoint).Address);
+                Logger.Write("New TCP Client connected -> " + ((IPEndPoint)_Handler.RemoteEndPoint).Address);
 
-                if (!ConnectionBlocker.IsAddressBanned(((IPEndPoint)handler.RemoteEndPoint).Address.ToString()))
+                if (!ConnectionBlocker.IsAddressBanned(((IPEndPoint)_Handler.RemoteEndPoint).Address.ToString()))
                 {
-                    ResourcesManager.AddClient(handler);
-                    new Reader(handler, ProcessPacket);
+                    ResourcesManager.AddClient(_Handler);
+                    new Reader(_Handler, this.ProcessPacket);
                 }
                 else
                 {
-                    Disconnect(handler);
+                    Disconnect(_Handler);
                 }
             }
             catch (Exception)
@@ -79,12 +80,12 @@ namespace UCS.Core.Network
 			try
 			{
 				long socketHandle = read.Socket.Handle.ToInt64();
-				Client c = ResourcesManager.GetClient(socketHandle);
-				c.DataStream.AddRange(data);
+				Client _Client = ResourcesManager.GetClient(socketHandle);
+				_Client.DataStream.AddRange(data);
 				Message p;
-                while (c.TryGetPacket(out p))
+                while (_Client.TryGetPacket(out p))
                 {
-                    PacketManager.Receive(p);
+                    PacketProcessor.Receive(p);
                 }
 			}
 			catch
@@ -92,12 +93,12 @@ namespace UCS.Core.Network
 			}
 		}
 
-		public static void Disconnect(Socket handler)
+		public static void Disconnect(Socket _Socket)
 		{
 			try
 			{
-				handler.Shutdown(SocketShutdown.Both);
-				handler.Close();
+				_Socket.Shutdown(SocketShutdown.Both);
+				_Socket.Close();
 			}
 			catch (Exception)
 			{

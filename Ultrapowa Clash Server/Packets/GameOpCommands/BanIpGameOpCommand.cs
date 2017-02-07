@@ -31,7 +31,7 @@ namespace UCS.Packets.GameOpCommands
                                 l.SetAccountPrivileges(0);
                                 if (ResourcesManager.IsPlayerOnline(l))
                                 {
-                                    PacketManager.Send(new OutOfSyncMessage(l.GetClient()));
+                                    PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
                                 }
                             }
                             else

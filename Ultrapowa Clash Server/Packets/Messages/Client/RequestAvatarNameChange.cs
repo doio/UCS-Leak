@@ -41,7 +41,7 @@ namespace UCS.Packets.Messages.Client
                     l.GetPlayerAvatar().SetName(PlayerName);
                     AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
                     p.SetAvatarName(PlayerName);
-                    PacketManager.Send(p);
+                    PacketProcessor.Send(p);
                 }
             }
         }

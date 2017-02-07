@@ -18,7 +18,7 @@ namespace UCS.Packets
             p.SetPlayerId(0);
             p.SetLeagueId(22);
             p.SetPlayerName("Ultrapowa Clash Server");
-            PacketManager.Send(p);
+            PacketProcessor.Send(p);
         }
 
         public virtual void Execute(Level level)

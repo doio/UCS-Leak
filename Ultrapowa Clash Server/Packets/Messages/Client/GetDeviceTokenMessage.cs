@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            PacketManager.Send(new SetDeviceTokenMessage(Client));
+            PacketProcessor.Send(new SetDeviceTokenMessage(Client));
         }
     }
 }

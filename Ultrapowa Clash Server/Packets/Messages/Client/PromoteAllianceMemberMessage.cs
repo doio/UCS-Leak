@@ -88,11 +88,11 @@ namespace UCS.Packets.Messages.Client
                         pa.SetCommand(p);
                         if (ResourcesManager.IsPlayerOnline(target))
                         {
-                            PacketManager.Send(ta);
-                            PacketManager.Send(rub);
+                            PacketProcessor.Send(ta);
+                            PacketProcessor.Send(rub);
                         }
-                        PacketManager.Send(rup);
-                        PacketManager.Send(pa);
+                        PacketProcessor.Send(rup);
+                        PacketProcessor.Send(pa);
 
                         foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                         {
@@ -105,8 +105,8 @@ namespace UCS.Packets.Messages.Client
                                 a.SetStreamEntry(demote);
                                 b.SetStreamEntry(promote);
 
-                                PacketManager.Send(a);
-                                PacketManager.Send(b);
+                                PacketProcessor.Send(a);
+                                PacketProcessor.Send(b);
                             }
 
                         }
@@ -141,8 +141,8 @@ namespace UCS.Packets.Messages.Client
 
                         if (ResourcesManager.IsPlayerOnline(target))
                         {
-                            PacketManager.Send(ta);
-                            PacketManager.Send(ru);
+                            PacketProcessor.Send(ta);
+                            PacketProcessor.Send(ru);
                         }
 
                         foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
@@ -152,7 +152,7 @@ namespace UCS.Packets.Messages.Client
                             {
                                 AllianceStreamEntryMessage b = new AllianceStreamEntryMessage(aplayer.GetClient());
                                 b.SetStreamEntry(stream);
-                                PacketManager.Send(b);
+                                PacketProcessor.Send(b);
                             }
                         }
                     }

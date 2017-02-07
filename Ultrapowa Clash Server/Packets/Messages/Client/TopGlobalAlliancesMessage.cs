@@ -25,9 +25,9 @@ namespace UCS.Packets.Messages.Client
         public override void Process(Level level)
         {
             if (unknown == 0)
-            PacketManager.Send(new GlobalAlliancesMessage(Client));
+            PacketProcessor.Send(new GlobalAlliancesMessage(Client));
             else
-            PacketManager.Send(new LocalAlliancesMessage(Client));
+            PacketProcessor.Send(new LocalAlliancesMessage(Client));
         }
     }
 }

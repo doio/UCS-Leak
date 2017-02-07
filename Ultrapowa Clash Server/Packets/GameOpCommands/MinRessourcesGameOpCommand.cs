@@ -26,7 +26,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), 1000);
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("DarkElixir"), 100);
                 p.SetDiamonds(200);
-                PacketManager.Send(new OwnHomeDataMessage(level.GetClient(), level));
+                PacketProcessor.Send(new OwnHomeDataMessage(level.GetClient(), level));
             }
             else
                 SendCommandFailedMessage(level.GetClient());

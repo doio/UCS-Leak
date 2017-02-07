@@ -37,13 +37,13 @@ namespace UCS.Packets.Messages.Client
             if (ResourcesManager.GetPlayerWithFacebookID(UserID) != null)
             {
                 Level l = ResourcesManager.GetPlayerWithFacebookID(UserID);
-                PacketManager.Send(new OwnHomeDataMessage(Client, l)); // Not done
-                PacketManager.Send(new OutOfSyncMessage(l.GetClient()));
+                PacketProcessor.Send(new OwnHomeDataMessage(Client, l)); // Not done
+                PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
             }
             else
             {
                 player.SetFacebookID(UserID);
-                PacketManager.Send(new OutOfSyncMessage(Client));
+                PacketProcessor.Send(new OutOfSyncMessage(Client));
             }
         }
     }

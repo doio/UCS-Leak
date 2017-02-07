@@ -41,7 +41,7 @@ namespace UCS.Packets.Messages.Client
 
             JoinableAllianceListMessage p = new JoinableAllianceListMessage(Client);
             p.SetJoinableAlliances(joinableAlliances);
-            PacketManager.Send(p);
+            PacketProcessor.Send(p);
         }
     }
 }

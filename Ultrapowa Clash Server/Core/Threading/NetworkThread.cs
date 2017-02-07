@@ -11,13 +11,13 @@ namespace UCS.Core.Threading
 
         static NetworkThread()
         {
-            new Thread((ThreadStart)(() =>
+            /*new Thread((ThreadStart)(() =>
             {
                 new ResourcesManager();
                 new CSVManager();
                 new ObjectManager();
                 new Gateway();
-            })).Start();
+            })).Start();*/
         }
 
         public static void Stop()

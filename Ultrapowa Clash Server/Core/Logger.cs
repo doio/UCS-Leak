@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using UCS.Logic.Enums;
 using static System.Convert;
 
 namespace UCS.Core
@@ -85,6 +86,7 @@ namespace UCS.Core
                     }
             }
         }
+
         public void LogLevelError()
         {
             Console.ForegroundColor = ConsoleColor.Red;

@@ -33,7 +33,7 @@ namespace UCS.Packets.GameOpCommands
                             {
                                 var p = new AvatarNameChangeOkMessage(l.GetClient());
                                 p.SetAvatarName(m_vArgs[2]);
-                                PacketManager.Send(p);
+                                PacketProcessor.Send(p);
                             }
                         }
                         else

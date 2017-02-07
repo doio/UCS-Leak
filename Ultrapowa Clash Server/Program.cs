@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using UCS.Core;
+using UCS.Core.Checker;
 using UCS.Core.Network;
 using UCS.Core.Settings;
 using UCS.Core.Threading;
@@ -15,15 +16,18 @@ namespace UCS
 {
     class Program
     {
-        public static int OP = 0;
-        public const string Title = "Ultrapowa Clash Server v0.7.3.0 - © 2017 | Online Players: ";
-        public static Stopwatch _Stopwatch = new Stopwatch();
+        public static int OP                   = 0;
+        public static string Title             = "Ultrapowa Clash Server v0.7.3.0 - © " + DateTime.Now.Year + " | Online Players: ";
+        public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
+        private static Loader _Loader          = null;
+        private static Thread _Thread          = null;
 
         internal static void Main(string[] args)
         {
-            new Thread((ThreadStart)(() =>
+            _Thread = new Thread(() =>
             {
+
                 _Stopwatch.Start();
 
                 if (Constants.IsPremiumServer)
@@ -48,10 +52,16 @@ namespace UCS
             ");
                 Console.ResetColor();
                 Console.WriteLine("[UCS]    > This program is made by the Ultrapowa Development Team.\n[UCS]    > Ultrapowa is not affiliated to \"Supercell, Oy\".\n[UCS]    > This program is copyrighted worldwide.\n[UCS]    > Visit www.ultrapowa.com daily for News & Updates!");
+
                 if (Constants.IsRc4)
+                {
                     Console.WriteLine("[UCS]    > UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
+                }
                 else
+                {
                     Console.WriteLine("[UCS]    > UCS is running under Pepper mode. Please make sure client key is modded.");
+                }
+
                 Console.Write("[UCS]    ");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Version = VersionChecker.GetVersionString();
@@ -63,16 +73,7 @@ namespace UCS
                     Console.ResetColor();
                     Console.WriteLine("\n[UCS]    Prepearing Server...\n");
 
-                    if (Utils.ParseConfigBoolean("UseWebAPI"))
-                    {
-                        new API();
-                    }
-
-                    new CheckThread();
-                    new MemoryThread();
-                    new NetworkThread();
-                    new ParserThread();
-                    new ChatProcessor();
+                    _Loader = new Loader();
                 }
                 else if (Version == "Error")
                 {
@@ -92,18 +93,20 @@ namespace UCS
                     Thread.Sleep(5000);
                     Environment.Exit(0);
                 }
-            })).Start();
+            });
+
+            _Thread.Start();
         }
 
         public static void TitleU()
         {
             if (Constants.IsPremiumServer)
             {
-                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+                Console.Title = Title + ++OP;
             }
             else
             {
-                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString() + "/200";
+                Console.Title = Title + ++OP + "/200";
             }
         }
 
@@ -111,11 +114,11 @@ namespace UCS
         {
             if (Constants.IsPremiumServer)
             {
-                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString();
+                Console.Title = Title + --OP;
             }
             else
             {
-                Console.Title = Title + ResourcesManager.GetOnlinePlayers().Count.ToString() + "/200";
+                Console.Title = Title + --OP + "/200";
             }
         }
     }

@@ -29,7 +29,7 @@ namespace UCS.Core.Threading
                     {
                         foreach (GlobalChatLineMessage cl in Messages)
                         {
-                            PacketManager.Send(cl);
+                            PacketProcessor.Send(cl);
                             Messages.Remove(cl);
                         }
                     }
@@ -37,7 +37,7 @@ namespace UCS.Core.Threading
                 }
                 else if (!MessageIsWaiting())
                 {
-                    Thread.Sleep(1);
+                    Thread.Sleep(100);
                     goto loop;
                 }
 

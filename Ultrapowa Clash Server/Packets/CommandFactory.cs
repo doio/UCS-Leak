@@ -8,13 +8,14 @@ using UCS.Packets.Commands.Client;
 
 namespace UCS.Packets
 {
-    internal static class CommandFactory
+    internal class CommandFactory
     {
-        static readonly Dictionary<uint, Type> m_vCommands;
+        public static Dictionary<uint, Type> m_vCommands;
 
-        static CommandFactory()
+        public CommandFactory()
         {
             m_vCommands = new Dictionary<uint, Type>();
+
             //m_vCommands.Add(0, typeof(UnknownCommand));
             //m_vCommands.Add(1, typeof(JoinAlliance));
             //m_vCommands.Add(2, typeof(LeaveAllianceCommand));

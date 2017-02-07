@@ -241,7 +241,7 @@ namespace UCS.Helpers
 
             foreach (Level p in ResourcesManager.GetOnlinePlayers())
             {
-                PacketManager.Send(new ShutdownStartedMessage(p.GetClient()));
+                PacketProcessor.Send(new ShutdownStartedMessage(p.GetClient()));
             }
 
             Timer.Elapsed += ShutdownMessage;
@@ -257,7 +257,7 @@ namespace UCS.Helpers
         {
             foreach(Level p in ResourcesManager.GetOnlinePlayers())
             {
-                PacketManager.Send(new ShutdownStartedMessage(p.GetClient()));
+                PacketProcessor.Send(new ShutdownStartedMessage(p.GetClient()));
             }
         }
 
@@ -284,7 +284,7 @@ namespace UCS.Helpers
 
             foreach(Level p in ResourcesManager.GetInMemoryLevels())
             {
-                PacketManager.Send(new OutOfSyncMessage(p.GetClient()));
+                PacketProcessor.Send(new OutOfSyncMessage(p.GetClient()));
                 ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
             }
             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());

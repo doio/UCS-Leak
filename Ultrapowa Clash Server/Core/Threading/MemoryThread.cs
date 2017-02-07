@@ -10,33 +10,43 @@ using UCS.Packets;
 
 namespace UCS.Core.Threading
 {
-    internal class MemoryThread
+    internal class MemoryThread : IDisposable
     {
+        private System.Timers.Timer _Timer = null;
+        private Thread _Thread             = null;
+
         public MemoryThread()
         {
-            new Thread((ThreadStart)(() =>
+            _Thread = new Thread(() =>
             {
                 ManualResetEvent AllDone = new ManualResetEvent(false);
 
-                System.Timers.Timer timer = new System.Timers.Timer();
-                timer.Interval = 5000;
-                timer.Elapsed += ((ElapsedEventHandler)((s, a) =>
+                _Timer = new System.Timers.Timer();
+                _Timer.Interval = 2000;
+                _Timer.Elapsed += (((s, a) =>
                 {
                     AllDone.Reset();
 
-                    /*foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
+                    foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
                     {
                         if (!_Player.GetClient().IsClientSocketConnected())
                             ResourcesManager.DropClient(_Player.GetClient().GetSocketHandle());
-                    }*/ // No more needed
+                    }
 
                     GC.Collect(GC.MaxGeneration);
                     GC.WaitForPendingFinalizers();
 
                     AllDone.WaitOne();
                 }));
-                timer.Enabled = true;
-            })).Start();
+                _Timer.Enabled = true;
+            });
+
+            _Thread.Start();
+        }
+
+        public void Dispose()
+        {
+            _Timer.Stop();
         }
     }
 }
