@@ -8,7 +8,6 @@ using UCS.Core.Network;
 using UCS.Logic;
 using UCS.Packets;
 using UCS.Packets.Messages.Server;
-using UCS.Helpers;
 
 namespace UCS.Core.Threading
 {
@@ -22,37 +21,55 @@ namespace UCS.Core.Threading
             {
                 Messages = new List<GlobalChatLineMessage>();
 
-                while (true)
+                loop:
+
+                if (MessageIsWaiting())
                 {
-                    if (Messages.Any())
+                    try
                     {
-                        try
+                        foreach (GlobalChatLineMessage cl in Messages)
                         {
-                            foreach (GlobalChatLineMessage cl in Messages)
-                            {
-                                PacketProcessor.Send(cl);
-                                Messages.Remove(cl);
-                            }
-                        }
-                        catch (Exception)
-                        {
+                            PacketProcessor.Send(cl);
+                            Messages.Remove(cl);
                         }
                     }
-
-                    Thread.Sleep(50);
+                    catch (Exception) { goto loop; }
                 }
+                else if (!MessageIsWaiting())
+                {
+                    Thread.Sleep(100);
+                    goto loop;
+                }
+
+                goto loop;
             })).Start();
         }
 
-        public static void AddMessage(GlobalChatLineMessage gch)
+        public static void AddMessage(GlobalChatLineMessage ch)
         {
             try
             {
-                Messages.Add(gch);
+                Messages.Add(ch);
             }
             catch (Exception)
             {
             }
+        }
+
+        public static bool MessageIsWaiting()
+        {
+            try
+            {
+                if (!Messages.Any())
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception) { return false; }
         }
     }
 }
