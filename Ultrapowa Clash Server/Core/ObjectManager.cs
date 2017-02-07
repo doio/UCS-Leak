@@ -134,7 +134,11 @@ namespace UCS.Core
             Level l = GetRandomOnlinePlayer();
             ClientAvatar ca = l.GetPlayerAvatar();
 
-            if (l != null) // Have to find a better method to find Players without Shield
+            if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90) 
+            {
+                return l;
+            }
+            else if (ResourcesManager.GetOnlinePlayers().Count <= 100 && l != null)
             {
                 return l;
             }
