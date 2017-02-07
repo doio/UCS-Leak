@@ -8,12 +8,13 @@ using UCS.Core.Network;
 using UCS.Logic;
 using UCS.Packets;
 using UCS.Packets.Messages.Server;
+using UCS.Helpers;
 
 namespace UCS.Core.Threading
 {
     class ChatProcessor
     {
-        public static List<GlobalChatLineMessage> Messages;
+        public static List<GlobalChatLineMessage> Messages = null;
 
         public ChatProcessor()
         {
@@ -21,55 +22,37 @@ namespace UCS.Core.Threading
             {
                 Messages = new List<GlobalChatLineMessage>();
 
-                loop:
-
-                if (MessageIsWaiting())
+                while (true)
                 {
-                    try
+                    if (Messages.Any())
                     {
-                        foreach (GlobalChatLineMessage cl in Messages)
+                        try
                         {
-                            PacketProcessor.Send(cl);
-                            Messages.Remove(cl);
+                            foreach (GlobalChatLineMessage cl in Messages)
+                            {
+                                PacketProcessor.Send(cl);
+                                Messages.Remove(cl);
+                            }
+                        }
+                        catch (Exception)
+                        {
                         }
                     }
-                    catch (Exception) { goto loop; }
-                }
-                else if (!MessageIsWaiting())
-                {
-                    Thread.Sleep(100);
-                    goto loop;
-                }
 
-                goto loop;
+                    Thread.Sleep(50);
+                }
             })).Start();
         }
 
-        public static void AddMessage(GlobalChatLineMessage ch)
+        public static void AddMessage(GlobalChatLineMessage gch)
         {
             try
             {
-                Messages.Add(ch);
+                Messages.Add(gch);
             }
             catch (Exception)
             {
             }
-        }
-
-        public static bool MessageIsWaiting()
-        {
-            try
-            {
-                if (!Messages.Any())
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            catch (Exception) { return false; }
         }
     }
 }

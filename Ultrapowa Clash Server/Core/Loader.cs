@@ -39,7 +39,7 @@ namespace UCS.Core
 
         private MessageFactory _MessageFactory       = null;
 
-        private PacketProcessor _PacketProcessor     = null;
+        //private PacketProcessor _PacketProcessor     = null;
 
         private MemoryThread _MemThread              = null;
 
@@ -70,7 +70,7 @@ namespace UCS.Core
 
             _Parser            = new ParserThread();
 
-            _PacketProcessor   = new PacketProcessor();
+            //_PacketProcessor   = new PacketProcessor();
 
             _MemThread         = new MemoryThread();
 

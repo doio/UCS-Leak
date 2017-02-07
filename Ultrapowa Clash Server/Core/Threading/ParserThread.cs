@@ -34,7 +34,7 @@ namespace UCS.Helpers
             {
                 while (true)
                 {
-                    string entry = Console.ReadLine()?.ToLower();
+                    string entry = Console.ReadLine().ToLower();
                     switch (entry)
                     {
                         case "/help":

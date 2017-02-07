@@ -27,7 +27,6 @@ namespace UCS
         {
             _Thread = new Thread(() =>
             {
-
                 _Stopwatch.Start();
 
                 if (Constants.IsPremiumServer)

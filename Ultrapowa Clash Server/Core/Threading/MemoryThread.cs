@@ -27,10 +27,10 @@ namespace UCS.Core.Threading
                 {
                     AllDone.Reset();
 
-                    foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
+                    foreach (Client _Player in ResourcesManager.GetConnectedClients())
                     {
-                        if (!_Player.GetClient().IsClientSocketConnected())
-                            ResourcesManager.DropClient(_Player.GetClient().GetSocketHandle());
+                        if (!_Player.IsClientSocketConnected())
+                            ResourcesManager.DropClient(_Player.GetSocketHandle());
                     }
 
                     GC.Collect(GC.MaxGeneration);
@@ -47,6 +47,7 @@ namespace UCS.Core.Threading
         public void Dispose()
         {
             _Timer.Stop();
+            _Thread.Abort();
         }
     }
 }
