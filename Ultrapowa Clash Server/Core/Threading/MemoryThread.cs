@@ -18,30 +18,31 @@ namespace UCS.Core.Threading
         public MemoryThread()
         {
             _Thread = new Thread(() =>
-            {
-                ManualResetEvent AllDone = new ManualResetEvent(false);
-
+            { 
                 _Timer = new System.Timers.Timer();
-                _Timer.Interval = 2000;
-                _Timer.Elapsed += (((s, a) =>
-                {
-                    AllDone.Reset();
-
-                    foreach (Client _Player in ResourcesManager.GetConnectedClients())
-                    {
-                        if (!_Player.IsClientSocketConnected())
-                            ResourcesManager.DropClient(_Player.GetSocketHandle());
-                    }
-
-                    GC.Collect(GC.MaxGeneration);
-                    GC.WaitForPendingFinalizers();
-
-                    AllDone.WaitOne();
-                }));
-                _Timer.Enabled = true;
+                _Timer.Interval = Constants.CleanInterval;
+                _Timer.Elapsed += ((s, a) => Clean());
+                _Timer.Start();
             });
 
+            _Thread.Priority = ThreadPriority.Lowest;
+
             _Thread.Start();
+        }
+
+        public static async void Clean()
+        {
+            try
+            {
+                foreach (Client _Player in ResourcesManager.GetConnectedClients())
+                {
+                    if (!await _Player.IsClientSocketConnected())
+                        ResourcesManager.DropClient(_Player.GetSocketHandle());
+                }
+
+                GC.Collect(GC.MaxGeneration);
+                GC.WaitForPendingFinalizers();
+            } catch (Exception) { }
         }
 
         public void Dispose()

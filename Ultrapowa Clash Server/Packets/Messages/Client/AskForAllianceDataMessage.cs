@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
@@ -24,11 +25,14 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            var alliance = ObjectManager.GetAlliance(m_vAllianceId);
-            if (alliance != null)
-            PacketProcessor.Send(new AllianceDataMessage(Client, alliance));
+            try
+            {
+                Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                if (alliance != null)
+                    PacketProcessor.Send(new AllianceDataMessage(Client, alliance));
+            } catch (Exception) { }
         }
     }
 }

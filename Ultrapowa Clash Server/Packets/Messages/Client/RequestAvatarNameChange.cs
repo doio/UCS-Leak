@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
@@ -26,24 +27,27 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            long id = level.GetPlayerAvatar().GetId();
-            Level l = ResourcesManager.GetPlayer(id);
-            if (l != null)
+            try
             {
-                if (PlayerName.Length > 15)
+                long id = level.GetPlayerAvatar().GetId();
+                Level l = await ResourcesManager.GetPlayer(id);
+                if (l != null)
                 {
-                    ResourcesManager.DisconnectClient(Client);
+                    if (PlayerName.Length > 15)
+                    {
+                        ResourcesManager.DisconnectClient(Client);
+                    }
+                    else
+                    {
+                        l.GetPlayerAvatar().SetName(PlayerName);
+                        AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
+                        p.SetAvatarName(PlayerName);
+                        PacketProcessor.Send(p);
+                    }
                 }
-                else
-                {
-                    l.GetPlayerAvatar().SetName(PlayerName);
-                    AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
-                    p.SetAvatarName(PlayerName);
-                    PacketProcessor.Send(p);
-                }
-            }
+            } catch (Exception) { }
         }
     }
 }

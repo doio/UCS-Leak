@@ -30,68 +30,71 @@ namespace UCS.Packets.Messages.Client
 
         public int State { get; set; }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            ClientAvatar player = level.GetPlayerAvatar();
-
-            /*if (player.State == UserState.PVP)
+            try
             {
-                var info = default(ClientAvatar.AttackInfo);
-                if (!level.GetPlayerAvatar().AttackingInfo.TryGetValue(level.GetPlayerAvatar().GetId(), out info))
+                ClientAvatar player = level.GetPlayerAvatar();
+
+                /*if (player.State == UserState.PVP)
                 {
-                    Logger.Write("Unable to obtain attack info.");
+                    var info = default(ClientAvatar.AttackInfo);
+                    if (!level.GetPlayerAvatar().AttackingInfo.TryGetValue(level.GetPlayerAvatar().GetId(), out info))
+                    {
+                        Logger.Write("Unable to obtain attack info.");
+                    }
+                    else
+                    {
+                        Level defender = info.Defender;
+                        Level attacker = info.Attacker;
+
+                        int lost = info.Lost;
+                        int reward = info.Reward;
+
+                        List<DataSlot> usedtroop = info.UsedTroop;
+
+                        int attackerscore = attacker.GetPlayerAvatar().GetScore();
+                        int defenderscore = defender.GetPlayerAvatar().GetScore();
+
+                        if (defender.GetPlayerAvatar().GetScore() > 0)
+                            defender.GetPlayerAvatar().SetScore(defenderscore -= lost);
+
+                        Logger.Write("Used troop type: " + usedtroop.Count);
+                        foreach(DataSlot a in usedtroop)
+                        {
+                            Logger.Write("Troop Name: " + a.Data.GetName());
+                            Logger.Write("Troop Used Value: " + a.Value);
+                        }
+                        attacker.GetPlayerAvatar().SetScore(attackerscore += reward);
+                        attacker.GetPlayerAvatar().AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
+                        Resources(attacker);
+
+                        DatabaseManager.Single().Save(attacker);
+                        DatabaseManager.Single().Save(defender);
+                    } 
+                    player.State = UserState.Home;
+                }*/
+                if (State == 1)
+                {
+                    player.State = UserState.Editmode;
+                }
+                else if (player.State == UserState.Home)
+                {
+                    ResourcesManager.DisconnectClient(Client);
                 }
                 else
                 {
-                    Level defender = info.Defender;
-                    Level attacker = info.Attacker;
+                    player.State = UserState.Home;
+                }
 
-                    int lost = info.Lost;
-                    int reward = info.Reward;
-
-                    List<DataSlot> usedtroop = info.UsedTroop;
-
-                    int attackerscore = attacker.GetPlayerAvatar().GetScore();
-                    int defenderscore = defender.GetPlayerAvatar().GetScore();
-
-                    if (defender.GetPlayerAvatar().GetScore() > 0)
-                        defender.GetPlayerAvatar().SetScore(defenderscore -= lost);
-
-                    Logger.Write("Used troop type: " + usedtroop.Count);
-                    foreach(DataSlot a in usedtroop)
-                    {
-                        Logger.Write("Troop Name: " + a.Data.GetName());
-                        Logger.Write("Troop Used Value: " + a.Value);
-                    }
-                    attacker.GetPlayerAvatar().SetScore(attackerscore += reward);
-                    attacker.GetPlayerAvatar().AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
-                    Resources(attacker);
-
-                    DatabaseManager.Single().Save(attacker);
-                    DatabaseManager.Single().Save(defender);
-                } 
-                player.State = UserState.Home;
-            }*/
-            if (State == 1)
-            {                
-                player.State = UserState.Editmode;
-            }
-            else if (player.State == UserState.Home)
-            {
-                ResourcesManager.DisconnectClient(Client);
-            }
-            else
-            {
-                player.State = UserState.Home;
-            }
-
-            level.Tick();
-            Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
-            if (alliance != null)
-            {
-                PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
-            }
+                level.Tick();
+                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+                if (alliance != null)
+                {
+                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                }
+            } catch (Exception) { }
         }
 
         public void Resources(Level level)

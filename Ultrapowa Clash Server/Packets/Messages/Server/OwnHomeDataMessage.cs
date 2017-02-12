@@ -16,35 +16,38 @@ namespace UCS.Packets.Messages.Server
 
         public Level Player { get; set; }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            ClientAvatar Avatar = Player.GetPlayerAvatar();
-            List<byte> data = new List<byte>();
-            ClientHome home = new ClientHome(Avatar.GetId());
-
-            home.SetShieldTime(Avatar.GetShieldTime);
-            home.SetProtectionTime(Avatar.GetProtectionTime);
-            home.SetHomeJSON(Player.SaveToJSON());
-
-            data.AddInt32(0); 
-            data.AddInt32(-1); 
-            data.AddInt32((int) Player.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-            data.AddRange(home.Encode());
-            data.AddRange(Avatar.Encode());
-            if(Avatar.State == ClientAvatar.UserState.Editmode)
+            try
             {
-                data.AddInt32(1);               
-            }
-            else
-            {
+                ClientAvatar Avatar = Player.GetPlayerAvatar();
+                List<byte> data = new List<byte>();
+                ClientHome home = new ClientHome(Avatar.GetId());
+
+                home.SetShieldTime(Avatar.GetShieldTime);
+                home.SetProtectionTime(Avatar.GetProtectionTime);
+                home.SetHomeJSON(Player.SaveToJSON());
+
                 data.AddInt32(0);
-            }
-            data.AddInt32(0);
-            data.AddInt64(0); 
-            data.AddInt64(0); 
-            data.AddInt64(0); 
+                data.AddInt32(-1);
+                data.AddInt32((int)Player.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                data.AddRange(home.Encode());
+                data.AddRange(await Avatar.Encode());
+                if (Avatar.State == ClientAvatar.UserState.Editmode)
+                {
+                    data.AddInt32(1);
+                }
+                else
+                {
+                    data.AddInt32(0);
+                }
+                data.AddInt32(0);
+                data.AddInt64(0);
+                data.AddInt64(0);
+                data.AddInt64(0);
 
-            Encrypt(data.ToArray());
+                Encrypt(data.ToArray());
+            } catch (Exception) { }
         }
     }
 }

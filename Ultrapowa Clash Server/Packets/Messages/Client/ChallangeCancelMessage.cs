@@ -22,23 +22,26 @@ namespace UCS.Packets.Messages.Client
         {
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Alliance a = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == level.GetPlayerAvatar().GetId() && c.GetStreamEntryType() == 12);
-
-            if (s != null)
+            try
             {
-                a.GetChatMessages().RemoveAll(t => t == s);
-                foreach (AllianceMemberEntry op in a.GetAllianceMembers())
+                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == level.GetPlayerAvatar().GetId() && c.GetStreamEntryType() == 12);
+
+                if (s != null)
                 {
-                    Level player = ResourcesManager.GetPlayer(op.GetAvatarId());
-                    if (player.GetClient() != null)
+                    a.GetChatMessages().RemoveAll(t => t == s);
+                    foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {
-                        PacketProcessor.Send(new AllianceStreamEntryRemovedMessage(Client, s.GetId()));
-                    }                                                   
+                        Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                        if (player.GetClient() != null)
+                        {
+                            PacketProcessor.Send(new AllianceStreamEntryRemovedMessage(Client, s.GetId()));
+                        }
+                    }
                 }
-            }
+            } catch (Exception) { }
         }
 
     }

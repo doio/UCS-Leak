@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UCS.Helpers;
 using UCS.Logic;
@@ -14,24 +15,27 @@ namespace UCS.Packets.Messages.Server
             SetMessageType(24334);
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            var pack = new List<byte>();
-            var ch = new ClientHome(m_vLevel.GetPlayerAvatar().GetId());
-            ch.SetHomeJSON(m_vLevel.SaveToJSON());
+            try
+            {
+                var pack = new List<byte>();
+                var ch = new ClientHome(m_vLevel.GetPlayerAvatar().GetId());
+                ch.SetHomeJSON(m_vLevel.SaveToJSON());
 
-            pack.AddRange(m_vLevel.GetPlayerAvatar().Encode());
-            pack.AddCompressedString(ch.GetHomeJSON());
+                pack.AddRange(await m_vLevel.GetPlayerAvatar().Encode());
+                pack.AddCompressedString(ch.GetHomeJSON());
 
-            pack.AddInt32(0); //Donated
-            pack.AddInt32(0); //Received
-            pack.AddInt32(0); //War Cooldown
+                pack.AddInt32(0); //Donated
+                pack.AddInt32(0); //Received
+                pack.AddInt32(0); //War Cooldown
 
-            pack.AddInt32(0); //Unknown
-            pack.Add(0); //Unknown
+                pack.AddInt32(0); //Unknown
+                pack.Add(0); //Unknown
 
 
-            Encrypt(pack.ToArray());
+                Encrypt(pack.ToArray());
+            } catch (Exception) { }
         }
 
         public void SetLevel(Level level)

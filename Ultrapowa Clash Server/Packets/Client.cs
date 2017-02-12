@@ -8,6 +8,7 @@ using UCS.Helpers;
 using System;
 using UCS.Core.Crypto;
 using UCS.Core.Settings;
+using System.Threading.Tasks;
 
 namespace UCS.Packets
 {
@@ -225,7 +226,7 @@ namespace UCS.Packets
             EnDecrypt(this.OutgoingPacketsKey, data);
         }
 
-        public bool IsClientSocketConnected()
+        public async Task<bool> IsClientSocketConnected()
         {
             try
             {

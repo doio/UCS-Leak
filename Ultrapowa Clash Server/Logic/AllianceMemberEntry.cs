@@ -3,6 +3,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using UCS.Core;
 using UCS.Helpers;
+using System.Threading.Tasks;
 
 namespace UCS.Logic
 {
@@ -41,10 +42,10 @@ namespace UCS.Logic
 
         public static int GetDonations() => 150;
 
-        public byte[] Encode()
+        public async Task<byte[]> Encode()
         {
             List<byte> data = new List<byte>();
-            Level avatar = ResourcesManager.GetPlayer(m_vAvatarId);
+            Level avatar = await ResourcesManager.GetPlayer(m_vAvatarId);
             data.AddInt64(m_vAvatarId);
             if(avatar.GetPlayerAvatar().GetAvatarName() != null)
             {

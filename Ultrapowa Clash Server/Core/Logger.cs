@@ -49,7 +49,10 @@ namespace UCS.Core
 
         public static void Say(string message)
         {
-            Console.WriteLine("[UCS]    " + message);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("[UCS]    ");
+            Console.ResetColor();
+            Console.WriteLine(message);
         }
 
         public static void Say()

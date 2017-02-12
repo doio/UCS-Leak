@@ -90,191 +90,195 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level a)
         {
-            if (Client.State == ClientState.Login)
+            try
             {
-                if (Constants.IsRc4)
+                if (Client.State == ClientState.Login)
                 {
-                    Client.ClientSeed = Seed;
-                    PacketProcessor.Send(new RC4SessionKey(Client));
-                }
+                    if (Constants.IsRc4)
+                    {
+                        Client.ClientSeed = Seed;
+                        PacketProcessor.Send(new RC4SessionKey(Client));
+                    }
 
-                /*if(ResourcesManager.GetOnlinePlayers().Count >= 700)
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(12);
-                    p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
-                    PacketProcessor.Send(p);
-                    return;
-                } *///TODO: Add it to the config
-
-                if(ParserThread.GetMaintenanceMode())
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(10);
-                    p.RemainingTime(ParserThread.GetMaintenanceTime());
-                    p.SetMessageVersion(8);
-                    PacketProcessor.Send(p);
-                    return;
-                }
-                                           
-                if(!Constants.IsPremiumServer)
-                {
-                    if (ResourcesManager.GetOnlinePlayers().Count >= 200)
+                    if(ResourcesManager.GetOnlinePlayers().Count >= Constants.MaxOnlinePlayers)
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Client);
-                        p.SetErrorCode(11);
-                        p.SetReason("This is a free Version of UCS. Please Upgrade to Premium on https://ultrapowa.com/forum");
+                        p.SetErrorCode(12);
+                        p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
+                        PacketProcessor.Send(p);
+                        return;
+                    } 
+
+                    if (ParserThread.GetMaintenanceMode())
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(10);
+                        p.RemainingTime(ParserThread.GetMaintenanceTime());
+                        p.SetMessageVersion(8);
                         PacketProcessor.Send(p);
                         return;
                     }
-                }
-                
-                int time = Convert.ToInt32(ConfigurationManager.AppSettings["maintenanceTimeleft"]);
-                if (time != 0)
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(10);
-                    p.RemainingTime(time);
-                    p.SetMessageVersion(8);
-                    PacketProcessor.Send(p);
-                    return;
-                }
-                
-                if (ConfigurationManager.AppSettings["CustomMaintenance"] != string.Empty)
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(10);
-                    p.SetReason(ConfigurationManager.AppSettings["CustomMaintenance"]);
-                    PacketProcessor.Send(p);
-                    return;
-                }
 
-                string[] cv2 = ConfigurationManager.AppSettings["ClientVersion"].Split('.');
-                string[] cv = ClientVersion.Split('.');
-                if (cv[0] != cv2[0] || cv[1] != cv2[1]) 
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(8);
-  /*FOR FHX*/       //p.SetReason("Please re-downoad the APK on the Official FHX Site! \n Official Site: \n\n https://fhx-server.com, or \nhttp://fhxservercoc.com \n\n Or click the Update Button below!");
- /*FOR COH*/       // p.SetReason("Please re-downoad the APK on the Official COH Site! \n Official Site: \n\n https://clashofheroes.net/, or  \n\n Or click the Update Button below!");
-                    p.SetUpdateURL(Convert.ToString(ConfigurationManager.AppSettings["UpdateUrl"]));
-                    PacketProcessor.Send(p);
-                    return;
-                }
+                    if (!Constants.IsPremiumServer)
+                    {
+                        if (ResourcesManager.GetOnlinePlayers().Count >= 200)
+                        {
+                            LoginFailedMessage p = new LoginFailedMessage(Client);
+                            p.SetErrorCode(11);
+                            p.SetReason("This is a free Version of UCS. Please Upgrade to Premium on https://ultrapowa.com/forum");
+                            PacketProcessor.Send(p);
+                            return;
+                        }
+                    }
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(7);
-                    p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
-                    p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
-                    p.SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
-                    PacketProcessor.Send(p);
-                    return;
+                    int time = Convert.ToInt32(ConfigurationManager.AppSettings["maintenanceTimeleft"]);
+                    if (time != 0)
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(10);
+                        p.RemainingTime(time);
+                        p.SetMessageVersion(8);
+                        PacketProcessor.Send(p);
+                        return;
+                    }
+
+                    if (ConfigurationManager.AppSettings["CustomMaintenance"] != string.Empty)
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(10);
+                        p.SetReason(ConfigurationManager.AppSettings["CustomMaintenance"]);
+                        PacketProcessor.Send(p);
+                        return;
+                    }
+
+                    string[] cv2 = ConfigurationManager.AppSettings["ClientVersion"].Split('.');
+                    string[] cv = ClientVersion.Split('.');
+                    if (cv[0] != cv2[0] || cv[1] != cv2[1])
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(8);
+                        /*FOR FHX*/       //p.SetReason("Please re-downoad the APK on the Official FHX Site! \n Official Site: \n\n https://fhx-server.com, or \nhttp://fhxservercoc.com \n\n Or click the Update Button below!");
+                        p.SetUpdateURL(Convert.ToString(ConfigurationManager.AppSettings["UpdateUrl"]));
+                        PacketProcessor.Send(p);
+                        return;
+                    }
+
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(7);
+                        p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
+                        p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
+                        p.SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
+                        PacketProcessor.Send(p);
+                        return;
+                    }
+                    CheckClient();
                 }
-                CheckClient();
-            }
+            } catch (Exception) { }
         }
 
-        void LogUser()
+        async void LogUser()
         {
-            ResourcesManager.LogPlayerIn(level, Client);
-            level.Tick();
-            level.SetIPAddress(Client.CIPAddress);            
-            LoginOkMessage l = new LoginOkMessage(Client);
-            ClientAvatar avatar = level.GetPlayerAvatar();
-            l.SetAccountId(avatar.GetId());
-            l.SetPassToken(avatar.GetUserToken());
-            l.SetServerMajorVersion(MajorVersion);
-            l.SetServerBuild(MinorVersion);
-            l.SetContentVersion(ContentVersion);
-            l.SetServerEnvironment("prod");
-            l.SetDaysSinceStartedPlaying(0);
-            l.SetServerTime(Math.Round(level.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds * 1000).ToString(CultureInfo.InvariantCulture));
-            l.SetAccountCreatedDate(avatar.GetAccountCreationDate().ToString());
-            l.SetStartupCooldownSeconds(0);
-            l.SetCountryCode(avatar.GetUserRegion().ToUpper());
-            PacketProcessor.Send(l);
-
-            Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-
-            if (ResourcesManager.IsPlayerOnline(level))
+            try
             {
-                AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
-                mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                mail.SetSenderId(0);
-                mail.SetSenderAvatarId(0);
-  /*FOR FHX*/   //mail.SetSenderName("FHx-Admin");
-  /* For COH*/	//mail.SetSenderName("Clash Of Heroes Team");
-                mail.SetSenderName("Server Manager");
-                mail.SetIsNew(2);
-                mail.SetAllianceId(0);
-                mail.SetSenderLeagueId(22);
-                mail.SetAllianceBadgeData(1526735450);
-  /*FOR FHX*/   //mail.SetAllianceName("FHx-Server");
- /* For COH*/	//mail.SetAllianceName("COH-TEAM");
-                mail.SetAllianceName("Server Admin");
-                mail.SetMessage(ConfigurationManager.AppSettings["AdminMessage"]);
-                mail.SetSenderLevel(500);
-                AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.GetClient());
-                p.SetAvatarStreamEntry(mail);
-                PacketProcessor.Send(p);
-            }
+                ResourcesManager.LogPlayerIn(level, Client);
+                level.Tick();
+                level.SetIPAddress(Client.CIPAddress);
+                LoginOkMessage l = new LoginOkMessage(Client);
+                ClientAvatar avatar = level.GetPlayerAvatar();
+                l.SetAccountId(avatar.GetId());
+                l.SetPassToken(avatar.GetUserToken());
+                l.SetServerMajorVersion(MajorVersion);
+                l.SetServerBuild(MinorVersion);
+                l.SetContentVersion(ContentVersion);
+                l.SetServerEnvironment("prod");
+                l.SetDaysSinceStartedPlaying(0);
+                l.SetServerTime(Math.Round(level.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds * 1000).ToString(CultureInfo.InvariantCulture));
+                l.SetAccountCreatedDate(avatar.GetAccountCreationDate().ToString());
+                l.SetStartupCooldownSeconds(0);
+                l.SetCountryCode(avatar.GetUserRegion().ToUpper());
+                PacketProcessor.Send(l);
 
-            if (alliance != null)
-            {
-                PacketProcessor.Send(new AllianceFullEntryMessage(Client, alliance));
-                PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
-                PacketProcessor.Send(new AllianceWarHistoryMessage(Client, alliance));
-            }
-            PacketProcessor.Send(new AvatarStreamMessage(Client));
-            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
-            PacketProcessor.Send(new BookmarkMessage(Client));
+                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+
+                if (ResourcesManager.IsPlayerOnline(level))
+                {
+                    AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
+                    mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                    mail.SetSenderId(0);
+                    mail.SetSenderAvatarId(0);
+                    /*FOR FHX*/   //mail.SetSenderName("FHx-Admin");
+                    mail.SetSenderName("Server Manager");
+                    mail.SetIsNew(2);
+                    mail.SetAllianceId(0);
+                    mail.SetSenderLeagueId(22);
+                    mail.SetAllianceBadgeData(1526735450);
+                    /*FOR FHX*/   //mail.SetAllianceName("FHx-Server");
+                    mail.SetAllianceName("Server Admin");
+                    mail.SetMessage(ConfigurationManager.AppSettings["AdminMessage"]);
+                    mail.SetSenderLevel(500);
+                    AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.GetClient());
+                    p.SetAvatarStreamEntry(mail);
+                    PacketProcessor.Send(p);
+                }
+
+                if (alliance != null)
+                {
+                    PacketProcessor.Send(new AllianceFullEntryMessage(Client, alliance));
+                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                    PacketProcessor.Send(new AllianceWarHistoryMessage(Client, alliance));
+                }
+                PacketProcessor.Send(new AvatarStreamMessage(Client));
+                PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+                PacketProcessor.Send(new BookmarkMessage(Client));
+            } catch (Exception) { }
         }
 
-        void CheckClient()
+        async void CheckClient()
         {
-            if (UserID == 0 || string.IsNullOrEmpty(UserToken))
+            try
             {
-                NewUser();
-                return;
-            }
-
-            level = ResourcesManager.GetPlayer(UserID);
-            if (level != null)
-            {
-                if (level.Banned())
+                if (UserID == 0 || string.IsNullOrEmpty(UserToken))
                 {
-                    LoginFailedMessage p = new LoginFailedMessage(Client);
-                    p.SetErrorCode(11);
-                    PacketProcessor.Send(p);
+                    NewUser();
                     return;
                 }
-                if (string.Equals(level.GetPlayerAvatar().GetUserToken(), UserToken, StringComparison.Ordinal))
+
+                level = await ResourcesManager.GetPlayer(UserID);
+                if (level != null)
                 {
-                    LogUser();
+                    if (level.Banned())
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(11);
+                        PacketProcessor.Send(p);
+                        return;
+                    }
+                    if (string.Equals(level.GetPlayerAvatar().GetUserToken(), UserToken, StringComparison.Ordinal))
+                    {
+                        LogUser();
+                    }
+                    else
+                    {
+                        LoginFailedMessage p = new LoginFailedMessage(Client);
+                        p.SetErrorCode(11);
+                        /*FOR FHX*/         //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                  
+                        p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
+                        PacketProcessor.Send(p);
+                        return;
+                    }
                 }
                 else
                 {
                     LoginFailedMessage p = new LoginFailedMessage(Client);
                     p.SetErrorCode(11);
-/*FOR FHX*/         //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                  
-/*FOR COH*/         //p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");
-					p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
+                    /*FOR FHX*/     //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                                   
+                    p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
                     PacketProcessor.Send(p);
                     return;
                 }
-            }
-            else
-            {
-                LoginFailedMessage p = new LoginFailedMessage(Client);
-                p.SetErrorCode(11);
-/*FOR FHX*/     //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");   
-/*FOR COH*/         //p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                                
-                p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
-                PacketProcessor.Send(p);
-                return;
-            }
+            } catch (Exception) { }
         }
 
         void NewUser()

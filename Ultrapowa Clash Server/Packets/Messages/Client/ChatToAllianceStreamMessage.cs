@@ -27,55 +27,57 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            if (m_vChatMessage.Length > 0)
-            {
-                if (m_vChatMessage.Length < 101)
+            try {
+                if (m_vChatMessage.Length > 0)
                 {
-                    if (m_vChatMessage[0] == '/')
+                    if (m_vChatMessage.Length < 101)
                     {
-                        Object obj = GameOpCommandFactory.Parse(m_vChatMessage);
-                        if (obj != null)
+                        if (m_vChatMessage[0] == '/')
                         {
-                            string player = "";
-                            if (level != null)
-                                player += " (" + level.GetPlayerAvatar().GetId() + ", " +
-                                          level.GetPlayerAvatar().GetAvatarName() + ")";
-                            ((GameOpCommand)obj).Execute(level);
-                        }
-                    }
-                    else
-                    {
-                        ClientAvatar avatar = level.GetPlayerAvatar();
-                        long allianceId = avatar.GetAllianceId();
-                        if (allianceId > 0)
-                        {
-                            ChatStreamEntry cm = new ChatStreamEntry();
-                            cm.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                            cm.SetSender(avatar);
-                            cm.SetMessage(m_vChatMessage);
-
-                            Alliance alliance = ObjectManager.GetAlliance(allianceId);
-                            if (alliance != null)
+                            Object obj = GameOpCommandFactory.Parse(m_vChatMessage);
+                            if (obj != null)
                             {
-                                alliance.AddChatMessage(cm);
+                                string player = "";
+                                if (level != null)
+                                    player += " (" + level.GetPlayerAvatar().GetId() + ", " +
+                                              level.GetPlayerAvatar().GetAvatarName() + ")";
+                                ((GameOpCommand)obj).Execute(level);
+                            }
+                        }
+                        else
+                        {
+                            ClientAvatar avatar = level.GetPlayerAvatar();
+                            long allianceId = avatar.GetAllianceId();
+                            if (allianceId > 0)
+                            {
+                                ChatStreamEntry cm = new ChatStreamEntry();
+                                cm.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                                cm.SetSender(avatar);
+                                cm.SetMessage(m_vChatMessage);
 
-                                foreach (var op in alliance.GetAllianceMembers())
+                                Alliance alliance = await ObjectManager.GetAlliance(allianceId);
+                                if (alliance != null)
                                 {
-                                    Level player = ResourcesManager.GetPlayer(op.GetAvatarId());
-                                    if (player.GetClient() != null)
+                                    alliance.AddChatMessage(cm);
+
+                                    foreach (var op in alliance.GetAllianceMembers())
                                     {
-                                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.GetClient());
-                                        p.SetStreamEntry(cm);
-                                        PacketProcessor.Send(p);
+                                        Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                                        if (player.GetClient() != null)
+                                        {
+                                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.GetClient());
+                                            p.SetStreamEntry(cm);
+                                            PacketProcessor.Send(p);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
+            } catch (Exception) { }
         }
     }
 }

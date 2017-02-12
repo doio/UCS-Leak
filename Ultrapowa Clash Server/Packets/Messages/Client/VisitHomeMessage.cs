@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
@@ -24,16 +25,19 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Level targetLevel = ResourcesManager.GetPlayer(AvatarId);
-            targetLevel.Tick();
-            Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            PacketProcessor.Send(new VisitedHomeDataMessage(Client, targetLevel, level));
-            if (alliance != null)
+            try
             {
-                PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
-            }
+                Level targetLevel = await ResourcesManager.GetPlayer(AvatarId);
+                targetLevel.Tick();
+                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                PacketProcessor.Send(new VisitedHomeDataMessage(Client, targetLevel, level));
+                if (alliance != null)
+                {
+                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                }
+            } catch (Exception) { }
         }
     }
 }

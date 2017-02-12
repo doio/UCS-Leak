@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using UCS.Core;
+using UCS.Core.Checker;
 using UCS.Helpers;
 using UCS.Logic;
 
@@ -18,26 +21,32 @@ namespace UCS.Packets.Commands.Client
             {
                 Depth++;
                 if (Depth >= MaxEmbeddedDepth)
-                    throw new ArgumentException(
-                        "A command contained embedded command depth was greater than max embedded commands.");
+                {
+                    Console.WriteLine("Detected UCS.Exploit!");
+                    return;
+                }
+
+                Depth = Depth;
                 m_vCommand = CommandFactory.Read(br);
             }
         }
 
         public override void Execute(Level level)
         {
+            if (Depth >= MaxEmbeddedDepth)
+            {
+                IPEndPoint r = level.GetClient().Socket.RemoteEndPoint as IPEndPoint;
+                ConnectionBlocker.AddNewIpToBlackList(r.Address.ToString());
+                ResourcesManager.DropClient(level.GetClient().Socket.Handle.ToInt64());                
+            }
+
             if (level.WorkerManager.GetFreeWorkers() == 0)
             {
+                Depth = 0;
                 level.WorkerManager.FinishTaskOfOneWorker();
                 if (m_vIsCommandEmbedded)
                 {
-                    Depth++;
-
-                    if (Depth >= MaxEmbeddedDepth)
-                        throw new ArgumentException(
-                            "A command contained embedded command depth was greater than max embedded commands.");
-
-                    ((Command) m_vCommand).Execute(level);
+                    ((Command)m_vCommand).Execute(level);
                 }
             }
         }

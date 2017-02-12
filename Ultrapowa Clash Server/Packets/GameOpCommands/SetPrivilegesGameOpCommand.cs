@@ -14,7 +14,7 @@ namespace UCS.Packets.GameOpCommands
             SetRequiredAccountPrivileges(4);
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
             if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
             {
@@ -24,7 +24,7 @@ namespace UCS.Packets.GameOpCommands
                     {
                         var id = Convert.ToInt64(m_vArgs[1]);
                         var accountPrivileges = Convert.ToByte(m_vArgs[2]);
-                        var l = ResourcesManager.GetPlayer(id);
+                        var l = await ResourcesManager.GetPlayer(id);
                         if (accountPrivileges < level.GetAccountPrivileges())
                         {
                             if (l != null)

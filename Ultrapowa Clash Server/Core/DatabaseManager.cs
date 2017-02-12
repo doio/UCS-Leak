@@ -49,6 +49,7 @@ namespace UCS.Core
             }
             catch (Exception ex)
             {
+                Logger.Write("Error when try to Create an Account " + ex);
             }
         }
 
@@ -65,23 +66,24 @@ namespace UCS.Core
                             LastUpdateTime = DateTime.Now,
                             Data = a.SaveToJSON()
                         }
-                    );
+                        );
                     db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
+                Logger.Write("Error when try to Create an Alliance " + ex);
             }
         }
 
-        public Level GetAccount(long playerId)
+        public async Task<Level> GetAccount(long playerId)
         {
             Level account = null;
             try
             {
                 using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
                 {
-                    player p = db.player.Find(playerId);
+                    player p = await db.player.FindAsync(playerId);
 
                     if (p != null)
                     {
@@ -89,7 +91,6 @@ namespace UCS.Core
                         account.SetAccountStatus(p.AccountStatus);
                         account.SetAccountPrivileges(p.AccountPrivileges);
                         account.SetTime(p.LastUpdateTime);
-                        account.SetIPAddress(p.IPAddress);
                         account.GetPlayerAvatar().LoadFromJSON(p.Avatar);
                         account.LoadFromJSON(p.GameObjects);
                     }
@@ -97,6 +98,7 @@ namespace UCS.Core
             }
             catch (Exception ex)
             {
+                Logger.Write("Error when try to get an Account " + ex);
             }
             return account;
         }
@@ -109,31 +111,80 @@ namespace UCS.Core
                 using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
                 {
                     DbSet<clan> a = db.clan;
-                    int count = 0;
-                    foreach (clan c in a)
+                    Parallel.ForEach(a, c =>
                     {
-                        if (count++ >= 100)
-                            break;
-                        Alliance alliance = new Alliance(c.ClanId);
+                        Alliance alliance = new Alliance();
                         alliance.LoadFromJSON(c.Data);
                         alliances.Add(alliance);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("Error when try to get 100 Alliances: " + ex);
+            }
+            return alliances;
+        }
+
+        public List<Alliance> Get100Alliances()
+        {
+            List<Alliance> alliances = new List<Alliance>();
+            try
+            {
+                using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
+                {
+                    DbSet<clan> a = db.clan;
+                    int count = 0;
+                    Parallel.ForEach(a, (c, state) =>
+                    {
+                        Alliance alliance = new Alliance();
+                        alliance.LoadFromJSON(c.Data);
+                        alliances.Add(alliance);
+                        if (count++ >= 100)
+                            state.Stop();
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("Error when try to get 100 Alliances: " + ex);
+            }
+            return alliances;
+        }
+
+        public ConcurrentDictionary<long, Level> GetAllPlayers()
+        {
+            ConcurrentDictionary<long, Level> players = new ConcurrentDictionary<long, Level>();
+            try
+            {
+                using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
+                {
+                    DbSet<player> a = db.player;
+                    int count = 0;
+                    foreach (player c in a)
+                    {
+                        Level pl = new Level();
+                        players.TryAdd(pl.GetPlayerAvatar().GetId(), pl);
+                        if (count++ >= 100)
+                            break;
                     }
                 }
             }
             catch (Exception ex)
             {
+                Logger.Write("Error when try to get All Players: " + ex);
             }
-            return alliances;
+            return players;
         }
 
-        public Alliance GetAlliance(long allianceId)
+        public async Task<Alliance> GetAlliance(long allianceId)
         {
             Alliance alliance = null;
             try
             {
                 using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
                 {
-                    clan p = db.clan.Find(allianceId);
+                    clan p = await db.clan.FindAsync(allianceId);
                     if (p != null)
                     {
                         alliance = new Alliance();
@@ -141,8 +192,9 @@ namespace UCS.Core
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Write("Error when try to get an Alliance: " + ex);
             }
             return alliance;
         }
@@ -154,13 +206,25 @@ namespace UCS.Core
                 ids.AddRange(db.player.Select(p => p.PlayerId));
             return ids;
         }
+        public List<long> GetAllClanIds()
+        {
+            List<long> ids = new List<long>();
+            using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
+                ids.AddRange(db.clan.Select(p => p.ClanId));
+            return ids;
+        }
 
         public long GetMaxAllianceId()
         {
-            long max = 0;
-            using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
-                max = (from alliance in db.clan select (long?)alliance.ClanId ?? 0).DefaultIfEmpty().Max();
-            return max;
+            try
+            {
+                using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
+                    return (from alliance in db.clan select (long?)alliance.ClanId ?? 0).DefaultIfEmpty().Max();
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public long GetMaxPlayerId()
@@ -170,42 +234,43 @@ namespace UCS.Core
                 using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
                     return (from ep in db.player select (long?)ep.PlayerId ?? 0).DefaultIfEmpty().Max();
             }
+            catch (EntityException ex)
+            {
+                if (ConfigurationManager.AppSettings["databaseConnectionName"] == "mysql")
+                {
+                    Error("An exception occured when connecting to the MySQL Server.");
+                    Error("Please check your database configuration !");
+                    Error(Convert.ToString(ex));
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Error("An exception occured when connecting to the SQLite database.");
+                    Error("Please check your database configuration !");
+                    Error(Convert.ToString(ex));
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+            }
             catch (MySqlException)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[UCS]    Error when loging in to the MySQL Server.  Possible Issues :");
-                Console.WriteLine("[UCS]        -> Username is wrong");
-                Console.WriteLine("[UCS]        -> Password is wrong");
-                Console.WriteLine("[UCS]        -> Your IP Address is unauthorized");
-                Console.WriteLine("[UCS]    UCS Emulator is now closing...");
-                Console.ResetColor();
-                Thread.Sleep(8000);
-                Environment.Exit(0);
+                Say();
+                Error("An exception occured when reconnecting to the MySQL Server.");
+                Error("Please check your database configuration !");
+                //Reason
+                //Username is wrong
+                //Password is wrong
+                //IP Address is unauthorized
+
+                UCSControl.UCSRestart();
             }
-            catch (InvalidOperationException)
+            catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[UCS]    Error when reading the appconfig file.  Possible Issues :");
-                Console.WriteLine("[UCS]        -> File is missing");
-                Console.WriteLine("[UCS]        -> You edited the file wrongly");
-                Console.WriteLine("[UCS]        -> You moved the file");
-                Console.WriteLine("[UCS]    UCS Emulator is now closing...");
-                Console.ResetColor();
-                Thread.Sleep(8000);
-                Environment.Exit(0);
-            }
-            catch (System.Data.Entity.Core.EntityException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[UCS]    Error when connecting to your MySQL Server.  Possible Issues :");
-                Console.WriteLine("[UCS]        -> Wrong IP");
-                Console.WriteLine("[UCS]        -> Wrong User");
-                Console.WriteLine("[UCS]        -> Wrong Password");
-                Console.WriteLine("[UCS]        -> Wrong DB Name");
-                Console.WriteLine("[UCS]        -> Or you simply didnt imported the tables");
-                Console.WriteLine("[UCS]    UCS Emulator is now closing...");
-                Console.ResetColor();
-                Thread.Sleep(8000);
+                Error("An unknown exception occured when trying to connect to the sql server.");
+                Error("Please check your database configuration !");
+                Error(Convert.ToString(ex));
+                Console.ReadKey();
                 Environment.Exit(0);
             }
             return 0;
@@ -213,125 +278,78 @@ namespace UCS.Core
 
         public void RemoveAlliance(Alliance alliance)
         {
-            try
+            long id = alliance.GetAllianceId();
+            using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
             {
-                long id = alliance.GetAllianceId();
-                using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
-                {
-                    db.clan.Remove(db.clan.Find(id));
-                    db.SaveChanges();
-                }
-                ObjectManager.RemoveInMemoryAlliance(id);
+                db.clan.Remove(db.clan.Find((int)id));
+                db.SaveChanges();
             }
-            catch (Exception)
-            {
-            }
+            ObjectManager.RemoveInMemoryAlliance(id);
         }
 
-        public void Save(Alliance alliance)
+        public async Task Save(Alliance alliance)
         {
-            try
+            using (ucsdbEntities context = new ucsdbEntities(m_vConnectionString))
             {
-                using (ucsdbEntities context = new ucsdbEntities(m_vConnectionString))
+                context.Configuration.AutoDetectChangesEnabled = false;
+                context.Configuration.ValidateOnSaveEnabled = false;
+                clan c = await context.clan.FindAsync((int)alliance.GetAllianceId());
+                if (c != null)
                 {
-                    context.Configuration.AutoDetectChangesEnabled = false;
-                    context.Configuration.ValidateOnSaveEnabled = false;
-                    clan c = context.clan.Find(alliance.GetAllianceId());
-                    if (c != null)
-                    {
-                        c.LastUpdateTime = DateTime.Now;
-                        c.Data = alliance.SaveToJSON();
-                        context.Entry(c).State = EntityState.Modified;
-                    }
-                    else
-                    {
-                        context.clan.Add(
-                            new clan
-                            {
-                                ClanId = alliance.GetAllianceId(),
-                                LastUpdateTime = DateTime.Now,
-                                Data = alliance.SaveToJSON()
-                            }
-                            );
-                    }
-                    context.SaveChanges();
+                    c.LastUpdateTime = DateTime.Now;
+                    c.Data = alliance.SaveToJSON();
+                    context.Entry(c).State = EntityState.Modified;
                 }
-            }
-            catch (Exception)
-            {
+                else
+                {
+                    context.clan.Add(
+                        new clan
+                        {
+                            ClanId = alliance.GetAllianceId(),
+                            LastUpdateTime = DateTime.Now,
+                            Data = alliance.SaveToJSON()
+                        });
+                }
+                await context.SaveChangesAsync();
             }
         }
 
-        public void SetGameObject(Level avatar, string json)
+        public async Task Save(Level avatar)
         {
-            try
+            ucsdbEntities context = new ucsdbEntities(m_vConnectionString);
             {
-                using (ucsdbEntities context = new ucsdbEntities(m_vConnectionString))
+                context.Configuration.AutoDetectChangesEnabled = false;
+                context.Configuration.ValidateOnSaveEnabled = false;
+                player p = await context.player.FindAsync(avatar.GetPlayerAvatar().GetId());
+                if (p != null)
                 {
-                    context.Configuration.AutoDetectChangesEnabled = false;
-                    context.Configuration.ValidateOnSaveEnabled = false;
-                    player p = context.player.Find(avatar.GetPlayerAvatar().GetId());
-                    if (p != null)
-                    {
-                        p.LastUpdateTime = avatar.GetTime();
-                        p.AccountStatus = avatar.GetAccountStatus();
-                        p.AccountPrivileges = avatar.GetAccountPrivileges();
-                        p.IPAddress = avatar.GetIPAddress();
-                        p.Avatar = avatar.GetPlayerAvatar().SaveToJSON();
-                        p.GameObjects = json;
-                        context.Entry(p).State = EntityState.Modified;
-                    }
-                    context.SaveChanges();
+                    p.LastUpdateTime = avatar.GetTime();
+                    p.AccountStatus = avatar.GetAccountStatus();
+                    p.AccountPrivileges = avatar.GetAccountPrivileges();
+                    p.IPAddress = avatar.GetIPAddress();
+                    p.Avatar = avatar.GetPlayerAvatar().SaveToJSON();
+                    p.GameObjects = avatar.SaveToJSON();
+                    context.Entry(p).State = EntityState.Modified;
                 }
-            }
-            catch (Exception)
-            {
+                else
+                {
+                    context.player.Add(
+                        new player
+                        {
+                            PlayerId = avatar.GetPlayerAvatar().GetId(),
+                            AccountStatus = avatar.GetAccountStatus(),
+                            AccountPrivileges = avatar.GetAccountPrivileges(),
+                            LastUpdateTime = avatar.GetTime(),
+                            IPAddress = avatar.GetIPAddress(),
+                            Avatar = avatar.GetPlayerAvatar().SaveToJSON(),
+                            GameObjects = avatar.SaveToJSON()
+                        });
+                }
+                await context.SaveChangesAsync();
             }
         }
 
-        public void Save(Level avatar)
-        {
-            try
-            {
-                using (ucsdbEntities context = new ucsdbEntities(m_vConnectionString))
-                {
-                    context.Configuration.AutoDetectChangesEnabled = false;
-                    context.Configuration.ValidateOnSaveEnabled = false;
-                    player p = context.player.Find(avatar.GetPlayerAvatar().GetId());
-                    if (p != null)
-                    {
-                        p.LastUpdateTime = avatar.GetTime();
-                        p.AccountStatus = avatar.GetAccountStatus();
-                        p.AccountPrivileges = avatar.GetAccountPrivileges();
-                        p.IPAddress = avatar.GetIPAddress();
-                        p.Avatar = avatar.GetPlayerAvatar().SaveToJSON();
-                        p.GameObjects = avatar.SaveToJSON();
-                        context.Entry(p).State = EntityState.Modified;
-                    }
-                    else
-                    {
-                        context.player.Add(
-                            new player
-                            {
-                                PlayerId = avatar.GetPlayerAvatar().GetId(),
-                                AccountStatus = avatar.GetAccountStatus(),
-                                AccountPrivileges = avatar.GetAccountPrivileges(),
-                                LastUpdateTime = avatar.GetTime(),
-                                IPAddress = avatar.GetIPAddress(),
-                                Avatar = avatar.GetPlayerAvatar().SaveToJSON(),
-                                GameObjects = avatar.SaveToJSON()
-                            }
-                            );
-                    }
-                    context.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
-
-        public void Save(List<Level> avatars)
+        public async Task Save(List<Level> avatars)
         {
             try
             {
@@ -355,31 +373,28 @@ namespace UCS.Core
                                 context.Entry(p).State = EntityState.Modified;
                             }
                             else
-                            {
                                 context.player.Add(
-                                   new player
-                                   {
-                                       PlayerId = pl.GetPlayerAvatar().GetId(),
-                                       AccountStatus = pl.GetAccountStatus(),
-                                       AccountPrivileges = pl.GetAccountPrivileges(),
-                                       LastUpdateTime = pl.GetTime(),
-                                       IPAddress = pl.GetIPAddress(),
-                                       Avatar = pl.GetPlayerAvatar().SaveToJSON(),
-                                       GameObjects = pl.SaveToJSON()
-                                   }
-                                );
-                            }
+                                    new player
+                                    {
+                                        PlayerId = pl.GetPlayerAvatar().GetId(),
+                                        AccountStatus = pl.GetAccountStatus(),
+                                        AccountPrivileges = pl.GetAccountPrivileges(),
+                                        LastUpdateTime = pl.GetTime(),
+                                        IPAddress = pl.GetIPAddress(),
+                                        Avatar = pl.GetPlayerAvatar().SaveToJSON(),
+                                        GameObjects = pl.SaveToJSON()
+                                    });
                         }
-                        context.SaveChanges();
                     }
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (Exception)
+            catch
             {
             }
         }
 
-        public void Save(List<Alliance> alliances)
+        public async Task Save(List<Alliance> alliances)
         {
             try
             {
@@ -405,16 +420,16 @@ namespace UCS.Core
                                     {
                                         ClanId = alliance.GetAllianceId(),
                                         LastUpdateTime = DateTime.Now,
-                                        Data = alliance.SaveToJSON()
-                                    }
-                                );
+                                        Data = alliance.SaveToJSON(),
+
+                                    });
                             }
                         }
-                        context.SaveChanges();
                     }
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (Exception)
+            catch
             {
             }
         }

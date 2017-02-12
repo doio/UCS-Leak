@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
@@ -29,32 +30,35 @@ namespace UCS.Packets.Messages.Client
         }
 
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            ClientAvatar player = level.GetPlayerAvatar();
-            Alliance all = ObjectManager.GetAlliance(ID);
-
-            InvitationStreamEntry cm = new InvitationStreamEntry();
-            cm.SetId(all.GetChatMessages().Count + 1);
-            cm.SetSenderId(player.GetId());
-            cm.SetHomeId(player.GetId());
-            cm.SetSenderLeagueId(player.GetLeagueId());
-            cm.SetSenderName(player.GetAvatarName());
-            cm.SetSenderRole(player.GetAllianceRole());
-            cm.SetMessage(Message);
-            cm.SetState(1);
-            all.AddChatMessage(cm);
-
-            foreach (AllianceMemberEntry op in all.GetAllianceMembers())
+            try
             {
-                Level playera = ResourcesManager.GetPlayer(op.GetAvatarId());
-                if (playera.GetClient() != null)
+                ClientAvatar player = level.GetPlayerAvatar();
+                Alliance all = await ObjectManager.GetAlliance(ID);
+
+                InvitationStreamEntry cm = new InvitationStreamEntry();
+                cm.SetId(all.GetChatMessages().Count + 1);
+                cm.SetSenderId(player.GetId());
+                cm.SetHomeId(player.GetId());
+                cm.SetSenderLeagueId(player.GetLeagueId());
+                cm.SetSenderName(player.GetAvatarName());
+                cm.SetSenderRole(await player.GetAllianceRole());
+                cm.SetMessage(Message);
+                cm.SetState(1);
+                all.AddChatMessage(cm);
+
+                foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                 {
-                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
-                    p.SetStreamEntry(cm);
-                    PacketProcessor.Send(p);
+                    Level playera = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                    if (playera.GetClient() != null)
+                    {
+                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
+                        p.SetStreamEntry(cm);
+                        PacketProcessor.Send(p);
+                    }
                 }
-            }
+            } catch (Exception) { }
         }
     }
 }

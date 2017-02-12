@@ -19,22 +19,25 @@ namespace UCS.Packets.Messages.Server
             JsonBase = ObjectManager.NpcLevels[LevelId];
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            ClientHome ownerHome = new ClientHome(Player.GetPlayerAvatar().GetId());
-            ownerHome.SetShieldTime(Player.GetPlayerAvatar().GetShieldTime);
-            ownerHome.SetProtectionTime(Player.GetPlayerAvatar().GetProtectionTime);
-            ownerHome.SetHomeJSON(JsonBase);
+            try
+            {
+                ClientHome ownerHome = new ClientHome(Player.GetPlayerAvatar().GetId());
+                ownerHome.SetShieldTime(Player.GetPlayerAvatar().GetShieldTime);
+                ownerHome.SetProtectionTime(Player.GetPlayerAvatar().GetProtectionTime);
+                ownerHome.SetHomeJSON(JsonBase);
 
-            List<byte> data = new List<byte>();
+                List<byte> data = new List<byte>();
 
-            data.AddInt32(0);
-            data.AddInt32((int)Player.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-            data.AddRange(ownerHome.Encode());
-            data.AddRange(Player.GetPlayerAvatar().Encode());
-            data.AddInt32(LevelId);
+                data.AddInt32(0);
+                data.AddInt32((int)Player.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                data.AddRange(ownerHome.Encode());
+                data.AddRange(await Player.GetPlayerAvatar().Encode());
+                data.AddInt32(LevelId);
 
-            Encrypt(data.ToArray());
+                Encrypt(data.ToArray());
+            } catch (Exception) { }
         }
 
         public string JsonBase { get; set; }

@@ -243,6 +243,12 @@
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
+    <Compile Include="UpdaterGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdaterGUI.Designer.cs">
+      <DependentUpon>UpdaterGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebAPI\API.cs" />
     <Compile Include="Logic\DataSlots\DonationSlot.cs" />
     <Compile Include="Logic\DataSlots\UnitSlot.cs" />
@@ -1345,6 +1351,9 @@
   <ItemGroup>
     <EmbeddedResource Include="UCSUI.resx">
       <DependentUpon>UCSUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdaterGUI.resx">
+      <DependentUpon>UpdaterGUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

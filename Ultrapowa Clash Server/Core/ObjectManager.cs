@@ -14,6 +14,7 @@ using UCS.Packets.Messages.Server;
 using Timer = System.Threading.Timer;
 using static UCS.Core.Logger;
 using UCS.Core.Threading;
+using System.Threading.Tasks;
 
 namespace UCS.Core
 {
@@ -35,38 +36,49 @@ namespace UCS.Core
 
         public ObjectManager()
         {
-            m_vTimerCanceled = false;
+            m_vTimerCanceled       = false;
 
-            m_vDatabase = new DatabaseManager();
-            NpcLevels = new Dictionary<int, string>();
-            m_vRandomBases = new Dictionary<int, string>();
-            FingerPrint = new FingerPrint();
+            m_vDatabase            = new DatabaseManager();
 
-            MaxPlayerID = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
-            MaxAllianceID = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+            NpcLevels              = new Dictionary<int, string>();
+            m_vRandomBases         = new Dictionary<int, string>();
+            FingerPrint            = new FingerPrint();
 
-            m_vAvatarSeed = MaxPlayerID;
-            m_vAllianceSeed = MaxAllianceID;
+            MaxPlayerID            = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
+            MaxAllianceID          = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+
+            m_vAvatarSeed          = MaxPlayerID;
+            m_vAllianceSeed        = MaxAllianceID;
+
             using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
             {
-                m_vHomeDefault = sr.ReadToEnd();
+                m_vHomeDefault     = sr.ReadToEnd();
             }
 
             LoadNpcLevels();
             //LoadRandomBase(); // Useless atm
 
-            TimerReference = new Timer(Save, null, 7000, 30000);
+            TimerReference         = new Timer(Save, null, 10000, 60000);
             Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 
-        private void Save(object state)
-        {
-            m_vDatabase.Save(ResourcesManager.GetInMemoryLevels());
-            m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances());
+        public bool IsRunning = false;
 
-            if (m_vTimerCanceled)
+        private async void Save(object state)
+        {
+            if (!IsRunning)
             {
-                TimerReference.Dispose();
+                IsRunning = true;
+
+                m_vDatabase.Save(ResourcesManager.GetInMemoryLevels()).Wait();
+                m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances()).Wait();
+
+                IsRunning = false;
+
+                if (m_vTimerCanceled)
+                {
+                    TimerReference.Dispose();
+                }
             }
         }
 
@@ -103,7 +115,7 @@ namespace UCS.Core
             ResourcesManager.AddAllianceInMemory(m_vDatabase.GetAllAlliances());
         }*/
 
-        public static Alliance GetAlliance(long allianceId)
+        public static async Task<Alliance> GetAlliance(long allianceId)
         {
             Alliance alliance;
             if (ResourcesManager.InMemoryAlliancesContain(allianceId))
@@ -112,7 +124,7 @@ namespace UCS.Core
             }
             else
             {
-                alliance = m_vDatabase.GetAlliance(allianceId);
+                alliance = await m_vDatabase.GetAlliance(allianceId);
                 if (alliance != null)
                     ResourcesManager.AddAllianceInMemory(alliance);
                 else
@@ -129,23 +141,26 @@ namespace UCS.Core
             return ResourcesManager.GetInMemoryLevels().ElementAt(index);
         }
 
-        public static Level GetRandomOnlinePlayerWithoutShield()
+        public static async Task<Level> GetRandomOnlinePlayerWithoutShield()
         {
-            Level l = GetRandomOnlinePlayer();
-            ClientAvatar ca = l.GetPlayerAvatar();
+            try
+            {
+                Level l = GetRandomOnlinePlayer();
+                ClientAvatar ca = l.GetPlayerAvatar();
 
-            if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90) 
-            {
-                return l;
-            }
-            else if (ResourcesManager.GetOnlinePlayers().Count <= 100 && l != null)
-            {
-                return l;
-            }
-            else
-            {
-                return GetRandomOnlinePlayerWithoutShield(); // Insane loop?
-            }
+                if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90)
+                {
+                    return l;
+                }
+                else if (ResourcesManager.GetOnlinePlayers().Count <= 100 && l != null)
+                {
+                    return l;
+                }
+                else
+                {
+                    return await GetRandomOnlinePlayerWithoutShield();
+                }
+            } catch (Exception) { return null; }
         }
 
         /*public static Level GetRandomPlayerFromAll()

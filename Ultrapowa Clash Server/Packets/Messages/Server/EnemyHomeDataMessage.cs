@@ -15,25 +15,28 @@ namespace UCS.Packets.Messages.Server
             m_vVisitorLevel = visitorLevel;
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            List<byte> data = new List<byte>();
-            ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
-            ch.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);
-            ch.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
-            ch.SetProtectionTime(m_vOwnerLevel.GetPlayerAvatar().GetProtectionTime);
+            try
+            {
+                List<byte> data = new List<byte>();
+                ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
+                ch.SetShieldTime(m_vOwnerLevel.GetPlayerAvatar().GetShieldTime);
+                ch.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
+                ch.SetProtectionTime(m_vOwnerLevel.GetPlayerAvatar().GetProtectionTime);
 
-            data.AddInt32((int)TimeSpan.FromSeconds(100).TotalSeconds);
-            data.AddInt32(-1);
-            data.AddInt32((int)Client.GetLevel().GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-            data.AddRange(ch.Encode());
-            data.AddRange(m_vOwnerLevel.GetPlayerAvatar().Encode());
-            data.AddRange(m_vVisitorLevel.GetPlayerAvatar().Encode());
-            data.AddInt32(3);
-            data.AddInt32(0);
-            data.Add(0);
+                data.AddInt32((int)TimeSpan.FromSeconds(100).TotalSeconds);
+                data.AddInt32(-1);
+                data.AddInt32((int)Client.GetLevel().GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                data.AddRange(ch.Encode());
+                data.AddRange(await m_vOwnerLevel.GetPlayerAvatar().Encode());
+                data.AddRange(await m_vVisitorLevel.GetPlayerAvatar().Encode());
+                data.AddInt32(3);
+                data.AddInt32(0);
+                data.Add(0);
 
-            Encrypt(data.ToArray());
+                Encrypt(data.ToArray());
+            } catch (Exception) { }
         }
 
         readonly Level m_vOwnerLevel;

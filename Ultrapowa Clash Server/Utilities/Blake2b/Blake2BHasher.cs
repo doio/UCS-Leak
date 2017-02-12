@@ -21,15 +21,18 @@ namespace UCS.Utilities.Blake2b
 
         public override byte[] Finish()
         {
-            var fullResult = core.HashFinal();
-            if (outputSizeInBytes != fullResult.Length)
+            try
             {
-                var result = new byte[outputSizeInBytes];
-                Array.Copy(fullResult, result, result.Length);
-                return result;
-            }
-            else
-                return fullResult;
+                var fullResult = core.HashFinal();
+                if (outputSizeInBytes != fullResult.Length)
+                {
+                    var result = new byte[outputSizeInBytes];
+                    Array.Copy(fullResult, result, result.Length);
+                    return result;
+                }
+                else
+                    return fullResult;
+            } catch (Exception) { return null; }
         }
 
         public Blake2BHasher(Blake2BConfig config)

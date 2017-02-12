@@ -30,21 +30,24 @@ namespace UCS.Packets.Messages.Client
 
         public bool Unknown { get; set; }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            ClientAvatar player = level.GetPlayerAvatar();
+            try
+            {
+                ClientAvatar player = level.GetPlayerAvatar();
 
-            if (ResourcesManager.GetPlayerWithFacebookID(UserID) != null)
-            {
-                Level l = ResourcesManager.GetPlayerWithFacebookID(UserID);
-                PacketProcessor.Send(new OwnHomeDataMessage(Client, l)); // Not done
-                PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
-            }
-            else
-            {
-                player.SetFacebookID(UserID);
-                PacketProcessor.Send(new OutOfSyncMessage(Client));
-            }
+                if (ResourcesManager.GetPlayerWithFacebookID(UserID) != null)
+                {
+                    Level l = await ResourcesManager.GetPlayerWithFacebookID(UserID);
+                    PacketProcessor.Send(new OwnHomeDataMessage(Client, l)); // Not done
+                    PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
+                }
+                else
+                {
+                    player.SetFacebookID(UserID);
+                    PacketProcessor.Send(new OutOfSyncMessage(Client));
+                }
+            } catch (Exception) { }
         }
     }
 }

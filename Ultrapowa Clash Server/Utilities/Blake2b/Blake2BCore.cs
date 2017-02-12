@@ -102,46 +102,49 @@ namespace UCS.Utilities.Blake2b
 
         public void HashCore(byte[] array, int start, int count)
         {
-            if (!_isInitialized)
-                throw new InvalidOperationException("Not initialized");
-            if (array == null)
-                throw new ArgumentNullException("array");
-            if (start < 0)
-                throw new ArgumentOutOfRangeException("start");
-            if (count < 0)
-                throw new ArgumentOutOfRangeException("count");
-            if ((long) start + (long) count > array.Length)
-                throw new ArgumentOutOfRangeException("start+count");
-            int offset = start;
-            int bufferRemaining = BlockSizeInBytes - _bufferFilled;
-
-            if ((_bufferFilled > 0) && (count > bufferRemaining))
+            try
             {
-                Array.Copy(array, offset, _buf, _bufferFilled, bufferRemaining);
-                _counter0 += BlockSizeInBytes;
-                if (_counter0 == 0)
-                    _counter1++;
-                Compress(_buf, 0);
-                offset += bufferRemaining;
-                count -= bufferRemaining;
-                _bufferFilled = 0;
-            }
+                if (!_isInitialized)
+                    throw new InvalidOperationException("Not initialized");
+                if (array == null)
+                    throw new ArgumentNullException("array");
+                if (start < 0)
+                    throw new ArgumentOutOfRangeException("start");
+                if (count < 0)
+                    throw new ArgumentOutOfRangeException("count");
+                if ((long)start + (long)count > array.Length)
+                    throw new ArgumentOutOfRangeException("start+count");
+                int offset = start;
+                int bufferRemaining = BlockSizeInBytes - _bufferFilled;
 
-            while (count > BlockSizeInBytes)
-            {
-                _counter0 += BlockSizeInBytes;
-                if (_counter0 == 0)
-                    _counter1++;
-                Compress(array, offset);
-                offset += BlockSizeInBytes;
-                count -= BlockSizeInBytes;
-            }
+                if ((_bufferFilled > 0) && (count > bufferRemaining))
+                {
+                    Array.Copy(array, offset, _buf, _bufferFilled, bufferRemaining);
+                    _counter0 += BlockSizeInBytes;
+                    if (_counter0 == 0)
+                        _counter1++;
+                    Compress(_buf, 0);
+                    offset += bufferRemaining;
+                    count -= bufferRemaining;
+                    _bufferFilled = 0;
+                }
 
-            if (count > 0)
-            {
-                Array.Copy(array, offset, _buf, _bufferFilled, count);
-                _bufferFilled += count;
-            }
+                while (count > BlockSizeInBytes)
+                {
+                    _counter0 += BlockSizeInBytes;
+                    if (_counter0 == 0)
+                        _counter1++;
+                    Compress(array, offset);
+                    offset += BlockSizeInBytes;
+                    count -= BlockSizeInBytes;
+                }
+
+                if (count > 0)
+                {
+                    Array.Copy(array, offset, _buf, _bufferFilled, count);
+                    _bufferFilled += count;
+                }
+            } catch (Exception) { }
         }
 
         public byte[] HashFinal()
@@ -151,24 +154,27 @@ namespace UCS.Utilities.Blake2b
 
         public byte[] HashFinal(bool isEndOfLayer)
         {
-            if (!_isInitialized)
-                throw new InvalidOperationException("Not initialized");
-            _isInitialized = false;
+            try
+            {
+                if (!_isInitialized)
+                    throw new InvalidOperationException("Not initialized");
+                _isInitialized = false;
 
-            //Last compression
-            _counter0 += (uint) _bufferFilled;
-            _finalizationFlag0 = ulong.MaxValue;
-            if (isEndOfLayer)
-                _finalizationFlag1 = ulong.MaxValue;
-            for (int i = _bufferFilled; i < _buf.Length; i++)
-                _buf[i] = 0;
-            Compress(_buf, 0);
+                //Last compression
+                _counter0 += (uint)_bufferFilled;
+                _finalizationFlag0 = ulong.MaxValue;
+                if (isEndOfLayer)
+                    _finalizationFlag1 = ulong.MaxValue;
+                for (int i = _bufferFilled; i < _buf.Length; i++)
+                    _buf[i] = 0;
+                Compress(_buf, 0);
 
-            //Output
-            byte[] hash = new byte[64];
-            for (int i = 0; i < 8; ++i)
-                UInt64ToBytes(_h[i], hash, i << 3);
-            return hash;
+                //Output
+                byte[] hash = new byte[64];
+                for (int i = 0; i < 8; ++i)
+                    UInt64ToBytes(_h[i], hash, i << 3);
+                return hash;
+            } catch (Exception) { return null; }
         }
     }
 }

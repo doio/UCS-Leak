@@ -27,9 +27,9 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Level targetLevel = ResourcesManager.GetPlayer(m_vAvatarId);
+            Level targetLevel = await ResourcesManager.GetPlayer(m_vAvatarId);
             if (targetLevel != null)
             {
                 targetLevel.Tick();

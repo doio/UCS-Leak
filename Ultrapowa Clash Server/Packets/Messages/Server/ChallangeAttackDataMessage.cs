@@ -20,30 +20,33 @@ namespace UCS.Packets.Messages.Server
             m_vVisitorLevel = client.GetLevel();
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddRange(new byte[]
+            try
             {
+                List<byte> data = new List<byte>();
+                data.AddRange(new byte[]
+                {
                 0x00, 0x00, 0x00, 0xF0,
                 0xFF, 0xFF, 0xFF, 0xFF,
                 0x54, 0xCE, 0x5C, 0x4A
-            });
-            ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
-            ch.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
-            data.AddRange(ch.Encode());
-            data.AddRange(m_vOwnerLevel.GetPlayerAvatar().Encode());
-            data.AddRange(m_vVisitorLevel.GetPlayerAvatar().Encode());
-            data.AddRange(new byte[]
-            {
+                });
+                ClientHome ch = new ClientHome(m_vOwnerLevel.GetPlayerAvatar().GetId());
+                ch.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
+                data.AddRange(ch.Encode());
+                data.AddRange(await m_vOwnerLevel.GetPlayerAvatar().Encode());
+                data.AddRange(await m_vVisitorLevel.GetPlayerAvatar().Encode());
+                data.AddRange(new byte[]
+                {
                 0x00, 0x00, 0x00, 0x03, 0x00
-            });
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt64(0);
-            data.AddInt64(0);
-            data.AddInt64(0);
-            Encrypt(data.ToArray());
+                });
+                data.AddInt32(0);
+                data.AddInt32(0);
+                data.AddInt64(0);
+                data.AddInt64(0);
+                data.AddInt64(0);
+                Encrypt(data.ToArray());
+            } catch (Exception) { }
         }
     }
 }

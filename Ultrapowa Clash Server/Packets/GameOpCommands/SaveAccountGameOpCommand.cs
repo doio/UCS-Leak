@@ -13,7 +13,7 @@ namespace UCS.Packets.GameOpCommands
             SetRequiredAccountPrivileges(5);
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
             if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
             {

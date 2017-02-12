@@ -20,48 +20,58 @@ namespace UCS.Packets.Commands.Client
             br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
-            ClientAvatar p = level.GetPlayerAvatar();
-
-            if (p.State == ClientAvatar.UserState.PVP || p.State == ClientAvatar.UserState.PVE)
+            try
             {
-                ResourcesManager.DisconnectClient(level.GetClient());
-            }
-            else
-            {
+                ClientAvatar p = level.GetPlayerAvatar();
 
-                if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                if (p.State == ClientAvatar.UserState.PVP || p.State == ClientAvatar.UserState.PVE)
                 {
-                    for (int i = 0; i < 31; i++)
-                    {
-                        Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
-                        CharacterData combatData = (CharacterData)unitData;
-                        int maxLevel = combatData.GetUpgradeLevelCount();
-                        DataSlot unitSlot = new DataSlot(unitData, 1000);
+                    ResourcesManager.DisconnectClient(level.GetClient());
+                }
+                else
+                {
 
-                        level.GetPlayerAvatar().GetUnits().Add(unitSlot);
-                        level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                    if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                    {
+                        for (int i = 0; i < 31; i++)
+                        {
+                            Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
+                            CharacterData combatData = (CharacterData)unitData;
+                            int maxLevel = combatData.GetUpgradeLevelCount();
+                            DataSlot unitSlot = new DataSlot(unitData, 1000);
+
+                            level.GetPlayerAvatar().GetUnits().Add(unitSlot);
+                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                        }
+
+                        for (int i = 0; i < 18; i++)
+                        {
+                            Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
+                            SpellData combatData = (SpellData)spellData;
+                            int maxLevel = combatData.GetUpgradeLevelCount();
+                            DataSlot spellSlot = new DataSlot(spellData, 1000);
+
+                            level.GetPlayerAvatar().GetSpells().Add(spellSlot);
+                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                        }
                     }
 
-                    for (int i = 0; i < 18; i++)
+                    // New Method
+                    p.State = ClientAvatar.UserState.Searching;
+                    Level Defender = await ObjectManager.GetRandomOnlinePlayerWithoutShield();
+                    if (Defender != null)
                     {
-                        Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
-                        SpellData combatData = (SpellData)spellData;
-                        int maxLevel = combatData.GetUpgradeLevelCount();
-                        DataSlot spellSlot = new DataSlot(spellData, 1000);
-
-                        level.GetPlayerAvatar().GetSpells().Add(spellSlot);
-                        level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                        Defender.Tick();
+                        PacketProcessor.Send(new EnemyHomeDataMessage(level.GetClient(), Defender, level));
+                    }
+                    else
+                    {
+                        PacketProcessor.Send(new OutOfSyncMessage(level.GetClient()));
                     }
                 }
-
-                // New Method
-                p.State = ClientAvatar.UserState.Searching;
-                Level Defender = ObjectManager.GetRandomOnlinePlayerWithoutShield();
-                Defender.Tick();
-                PacketProcessor.Send(new EnemyHomeDataMessage(level.GetClient(), Defender, level));
-            } 
+            } catch (Exception) { }
         }
     }
 }

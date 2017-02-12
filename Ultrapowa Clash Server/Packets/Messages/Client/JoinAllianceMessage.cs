@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
@@ -25,40 +26,43 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Alliance alliance = ObjectManager.GetAlliance(m_vAllianceId);
-            if (alliance != null)
+            try
             {
-                if (!alliance.IsAllianceFull())
+                Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                if (alliance != null)
                 {
-                    level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
-                    AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
-                    member.SetRole(1);
-                    alliance.AddAllianceMember(member);
+                    if (!alliance.IsAllianceFull())
+                    {
+                        level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
+                        AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
+                        member.SetRole(1);
+                        alliance.AddAllianceMember(member);
 
-                    JoinedAllianceCommand b = new JoinedAllianceCommand();
-                    b.SetAlliance(alliance);
+                        JoinedAllianceCommand b = new JoinedAllianceCommand();
+                        b.SetAlliance(alliance);
 
-                    AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
-                    c.SetAlliance(alliance);
-                    c.SetRole(1);
-                    c.Tick(level);
+                        AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
+                        c.SetAlliance(alliance);
+                        c.SetRole(1);
+                        c.Tick(level);
 
-                    AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
-                    a.SetCommandId(1);
-                    a.SetCommand(b);
+                        AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
+                        a.SetCommandId(1);
+                        a.SetCommand(b);
 
-                    AvailableServerCommandMessage d = new AvailableServerCommandMessage(Client);
-                    d.SetCommandId(8);
-                    d.SetCommand(c);
+                        AvailableServerCommandMessage d = new AvailableServerCommandMessage(Client);
+                        d.SetCommandId(8);
+                        d.SetCommand(c);
 
-                    PacketProcessor.Send(a);
-                    PacketProcessor.Send(d);
+                        PacketProcessor.Send(a);
+                        PacketProcessor.Send(d);
 
-                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                        PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                    }
                 }
-            }
+            } catch (Exception) { }
         }
     }
 }

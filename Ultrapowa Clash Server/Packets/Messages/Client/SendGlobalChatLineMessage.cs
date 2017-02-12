@@ -30,37 +30,39 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            if (Message.Length > 0)
+            try
             {
-                if (Message.Length < 101)
+                if (Message.Length > 0)
                 {
-                    if (Message[0] == '/')
+                    if (Message.Length < 101)
                     {
-                        object obj = GameOpCommandFactory.Parse(Message);
-                        if (obj != null)
+                        if (Message[0] == '/')
                         {
-                            string player = "";
-                            if (level != null)
-                                player += " (" + level.GetPlayerAvatar().GetId() + ", " +
-                                          level.GetPlayerAvatar().GetAvatarName() + ")";
-                            ((GameOpCommand)obj).Execute(level);
-                        }
-                    }
-                    else
-                    {
-                        long senderId = level.GetPlayerAvatar().GetId();
-                        string senderName = level.GetPlayerAvatar().GetAvatarName();
-
-                        bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
-
-                        if (badword)
-                        {
-                            foreach (Level pl in ResourcesManager.GetOnlinePlayers())
+                            object obj = GameOpCommandFactory.Parse(Message);
+                            if (obj != null)
                             {
-                                /*if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                {*/
+                                string player = "";
+                                if (level != null)
+                                    player += " (" + level.GetPlayerAvatar().GetId() + ", " +
+                                              level.GetPlayerAvatar().GetAvatarName() + ")";
+                                ((GameOpCommand)obj).Execute(level);
+                            }
+                        }
+                        else
+                        {
+                            long senderId = level.GetPlayerAvatar().GetId();
+                            string senderName = level.GetPlayerAvatar().GetAvatarName();
+
+                            bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
+
+                            if (badword)
+                            {
+                                foreach (Level pl in ResourcesManager.GetOnlinePlayers())
+                                {
+                                    /*if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
+                                    {*/
                                     GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
                                     string NewMessage = "";
 
@@ -73,34 +75,35 @@ namespace UCS.Packets.Messages.Client
                                     p.SetChatMessage(NewMessage);
                                     p.SetPlayerId(senderId);
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                                    p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
+                                    p.SetAlliance(await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
 
                                     ChatProcessor.AddMessage(p);
                                     //PacketManager.Send(p);
-                                //}
+                                    //}
+                                }
                             }
-                        }
-                        else
-                        {
-                            foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                            else
                             {
-                                /*if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                {*/
+                                foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                                {
+                                    /*if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
+                                    {*/
                                     GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
                                     p.SetPlayerName(senderName);
                                     p.SetChatMessage(Message);
                                     p.SetPlayerId(senderId);
                                     p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                                    p.SetAlliance(ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
+                                    p.SetAlliance(await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
                                     //PacketManager.Send(p);
                                     ChatProcessor.AddMessage(p);
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
-                                //}
+                                    //}
+                                }
                             }
                         }
                     }
                 }
-            }
+            } catch (Exception) { }
         }
     }
 }

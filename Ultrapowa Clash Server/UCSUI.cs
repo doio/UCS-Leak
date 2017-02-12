@@ -188,7 +188,7 @@ namespace UCS
         /* END OF EDIT PLAYER TAB*/
 
         //Load Player Button
-        private void materialRaisedButton6_Click(object sender, EventArgs e)
+        private async void materialRaisedButton6_Click(object sender, EventArgs e)
         {
             /* LOAD PLAYER */
             try
@@ -200,13 +200,15 @@ namespace UCS
                 txtAllianceID.Enabled = true;
                 txtPlayerLevel.Enabled = true;
 
-                txtPlayerName.Text = Convert.ToString(ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetAvatarName());
-                txtPlayerScore.Text = Convert.ToString(ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetScore());
-                txtPlayerGems.Text = Convert.ToString(ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetDiamonds());
-                txtTownHallLevel.Text = Convert.ToString(ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetTownHallLevel());
-                txtAllianceID.Text = Convert.ToString(ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetAllianceId());
-                materialLabel7.Text = ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetUserRegion();
-                txtPlayerLevel.Text = ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().GetAvatarLevel().ToString();
+                Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
+
+                txtPlayerName.Text = Convert.ToString(l.GetPlayerAvatar().GetAvatarName());
+                txtPlayerScore.Text = Convert.ToString(l.GetPlayerAvatar().GetScore());
+                txtPlayerGems.Text = Convert.ToString(l.GetPlayerAvatar().GetDiamonds());
+                txtTownHallLevel.Text = Convert.ToString(l.GetPlayerAvatar().GetTownHallLevel());
+                txtAllianceID.Text = Convert.ToString(l.GetPlayerAvatar().GetAllianceId());
+                materialLabel7.Text = l.GetPlayerAvatar().GetUserRegion();
+                txtPlayerLevel.Text = l.GetPlayerAvatar().GetAvatarLevel().ToString();
             }
             catch (NullReferenceException)
             {
@@ -244,15 +246,17 @@ namespace UCS
         }
 
         //Save Button
-        private void materialRaisedButton7_Click(object sender, EventArgs e)
+        private async void materialRaisedButton7_Click(object sender, EventArgs e)
         {
             /* SAVE PLAYER */
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetName(txtPlayerName.Text);
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetScore(Convert.ToInt32(txtPlayerScore.Text));
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
-            ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text)).GetPlayerAvatar().SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
+            Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
+
+            l.GetPlayerAvatar().SetName(txtPlayerName.Text);
+            l.GetPlayerAvatar().SetScore(Convert.ToInt32(txtPlayerScore.Text));
+            l.GetPlayerAvatar().SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
+            l.GetPlayerAvatar().SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
+            l.GetPlayerAvatar().SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
+            l.GetPlayerAvatar().SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
 
             var title = "Finished!";
             MessageBox.Show("Player has been saved!", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -529,7 +533,7 @@ namespace UCS
 
         }
 
-        private void materialRaisedButton13_Click(object sender, EventArgs e)
+        private async void materialRaisedButton13_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPlayerID.Text))
             {
@@ -538,12 +542,12 @@ namespace UCS
             else
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
-                var player = ResourcesManager.GetPlayer(id);
+                var player = await ResourcesManager.GetPlayer(id);
                 PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
-        private void materialRaisedButton14_Click(object sender, EventArgs e)
+        private async void materialRaisedButton14_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPlayerID.Text))
             {
@@ -552,14 +556,14 @@ namespace UCS
             else
             {
                 long id = Convert.ToInt64(txtPlayerID.Text);
-                Level player = ResourcesManager.GetPlayer(id);
+                Level player = await ResourcesManager.GetPlayer(id);
                 player.SetAccountStatus(100);
                 DatabaseManager.Single().Save(player);
                 PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
             }
         }
 
-        private void materialRaisedButton15_Click(object sender, EventArgs e)
+        private async void materialRaisedButton15_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPlayerID.Text))
             {
@@ -568,13 +572,13 @@ namespace UCS
             else
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
-                var player = ResourcesManager.GetPlayer(id);
+                var player = await ResourcesManager.GetPlayer(id);
                 player.SetAccountStatus(0);
                 DatabaseManager.Single().Save(player);
             }
         }
 
-        private void materialRaisedButton16_Click(object sender, EventArgs e)
+        private async void materialRaisedButton16_Click(object sender, EventArgs e)
         {
             var name = txtSearchPlayer.Text;
             listView1.Items.Clear();
@@ -586,7 +590,8 @@ namespace UCS
             {
                 foreach (var n in ResourcesManager.GetInMemoryLevels())
                 {
-                    var na = ResourcesManager.GetPlayer(n.GetPlayerAvatar().GetId()).GetPlayerAvatar().GetAvatarName();
+                    var l = await ResourcesManager.GetPlayer(n.GetPlayerAvatar().GetId());
+                    var na = l.GetPlayerAvatar().GetAvatarName();
                     if (na == name || na == name.ToUpper() || na == name.ToLower())
                     {
                         ListViewItem item = new ListViewItem(n.GetPlayerAvatar().GetAvatarName());
@@ -743,11 +748,11 @@ namespace UCS
 
         }
 
-        private void materialRaisedButton24_Click(object sender, EventArgs e)
+        private async void materialRaisedButton24_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = await ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 txtAllianceName.Text = alliance.GetAllianceName();
                 txtAllianceLevel.Text = alliance.GetAllianceLevel().ToString();
                 txtAllianceDescription.Text = alliance.GetAllianceDescription();
@@ -767,11 +772,11 @@ namespace UCS
             txtAllianceScore.Text = "0";
         }
 
-        private void materialRaisedButton23_Click(object sender, EventArgs e)
+        private async void materialRaisedButton23_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = await ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 alliance.SetAllianceName(txtAllianceName.Text);
                 alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
                 alliance.SetAllianceDescription(txtAllianceDescription.Text);
@@ -781,6 +786,12 @@ namespace UCS
             {
                 MessageBox.Show("The Alliance ID can't be null or empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void materialRaisedButton25_Click(object sender, EventArgs e)
+        {
+            UpdaterGUI ug = new UpdaterGUI();
+            ug.Show();
         }
     }
 }

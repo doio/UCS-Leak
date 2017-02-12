@@ -16,7 +16,7 @@ namespace UCS.Packets.GameOpCommands
             m_vArgs = args;
             SetRequiredAccountPrivileges(5);
         }
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
             if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
             {
@@ -25,15 +25,16 @@ namespace UCS.Packets.GameOpCommands
                     try
                     {
                         long id = Convert.ToInt64(m_vArgs[1]);
-                        Level l = ResourcesManager.GetPlayer(id);
+                        Level l = await ResourcesManager.GetPlayer(id);
                         if (l != null)
                         {
                             ClientAvatar acc = l.GetPlayerAvatar();
                             Message = "Player Info : \n\n" + "ID = " + id + "\nName = " + acc.GetAvatarName() + "\nCreation Date : " + acc.GetAccountCreationDate() + "\nRegion : " + acc.GetUserRegion() + "\nIP Address : " + l.GetIPAddress();
                             if (acc.GetAllianceId() != 0)
                             {
-                                Message = Message + "\nClan Name : " + ObjectManager.GetAlliance(acc.GetAllianceId()).GetAllianceName();
-                                switch (acc.GetAllianceRole())
+                                Alliance a = await ObjectManager.GetAlliance(acc.GetAllianceId());
+                                Message = Message + "\nClan Name : " + a.GetAllianceName();
+                                switch (await acc.GetAllianceRole())
                                 {
                                     case 1:
                                         Message = Message + "\nClan Role : Member";

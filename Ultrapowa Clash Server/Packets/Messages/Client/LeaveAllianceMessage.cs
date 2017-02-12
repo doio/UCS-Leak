@@ -27,98 +27,103 @@ namespace UCS.Packets.Messages.Client
 
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            ClientAvatar avatar = level.GetPlayerAvatar();
-            Alliance alliance = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-
-            if (avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
+            try
             {
-                List<AllianceMemberEntry> members = alliance.GetAllianceMembers();
-                foreach (AllianceMemberEntry player in members.Where(player => player.GetRole() >= 3))
-                {
-                    player.SetRole(2);
+                ClientAvatar avatar = level.GetPlayerAvatar();
+                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
 
-                    if (ResourcesManager.IsPlayerOnline(ResourcesManager.GetPlayer(player.GetAvatarId())))
-                    {
-                        AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
-                        c.SetAlliance(alliance);
-                        c.SetRole(2);
-                        c.Tick(level);
-
-                        AvailableServerCommandMessage d = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
-                        d.SetCommandId(8);
-                        d.SetCommand(c);
-                        PacketProcessor.Send(d);
-                    }
-                    done = true;
-                    break;
-                }
-                if (!done)
+                if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
-                    int count = alliance.GetAllianceMembers().Count;
-                    Random rnd = new Random();
-                    int id = rnd.Next(1, count);
-                    while (id != level.GetPlayerAvatar().GetId())
-                        id = rnd.Next(1, count);
-                    int loop = 0;
-                    foreach (AllianceMemberEntry player in members)
+                    List<AllianceMemberEntry> members = alliance.GetAllianceMembers();
+                    foreach (AllianceMemberEntry player in members.Where(player => player.GetRole() >= 3))
                     {
-                        loop++;
-                        if (loop == id)
+                        player.SetRole(2);
+
+                        if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
                         {
-                            player.SetRole(2);
-                            if (ResourcesManager.IsPlayerOnline(ResourcesManager.GetPlayer(player.GetAvatarId())))
-                            {
-                                AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand();
-                                e.SetAlliance(alliance);
-                                e.SetRole(2);
-                                e.Tick(level);
+                            AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
+                            c.SetAlliance(alliance);
+                            c.SetRole(2);
+                            c.Tick(level);
 
-                                AvailableServerCommandMessage f = new AvailableServerCommandMessage(ResourcesManager.GetPlayer(player.GetAvatarId()).GetClient());
-                                f.SetCommandId(8);
-                                f.SetCommand(e);
-                                PacketProcessor.Send(f);
+                            Level l = await ResourcesManager.GetPlayer(player.GetAvatarId());
+                            AvailableServerCommandMessage d = new AvailableServerCommandMessage(l.GetClient());
+                            d.SetCommandId(8);
+                            d.SetCommand(c);
+                            PacketProcessor.Send(d);
+                        }
+                        done = true;
+                        break;
+                    }
+                    if (!done)
+                    {
+                        int count = alliance.GetAllianceMembers().Count;
+                        Random rnd = new Random();
+                        int id = rnd.Next(1, count);
+                        while (id != level.GetPlayerAvatar().GetId())
+                            id = rnd.Next(1, count);
+                        int loop = 0;
+                        foreach (AllianceMemberEntry player in members)
+                        {
+                            loop++;
+                            if (loop == id)
+                            {
+                                player.SetRole(2);
+                                if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
+                                {
+                                    AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand();
+                                    e.SetAlliance(alliance);
+                                    e.SetRole(2);
+                                    e.Tick(level);
+
+                                    Level l2 = await ResourcesManager.GetPlayer(player.GetAvatarId());
+                                    AvailableServerCommandMessage f = new AvailableServerCommandMessage(l2.GetClient());
+                                    f.SetCommandId(8);
+                                    f.SetCommand(e);
+                                    PacketProcessor.Send(f);
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
-            }
-            LeavedAllianceCommand a = new LeavedAllianceCommand();
-            a.SetAlliance(alliance);
-            a.SetReason(1);
+                LeavedAllianceCommand a = new LeavedAllianceCommand();
+                a.SetAlliance(alliance);
+                a.SetReason(1);
 
-            AvailableServerCommandMessage b = new AvailableServerCommandMessage(Client);
-            b.SetCommandId(2);
-            b.SetCommand(a);
-            PacketProcessor.Send(b);
+                AvailableServerCommandMessage b = new AvailableServerCommandMessage(Client);
+                b.SetCommandId(2);
+                b.SetCommand(a);
+                PacketProcessor.Send(b);
 
-            alliance.RemoveMember(avatar.GetId());
-            avatar.SetAllianceId(0);
+                alliance.RemoveMember(avatar.GetId());
+                avatar.SetAllianceId(0);
 
-            if (alliance.GetAllianceMembers().Count > 0)
-            {
-                AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                eventStreamEntry.SetSender(avatar);
-                eventStreamEntry.SetEventType(4);
-                eventStreamEntry.SetAvatarId(avatar.GetId());
-                eventStreamEntry.SetAvatarName(avatar.GetAvatarName());
-                alliance.AddChatMessage(eventStreamEntry);
-                foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                    if (onlinePlayer.GetPlayerAvatar().GetAllianceId() == alliance.GetAllianceId())
-                    {
-                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
-                        p.SetStreamEntry(eventStreamEntry);
-                        PacketProcessor.Send(p);
-                    }
-            }
-            else
-            {
-                DatabaseManager.Single().RemoveAlliance(alliance);
-            }
-            PacketProcessor.Send(new LeaveAllianceOkMessage(Client, alliance));
+                if (alliance.GetAllianceMembers().Count > 0)
+                {
+                    AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
+                    eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                    eventStreamEntry.SetSender(avatar);
+                    eventStreamEntry.SetEventType(4);
+                    eventStreamEntry.SetAvatarId(avatar.GetId());
+                    eventStreamEntry.SetAvatarName(avatar.GetAvatarName());
+                    alliance.AddChatMessage(eventStreamEntry);
+                    foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                        if (onlinePlayer.GetPlayerAvatar().GetAllianceId() == alliance.GetAllianceId())
+                        {
+                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
+                            p.SetStreamEntry(eventStreamEntry);
+                            PacketProcessor.Send(p);
+                        }
+                }
+                else
+                {
+                    DatabaseManager.Single().RemoveAlliance(alliance);
+                }
+                PacketProcessor.Send(new LeaveAllianceOkMessage(Client, alliance));
+            } catch (Exception) { }
         }
     }
 }

@@ -14,6 +14,7 @@ using UCS.Core.Settings;
 using UCS.Packets.Messages.Server;
 using UCS.Packets;
 using static UCS.Packets.Client;
+using System.Threading.Tasks;
 
 namespace UCS.Packets
 {
@@ -56,7 +57,7 @@ namespace UCS.Packets
         {
 
         }
-        public void Decrypt()
+        public async void Decrypt()
         {
             try
             {
@@ -161,14 +162,17 @@ namespace UCS.Packets
 
         public ushort GetMessageVersion() => m_vMessageVersion;
 
-        public byte[] GetRawData()
+        public async Task<byte[]> GetRawData()
         {
-            List<byte> _EncodedMessage = new List<byte>();
-            _EncodedMessage.AddUInt16(m_vType);
-            _EncodedMessage.AddInt32WithSkip(m_vLength, 1);
-            _EncodedMessage.AddUInt16(m_vMessageVersion);
-            _EncodedMessage.AddRange(m_vData);
-            return _EncodedMessage.ToArray();
+            try
+            {
+                List<byte> _EncodedMessage = new List<byte>();
+                _EncodedMessage.AddUInt16(m_vType);
+                _EncodedMessage.AddInt32WithSkip(m_vLength, 1);
+                _EncodedMessage.AddUInt16(m_vMessageVersion);
+                _EncodedMessage.AddRange(m_vData);
+                return _EncodedMessage.ToArray();
+            } catch (Exception) { return null; }
         }
 
         public virtual void Process(Level level)

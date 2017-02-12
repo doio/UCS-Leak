@@ -15,21 +15,23 @@ namespace UCS.Packets.GameOpCommands
             SetRequiredAccountPrivileges(5);
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
             if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
             {
                 var clanid = level.GetPlayerAvatar().GetAllianceId();
                 if (clanid != 0)
                 {
-                    foreach (
-                        var pl in
-                            ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()).GetAllianceMembers())
+                    Alliance _Alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+
+                    foreach (var pl in _Alliance.GetAllianceMembers())
+                    {
                         if (pl.GetRole() == 2)
                         {
                             pl.SetRole(4);
                             break;
                         }
+                    }
                     level.GetPlayerAvatar().SetAllianceRole(2);
                 }
             }

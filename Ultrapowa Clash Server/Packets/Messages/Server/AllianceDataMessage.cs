@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UCS.Core;
@@ -17,28 +18,32 @@ namespace UCS.Packets.Messages.Server
             m_vAlliance = alliance;
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            List<byte> pack = new List<byte>();
-            var allianceMembers = m_vAlliance.GetAllianceMembers();
-
-            pack.AddRange(m_vAlliance.EncodeFullEntry());
-            pack.AddString(m_vAlliance.GetAllianceDescription());
-            pack.AddInt32(0);
-            pack.Add(0);  
-            pack.AddInt32(0);
-            pack.Add(0);
-
-            pack.AddInt32(allianceMembers.Count);
-
-            foreach(AllianceMemberEntry m in allianceMembers)
+            try
             {
-				pack.AddRange(m.Encode());
-            }
+                List<byte> pack = new List<byte>();
+                var allianceMembers = m_vAlliance.GetAllianceMembers();
 
-            pack.AddInt32(0);
-            pack.AddInt32(32);
-			Encrypt(pack.ToArray());
+                pack.AddRange(m_vAlliance.EncodeFullEntry());
+                pack.AddString(m_vAlliance.GetAllianceDescription());
+                pack.AddInt32(0);
+                pack.Add(0);
+                pack.AddInt32(0);
+                pack.Add(0);
+
+                pack.AddInt32(allianceMembers.Count);
+
+                foreach (AllianceMemberEntry m in allianceMembers)
+                {
+                    pack.AddRange(await m.Encode());
+                }
+
+                pack.AddInt32(0);
+                pack.AddInt32(32);
+                Encrypt(pack.ToArray());
+            }
+            catch (Exception) { }
         }
     }
 }

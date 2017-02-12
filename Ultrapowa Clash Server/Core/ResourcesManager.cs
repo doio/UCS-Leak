@@ -33,7 +33,7 @@ namespace UCS.Core
 
         public static void AddClient(Socket _Socket)
         {
-            Client c = new Client(_Socket);
+            Client c     = new Client(_Socket);
             c.CIPAddress = ((System.Net.IPEndPoint)_Socket.RemoteEndPoint).Address.ToString();
             m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
         }
@@ -54,37 +54,22 @@ namespace UCS.Core
             }
         }
 
-        public static List<long> GetAllPlayerIds()
-        {
-            return m_vDatabase.GetAllPlayerIds();
-        }
+        public static List<long> GetAllPlayerIds() => m_vDatabase.GetAllPlayerIds();
 
-        public static Client GetClient(long socketHandle)
-        {
-            return m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
-        }
+        public static Client GetClient(long socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
 
-        public static List<Client> GetConnectedClients()
-        {
-            return m_vClients.Values.ToList();
-        }
+        public static List<Client> GetConnectedClients() => m_vClients.Values.ToList();
 
-        public static List<Level> GetInMemoryLevels()
-        {
-            return m_vInMemoryLevels.Values.ToList();
-        }
+        public static List<Level> GetInMemoryLevels() => m_vInMemoryLevels.Values.ToList();
 
-        public static List<Level> GetOnlinePlayers()
-        {
-            return m_vOnlinePlayers;
-        }
+        public static List<Level> GetOnlinePlayers() => m_vOnlinePlayers;
 
-        public static Level GetPlayer(long id, bool persistent = false)
+        public static async Task<Level> GetPlayer(long id, bool persistent = false)
         {
             Level result = GetInMemoryPlayer(id);
             if (result == null)
             {
-                result = m_vDatabase.GetAccount(id);
+                result = await m_vDatabase.GetAccount(id);
                 if (persistent)
                 {
                     LoadLevel(result);
@@ -99,12 +84,9 @@ namespace UCS.Core
             DropClient(c.GetSocketHandle());
         }
 
-        public static bool IsClientConnected(long socketHandle)
-        {
-            return m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
-        }
+        public static async Task<bool> IsClientConnected(long socketHandle) => m_vClients[socketHandle] != null && await m_vClients[socketHandle].IsClientSocketConnected();
 
-        public static Level GetPlayerWithFacebookID(string id)
+        public static async Task<Level> GetPlayerWithFacebookID(string id)
         {
             foreach (Level p in GetInMemoryLevels())
             {
@@ -116,7 +98,7 @@ namespace UCS.Core
                 {
                     for (long i = 1; i < ObjectManager.GetMaxPlayerID(); i++)
                     {
-                        Level l = m_vDatabase.GetAccount(i);
+                        Level l = await m_vDatabase.GetAccount(i);
 
                         if (l.GetPlayerAvatar().GetFacebookID() == id)
                         {
@@ -129,10 +111,7 @@ namespace UCS.Core
             return null;
         }
 
-        public static bool IsPlayerOnline(Level l)
-        {
-            return m_vOnlinePlayers.Contains(l);
-        }
+        public static bool IsPlayerOnline(Level l) => m_vOnlinePlayers.Contains(l);
 
         public static void LoadLevel(Level level)
         {
@@ -166,15 +145,9 @@ namespace UCS.Core
             Program.TitleD();
         }
 
-        private static Level GetInMemoryPlayer(long id)
-        {
-            return m_vInMemoryLevels.ContainsKey(id) ? m_vInMemoryLevels[id] : null;
-        }
+        private static Level GetInMemoryPlayer(long id) => m_vInMemoryLevels.ContainsKey(id) ? m_vInMemoryLevels[id] : null;
 
-        public static List<Alliance> GetInMemoryAlliances()
-        {
-            return m_vInMemoryAlliances.Values.ToList();
-        }
+        public static List<Alliance> GetInMemoryAlliances() => m_vInMemoryAlliances.Values.ToList();
 
         public static void AddAllianceInMemory(Alliance all)
         {
@@ -190,15 +163,9 @@ namespace UCS.Core
             }
         }
 
-        public static bool InMemoryAlliancesContain(long key)
-        {
-            return m_vInMemoryAlliances.Keys.Contains(key);
-        }
+        public static bool InMemoryAlliancesContain(long key) => m_vInMemoryAlliances.Keys.Contains(key);
 
-        public static bool InMemoryAlliancesContain(Alliance all)
-        {
-            return m_vInMemoryAlliances.Values.Contains(all);
-        }
+        public static bool InMemoryAlliancesContain(Alliance all) => m_vInMemoryAlliances.Values.Contains(all);
 
         public static Alliance GetInMemoryAlliance(long key)
         {

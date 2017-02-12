@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
@@ -29,17 +30,20 @@ namespace UCS.Packets.Messages.Client
                 MessageID = br.ReadInt32WithEndian();
             }
         }
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Alliance a = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            StreamEntry stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
-
-            Level sender = ResourcesManager.GetPlayer(stream.GetSenderId());
-            int upcomingspace = stream.m_vDonatedTroop + Troop.GetHousingSpace();
-            if (upcomingspace <= stream.m_vMaxTroop)
+            try
             {
-                //System.Console.WriteLine("Troop Donated :" + Troop.GetName());
-            }
+                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                StreamEntry stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+
+                Level sender = await ResourcesManager.GetPlayer(stream.GetSenderId());
+                int upcomingspace = stream.m_vDonatedTroop + Troop.GetHousingSpace();
+                if (upcomingspace <= stream.m_vMaxTroop)
+                {
+                    //System.Console.WriteLine("Troop Donated :" + Troop.GetName());
+                }
+            } catch (Exception) { }
         }
 
     }

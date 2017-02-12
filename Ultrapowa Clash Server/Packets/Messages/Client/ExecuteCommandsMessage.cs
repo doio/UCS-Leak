@@ -60,7 +60,7 @@ namespace UCS.Packets.Messages.Client
                     }
                 }
             }
-            catch 
+            catch (Exception)
             {
             }
         }

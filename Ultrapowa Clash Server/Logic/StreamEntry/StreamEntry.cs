@@ -101,14 +101,14 @@ namespace UCS.Logic.StreamEntry
             return jsonObject;
         }
 
-        public void SetSender(ClientAvatar avatar)
+        public async void SetSender(ClientAvatar avatar)
         {
             m_vSenderId       = avatar.GetId();
             m_vHomeId         = avatar.GetId();
             m_vSenderName     = avatar.GetAvatarName();
             m_vSenderLeagueId = avatar.GetLeagueId();
             m_vSenderLevel    = avatar.GetAvatarLevel();
-            m_vSenderRole     = avatar.GetAllianceRole();
+            m_vSenderRole     = await avatar.GetAllianceRole();
         }
 
         public void SetHomeId(long id) => m_vHomeId = id;

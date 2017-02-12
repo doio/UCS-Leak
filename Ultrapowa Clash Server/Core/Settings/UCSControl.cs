@@ -25,7 +25,7 @@ namespace UCS.Core.Settings
             new Thread(() =>
             {
                 Say("Restarting UCS...");
-                Thread.Sleep(1000);
+                Thread.Sleep(200);
                 Process.Start("UCS.exe");
                 Environment.Exit(0);
             }).Start();

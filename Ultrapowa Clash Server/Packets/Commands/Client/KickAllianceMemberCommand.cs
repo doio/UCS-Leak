@@ -23,69 +23,72 @@ namespace UCS.Packets.Commands.Client
             br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
-            var targetAccount = ResourcesManager.GetPlayer(m_vAvatarId);
-            if (targetAccount != null)
+            try
             {
-                var targetAvatar = targetAccount.GetPlayerAvatar();
-                var targetAllianceId = targetAvatar.GetAllianceId();
-                var requesterAvatar = level.GetPlayerAvatar();
-                var requesterAllianceId = requesterAvatar.GetAllianceId();
-                if (requesterAllianceId > 0 && targetAllianceId == requesterAllianceId)
+                var targetAccount = await ResourcesManager.GetPlayer(m_vAvatarId);
+                if (targetAccount != null)
                 {
-                    var alliance = ObjectManager.GetAlliance(requesterAllianceId);
-                    var requesterMember = alliance.GetAllianceMember(requesterAvatar.GetId());
-                    var targetMember = alliance.GetAllianceMember(m_vAvatarId);
-                    if (targetMember.HasLowerRoleThan(requesterMember.GetRole()))
+                    var targetAvatar = targetAccount.GetPlayerAvatar();
+                    var targetAllianceId = targetAvatar.GetAllianceId();
+                    var requesterAvatar = level.GetPlayerAvatar();
+                    var requesterAllianceId = requesterAvatar.GetAllianceId();
+                    if (requesterAllianceId > 0 && targetAllianceId == requesterAllianceId)
                     {
-                        targetAvatar.SetAllianceId(0);
-                        alliance.RemoveMember(m_vAvatarId);
-                        if (ResourcesManager.IsPlayerOnline(targetAccount))
+                        var alliance = await ObjectManager.GetAlliance(requesterAllianceId);
+                        var requesterMember = alliance.GetAllianceMember(requesterAvatar.GetId());
+                        var targetMember = alliance.GetAllianceMember(m_vAvatarId);
+                        if (targetMember.HasLowerRoleThan(requesterMember.GetRole()))
                         {
-                            var leaveAllianceCommand = new LeavedAllianceCommand();
-                            leaveAllianceCommand.SetAlliance(alliance);
-                            leaveAllianceCommand.SetReason(2); //Kick
-                            var availableServerCommandMessage = new AvailableServerCommandMessage(targetAccount.GetClient());
-                            availableServerCommandMessage.SetCommandId(2);
-                            availableServerCommandMessage.SetCommand(leaveAllianceCommand);
-                            PacketProcessor.Send(availableServerCommandMessage);
-
-                            var kickOutStreamEntry = new AllianceKickOutStreamEntry();
-                            kickOutStreamEntry.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                            kickOutStreamEntry.SetAvatar(requesterAvatar);
-                            kickOutStreamEntry.SetIsNew(0);
-                            kickOutStreamEntry.SetAllianceId(alliance.GetAllianceId());
-                            kickOutStreamEntry.SetAllianceBadgeData(alliance.GetAllianceBadgeData());
-                            kickOutStreamEntry.SetAllianceName(alliance.GetAllianceName());
-                            kickOutStreamEntry.SetMessage(m_vMessage);
-
-                            var p = new AvatarStreamEntryMessage(targetAccount.GetClient());
-                            p.SetAvatarStreamEntry(kickOutStreamEntry);
-                            PacketProcessor.Send(p);
-                        }
-
-                        var eventStreamEntry = new AllianceEventStreamEntry();
-                        eventStreamEntry.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                        eventStreamEntry.SetSender(targetAvatar);
-                        eventStreamEntry.SetEventType(1);
-                        eventStreamEntry.SetAvatarId(requesterAvatar.GetId());
-                        eventStreamEntry.SetAvatarName(requesterAvatar.GetAvatarName());
-                        alliance.AddChatMessage(eventStreamEntry);
-
-                        foreach(AllianceMemberEntry op in alliance.GetAllianceMembers())
-                        {
-                            Level alliancemembers = ResourcesManager.GetPlayer(op.GetAvatarId());
-                            if (alliancemembers.GetClient() != null)
+                            targetAvatar.SetAllianceId(0);
+                            alliance.RemoveMember(m_vAvatarId);
+                            if (ResourcesManager.IsPlayerOnline(targetAccount))
                             {
-                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.GetClient());
-                                p.SetStreamEntry(eventStreamEntry);
+                                var leaveAllianceCommand = new LeavedAllianceCommand();
+                                leaveAllianceCommand.SetAlliance(alliance);
+                                leaveAllianceCommand.SetReason(2); //Kick
+                                var availableServerCommandMessage = new AvailableServerCommandMessage(targetAccount.GetClient());
+                                availableServerCommandMessage.SetCommandId(2);
+                                availableServerCommandMessage.SetCommand(leaveAllianceCommand);
+                                PacketProcessor.Send(availableServerCommandMessage);
+
+                                var kickOutStreamEntry = new AllianceKickOutStreamEntry();
+                                kickOutStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                                kickOutStreamEntry.SetAvatar(requesterAvatar);
+                                kickOutStreamEntry.SetIsNew(0);
+                                kickOutStreamEntry.SetAllianceId(alliance.GetAllianceId());
+                                kickOutStreamEntry.SetAllianceBadgeData(alliance.GetAllianceBadgeData());
+                                kickOutStreamEntry.SetAllianceName(alliance.GetAllianceName());
+                                kickOutStreamEntry.SetMessage(m_vMessage);
+
+                                var p = new AvatarStreamEntryMessage(targetAccount.GetClient());
+                                p.SetAvatarStreamEntry(kickOutStreamEntry);
                                 PacketProcessor.Send(p);
+                            }
+
+                            var eventStreamEntry = new AllianceEventStreamEntry();
+                            eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                            eventStreamEntry.SetSender(targetAvatar);
+                            eventStreamEntry.SetEventType(1);
+                            eventStreamEntry.SetAvatarId(requesterAvatar.GetId());
+                            eventStreamEntry.SetAvatarName(requesterAvatar.GetAvatarName());
+                            alliance.AddChatMessage(eventStreamEntry);
+
+                            foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
+                            {
+                                Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                                if (alliancemembers.GetClient() != null)
+                                {
+                                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.GetClient());
+                                    p.SetStreamEntry(eventStreamEntry);
+                                    PacketProcessor.Send(p);
+                                }
                             }
                         }
                     }
                 }
-            }
+            } catch (Exception) { }
         }
 
         readonly long m_vAvatarId;

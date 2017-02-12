@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using UCS.Core;
 using UCS.Helpers;
 using UCS.Logic.StreamEntry;
+using System.Threading.Tasks;
 
 namespace UCS.Logic
 {
@@ -110,11 +111,11 @@ namespace UCS.Logic
 
         public int GetAllianceBadgeData() => m_vAllianceBadgeData;
 
-        public bool IsAllianceMemberOnline()
+        public async Task<bool> IsAllianceMemberOnline()
         {
             foreach(var member in m_vAllianceMembers)
             {
-                if(ResourcesManager.IsPlayerOnline(ResourcesManager.GetPlayer(member.Value.GetAvatarId())))
+                if(ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(member.Value.GetAvatarId())))
                 {
                     return true;
                 }
@@ -156,58 +157,62 @@ namespace UCS.Logic
 
         public bool IsAllianceFull() => m_vAllianceMembers.Count >= m_vMaxAllianceMembers;
 
-        public void LoadFromJSON(string jsonString)
+        public async void LoadFromJSON(string jsonString)
         {
-            JObject jsonObject     = JObject.Parse(jsonString);
-            m_vAllianceId          = jsonObject["alliance_id"].ToObject<long>();
-            m_vAllianceName        = jsonObject["alliance_name"].ToObject<string>();
-            m_vAllianceBadgeData   = jsonObject["alliance_badge"].ToObject<int>();
-            m_vAllianceType        = jsonObject["alliance_type"].ToObject<int>();
-            m_vRequiredScore       = jsonObject["required_score"].ToObject<int>();
-            m_vAllianceDescription = jsonObject["description"].ToObject<string>();
-            m_vAllianceExperience  = jsonObject["alliance_experience"].ToObject<int>();
-            m_vAllianceLevel       = jsonObject["alliance_level"].ToObject<int>();
-            m_vWarLogPublic        = jsonObject["war_log_public"].ToObject<byte>();
-            m_vFriendlyWar         = jsonObject["friendly_war"].ToObject<byte>();
-            m_vWonWars             = jsonObject["won_wars"].ToObject<int>();
-            m_vLostWars            = jsonObject["lost_wars"].ToObject<int>();
-            m_vDrawWars            = jsonObject["draw_wars"].ToObject<int>();
-            m_vWarFrequency        = jsonObject["war_frequency"].ToObject<int>();
-            m_vAllianceOrigin      = jsonObject["alliance_origin"].ToObject<int>();
-            JArray jsonMembers     = (JArray)jsonObject["members"];
-            foreach (JToken jToken in jsonMembers)
+            try
             {
-                JObject jsonMember         = (JObject)jToken;
-                long id                    = jsonMember["avatar_id"].ToObject<long>();
-                Level pl                   = ResourcesManager.GetPlayer(id);
-                AllianceMemberEntry member = new AllianceMemberEntry(id);
-                m_vScore                   = m_vScore + pl.GetPlayerAvatar().GetScore();
-                member.Load(jsonMember);
-                m_vAllianceMembers.Add(id, member);
-            }
-            m_vScore            = m_vScore / 2;
-            JArray jsonMessages = (JArray)jsonObject["chatMessages"];
-            if (jsonMessages != null)
-            {
-                foreach (JToken jToken in jsonMessages)
+                JObject jsonObject = JObject.Parse(jsonString);
+                m_vAllianceId = jsonObject["alliance_id"].ToObject<long>();
+                m_vAllianceName = jsonObject["alliance_name"].ToObject<string>();
+                m_vAllianceBadgeData = jsonObject["alliance_badge"].ToObject<int>();
+                m_vAllianceType = jsonObject["alliance_type"].ToObject<int>();
+                m_vRequiredScore = jsonObject["required_score"].ToObject<int>();
+                m_vAllianceDescription = jsonObject["description"].ToObject<string>();
+                m_vAllianceExperience = jsonObject["alliance_experience"].ToObject<int>();
+                m_vAllianceLevel = jsonObject["alliance_level"].ToObject<int>();
+                m_vWarLogPublic = jsonObject["war_log_public"].ToObject<byte>();
+                m_vFriendlyWar = jsonObject["friendly_war"].ToObject<byte>();
+                m_vWonWars = jsonObject["won_wars"].ToObject<int>();
+                m_vLostWars = jsonObject["lost_wars"].ToObject<int>();
+                m_vDrawWars = jsonObject["draw_wars"].ToObject<int>();
+                m_vWarFrequency = jsonObject["war_frequency"].ToObject<int>();
+                m_vAllianceOrigin = jsonObject["alliance_origin"].ToObject<int>();
+                JArray jsonMembers = (JArray)jsonObject["members"];
+                foreach (JToken jToken in jsonMembers)
                 {
-                    JObject jsonMessage = (JObject)jToken;
-                    StreamEntry.StreamEntry se = new StreamEntry.StreamEntry();
-                    if (jsonMessage["type"].ToObject<int>() == 1)
-                        se = new TroopRequestStreamEntry();
-                    else if (jsonMessage["type"].ToObject<int>() == 2)
-                        se = new ChatStreamEntry();
-                    else if (jsonMessage["type"].ToObject<int>() == 3)
-                        se = new InvitationStreamEntry();
-                    else if (jsonMessage["type"].ToObject<int>() == 4)
-                        se = new AllianceEventStreamEntry();
-                    else if (jsonMessage["type"].ToObject<int>() == 5)
-                        se = new ShareStreamEntry();
-                    else { }
-                    se.Load(jsonMessage);
-                    m_vChatMessages.Add(se);
+                    JObject jsonMember = (JObject)jToken;
+                    long id = jsonMember["avatar_id"].ToObject<long>();
+                    Level pl = await ResourcesManager.GetPlayer(id);
+                    AllianceMemberEntry member = new AllianceMemberEntry(id);
+                    m_vScore = m_vScore + pl.GetPlayerAvatar().GetScore();
+                    member.Load(jsonMember);
+                    m_vAllianceMembers.Add(id, member);
+                }
+                m_vScore = m_vScore / 2;
+                JArray jsonMessages = (JArray)jsonObject["chatMessages"];
+                if (jsonMessages != null)
+                {
+                    foreach (JToken jToken in jsonMessages)
+                    {
+                        JObject jsonMessage = (JObject)jToken;
+                        StreamEntry.StreamEntry se = new StreamEntry.StreamEntry();
+                        if (jsonMessage["type"].ToObject<int>() == 1)
+                            se = new TroopRequestStreamEntry();
+                        else if (jsonMessage["type"].ToObject<int>() == 2)
+                            se = new ChatStreamEntry();
+                        else if (jsonMessage["type"].ToObject<int>() == 3)
+                            se = new InvitationStreamEntry();
+                        else if (jsonMessage["type"].ToObject<int>() == 4)
+                            se = new AllianceEventStreamEntry();
+                        else if (jsonMessage["type"].ToObject<int>() == 5)
+                            se = new ShareStreamEntry();
+                        else { }
+                        se.Load(jsonMessage);
+                        m_vChatMessages.Add(se);
+                    }
                 }
             }
+            catch (Exception) { }
         }
 
         public void RemoveMember(long avatarId) => m_vAllianceMembers.Remove(avatarId);

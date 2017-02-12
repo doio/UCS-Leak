@@ -15,7 +15,6 @@ namespace UCS.Core.Network
 {
 	internal class Gateway
     {
-        public static Thread _Thread           = null;
         public static ManualResetEvent AllDone = new ManualResetEvent(false);
 
         public Gateway()
@@ -75,13 +74,12 @@ namespace UCS.Core.Network
             }
         }
 
-		private void ProcessPacket(Reader read, byte[] data)
+		private void ProcessPacket(Reader _Reader, byte[] _Data)
 		{
 			try
 			{
-				long socketHandle = read.Socket.Handle.ToInt64();
-				Client _Client = ResourcesManager.GetClient(socketHandle);
-				_Client.DataStream.AddRange(data);
+				Client _Client = ResourcesManager.GetClient(_Reader.Socket.Handle.ToInt64());
+				_Client.DataStream.AddRange(_Data);
 				Message p;
                 while (_Client.TryGetPacket(out p))
                 {

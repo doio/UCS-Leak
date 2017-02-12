@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UCS.Core;
@@ -19,33 +20,36 @@ namespace UCS.Packets.Messages.Server
             player = client.GetLevel().GetPlayerAvatar();
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            List<byte> data = new List<byte>();
-            List<byte> list = new List<byte>();
-            List<BookmarkSlot> rem = new List<BookmarkSlot>();
-            foreach(var p in player.BookmarkedClan)
+            try
             {
-                Alliance a = ObjectManager.GetAlliance(p.Value);
-                if (a != null)
+                List<byte> data = new List<byte>();
+                List<byte> list = new List<byte>();
+                List<BookmarkSlot> rem = new List<BookmarkSlot>();
+                foreach (var p in player.BookmarkedClan)
                 {
-                    list.AddInt64(p.Value);
-                    i++;
+                    Alliance a = await ObjectManager.GetAlliance(p.Value);
+                    if (a != null)
+                    {
+                        list.AddInt64(p.Value);
+                        i++;
+                    }
+                    else
+                    {
+                        rem.Add(p);
+                        if (i > 0)
+                            i--;
+                    }
                 }
-                else
+                data.AddInt32(i);
+                data.AddRange(list);
+                Encrypt(data.ToArray());
+                foreach (BookmarkSlot im in rem)
                 {
-                    rem.Add(p);
-                    if (i > 0)
-                        i--;
+                    player.BookmarkedClan.RemoveAll(t => t == im);
                 }
-            }
-            data.AddInt32(i);   
-            data.AddRange(list);
-            Encrypt(data.ToArray());
-            foreach(BookmarkSlot im in rem)
-            {
-                player.BookmarkedClan.RemoveAll(t => t == im);
-            }
+            } catch (Exception) { }
         }
     }
 }

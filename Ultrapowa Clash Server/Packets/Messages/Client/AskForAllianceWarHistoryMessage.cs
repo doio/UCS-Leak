@@ -26,9 +26,9 @@ namespace UCS.Packets.Messages.Client
             }
         }
 
-        public override void Process(Level level)
+        public override async void Process(Level level)
         {
-            Alliance all = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+            Alliance all = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
             PacketProcessor.Send(new AllianceWarHistoryMessage(Client, all));
         }
     }

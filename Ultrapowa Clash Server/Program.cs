@@ -11,24 +11,22 @@ using UCS.Core.Threading;
 using UCS.Core.Web;
 using UCS.Helpers;
 using UCS.WebAPI;
+using static UCS.Core.Logger;
 
 namespace UCS
 {
     class Program
     {
         public static int OP                   = 0;
-        public static string Title             = "Ultrapowa Clash Server v0.7.3.0 - © " + DateTime.Now.Year + " | Online Players: ";
+        public static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - © " + DateTime.Now.Year + " | Online Players: ";
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
         private static Loader _Loader          = null;
-        private static Thread _Thread          = null;
 
-        internal static void Main(string[] args)
+        internal static void Main()
         {
-            _Thread = new Thread(() =>
+            new Thread(() =>
             {
-                _Stopwatch.Start();
-
                 if (Constants.IsPremiumServer)
                 {
                     Console.Title = Title + OP;
@@ -50,27 +48,32 @@ namespace UCS
                                     \/|__|                       \/
             ");
                 Console.ResetColor();
-                Console.WriteLine("[UCS]    > This program is made by the Ultrapowa Development Team.\n[UCS]    > Ultrapowa is not affiliated to \"Supercell, Oy\".\n[UCS]    > This program is copyrighted worldwide.\n[UCS]    > Visit www.ultrapowa.com daily for News & Updates!");
+                Say("> This program is made by the Ultrapowa Development Team.");
+                Say("> Ultrapowa is not affiliated to \"Supercell, Oy\".");
+                Say("> This program is copyrighted worldwide.");
+                Say("> Visit www.ultrapowa.com daily for News & Updates!");
 
                 if (Constants.IsRc4)
                 {
-                    Console.WriteLine("[UCS]    > UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
+                    Say("> UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
                 }
                 else
                 {
-                    Console.WriteLine("[UCS]    > UCS is running under Pepper mode. Please make sure client key is modded.");
+                    Say("> UCS is running under Pepper mode. Please make sure client key is modded.");
                 }
 
-                Console.Write("[UCS]    ");
                 Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("[UCS]    ");
                 Version = VersionChecker.GetVersionString();
+
+                _Stopwatch.Start();
 
                 if (Version == Constants.Version)
                 {
                     Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
-
                     Console.ResetColor();
-                    Console.WriteLine("\n[UCS]    Prepearing Server...\n");
+                    Say();
+                    Say("Prepearing Server...\n");
 
                     _Loader = new Loader();
                 }
@@ -92,9 +95,7 @@ namespace UCS
                     Thread.Sleep(5000);
                     Environment.Exit(0);
                 }
-            });
-
-            _Thread.Start();
+            }).Start();
         }
 
         public static void TitleU()

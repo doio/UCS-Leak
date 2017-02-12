@@ -10,6 +10,7 @@ using UCS.Helpers;
 using static System.Convert;
 using static System.Configuration.ConfigurationManager;
 using UCS.Logic.DataSlots;
+using System.Threading.Tasks;
 
 namespace UCS.Logic
 {
@@ -184,197 +185,206 @@ namespace UCS.Logic
                     m_vExperience = 0;
         }
 
-        public byte[] Encode()
+        public async Task<byte[]> Encode()
         {
-            Random rnd = new Random();
-            List<byte> data = new List<byte>();
-            data.AddInt64(m_vId);
-            data.AddInt64(m_vCurrentHomeId);
-            if (m_vAllianceId != 0)
+            try
             {
-                data.Add(1);
-                data.AddInt64(m_vAllianceId);
-                Alliance alliance = ObjectManager.GetAlliance(m_vAllianceId);
-                data.AddString(alliance.GetAllianceName());
-                data.AddInt32(alliance.GetAllianceBadgeData());
-                data.AddInt32(alliance.GetAllianceMember(m_vId).GetRole());
-                data.AddInt32(alliance.GetAllianceLevel());
-            }
-            data.Add(0);
-
-            if (m_vLeagueId == 22)
-            {
-                data.AddInt32(m_vScore / 12); 
-                data.AddInt32(1);
-                int  month = DateTime.Now.Month;
-                data.AddInt32(month); 
-                data.AddInt32(DateTime.Now.Year); 
-                data.AddInt32(rnd.Next(1, 10)); 
-                data.AddInt32(m_vScore); 
-                data.AddInt32(1); 
-                if (month == 1)
+                Random rnd = new Random();
+                List<byte> data = new List<byte>();
+                data.AddInt64(m_vId);
+                data.AddInt64(m_vCurrentHomeId);
+                if (m_vAllianceId != 0)
                 {
-                    data.AddInt32(12); 
-                    data.AddInt32(DateTime.Now.Year - 1); 
+                    data.Add(1);
+                    data.AddInt64(m_vAllianceId);
+                    Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                    data.AddString(alliance.GetAllianceName());
+                    data.AddInt32(alliance.GetAllianceBadgeData());
+                    data.AddInt32(alliance.GetAllianceMember(m_vId).GetRole());
+                    data.AddInt32(alliance.GetAllianceLevel());
+                }
+                data.Add(0);
+
+                if (m_vLeagueId == 22)
+                {
+                    data.AddInt32(m_vScore / 12);
+                    data.AddInt32(1);
+                    int month = DateTime.Now.Month;
+                    data.AddInt32(month);
+                    data.AddInt32(DateTime.Now.Year);
+                    data.AddInt32(rnd.Next(1, 10));
+                    data.AddInt32(m_vScore);
+                    data.AddInt32(1);
+                    if (month == 1)
+                    {
+                        data.AddInt32(12);
+                        data.AddInt32(DateTime.Now.Year - 1);
+                    }
+                    else
+                    {
+                        int pmonth = month - 1;
+                        data.AddInt32(pmonth);
+                        data.AddInt32(DateTime.Now.Year);
+                    }
+                    data.AddInt32(rnd.Next(1, 10));
+                    data.AddInt32(m_vScore / 2);
                 }
                 else
                 {
-                    int pmonth = month - 1;
-                    data.AddInt32(pmonth); 
-                    data.AddInt32(DateTime.Now.Year); 
+                    data.AddInt32(0); //1
+                    data.AddInt32(0); //2
+                    data.AddInt32(0); //3
+                    data.AddInt32(0); //4
+                    data.AddInt32(0); //5
+                    data.AddInt32(0); //6
+                    data.AddInt32(0); //7
+                    data.AddInt32(0); //8
+                    data.AddInt32(0); //9
+                    data.AddInt32(0); //10
+                    data.AddInt32(0); //11
                 }
-                data.AddInt32(rnd.Next(1,10));
-                data.AddInt32(m_vScore / 2);
-            }
-            else
-            {
-                data.AddInt32(0); //1
-                data.AddInt32(0); //2
-                data.AddInt32(0); //3
-                data.AddInt32(0); //4
-                data.AddInt32(0); //5
-                data.AddInt32(0); //6
-                data.AddInt32(0); //7
-                data.AddInt32(0); //8
-                data.AddInt32(0); //9
-                data.AddInt32(0); //10
-                data.AddInt32(0); //11
-            }
 
-            data.AddInt32(m_vLeagueId);
-            data.AddInt32(GetAllianceCastleLevel());
-            data.AddInt32(GetAllianceCastleTotalCapacity());
-            data.AddInt32(GetAllianceCastleUsedCapacity());
-            data.AddInt32(0);
-            data.AddInt32(-1);
-            data.AddInt32(GetTownHallLevel());
-            data.AddString(m_vAvatarName);
-            data.AddInt32(-1);
-            data.AddInt32(m_vAvatarLevel);
-            data.AddInt32(m_vExperience);
-            data.AddInt32(m_vCurrentGems);
-            data.AddInt32(m_vCurrentGems);
-            data.AddInt32(1200);
-            data.AddInt32(60);
-            data.AddInt32(m_vScore);
-            data.AddInt32(200); // Attack Wins
-            data.AddInt32(1);
-            data.AddInt32(100); // Attack Loses
-            data.AddInt32(0);
+                data.AddInt32(m_vLeagueId);
+                data.AddInt32(GetAllianceCastleLevel());
+                data.AddInt32(GetAllianceCastleTotalCapacity());
+                data.AddInt32(GetAllianceCastleUsedCapacity());
+                data.AddInt32(0);
+                data.AddInt32(-1);
+                data.AddInt32(GetTownHallLevel());
+                data.AddString(m_vAvatarName);
+                data.AddInt32(-1);
+                data.AddInt32(m_vAvatarLevel);
+                data.AddInt32(m_vExperience);
+                data.AddInt32(m_vCurrentGems);
+                data.AddInt32(m_vCurrentGems);
+                data.AddInt32(1200);
+                data.AddInt32(60);
+                data.AddInt32(m_vScore);
+                data.AddInt32(200); // Attack Wins
+                data.AddInt32(1);
+                data.AddInt32(100); // Attack Loses
+                data.AddInt32(0);
 
-            data.AddInt32(m_vAlliance_Gold);
-            data.AddInt32(m_vAlliance_Elixir); 
-            data.AddInt32(m_vAlliance_DarkElixir); 
-            data.AddInt32(0);
-            data.Add(1);
-            data.AddInt64(946720861000);
+                data.AddInt32(m_vAlliance_Gold);
+                data.AddInt32(m_vAlliance_Elixir);
+                data.AddInt32(m_vAlliance_DarkElixir);
+                data.AddInt32(0);
+                data.Add(1);
+                data.AddInt64(946720861000);
 
-            data.Add(m_vnameChosenByUser);
+                data.Add(m_vnameChosenByUser);
 
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(1);
+                data.AddInt32(0);
+                data.AddInt32(0);
+                data.AddInt32(0);
+                data.AddInt32(1);
 
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.Add(0);
-            data.AddDataSlots(GetResourceCaps());
-            data.AddDataSlots(GetResources());
-            data.AddDataSlots(GetUnits());
-            data.AddDataSlots(GetSpells());
-            data.AddDataSlots(m_vUnitUpgradeLevel);
-            data.AddDataSlots(m_vSpellUpgradeLevel);
-            data.AddDataSlots(m_vHeroUpgradeLevel);
-            data.AddDataSlots(m_vHeroHealth);
-            data.AddDataSlots(m_vHeroState);
+                data.AddInt32(0);
+                data.AddInt32(0);
+                data.Add(0);
+                data.AddDataSlots(GetResourceCaps());
+                data.AddDataSlots(GetResources());
+                data.AddDataSlots(GetUnits());
+                data.AddDataSlots(GetSpells());
+                data.AddDataSlots(m_vUnitUpgradeLevel);
+                data.AddDataSlots(m_vSpellUpgradeLevel);
+                data.AddDataSlots(m_vHeroUpgradeLevel);
+                data.AddDataSlots(m_vHeroHealth);
+                data.AddDataSlots(m_vHeroState);
 
-            data.AddRange(BitConverter.GetBytes(AllianceUnits.Count).Reverse());
-            foreach (var u in AllianceUnits)
-            {
-                data.AddRange(BitConverter.GetBytes(u.Data.GetGlobalID()).Reverse());
-                data.AddRange(BitConverter.GetBytes(u.Value).Reverse());
-                data.AddRange(BitConverter.GetBytes(0).Reverse()); 
-            }
-
-            data.AddRange(BitConverter.GetBytes(TutorialStepsCount).Reverse());
-            for (uint i = 0; i < TutorialStepsCount; i++)
-                data.AddRange(BitConverter.GetBytes(0x01406F40 + i).Reverse());
-
-            data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
-            foreach (var a in Achievements)
-                data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
-
-            data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
-            foreach (var a in Achievements)
-            {
-                data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
-                data.AddRange(BitConverter.GetBytes(0).Reverse());
-            }
-
-            data.AddRange(BitConverter.GetBytes(ObjectManager.NpcLevels.Count).Reverse());
-            {
-                for (var i = 17000000; i < 17000050; i++)
+                data.AddRange(BitConverter.GetBytes(AllianceUnits.Count).Reverse());
+                foreach (var u in AllianceUnits)
                 {
-                    data.AddRange(BitConverter.GetBytes(i).Reverse());
-                    data.AddRange(BitConverter.GetBytes(rnd.Next(3, 3)).Reverse());
+                    data.AddRange(BitConverter.GetBytes(u.Data.GetGlobalID()).Reverse());
+                    data.AddRange(BitConverter.GetBytes(u.Value).Reverse());
+                    data.AddRange(BitConverter.GetBytes(0).Reverse());
                 }
-            }
 
-            data.AddDataSlots(NpcLootedGold);
-            data.AddDataSlots(NpcLootedElixir);
-            data.AddDataSlots(new List<DataSlot>());
-            data.AddDataSlots(new List<DataSlot>());
-            data.AddDataSlots(new List<DataSlot>());
-            data.AddDataSlots(new List<DataSlot>());
+                data.AddRange(BitConverter.GetBytes(TutorialStepsCount).Reverse());
+                for (uint i = 0; i < TutorialStepsCount; i++)
+                    data.AddRange(BitConverter.GetBytes(0x01406F40 + i).Reverse());
 
-            data.AddInt32(QuickTrain1.Count); 
-            foreach (var i in QuickTrain1)
-            {
-                data.AddInt32(i.Data.GetGlobalID());
-                data.AddInt32(i.Value);
-            }
+                data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
+                foreach (var a in Achievements)
+                    data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
 
-            data.AddInt32(QuickTrain2.Count); 
-            foreach (var i in QuickTrain2)
-            {
-                data.AddInt32(i.Data.GetGlobalID());
-                data.AddInt32(i.Value);
-            }
-            data.AddInt32(QuickTrain3.Count); 
-            foreach (var i in QuickTrain3)
-            {
-                data.AddInt32(i.Data.GetGlobalID());
-                data.AddInt32(i.Value);
-            }
-            data.AddInt32(QuickTrain1.Count); 
-            foreach (var i in QuickTrain1)
-            {
-                data.AddInt32(i.Data.GetGlobalID());
-                data.AddInt32(i.Value);
-            }
-            data.AddDataSlots(new List<DataSlot>());
-            return data.ToArray();
+                data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
+                foreach (var a in Achievements)
+                {
+                    data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
+                    data.AddRange(BitConverter.GetBytes(0).Reverse());
+                }
+
+                data.AddRange(BitConverter.GetBytes(ObjectManager.NpcLevels.Count).Reverse());
+                {
+                    for (var i = 17000000; i < 17000050; i++)
+                    {
+                        data.AddRange(BitConverter.GetBytes(i).Reverse());
+                        data.AddRange(BitConverter.GetBytes(rnd.Next(3, 3)).Reverse());
+                    }
+                }
+
+                data.AddDataSlots(NpcLootedGold);
+                data.AddDataSlots(NpcLootedElixir);
+                data.AddDataSlots(new List<DataSlot>());
+                data.AddDataSlots(new List<DataSlot>());
+                data.AddDataSlots(new List<DataSlot>());
+                data.AddDataSlots(new List<DataSlot>());
+
+                data.AddInt32(QuickTrain1.Count);
+                foreach (var i in QuickTrain1)
+                {
+                    data.AddInt32(i.Data.GetGlobalID());
+                    data.AddInt32(i.Value);
+                }
+
+                data.AddInt32(QuickTrain2.Count);
+                foreach (var i in QuickTrain2)
+                {
+                    data.AddInt32(i.Data.GetGlobalID());
+                    data.AddInt32(i.Value);
+                }
+                data.AddInt32(QuickTrain3.Count);
+                foreach (var i in QuickTrain3)
+                {
+                    data.AddInt32(i.Data.GetGlobalID());
+                    data.AddInt32(i.Value);
+                }
+                data.AddInt32(QuickTrain1.Count);
+                foreach (var i in QuickTrain1)
+                {
+                    data.AddInt32(i.Data.GetGlobalID());
+                    data.AddInt32(i.Value);
+                }
+                data.AddDataSlots(new List<DataSlot>());
+                return data.ToArray();
+            } catch (Exception) { return null; }
         }
 
         public long GetAllianceId() => m_vAllianceId;
 
-        public AllianceMemberEntry GetAllianceMemberEntry()
+        public async Task<AllianceMemberEntry> GetAllianceMemberEntry()
         {
-            var alliance = ObjectManager.GetAlliance(m_vAllianceId);
-            if (alliance != null)
-                return alliance.GetAllianceMember(m_vId);
-            return null;
+            try
+            {
+                var alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                if (alliance != null)
+                    return alliance.GetAllianceMember(m_vId);
+                return null;
+            } catch (Exception) { return null; }
         }
 
         public DateTime GetAccountCreationDate() => m_vAccountCreationDate;
 
-        public int GetAllianceRole()
+        public async Task<int> GetAllianceRole()
         {
-            var ame = GetAllianceMemberEntry();
-            if (ame != null)
-                return ame.GetRole();
-            return -1;
+            try
+            {
+                var ame = await GetAllianceMemberEntry();
+                if (ame != null)
+                    return ame.GetRole();
+                return -1;
+            } catch (Exception) { return 1; }
         }
 
         public int GetAvatarHighIdInt() => m_vHighInt;
@@ -775,11 +785,15 @@ namespace UCS.Logic
 
         public void SetAndroid(bool android) => m_vAndroid = android;
 
-        public void SetAllianceRole(int a)
+        public async void SetAllianceRole(int a)
         {
-            AllianceMemberEntry ame = GetAllianceMemberEntry();
-            if (ame != null)
-                ame.SetRole(a);
+            try
+            {
+                AllianceMemberEntry ame = await GetAllianceMemberEntry();
+                if (ame != null)
+                    ame.SetRole(a);
+            }
+            catch (Exception){}
         }
 
         public void SetDiamonds(int count) => m_vCurrentGems = count;

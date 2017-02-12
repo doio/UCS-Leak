@@ -49,8 +49,19 @@ namespace UCS.Helpers
                             Say("/addip             - Add an IP to the Blacklist");
                             Say("/maintenance       - Begin Server Maintenance.");
                             Say("/saveall           - Saves everything to the Database");
+                            Say("/info              - Shows the UCS Informations.");
                             Say("/info 'command'    - More Info On a Command. Ex: /info gui");
                             Print("------------------------------------------------------------------------------>");
+                            break;
+
+                        case "/info":
+                            Console.WriteLine("------------------------------------->");
+                            Say("UCS Version:       " + Constants.Version);
+                            Say("Build:             " + Constants.Build);
+                            Say("Is Premium Server: " + Constants.IsPremiumServer);
+                            Say("");
+                            Say("©Ultrapowa 2014 - " + DateTime.Now.Year);
+                            Console.WriteLine("------------------------------------->");
                             break;
 
                         case "/banned":
@@ -70,22 +81,24 @@ namespace UCS.Helpers
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
                             Say("Starting saving of all Players... (" + ResourcesManager.GetInMemoryLevels().Count + ")");
-                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
+                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels()).Wait();
                             Say("Finished saving of all Players!");
                             Say("Starting saving of all Alliances... (" + ResourcesManager.GetInMemoryAlliances().Count + ")");
-                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
+                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances()).Wait();
                             Say("Finished saving of all Alliances!");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
                             Console.ResetColor();
                             break;
-                        case "/addpremium":
+                        /*case "/addpremium":
                             Print("------------------------------------->");
                             Say("Type in now the Player ID: ");
                             var id = ReadLine();
                             Print("------------------------------------->");
                             try
                             {
-                                var avatar = ResourcesManager.GetPlayer(long.Parse(id)).GetPlayerAvatar();
+                                var l = await ResourcesManager.GetPlayer(long.Parse(id));
+                                var avatar = l.GetPlayerAvatar();
                                 var playerID = avatar.GetId();
                                 var p = avatar.GetPremium();
                                 Say("Set the Privileges for Player: '" + avatar.GetAvatarName() + "' ID: '" + avatar.GetId() + "' to Premium?");
@@ -119,7 +132,7 @@ namespace UCS.Helpers
                             {
                                 Say("Player doesn't exists!");
                             }
-                            break;
+                            break;*/
 
                         case "/info addpremium":
                             Print("------------------------------------------------------------------------------->");

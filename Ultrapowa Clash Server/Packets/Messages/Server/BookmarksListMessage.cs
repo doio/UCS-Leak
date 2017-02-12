@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,36 +22,39 @@ namespace UCS.Packets.Messages.Server
             i = 0;
         }
 
-        public override void Encode()
+        public override async void Encode()
         {
-            List<byte> data = new List<byte>();
-            List<byte> list = new List<byte>();
-            List<BookmarkSlot> rem = new List<BookmarkSlot>();
-
-            foreach(var p in player.BookmarkedClan)
+            try
             {
-                Alliance a = ObjectManager.GetAlliance(p.Value);
-                if (a != null)
-                {
-                    list.AddRange(ObjectManager.GetAlliance(p.Value).EncodeFullEntry());
-                    i++;
-                }
-                else
-                {
-                    rem.Add(p);
-                    if (i > 0)
-                        i--;
-                }
-            }
+                List<byte> data = new List<byte>();
+                List<byte> list = new List<byte>();
+                List<BookmarkSlot> rem = new List<BookmarkSlot>();
 
-            data.AddInt32(i);
-            data.AddRange(list);
-            Encrypt(data.ToArray());
+                foreach (var p in player.BookmarkedClan)
+                {
+                    Alliance a = await ObjectManager.GetAlliance(p.Value);
+                    if (a != null)
+                    {
+                        list.AddRange(a.EncodeFullEntry());
+                        i++;
+                    }
+                    else
+                    {
+                        rem.Add(p);
+                        if (i > 0)
+                            i--;
+                    }
+                }
 
-            foreach(BookmarkSlot im in rem)
-            {
-                player.BookmarkedClan.RemoveAll(t => t == im);
-            }
+                data.AddInt32(i);
+                data.AddRange(list);
+                Encrypt(data.ToArray());
+
+                foreach (BookmarkSlot im in rem)
+                {
+                    player.BookmarkedClan.RemoveAll(t => t == im);
+                }
+            } catch (Exception) { }
         }
     }
 }
