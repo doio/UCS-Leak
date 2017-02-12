@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using UCS.Core;
+using UCS.Core.Checker;
 using UCS.Files.Logic;
 using UCS.Helpers;
 using UCS.Logic;
@@ -18,10 +20,11 @@ namespace UCS.Packets.Commands.Client
             if (m_vIsCommandEmbedded)
             {
                 Depth++;
-
                 if (Depth >= MaxEmbeddedDepth)
-                    throw new ArgumentException(
-                        "A command contained embedded command depth was greater than max embedded commands.");
+                {
+                    Console.WriteLine("Detected UCS Exploit.");
+                }
+                Depth = Depth;
                 m_vCommand = CommandFactory.Read(br);
             }
             Unknown1 = br.ReadInt32WithEndian();
@@ -29,37 +32,45 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
-            var rd = (ResourceData)CSVManager.DataTables.GetDataById(m_vResourceId);
-            if (rd != null)
+            if (Depth >= MaxEmbeddedDepth)
             {
-                if (m_vResourceCount >= 1)
+                IPEndPoint r = level.GetClient().Socket.RemoteEndPoint as IPEndPoint;
+                ConnectionBlocker.AddNewIpToBlackList(r.Address.ToString());
+                ResourcesManager.DropClient(level.GetClient().Socket.Handle.ToInt64());
+            }
+            else
+            {
+                var rd = (ResourceData)CSVManager.DataTables.GetDataById(m_vResourceId);
+                if (rd != null)
                 {
-                    if (!rd.PremiumCurrency)
+                    if (m_vResourceCount >= 1)
                     {
-                        var avatar = level.GetPlayerAvatar();
-                        var diamondCost = GamePlayUtil.GetResourceDiamondCost(m_vResourceCount, rd);
-                        var unusedResourceCap = avatar.GetUnusedResourceCap(rd);
-                        if (m_vResourceCount <= unusedResourceCap)
+                        if (!rd.PremiumCurrency)
                         {
-                            if (avatar.HasEnoughDiamonds(diamondCost))
+                            var avatar = level.GetPlayerAvatar();
+                            var diamondCost = GamePlayUtil.GetResourceDiamondCost(m_vResourceCount, rd);
+                            var unusedResourceCap = avatar.GetUnusedResourceCap(rd);
+                            if (m_vResourceCount <= unusedResourceCap)
                             {
-                                avatar.UseDiamonds(diamondCost);
-                                avatar.CommodityCountChangeHelper(0, rd, m_vResourceCount);
-                                if (m_vIsCommandEmbedded)
+                                if (avatar.HasEnoughDiamonds(diamondCost))
                                 {
-                                    Depth++;
+                                    avatar.UseDiamonds(diamondCost);
+                                    avatar.CommodityCountChangeHelper(0, rd, m_vResourceCount);
+                                    if (m_vIsCommandEmbedded)
+                                    {
+                                        Depth++;
 
-                                    if (Depth >= MaxEmbeddedDepth)
-                                        throw new ArgumentException(
-                                            "A command contained embedded command depth was greater than max embedded commands.");
+                                        if (Depth >= MaxEmbeddedDepth)
+                                            throw new ArgumentException(
+                                                "A command contained embedded command depth was greater than max embedded commands.");
 
-                                    ((Command) m_vCommand).Execute(level);
+                                        ((Command)m_vCommand).Execute(level);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }
+                } }
         }
 
         readonly object m_vCommand;

@@ -88,7 +88,7 @@ namespace UCS.Core.Checker
                     count++;
                     Say(count + ". " + s);
                 }
-                else
+                else if(Banned_IPs.Count < 2)
                 {
                     Say("No banned IP's.");
                 }
