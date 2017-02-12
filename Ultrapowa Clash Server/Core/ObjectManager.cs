@@ -145,6 +145,7 @@ namespace UCS.Core
         {
             try
             {
+                loop:
                 Level l = GetRandomOnlinePlayer();
                 ClientAvatar ca = l.GetPlayerAvatar();
 
@@ -158,7 +159,7 @@ namespace UCS.Core
                 }
                 else
                 {
-                    return await GetRandomOnlinePlayerWithoutShield();
+                    goto loop;
                 }
             } catch (Exception) { return null; }
         }
