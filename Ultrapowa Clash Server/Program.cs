@@ -73,7 +73,7 @@ namespace UCS
                     Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
                     Console.ResetColor();
                     Say();
-                    Say("Prepearing Server...\n");
+                    Say("Preparing Server...\n");
 
                     _Loader = new Loader();
                 }
