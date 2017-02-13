@@ -9,7 +9,7 @@ namespace UCS.Packets.Messages.Server
 {
     internal class AvatarChatBanMessage : Message
     {
-        public int m_vCode = 90000;
+        public int m_vCode = 86400;
 
         public AvatarChatBanMessage(Packets.Client client) : base(client)
         {

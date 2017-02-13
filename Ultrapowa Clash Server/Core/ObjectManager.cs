@@ -149,18 +149,22 @@ namespace UCS.Core
                 Level l = GetRandomOnlinePlayer();
                 ClientAvatar ca = l.GetPlayerAvatar();
 
-                if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90)
+                if (ResourcesManager.GetOnlinePlayers().Count >= 500)
                 {
-                    return l;
-                }
-                else if (ResourcesManager.GetOnlinePlayers().Count <= 100 && l != null)
-                {
-                    return l;
+                    if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90)
+                    {
+                        return l;
+                    }
+                    else
+                    {
+                        goto loop;
+                    }
                 }
                 else
                 {
-                    goto loop;
+                    return l;
                 }
+
             } catch (Exception) { return null; }
         }
 

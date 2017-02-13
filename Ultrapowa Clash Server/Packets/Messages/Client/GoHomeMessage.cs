@@ -77,6 +77,8 @@ namespace UCS.Packets.Messages.Client
                 if (State == 1)
                 {
                     player.State = UserState.Editmode;
+                    level.Tick();
+                    PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
                 }
                 else if (player.State == UserState.Home)
                 {
@@ -85,14 +87,13 @@ namespace UCS.Packets.Messages.Client
                 else
                 {
                     player.State = UserState.Home;
-                }
-
-                level.Tick();
-                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
-                if (alliance != null)
-                {
-                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                    level.Tick();
+                    Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+                    if (alliance != null)
+                    {
+                        PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                    }
                 }
             } catch (Exception) { }
         }

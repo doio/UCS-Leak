@@ -37,6 +37,7 @@ namespace UCS.Logic
         int m_vAlliance_DarkElixir = 14400;
         int m_vShieldTime;
         int m_vProtectionTime;
+        public int ReportedTimes   = 0;
 
         // Byte
         byte m_vNameChangingLeft;
