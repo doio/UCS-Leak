@@ -40,6 +40,11 @@ namespace UCS.Packets.Messages.Client
                     {
                         if (Message[0] == '/')
                         {
+                            if (Message == "/test")
+                            {
+                                PacketProcessor.Send(new FacebookChooseVillageMessage(Client));
+                            }
+
                             object obj = GameOpCommandFactory.Parse(Message);
                             if (obj != null)
                             {

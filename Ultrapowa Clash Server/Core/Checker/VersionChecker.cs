@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading;
 using System.Reflection;
 using UCS.Core.Settings;
+using Newtonsoft.Json.Linq;
 
 namespace UCS.Core.Web
 {
@@ -34,6 +35,21 @@ namespace UCS.Core.Web
             catch (Exception)
             {
                 return "Error";
+            }
+        }
+
+        public static string LatestCoCVersion()
+        {
+            try
+            {
+                JObject obj = JObject.Parse(new WebClient().DownloadString("http://carreto.pt/tools/android-store-version/?package=com.supercell.clashofclans"));
+                string Version = (string)obj["version"];
+
+                return Version;
+            }
+            catch (Exception)
+            {
+                return "Couldn't get last CoC Version.";
             }
         }
     }
