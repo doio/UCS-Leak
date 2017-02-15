@@ -29,6 +29,7 @@ namespace UCS.Packets
             m_vMessages.Add(14100, typeof(AttackResultMessage));
             m_vMessages.Add(14101, typeof(GoHomeMessage));
             m_vMessages.Add(14102, typeof(ExecuteCommandsMessage));
+            m_vMessages.Add(14106, typeof(RetributionAttackerMessage));
             m_vMessages.Add(14110, typeof(ChallangeWatchLiveMessage));
             m_vMessages.Add(14111, typeof(ChallangeVisitMessage));
             m_vMessages.Add(14113, typeof(VisitHomeMessage));

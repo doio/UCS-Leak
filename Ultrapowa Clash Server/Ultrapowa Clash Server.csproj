@@ -243,7 +243,9 @@
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
+    <Compile Include="Packets\Messages\Client\RetributionAttackerMessage.cs" />
     <Compile Include="Packets\Messages\Server\FacebookChooseVillageMessage.cs" />
+    <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
     <Compile Include="UpdaterGUI.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -18,7 +18,7 @@ namespace UCS.Packets.Messages.Server
         public override async void Encode()
         {
             List<byte> _data = new List<byte>();
-            _data.AddInt32(1);
+            _data.AddInt32(2);
             Encrypt(_data.ToArray());
         }
     }
