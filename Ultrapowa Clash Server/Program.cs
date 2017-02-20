@@ -23,23 +23,21 @@ namespace UCS
         public static string Version { get; set; }
         private static Loader _Loader          = null;
 
-        internal static void Main()
+        static void Main()
         {
-            new Thread(() =>
+            if (Constants.IsPremiumServer)
             {
-                if (Constants.IsPremiumServer)
-                {
-                    Console.Title = Title + OP;
-                }
-                else
-                {
-                    Console.Title = Title + OP + "/200";
-                }
+                Console.Title = Title + OP;
+            }
+            else
+            {
+                Console.Title = Title + OP + "/200";
+            }
 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(
 
-                    @"
+                @"
       ____ ___.__   __                                              
      |    |   \  |_/  |_____________  ______   ______  _  _______   
      |    |   /  |\   __\_  __ \__  \ \____ \ /  _ \ \/ \/ /\__  \  
@@ -47,55 +45,54 @@ namespace UCS
      |______/ |____/__|  |__|  (____  /   __/ \____/ \/\_/  (____  /
                                     \/|__|                       \/
             ");
+            Console.ResetColor();
+            Say("> This program is made by the Ultrapowa Development Team.");
+            Say("> Ultrapowa is not affiliated to \"Supercell, Oy\".");
+            Say("> This program is copyrighted worldwide.");
+            Say("> Visit www.ultrapowa.com daily for News & Updates!");
+
+            if (Constants.IsRc4)
+            {
+                Say("> UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
+            }
+            else
+            {
+                Say("> UCS is running under Pepper mode. Please make sure client key is modded.");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("[UCS]    ");
+            Version = VersionChecker.GetVersionString();
+
+            _Stopwatch.Start();
+
+            if (Version == Constants.Version)
+            {
+                Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
                 Console.ResetColor();
-                Say("> This program is made by the Ultrapowa Development Team.");
-                Say("> Ultrapowa is not affiliated to \"Supercell, Oy\".");
-                Say("> This program is copyrighted worldwide.");
-                Say("> Visit www.ultrapowa.com daily for News & Updates!");
+                Say();
+                Say("Preparing Server...\n");
 
-                if (Constants.IsRc4)
-                {
-                    Say("> UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
-                }
-                else
-                {
-                    Say("> UCS is running under Pepper mode. Please make sure client key is modded.");
-                }
-
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write("[UCS]    ");
-                Version = VersionChecker.GetVersionString();
-
-                _Stopwatch.Start();
-
-                if (Version == Constants.Version)
-                {
-                    Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
-                    Console.ResetColor();
-                    Say();
-                    Say("Preparing Server...\n");
-
-                    _Loader = new Loader();
-                }
-                else if (Version == "Error")
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("> An Error occured when requesting the Version number.");
-                    Console.WriteLine();
-                    Logger.Say("Please contact the Support at https://ultrapowa.com/forum!");
-                    Console.WriteLine();
-                    Logger.Say("Aborting...");
-                    Thread.Sleep(5000);
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("> UCS is not up-to-date! New Version: " + VersionChecker.GetVersionString() + ". Aborting...");
-                    Thread.Sleep(5000);
-                    Environment.Exit(0);
-                }
-            }).Start();
+                _Loader = new Loader();
+            }
+            else if (Version == "Error")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("> An Error occured when requesting the Version number.");
+                Console.WriteLine();
+                Logger.Say("Please contact the Support at https://ultrapowa.com/forum!");
+                Console.WriteLine();
+                Logger.Say("Aborting...");
+                Thread.Sleep(5000);
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("> UCS is not up-to-date! New Version: " + VersionChecker.GetVersionString() + ". Aborting...");
+                Thread.Sleep(5000);
+                Environment.Exit(0);
+            }
         }
 
         public static void TitleU()

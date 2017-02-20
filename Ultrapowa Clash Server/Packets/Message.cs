@@ -151,6 +151,7 @@ namespace UCS.Packets
             catch (Exception)
             {
                 Client.State = ClientState.Exception;
+                this.Client.Socket.Close();
             }
         }
 
@@ -162,17 +163,14 @@ namespace UCS.Packets
 
         public ushort GetMessageVersion() => m_vMessageVersion;
 
-        public async Task<byte[]> GetRawData()
+        public byte[] GetRawData()
         {
-            try
-            {
-                List<byte> _EncodedMessage = new List<byte>();
-                _EncodedMessage.AddUInt16(m_vType);
-                _EncodedMessage.AddInt32WithSkip(m_vLength, 1);
-                _EncodedMessage.AddUInt16(m_vMessageVersion);
-                _EncodedMessage.AddRange(m_vData);
-                return _EncodedMessage.ToArray();
-            } catch (Exception) { return null; }
+            List<byte> _EncodedMessage = new List<byte>();
+            _EncodedMessage.AddUInt16(m_vType);
+            _EncodedMessage.AddInt32WithSkip(m_vLength, 1);
+            _EncodedMessage.AddUInt16(m_vMessageVersion);
+            _EncodedMessage.AddRange(m_vData);
+            return _EncodedMessage.ToArray();
         }
 
         public virtual void Process(Level level)

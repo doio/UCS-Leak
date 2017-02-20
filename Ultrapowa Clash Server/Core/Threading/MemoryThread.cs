@@ -37,11 +37,14 @@ namespace UCS.Core.Threading
                 foreach (Client _Player in ResourcesManager.GetConnectedClients())
                 {
                     if (!await _Player.IsClientSocketConnected())
+                    {
+                        _Player.Socket.Close();
                         ResourcesManager.DropClient(_Player.GetSocketHandle());
+                    }
                 }
 
-                GC.Collect(GC.MaxGeneration);
-                GC.WaitForPendingFinalizers();
+                //GC.Collect(GC.MaxGeneration);
+                //GC.WaitForPendingFinalizers();
             } catch (Exception) { }
         }
 

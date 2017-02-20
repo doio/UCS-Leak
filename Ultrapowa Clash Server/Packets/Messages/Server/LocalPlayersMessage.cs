@@ -26,8 +26,8 @@ namespace UCS.Packets.Messages.Server
 
                 foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.GetPlayerAvatar().GetScore()))
                 {
-                    if (player.GetPlayerAvatar().GetAvatarLevel() >= 70)
-                    {
+                    /*if (player.GetPlayerAvatar().GetAvatarLevel() >= 70)
+                    {*/
                         ClientAvatar pl = player.GetPlayerAvatar();
                         long id = pl.GetAllianceId();
                         if (i >= 100)
@@ -58,7 +58,7 @@ namespace UCS.Packets.Messages.Server
                         else
                             data.Add(0);
                         i++;
-                    }
+                    //}
                 }
 
                 packet.AddInt32(i);

@@ -9,6 +9,7 @@ using System;
 using UCS.Core.Crypto;
 using UCS.Core.Settings;
 using System.Threading.Tasks;
+using UCS.Core.Network;
 
 namespace UCS.Packets
 {
@@ -253,7 +254,9 @@ namespace UCS.Packets
                     object obj;
                     byte[] packet = DataStream.Take(7 + length).ToArray();
                     using (PacketReader br = new PacketReader(new MemoryStream(packet)))
+                    {
                         obj = MessageFactory.Read(this, br, type);
+                    }
                     if (obj != null)
                     {
                         _Message = (Message)obj;
@@ -262,11 +265,20 @@ namespace UCS.Packets
                     else
                     {
                         if (Constants.IsRc4)
+                        {
                             Decrypt(DataStream.Skip(7).Take(length).ToArray());
+                        }
                         else
-                        CSNonce.Increment();        
+                        {
+                            CSNonce.Increment();                           
+                        }    
                     }
                     DataStream.RemoveRange(0, 7 + length);
+                }
+                else
+                {
+                    DataStream.RemoveRange(0, 7 + length);
+                    this.Socket.Close();
                 }
             }
             return result;

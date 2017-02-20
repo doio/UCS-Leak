@@ -30,8 +30,7 @@ namespace UCS.Core.Network
                     _Message.Client.UpdateKey(sessionKey);
                 }
                 _Message.Process(_Message.Client.GetLevel());
-                byte[] RawData = await _Message.GetRawData();
-                _Message.Client.Socket.BeginSend(RawData, 0, RawData.Length, SocketFlags.None, null, null);
+                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, SocketFlags.None, null, null);
             }
             catch (Exception)
             {
