@@ -241,7 +241,6 @@ namespace UCS
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // labelOnlineStatus
             // 
@@ -333,7 +332,6 @@ namespace UCS
             this.materialLabel16.Size = new System.Drawing.Size(17, 19);
             this.materialLabel16.TabIndex = 15;
             this.materialLabel16.Text = "0";
-            this.materialLabel16.Click += new System.EventHandler(this.materialLabel16_Click);
             // 
             // materialLabel15
             // 
@@ -347,7 +345,6 @@ namespace UCS
             this.materialLabel15.Size = new System.Drawing.Size(17, 19);
             this.materialLabel15.TabIndex = 14;
             this.materialLabel15.Text = "0";
-            this.materialLabel15.Click += new System.EventHandler(this.materialLabel15_Click);
             // 
             // materialLabel14
             // 
@@ -361,7 +358,6 @@ namespace UCS
             this.materialLabel14.Size = new System.Drawing.Size(17, 19);
             this.materialLabel14.TabIndex = 13;
             this.materialLabel14.Text = "0";
-            this.materialLabel14.Click += new System.EventHandler(this.materialLabel14_Click);
             // 
             // labelMemoryPlayers
             // 
@@ -375,7 +371,6 @@ namespace UCS
             this.labelMemoryPlayers.Size = new System.Drawing.Size(17, 19);
             this.labelMemoryPlayers.TabIndex = 12;
             this.labelMemoryPlayers.Text = "0";
-            this.labelMemoryPlayers.Click += new System.EventHandler(this.materialLabel13_Click);
             // 
             // materialLabel12
             // 
@@ -441,7 +436,6 @@ namespace UCS
             this.labelConnectedPlayers.Size = new System.Drawing.Size(17, 19);
             this.labelConnectedPlayers.TabIndex = 7;
             this.labelConnectedPlayers.Text = "0";
-            this.labelConnectedPlayers.Click += new System.EventHandler(this.materialLabel8_Click);
             // 
             // labelOnlinePlayers
             // 
@@ -455,7 +449,6 @@ namespace UCS
             this.labelOnlinePlayers.Size = new System.Drawing.Size(17, 19);
             this.labelOnlinePlayers.TabIndex = 6;
             this.labelOnlinePlayers.Text = "0";
-            this.labelOnlinePlayers.Click += new System.EventHandler(this.materialLabel7_Click);
             // 
             // labelPort
             // 
@@ -469,7 +462,6 @@ namespace UCS
             this.labelPort.Size = new System.Drawing.Size(17, 19);
             this.labelPort.TabIndex = 5;
             this.labelPort.Text = "0";
-            this.labelPort.Click += new System.EventHandler(this.materialLabel6_Click);
             // 
             // labelIP
             // 
@@ -483,7 +475,6 @@ namespace UCS
             this.labelIP.Size = new System.Drawing.Size(17, 19);
             this.labelIP.TabIndex = 4;
             this.labelIP.Text = "0";
-            this.labelIP.Click += new System.EventHandler(this.materialLabel5_Click);
             // 
             // materialLabel4
             // 
@@ -585,7 +576,6 @@ namespace UCS
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Player List";
             this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // materialRaisedButton16
             // 
@@ -641,7 +631,6 @@ namespace UCS
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -696,7 +685,6 @@ namespace UCS
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Edit Player";
             this.tabPage5.UseVisualStyleBackColor = true;
-            this.tabPage5.Click += new System.EventHandler(this.tabPage5_Click);
             // 
             // txtPlayerLevel
             // 
@@ -996,7 +984,6 @@ namespace UCS
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config Editor";
             this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // txtClientVersion
             // 
@@ -1050,7 +1037,6 @@ namespace UCS
             this.materialLabel30.Size = new System.Drawing.Size(77, 19);
             this.materialLabel30.TabIndex = 28;
             this.materialLabel30.Text = "Log Level:";
-            this.materialLabel30.Click += new System.EventHandler(this.materialLabel30_Click);
             // 
             // materialLabel29
             // 
@@ -1111,7 +1097,6 @@ namespace UCS
             this.txtDatabaseType.Name = "txtDatabaseType";
             this.txtDatabaseType.Size = new System.Drawing.Size(254, 20);
             this.txtDatabaseType.TabIndex = 22;
-            this.txtDatabaseType.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             // 
             // txtUsePatch
             // 
@@ -1120,7 +1105,6 @@ namespace UCS
             this.txtUsePatch.Size = new System.Drawing.Size(254, 20);
             this.txtUsePatch.TabIndex = 21;
             this.txtUsePatch.Text = "false";
-            this.txtUsePatch.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
             // 
             // materialLabel27
             // 
@@ -1147,7 +1131,6 @@ namespace UCS
             this.materialLabel26.Size = new System.Drawing.Size(76, 19);
             this.materialLabel26.TabIndex = 18;
             this.materialLabel26.Text = "Database:";
-            this.materialLabel26.Click += new System.EventHandler(this.materialLabel26_Click);
             // 
             // txtMintenance
             // 
@@ -1155,7 +1138,6 @@ namespace UCS
             this.txtMintenance.Name = "txtMintenance";
             this.txtMintenance.Size = new System.Drawing.Size(118, 20);
             this.txtMintenance.TabIndex = 17;
-            this.txtMintenance.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // materialLabel25
             // 
@@ -1176,7 +1158,6 @@ namespace UCS
             this.txtPatchURL.Name = "txtPatchURL";
             this.txtPatchURL.Size = new System.Drawing.Size(254, 20);
             this.txtPatchURL.TabIndex = 15;
-            this.txtPatchURL.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // materialLabel24
             // 
@@ -1197,7 +1178,6 @@ namespace UCS
             this.txtUpdateURL.Name = "txtUpdateURL";
             this.txtUpdateURL.Size = new System.Drawing.Size(254, 20);
             this.txtUpdateURL.TabIndex = 13;
-            this.txtUpdateURL.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // materialLabel23
             // 
@@ -1211,7 +1191,6 @@ namespace UCS
             this.materialLabel23.Size = new System.Drawing.Size(91, 19);
             this.materialLabel23.TabIndex = 12;
             this.materialLabel23.Text = "Update URL:";
-            this.materialLabel23.Click += new System.EventHandler(this.materialLabel23_Click);
             // 
             // txtStartingLevel
             // 
@@ -1279,7 +1258,6 @@ namespace UCS
             this.txtStartingElixir.Name = "txtStartingElixir";
             this.txtStartingElixir.Size = new System.Drawing.Size(118, 20);
             this.txtStartingElixir.TabIndex = 5;
-            this.txtStartingElixir.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // materialLabel19
             // 
@@ -1320,7 +1298,6 @@ namespace UCS
             this.txtStartingGems.Name = "txtStartingGems";
             this.txtStartingGems.Size = new System.Drawing.Size(118, 20);
             this.txtStartingGems.TabIndex = 1;
-            this.txtStartingGems.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // materialLabel17
             // 
@@ -1454,7 +1431,6 @@ namespace UCS
             this.textBox3.Size = new System.Drawing.Size(673, 70);
             this.textBox3.TabIndex = 2;
             this.textBox3.Text = "Visit http://ultrapowa.com!";
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
             // 
             // textBox2
             // 
@@ -1582,7 +1558,6 @@ namespace UCS
             this.materialTabSelector3.Size = new System.Drawing.Size(715, 30);
             this.materialTabSelector3.TabIndex = 1;
             this.materialTabSelector3.Text = "materialTabSelector3";
-            this.materialTabSelector3.Click += new System.EventHandler(this.materialTabSelector3_Click);
             // 
             // materialTabControl3
             // 
@@ -1689,7 +1664,6 @@ namespace UCS
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Edit Alliance";
             this.tabPage10.UseVisualStyleBackColor = true;
-            this.tabPage10.Click += new System.EventHandler(this.tabPage10_Click);
             // 
             // txtAllianceScore
             // 
@@ -1710,7 +1684,6 @@ namespace UCS
             this.txtAllianceLevel.Name = "txtAllianceLevel";
             this.txtAllianceLevel.Size = new System.Drawing.Size(108, 20);
             this.txtAllianceLevel.TabIndex = 49;
-            this.txtAllianceLevel.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // materialLabel39
             // 
@@ -1724,7 +1697,6 @@ namespace UCS
             this.materialLabel39.Size = new System.Drawing.Size(106, 19);
             this.materialLabel39.TabIndex = 48;
             this.materialLabel39.Text = "Alliance Level:";
-            this.materialLabel39.Click += new System.EventHandler(this.materialLabel39_Click);
             // 
             // materialRaisedButton22
             // 
@@ -1874,7 +1846,6 @@ namespace UCS
             this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
             this.materialTabSelector1.TabIndex = 1;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            this.materialTabSelector1.Click += new System.EventHandler(this.materialTabSelector1_Click);
             // 
             // materialRaisedButton25
             // 
