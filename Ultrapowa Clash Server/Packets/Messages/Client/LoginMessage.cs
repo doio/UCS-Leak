@@ -208,13 +208,13 @@ namespace UCS.Packets.Messages.Client
                     mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                     mail.SetSenderId(0);
                     mail.SetSenderAvatarId(0);
-                    /*FOR FHX*/   //mail.SetSenderName("FHx-Admin");
+                    /*FOR FHX*/   //mail.SetSenderName("Clash Of Heroes Team");
                     mail.SetSenderName("Server Manager");
                     mail.SetIsNew(2);
                     mail.SetAllianceId(0);
                     mail.SetSenderLeagueId(22);
                     mail.SetAllianceBadgeData(1526735450);
-                    /*FOR FHX*/   //mail.SetAllianceName("FHx-Server");
+                    /*FOR FHX*/   //mail.SetAllianceName("COH-TEAM");
                     mail.SetAllianceName("Server Admin");
                     mail.SetMessage(ConfigurationManager.AppSettings["AdminMessage"]);
                     mail.SetSenderLevel(500);
@@ -263,7 +263,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Client);
                         p.SetErrorCode(11);
-                        /*FOR FHX*/         //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                  
+                        /*FOR FHX*/         // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                  
                         p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
                         PacketProcessor.Send(p);
                         return;
@@ -273,7 +273,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     LoginFailedMessage p = new LoginFailedMessage(Client);
                     p.SetErrorCode(11);
-                    /*FOR FHX*/     //p.SetReason("Please clear the Data of your FHx apps. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.fhx-server.com");                                   
+                    /*FOR FHX*/     // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                                  
                     p.SetReason("We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum");
                     PacketProcessor.Send(p);
                     return;
