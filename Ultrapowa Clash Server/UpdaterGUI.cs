@@ -43,7 +43,7 @@ namespace UCS
             }
             else
             {
-                MessageBox.Show("An Update is available! New Version: " + VersionChecker.GetVersionString() + ", do you want to download it?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                DialogResult _DialogResult = MessageBox.Show("An Update is available! New Version: " + VersionChecker.GetVersionString() + ", do you want to download it?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
             }
         }
     }

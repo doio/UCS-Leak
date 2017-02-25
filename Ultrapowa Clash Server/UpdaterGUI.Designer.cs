@@ -33,12 +33,15 @@
             // 
             // materialRaisedButton1
             // 
+            this.materialRaisedButton1.AutoSize = true;
+            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton1.Depth = 0;
+            this.materialRaisedButton1.Icon = null;
             this.materialRaisedButton1.Location = new System.Drawing.Point(126, 126);
             this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
-            this.materialRaisedButton1.Size = new System.Drawing.Size(143, 34);
+            this.materialRaisedButton1.Size = new System.Drawing.Size(149, 36);
             this.materialRaisedButton1.TabIndex = 0;
             this.materialRaisedButton1.Text = "Check for Update";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
@@ -55,6 +58,7 @@
             this.Text = "Update Manager";
             this.Load += new System.EventHandler(this.UpdaterGUI_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

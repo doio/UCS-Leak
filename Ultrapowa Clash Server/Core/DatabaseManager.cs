@@ -111,12 +111,12 @@ namespace UCS.Core
                 using (ucsdbEntities db = new ucsdbEntities(m_vConnectionString))
                 {
                     DbSet<clan> a = db.clan;
-                    Parallel.ForEach(a, c =>
+                    foreach (clan c in a)
                     {
                         Alliance alliance = new Alliance();
                         alliance.LoadFromJSON(c.Data);
                         alliances.Add(alliance);
-                    });
+                    }
                 }
             }
             catch (Exception ex)
@@ -135,14 +135,14 @@ namespace UCS.Core
                 {
                     DbSet<clan> a = db.clan;
                     int count = 0;
-                    Parallel.ForEach(a, (c, state) =>
+                    foreach (clan c in a)
                     {
                         Alliance alliance = new Alliance();
                         alliance.LoadFromJSON(c.Data);
                         alliances.Add(alliance);
                         if (count++ >= 100)
-                            state.Stop();
-                    });
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
