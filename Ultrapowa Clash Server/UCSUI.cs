@@ -415,128 +415,6 @@ namespace UCS
 
         /* END OF MAIL TAB*/
 
-        /* UNUSED */
-
-        private void materialLabel30_Click(Object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialCheckBox1_CheckedChanged(object sender2, EventArgs e2)
-        {
-
-        }
-
-        private void materialLabel6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel23_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialTabSelector1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox10_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox9_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox11_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
         private async void materialRaisedButton13_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPlayerID.Text))
@@ -609,11 +487,6 @@ namespace UCS
             }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void materialRaisedButton17_Click(object sender, EventArgs e)
         {
             MessageBox.Show("The Name in the Game.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -622,11 +495,6 @@ namespace UCS
         private void materialRaisedButton18_Click(object sender, EventArgs e)
         {
             MessageBox.Show("The Time where the Message will be automatically sendet. (In Seconds)", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void textBox3_TextChanged_1(object sender, EventArgs e)
-        {
-
         }
 
         private void materialRaisedButton19_Click(object sender, EventArgs e)
@@ -679,23 +547,6 @@ namespace UCS
             }
         }
 
-        private void materialRaisedButton19_Click_1(object sender, EventArgs e)
-        {
-            T.Stop();
-            Count = 0;
-            materialLabel13.Text = Convert.ToString(Count);
-        }
-
-        private void tabPage5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialTabSelector3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void materialRaisedButton21_Click(object sender, EventArgs e)
         {
             listView2.Items.Clear();
@@ -715,41 +566,6 @@ namespace UCS
                     break;
                 }
             }
-        }
-
-        private void tabPage10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel44_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel39_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox8_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel46_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void materialRaisedButton24_Click(object sender, EventArgs e)
@@ -796,6 +612,12 @@ namespace UCS
         {
             UpdaterGUI ug = new UpdaterGUI();
             ug.Show();
+        }
+        private void materialRaisedButton19_Click_1(object sender, EventArgs e)
+        {
+            T.Stop();
+            Count = 0;
+            materialLabel13.Text = Convert.ToString(Count);
         }
     }
 }

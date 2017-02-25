@@ -62,16 +62,16 @@ namespace UCS
             this.materialTabControl2 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.materialRaisedButton16 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtSearchPlayer = new System.Windows.Forms.TextBox();
-            this.materialRaisedButton11 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.txtSearchPlayer = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.listView1 = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.materialRaisedButton11 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.txtPlayerLevel = new System.Windows.Forms.TextBox();
+            this.txtPlayerLevel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel38 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
@@ -82,50 +82,50 @@ namespace UCS
             this.materialRaisedButton8 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton7 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton6 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtPlayerID = new System.Windows.Forms.TextBox();
+            this.txtPlayerID = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel36 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceID = new System.Windows.Forms.TextBox();
+            this.txtAllianceID = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel35 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtTownHallLevel = new System.Windows.Forms.TextBox();
+            this.txtTownHallLevel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel34 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtPlayerGems = new System.Windows.Forms.TextBox();
+            this.txtPlayerGems = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel33 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtPlayerScore = new System.Windows.Forms.TextBox();
+            this.txtPlayerScore = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel32 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtPlayerName = new System.Windows.Forms.TextBox();
+            this.txtPlayerName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel31 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.txtClientVersion = new System.Windows.Forms.TextBox();
+            this.txtClientVersion = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel37 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton5 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtLogLevel = new System.Windows.Forms.TextBox();
+            this.txtLogLevel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel30 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel29 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtPort = new System.Windows.Forms.TextBox();
-            this.txtAdminMessage = new System.Windows.Forms.TextBox();
+            this.txtPort = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtAdminMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel28 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton4 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtDatabaseType = new System.Windows.Forms.TextBox();
-            this.txtUsePatch = new System.Windows.Forms.TextBox();
+            this.txtDatabaseType = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtUsePatch = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel27 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel26 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtMintenance = new System.Windows.Forms.TextBox();
+            this.txtMintenance = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel25 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtPatchURL = new System.Windows.Forms.TextBox();
+            this.txtPatchURL = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel24 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtUpdateURL = new System.Windows.Forms.TextBox();
+            this.txtUpdateURL = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel23 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingLevel = new System.Windows.Forms.TextBox();
+            this.txtStartingLevel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel22 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingTrophies = new System.Windows.Forms.TextBox();
+            this.txtStartingTrophies = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel21 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingDarkElixir = new System.Windows.Forms.TextBox();
+            this.txtStartingDarkElixir = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel20 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingElixir = new System.Windows.Forms.TextBox();
+            this.txtStartingElixir = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel19 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingGold = new System.Windows.Forms.TextBox();
+            this.txtStartingGold = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel18 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtStartingGems = new System.Windows.Forms.TextBox();
+            this.txtStartingGems = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel17 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -136,14 +136,16 @@ namespace UCS
             this.materialRaisedButton18 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton17 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.textBox1 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton10 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.textBox24 = new System.Windows.Forms.TextBox();
-            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.textBox23 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.label2 = new MaterialSkin.Controls.MaterialLabel();
+            this.textBox22 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialRaisedButton9 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -159,22 +161,22 @@ namespace UCS
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.txtAllianceScore = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceLevel = new System.Windows.Forms.TextBox();
+            this.txtAllianceLevel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel39 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton22 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton23 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton24 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.txtID = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel43 = new MaterialSkin.Controls.MaterialLabel();
             this.txtAllianceDescription = new System.Windows.Forms.TextBox();
             this.alliancename = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel47 = new MaterialSkin.Controls.MaterialLabel();
-            this.txtAllianceName = new System.Windows.Forms.TextBox();
+            this.txtAllianceName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel48 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.materialRaisedButton25 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.materialRaisedButton25 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -241,7 +243,6 @@ namespace UCS
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // labelOnlineStatus
             // 
@@ -271,12 +272,15 @@ namespace UCS
             // 
             // materialRaisedButton12
             // 
+            this.materialRaisedButton12.AutoSize = true;
+            this.materialRaisedButton12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton12.Depth = 0;
+            this.materialRaisedButton12.Icon = null;
             this.materialRaisedButton12.Location = new System.Drawing.Point(210, 284);
             this.materialRaisedButton12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton12.Name = "materialRaisedButton12";
             this.materialRaisedButton12.Primary = true;
-            this.materialRaisedButton12.Size = new System.Drawing.Size(117, 26);
+            this.materialRaisedButton12.Size = new System.Drawing.Size(126, 36);
             this.materialRaisedButton12.TabIndex = 19;
             this.materialRaisedButton12.Text = "shutdown ucs";
             this.materialRaisedButton12.UseVisualStyleBackColor = true;
@@ -284,12 +288,15 @@ namespace UCS
             // 
             // materialRaisedButton3
             // 
+            this.materialRaisedButton3.AutoSize = true;
+            this.materialRaisedButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton3.Depth = 0;
-            this.materialRaisedButton3.Location = new System.Drawing.Point(394, 284);
+            this.materialRaisedButton3.Icon = null;
+            this.materialRaisedButton3.Location = new System.Drawing.Point(424, 284);
             this.materialRaisedButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton3.Name = "materialRaisedButton3";
             this.materialRaisedButton3.Primary = true;
-            this.materialRaisedButton3.Size = new System.Drawing.Size(100, 26);
+            this.materialRaisedButton3.Size = new System.Drawing.Size(63, 36);
             this.materialRaisedButton3.TabIndex = 18;
             this.materialRaisedButton3.Text = "Close";
             this.materialRaisedButton3.UseVisualStyleBackColor = true;
@@ -297,12 +304,15 @@ namespace UCS
             // 
             // materialRaisedButton2
             // 
+            this.materialRaisedButton2.AutoSize = true;
+            this.materialRaisedButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton2.Depth = 0;
+            this.materialRaisedButton2.Icon = null;
             this.materialRaisedButton2.Location = new System.Drawing.Point(40, 284);
             this.materialRaisedButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton2.Name = "materialRaisedButton2";
             this.materialRaisedButton2.Primary = true;
-            this.materialRaisedButton2.Size = new System.Drawing.Size(100, 26);
+            this.materialRaisedButton2.Size = new System.Drawing.Size(110, 36);
             this.materialRaisedButton2.TabIndex = 17;
             this.materialRaisedButton2.Text = "Restart UCS";
             this.materialRaisedButton2.UseVisualStyleBackColor = true;
@@ -310,12 +320,15 @@ namespace UCS
             // 
             // materialRaisedButton1
             // 
+            this.materialRaisedButton1.AutoSize = true;
+            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton1.Depth = 0;
+            this.materialRaisedButton1.Icon = null;
             this.materialRaisedButton1.Location = new System.Drawing.Point(550, 284);
             this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
-            this.materialRaisedButton1.Size = new System.Drawing.Size(100, 26);
+            this.materialRaisedButton1.Size = new System.Drawing.Size(72, 36);
             this.materialRaisedButton1.TabIndex = 16;
             this.materialRaisedButton1.Text = "Reload";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
@@ -333,7 +346,6 @@ namespace UCS
             this.materialLabel16.Size = new System.Drawing.Size(17, 19);
             this.materialLabel16.TabIndex = 15;
             this.materialLabel16.Text = "0";
-            this.materialLabel16.Click += new System.EventHandler(this.materialLabel16_Click);
             // 
             // materialLabel15
             // 
@@ -347,7 +359,6 @@ namespace UCS
             this.materialLabel15.Size = new System.Drawing.Size(17, 19);
             this.materialLabel15.TabIndex = 14;
             this.materialLabel15.Text = "0";
-            this.materialLabel15.Click += new System.EventHandler(this.materialLabel15_Click);
             // 
             // materialLabel14
             // 
@@ -361,7 +372,6 @@ namespace UCS
             this.materialLabel14.Size = new System.Drawing.Size(17, 19);
             this.materialLabel14.TabIndex = 13;
             this.materialLabel14.Text = "0";
-            this.materialLabel14.Click += new System.EventHandler(this.materialLabel14_Click);
             // 
             // labelMemoryPlayers
             // 
@@ -375,7 +385,6 @@ namespace UCS
             this.labelMemoryPlayers.Size = new System.Drawing.Size(17, 19);
             this.labelMemoryPlayers.TabIndex = 12;
             this.labelMemoryPlayers.Text = "0";
-            this.labelMemoryPlayers.Click += new System.EventHandler(this.materialLabel13_Click);
             // 
             // materialLabel12
             // 
@@ -441,7 +450,6 @@ namespace UCS
             this.labelConnectedPlayers.Size = new System.Drawing.Size(17, 19);
             this.labelConnectedPlayers.TabIndex = 7;
             this.labelConnectedPlayers.Text = "0";
-            this.labelConnectedPlayers.Click += new System.EventHandler(this.materialLabel8_Click);
             // 
             // labelOnlinePlayers
             // 
@@ -455,7 +463,6 @@ namespace UCS
             this.labelOnlinePlayers.Size = new System.Drawing.Size(17, 19);
             this.labelOnlinePlayers.TabIndex = 6;
             this.labelOnlinePlayers.Text = "0";
-            this.labelOnlinePlayers.Click += new System.EventHandler(this.materialLabel7_Click);
             // 
             // labelPort
             // 
@@ -469,7 +476,6 @@ namespace UCS
             this.labelPort.Size = new System.Drawing.Size(17, 19);
             this.labelPort.TabIndex = 5;
             this.labelPort.Text = "0";
-            this.labelPort.Click += new System.EventHandler(this.materialLabel6_Click);
             // 
             // labelIP
             // 
@@ -483,7 +489,6 @@ namespace UCS
             this.labelIP.Size = new System.Drawing.Size(17, 19);
             this.labelIP.TabIndex = 4;
             this.labelIP.Text = "0";
-            this.labelIP.Click += new System.EventHandler(this.materialLabel5_Click);
             // 
             // materialLabel4
             // 
@@ -574,27 +579,29 @@ namespace UCS
             // 
             // tabPage4
             // 
+            this.tabPage4.BackColor = System.Drawing.Color.White;
             this.tabPage4.Controls.Add(this.materialRaisedButton16);
             this.tabPage4.Controls.Add(this.txtSearchPlayer);
-            this.tabPage4.Controls.Add(this.materialRaisedButton11);
             this.tabPage4.Controls.Add(this.listView1);
+            this.tabPage4.Controls.Add(this.materialRaisedButton11);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(707, 309);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Player List";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // materialRaisedButton16
             // 
+            this.materialRaisedButton16.AutoSize = true;
+            this.materialRaisedButton16.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton16.Depth = 0;
-            this.materialRaisedButton16.Location = new System.Drawing.Point(633, 16);
+            this.materialRaisedButton16.Icon = null;
+            this.materialRaisedButton16.Location = new System.Drawing.Point(630, 22);
             this.materialRaisedButton16.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton16.Name = "materialRaisedButton16";
             this.materialRaisedButton16.Primary = true;
-            this.materialRaisedButton16.Size = new System.Drawing.Size(59, 20);
+            this.materialRaisedButton16.Size = new System.Drawing.Size(73, 36);
             this.materialRaisedButton16.TabIndex = 3;
             this.materialRaisedButton16.Text = "Search ";
             this.materialRaisedButton16.UseVisualStyleBackColor = true;
@@ -603,72 +610,92 @@ namespace UCS
             // txtSearchPlayer
             // 
             this.txtSearchPlayer.BackColor = System.Drawing.SystemColors.Menu;
-            this.txtSearchPlayer.Location = new System.Drawing.Point(475, 16);
-            this.txtSearchPlayer.MaxLength = 20;
+            this.txtSearchPlayer.Depth = 0;
+            this.txtSearchPlayer.Hint = "";
+            this.txtSearchPlayer.Location = new System.Drawing.Point(493, 30);
+            this.txtSearchPlayer.MaxLength = 32767;
+            this.txtSearchPlayer.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtSearchPlayer.Name = "txtSearchPlayer";
-            this.txtSearchPlayer.Size = new System.Drawing.Size(150, 20);
+            this.txtSearchPlayer.PasswordChar = '\0';
+            this.txtSearchPlayer.SelectedText = "";
+            this.txtSearchPlayer.SelectionLength = 0;
+            this.txtSearchPlayer.SelectionStart = 0;
+            this.txtSearchPlayer.Size = new System.Drawing.Size(131, 23);
             this.txtSearchPlayer.TabIndex = 2;
-            // 
-            // materialRaisedButton11
-            // 
-            this.materialRaisedButton11.Depth = 0;
-            this.materialRaisedButton11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.materialRaisedButton11.Location = new System.Drawing.Point(625, 53);
-            this.materialRaisedButton11.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton11.Name = "materialRaisedButton11";
-            this.materialRaisedButton11.Primary = true;
-            this.materialRaisedButton11.Size = new System.Drawing.Size(65, 24);
-            this.materialRaisedButton11.TabIndex = 1;
-            this.materialRaisedButton11.Text = "REFRESH";
-            this.materialRaisedButton11.UseVisualStyleBackColor = true;
-            this.materialRaisedButton11.Click += new System.EventHandler(this.materialRaisedButton11_Click);
+            this.txtSearchPlayer.TabStop = false;
+            this.txtSearchPlayer.UseSystemPasswordChar = false;
             // 
             // listView1
             // 
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.listView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Depth = 0;
+            this.listView1.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.listView1.FullRowSelect = true;
+            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2});
-            this.listView1.Location = new System.Drawing.Point(0, 15);
+            this.listView1.Location = new System.Drawing.Point(0, 22);
+            this.listView1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.listView1.MouseState = MaterialSkin.MouseState.OUT;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(711, 299);
+            this.listView1.OwnerDraw = true;
+            this.listView1.Size = new System.Drawing.Size(704, 334);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 118;
+            this.columnHeader1.Width = 100;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Player ID";
+            this.columnHeader2.Width = 91;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Player Level";
-            this.columnHeader3.Width = 79;
+            this.columnHeader3.Width = 113;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Trophies";
-            this.columnHeader4.Width = 78;
+            this.columnHeader4.Width = 96;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Previleges";
-            this.columnHeader5.Width = 79;
+            this.columnHeader5.Width = 457;
+            // 
+            // materialRaisedButton11
+            // 
+            this.materialRaisedButton11.AutoSize = true;
+            this.materialRaisedButton11.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton11.Depth = 0;
+            this.materialRaisedButton11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.materialRaisedButton11.Icon = null;
+            this.materialRaisedButton11.Location = new System.Drawing.Point(625, 53);
+            this.materialRaisedButton11.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton11.Name = "materialRaisedButton11";
+            this.materialRaisedButton11.Primary = true;
+            this.materialRaisedButton11.Size = new System.Drawing.Size(79, 36);
+            this.materialRaisedButton11.TabIndex = 1;
+            this.materialRaisedButton11.Text = "REFRESH";
+            this.materialRaisedButton11.UseVisualStyleBackColor = true;
+            this.materialRaisedButton11.Click += new System.EventHandler(this.materialRaisedButton11_Click);
             // 
             // tabPage5
             // 
+            this.tabPage5.BackColor = System.Drawing.Color.White;
             this.tabPage5.Controls.Add(this.txtPlayerLevel);
             this.tabPage5.Controls.Add(this.materialLabel38);
             this.tabPage5.Controls.Add(this.materialLabel7);
@@ -695,15 +722,23 @@ namespace UCS
             this.tabPage5.Size = new System.Drawing.Size(707, 309);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Edit Player";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            this.tabPage5.Click += new System.EventHandler(this.tabPage5_Click);
             // 
             // txtPlayerLevel
             // 
+            this.txtPlayerLevel.Depth = 0;
+            this.txtPlayerLevel.Hint = "";
             this.txtPlayerLevel.Location = new System.Drawing.Point(335, 139);
+            this.txtPlayerLevel.MaxLength = 32767;
+            this.txtPlayerLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerLevel.Name = "txtPlayerLevel";
-            this.txtPlayerLevel.Size = new System.Drawing.Size(108, 20);
+            this.txtPlayerLevel.PasswordChar = '\0';
+            this.txtPlayerLevel.SelectedText = "";
+            this.txtPlayerLevel.SelectionLength = 0;
+            this.txtPlayerLevel.SelectionStart = 0;
+            this.txtPlayerLevel.Size = new System.Drawing.Size(108, 23);
             this.txtPlayerLevel.TabIndex = 30;
+            this.txtPlayerLevel.TabStop = false;
+            this.txtPlayerLevel.UseSystemPasswordChar = false;
             // 
             // materialLabel38
             // 
@@ -759,12 +794,15 @@ namespace UCS
             // 
             // materialRaisedButton15
             // 
+            this.materialRaisedButton15.AutoSize = true;
+            this.materialRaisedButton15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton15.Depth = 0;
+            this.materialRaisedButton15.Icon = null;
             this.materialRaisedButton15.Location = new System.Drawing.Point(45, 173);
             this.materialRaisedButton15.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton15.Name = "materialRaisedButton15";
             this.materialRaisedButton15.Primary = true;
-            this.materialRaisedButton15.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton15.Size = new System.Drawing.Size(121, 36);
             this.materialRaisedButton15.TabIndex = 2;
             this.materialRaisedButton15.Text = "UNban Player";
             this.materialRaisedButton15.UseVisualStyleBackColor = true;
@@ -772,12 +810,15 @@ namespace UCS
             // 
             // materialRaisedButton14
             // 
+            this.materialRaisedButton14.AutoSize = true;
+            this.materialRaisedButton14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton14.Depth = 0;
+            this.materialRaisedButton14.Icon = null;
             this.materialRaisedButton14.Location = new System.Drawing.Point(45, 103);
             this.materialRaisedButton14.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton14.Name = "materialRaisedButton14";
             this.materialRaisedButton14.Primary = true;
-            this.materialRaisedButton14.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton14.Size = new System.Drawing.Size(102, 36);
             this.materialRaisedButton14.TabIndex = 1;
             this.materialRaisedButton14.Text = "Ban Player";
             this.materialRaisedButton14.UseVisualStyleBackColor = true;
@@ -785,12 +826,15 @@ namespace UCS
             // 
             // materialRaisedButton13
             // 
+            this.materialRaisedButton13.AutoSize = true;
+            this.materialRaisedButton13.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton13.Depth = 0;
+            this.materialRaisedButton13.Icon = null;
             this.materialRaisedButton13.Location = new System.Drawing.Point(45, 37);
             this.materialRaisedButton13.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton13.Name = "materialRaisedButton13";
             this.materialRaisedButton13.Primary = true;
-            this.materialRaisedButton13.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton13.Size = new System.Drawing.Size(105, 36);
             this.materialRaisedButton13.TabIndex = 0;
             this.materialRaisedButton13.Text = "Kick Player";
             this.materialRaisedButton13.UseVisualStyleBackColor = true;
@@ -798,12 +842,15 @@ namespace UCS
             // 
             // materialRaisedButton8
             // 
+            this.materialRaisedButton8.AutoSize = true;
+            this.materialRaisedButton8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton8.Depth = 0;
+            this.materialRaisedButton8.Icon = null;
             this.materialRaisedButton8.Location = new System.Drawing.Point(467, 142);
             this.materialRaisedButton8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton8.Name = "materialRaisedButton8";
             this.materialRaisedButton8.Primary = true;
-            this.materialRaisedButton8.Size = new System.Drawing.Size(98, 23);
+            this.materialRaisedButton8.Size = new System.Drawing.Size(63, 36);
             this.materialRaisedButton8.TabIndex = 25;
             this.materialRaisedButton8.Text = "Clear";
             this.materialRaisedButton8.UseVisualStyleBackColor = true;
@@ -811,12 +858,15 @@ namespace UCS
             // 
             // materialRaisedButton7
             // 
+            this.materialRaisedButton7.AutoSize = true;
+            this.materialRaisedButton7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton7.Depth = 0;
+            this.materialRaisedButton7.Icon = null;
             this.materialRaisedButton7.Location = new System.Drawing.Point(467, 266);
             this.materialRaisedButton7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton7.Name = "materialRaisedButton7";
             this.materialRaisedButton7.Primary = true;
-            this.materialRaisedButton7.Size = new System.Drawing.Size(98, 23);
+            this.materialRaisedButton7.Size = new System.Drawing.Size(55, 36);
             this.materialRaisedButton7.TabIndex = 24;
             this.materialRaisedButton7.Text = "Save ";
             this.materialRaisedButton7.UseVisualStyleBackColor = true;
@@ -824,12 +874,15 @@ namespace UCS
             // 
             // materialRaisedButton6
             // 
+            this.materialRaisedButton6.AutoSize = true;
+            this.materialRaisedButton6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton6.Depth = 0;
+            this.materialRaisedButton6.Icon = null;
             this.materialRaisedButton6.Location = new System.Drawing.Point(467, 28);
             this.materialRaisedButton6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton6.Name = "materialRaisedButton6";
             this.materialRaisedButton6.Primary = true;
-            this.materialRaisedButton6.Size = new System.Drawing.Size(98, 23);
+            this.materialRaisedButton6.Size = new System.Drawing.Size(109, 36);
             this.materialRaisedButton6.TabIndex = 12;
             this.materialRaisedButton6.Text = "Load Player";
             this.materialRaisedButton6.UseVisualStyleBackColor = true;
@@ -837,10 +890,20 @@ namespace UCS
             // 
             // txtPlayerID
             // 
+            this.txtPlayerID.Depth = 0;
+            this.txtPlayerID.Hint = "";
             this.txtPlayerID.Location = new System.Drawing.Point(327, 30);
+            this.txtPlayerID.MaxLength = 32767;
+            this.txtPlayerID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerID.Name = "txtPlayerID";
-            this.txtPlayerID.Size = new System.Drawing.Size(116, 20);
+            this.txtPlayerID.PasswordChar = '\0';
+            this.txtPlayerID.SelectedText = "";
+            this.txtPlayerID.SelectionLength = 0;
+            this.txtPlayerID.SelectionStart = 0;
+            this.txtPlayerID.Size = new System.Drawing.Size(116, 23);
             this.txtPlayerID.TabIndex = 11;
+            this.txtPlayerID.TabStop = false;
+            this.txtPlayerID.UseSystemPasswordChar = false;
             // 
             // materialLabel36
             // 
@@ -857,10 +920,20 @@ namespace UCS
             // 
             // txtAllianceID
             // 
+            this.txtAllianceID.Depth = 0;
+            this.txtAllianceID.Hint = "";
             this.txtAllianceID.Location = new System.Drawing.Point(315, 246);
+            this.txtAllianceID.MaxLength = 32767;
+            this.txtAllianceID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceID.Name = "txtAllianceID";
-            this.txtAllianceID.Size = new System.Drawing.Size(128, 20);
+            this.txtAllianceID.PasswordChar = '\0';
+            this.txtAllianceID.SelectedText = "";
+            this.txtAllianceID.SelectionLength = 0;
+            this.txtAllianceID.SelectionStart = 0;
+            this.txtAllianceID.Size = new System.Drawing.Size(128, 23);
             this.txtAllianceID.TabIndex = 9;
+            this.txtAllianceID.TabStop = false;
+            this.txtAllianceID.UseSystemPasswordChar = false;
             // 
             // materialLabel35
             // 
@@ -877,10 +950,20 @@ namespace UCS
             // 
             // txtTownHallLevel
             // 
+            this.txtTownHallLevel.Depth = 0;
+            this.txtTownHallLevel.Hint = "";
             this.txtTownHallLevel.Location = new System.Drawing.Point(343, 208);
+            this.txtTownHallLevel.MaxLength = 32767;
+            this.txtTownHallLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtTownHallLevel.Name = "txtTownHallLevel";
-            this.txtTownHallLevel.Size = new System.Drawing.Size(100, 20);
+            this.txtTownHallLevel.PasswordChar = '\0';
+            this.txtTownHallLevel.SelectedText = "";
+            this.txtTownHallLevel.SelectionLength = 0;
+            this.txtTownHallLevel.SelectionStart = 0;
+            this.txtTownHallLevel.Size = new System.Drawing.Size(100, 23);
             this.txtTownHallLevel.TabIndex = 7;
+            this.txtTownHallLevel.TabStop = false;
+            this.txtTownHallLevel.UseSystemPasswordChar = false;
             // 
             // materialLabel34
             // 
@@ -897,10 +980,20 @@ namespace UCS
             // 
             // txtPlayerGems
             // 
+            this.txtPlayerGems.Depth = 0;
+            this.txtPlayerGems.Hint = "";
             this.txtPlayerGems.Location = new System.Drawing.Point(327, 172);
+            this.txtPlayerGems.MaxLength = 32767;
+            this.txtPlayerGems.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerGems.Name = "txtPlayerGems";
-            this.txtPlayerGems.Size = new System.Drawing.Size(116, 20);
+            this.txtPlayerGems.PasswordChar = '\0';
+            this.txtPlayerGems.SelectedText = "";
+            this.txtPlayerGems.SelectionLength = 0;
+            this.txtPlayerGems.SelectionStart = 0;
+            this.txtPlayerGems.Size = new System.Drawing.Size(116, 23);
             this.txtPlayerGems.TabIndex = 5;
+            this.txtPlayerGems.TabStop = false;
+            this.txtPlayerGems.UseSystemPasswordChar = false;
             // 
             // materialLabel33
             // 
@@ -917,10 +1010,20 @@ namespace UCS
             // 
             // txtPlayerScore
             // 
+            this.txtPlayerScore.Depth = 0;
+            this.txtPlayerScore.Hint = "";
             this.txtPlayerScore.Location = new System.Drawing.Point(335, 103);
+            this.txtPlayerScore.MaxLength = 32767;
+            this.txtPlayerScore.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerScore.Name = "txtPlayerScore";
-            this.txtPlayerScore.Size = new System.Drawing.Size(108, 20);
+            this.txtPlayerScore.PasswordChar = '\0';
+            this.txtPlayerScore.SelectedText = "";
+            this.txtPlayerScore.SelectionLength = 0;
+            this.txtPlayerScore.SelectionStart = 0;
+            this.txtPlayerScore.Size = new System.Drawing.Size(108, 23);
             this.txtPlayerScore.TabIndex = 3;
+            this.txtPlayerScore.TabStop = false;
+            this.txtPlayerScore.UseSystemPasswordChar = false;
             // 
             // materialLabel32
             // 
@@ -937,10 +1040,20 @@ namespace UCS
             // 
             // txtPlayerName
             // 
+            this.txtPlayerName.Depth = 0;
+            this.txtPlayerName.Hint = "";
             this.txtPlayerName.Location = new System.Drawing.Point(327, 65);
+            this.txtPlayerName.MaxLength = 32767;
+            this.txtPlayerName.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerName.Name = "txtPlayerName";
-            this.txtPlayerName.Size = new System.Drawing.Size(116, 20);
+            this.txtPlayerName.PasswordChar = '\0';
+            this.txtPlayerName.SelectedText = "";
+            this.txtPlayerName.SelectionLength = 0;
+            this.txtPlayerName.SelectionStart = 0;
+            this.txtPlayerName.Size = new System.Drawing.Size(116, 23);
             this.txtPlayerName.TabIndex = 1;
+            this.txtPlayerName.TabStop = false;
+            this.txtPlayerName.UseSystemPasswordChar = false;
             // 
             // materialLabel31
             // 
@@ -957,6 +1070,7 @@ namespace UCS
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.White;
             this.tabPage3.Controls.Add(this.txtClientVersion);
             this.tabPage3.Controls.Add(this.materialLabel37);
             this.tabPage3.Controls.Add(this.materialRaisedButton5);
@@ -995,15 +1109,23 @@ namespace UCS
             this.tabPage3.Size = new System.Drawing.Size(700, 354);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config Editor";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // txtClientVersion
             // 
+            this.txtClientVersion.Depth = 0;
+            this.txtClientVersion.Hint = "";
             this.txtClientVersion.Location = new System.Drawing.Point(445, 198);
+            this.txtClientVersion.MaxLength = 32767;
+            this.txtClientVersion.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtClientVersion.Name = "txtClientVersion";
-            this.txtClientVersion.Size = new System.Drawing.Size(234, 20);
+            this.txtClientVersion.PasswordChar = '\0';
+            this.txtClientVersion.SelectedText = "";
+            this.txtClientVersion.SelectionLength = 0;
+            this.txtClientVersion.SelectionStart = 0;
+            this.txtClientVersion.Size = new System.Drawing.Size(234, 23);
             this.txtClientVersion.TabIndex = 33;
+            this.txtClientVersion.TabStop = false;
+            this.txtClientVersion.UseSystemPasswordChar = false;
             // 
             // materialLabel37
             // 
@@ -1020,12 +1142,15 @@ namespace UCS
             // 
             // materialRaisedButton5
             // 
+            this.materialRaisedButton5.AutoSize = true;
+            this.materialRaisedButton5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton5.Depth = 0;
-            this.materialRaisedButton5.Location = new System.Drawing.Point(21, 304);
+            this.materialRaisedButton5.Icon = null;
+            this.materialRaisedButton5.Location = new System.Drawing.Point(21, 290);
             this.materialRaisedButton5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton5.Name = "materialRaisedButton5";
             this.materialRaisedButton5.Primary = true;
-            this.materialRaisedButton5.Size = new System.Drawing.Size(131, 26);
+            this.materialRaisedButton5.Size = new System.Drawing.Size(62, 36);
             this.materialRaisedButton5.TabIndex = 30;
             this.materialRaisedButton5.Text = "Reset";
             this.materialRaisedButton5.UseVisualStyleBackColor = true;
@@ -1033,10 +1158,20 @@ namespace UCS
             // 
             // txtLogLevel
             // 
+            this.txtLogLevel.Depth = 0;
+            this.txtLogLevel.Hint = "";
             this.txtLogLevel.Location = new System.Drawing.Point(425, 39);
+            this.txtLogLevel.MaxLength = 32767;
+            this.txtLogLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtLogLevel.Name = "txtLogLevel";
-            this.txtLogLevel.Size = new System.Drawing.Size(254, 20);
+            this.txtLogLevel.PasswordChar = '\0';
+            this.txtLogLevel.SelectedText = "";
+            this.txtLogLevel.SelectionLength = 0;
+            this.txtLogLevel.SelectionStart = 0;
+            this.txtLogLevel.Size = new System.Drawing.Size(254, 23);
             this.txtLogLevel.TabIndex = 29;
+            this.txtLogLevel.TabStop = false;
+            this.txtLogLevel.UseSystemPasswordChar = false;
             // 
             // materialLabel30
             // 
@@ -1050,7 +1185,6 @@ namespace UCS
             this.materialLabel30.Size = new System.Drawing.Size(77, 19);
             this.materialLabel30.TabIndex = 28;
             this.materialLabel30.Text = "Log Level:";
-            this.materialLabel30.Click += new System.EventHandler(this.materialLabel30_Click);
             // 
             // materialLabel29
             // 
@@ -1067,17 +1201,37 @@ namespace UCS
             // 
             // txtPort
             // 
+            this.txtPort.Depth = 0;
+            this.txtPort.Hint = "";
             this.txtPort.Location = new System.Drawing.Point(167, 195);
+            this.txtPort.MaxLength = 32767;
+            this.txtPort.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(118, 20);
+            this.txtPort.PasswordChar = '\0';
+            this.txtPort.SelectedText = "";
+            this.txtPort.SelectionLength = 0;
+            this.txtPort.SelectionStart = 0;
+            this.txtPort.Size = new System.Drawing.Size(118, 23);
             this.txtPort.TabIndex = 26;
+            this.txtPort.TabStop = false;
+            this.txtPort.UseSystemPasswordChar = false;
             // 
             // txtAdminMessage
             // 
+            this.txtAdminMessage.Depth = 0;
+            this.txtAdminMessage.Hint = "";
             this.txtAdminMessage.Location = new System.Drawing.Point(445, 172);
+            this.txtAdminMessage.MaxLength = 32767;
+            this.txtAdminMessage.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAdminMessage.Name = "txtAdminMessage";
-            this.txtAdminMessage.Size = new System.Drawing.Size(234, 20);
+            this.txtAdminMessage.PasswordChar = '\0';
+            this.txtAdminMessage.SelectedText = "";
+            this.txtAdminMessage.SelectionLength = 0;
+            this.txtAdminMessage.SelectionStart = 0;
+            this.txtAdminMessage.Size = new System.Drawing.Size(234, 23);
             this.txtAdminMessage.TabIndex = 25;
+            this.txtAdminMessage.TabStop = false;
+            this.txtAdminMessage.UseSystemPasswordChar = false;
             // 
             // materialLabel28
             // 
@@ -1094,12 +1248,15 @@ namespace UCS
             // 
             // materialRaisedButton4
             // 
+            this.materialRaisedButton4.AutoSize = true;
+            this.materialRaisedButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton4.Depth = 0;
-            this.materialRaisedButton4.Location = new System.Drawing.Point(559, 304);
+            this.materialRaisedButton4.Icon = null;
+            this.materialRaisedButton4.Location = new System.Drawing.Point(558, 290);
             this.materialRaisedButton4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton4.Name = "materialRaisedButton4";
             this.materialRaisedButton4.Primary = true;
-            this.materialRaisedButton4.Size = new System.Drawing.Size(131, 26);
+            this.materialRaisedButton4.Size = new System.Drawing.Size(121, 36);
             this.materialRaisedButton4.TabIndex = 23;
             this.materialRaisedButton4.Text = "Save Changes";
             this.materialRaisedButton4.UseVisualStyleBackColor = true;
@@ -1107,20 +1264,38 @@ namespace UCS
             // 
             // txtDatabaseType
             // 
+            this.txtDatabaseType.Depth = 0;
+            this.txtDatabaseType.Hint = "";
             this.txtDatabaseType.Location = new System.Drawing.Point(425, 146);
+            this.txtDatabaseType.MaxLength = 32767;
+            this.txtDatabaseType.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtDatabaseType.Name = "txtDatabaseType";
-            this.txtDatabaseType.Size = new System.Drawing.Size(254, 20);
+            this.txtDatabaseType.PasswordChar = '\0';
+            this.txtDatabaseType.SelectedText = "";
+            this.txtDatabaseType.SelectionLength = 0;
+            this.txtDatabaseType.SelectionStart = 0;
+            this.txtDatabaseType.Size = new System.Drawing.Size(254, 23);
             this.txtDatabaseType.TabIndex = 22;
-            this.txtDatabaseType.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            this.txtDatabaseType.TabStop = false;
+            this.txtDatabaseType.UseSystemPasswordChar = false;
             // 
             // txtUsePatch
             // 
+            this.txtUsePatch.Depth = 0;
+            this.txtUsePatch.Hint = "";
             this.txtUsePatch.Location = new System.Drawing.Point(425, 93);
+            this.txtUsePatch.MaxLength = 32767;
+            this.txtUsePatch.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtUsePatch.Name = "txtUsePatch";
-            this.txtUsePatch.Size = new System.Drawing.Size(254, 20);
+            this.txtUsePatch.PasswordChar = '\0';
+            this.txtUsePatch.SelectedText = "";
+            this.txtUsePatch.SelectionLength = 0;
+            this.txtUsePatch.SelectionStart = 0;
+            this.txtUsePatch.Size = new System.Drawing.Size(254, 23);
             this.txtUsePatch.TabIndex = 21;
+            this.txtUsePatch.TabStop = false;
             this.txtUsePatch.Text = "false";
-            this.txtUsePatch.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
+            this.txtUsePatch.UseSystemPasswordChar = false;
             // 
             // materialLabel27
             // 
@@ -1147,15 +1322,23 @@ namespace UCS
             this.materialLabel26.Size = new System.Drawing.Size(76, 19);
             this.materialLabel26.TabIndex = 18;
             this.materialLabel26.Text = "Database:";
-            this.materialLabel26.Click += new System.EventHandler(this.materialLabel26_Click);
             // 
             // txtMintenance
             // 
+            this.txtMintenance.Depth = 0;
+            this.txtMintenance.Hint = "";
             this.txtMintenance.Location = new System.Drawing.Point(167, 220);
+            this.txtMintenance.MaxLength = 32767;
+            this.txtMintenance.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtMintenance.Name = "txtMintenance";
-            this.txtMintenance.Size = new System.Drawing.Size(118, 20);
+            this.txtMintenance.PasswordChar = '\0';
+            this.txtMintenance.SelectedText = "";
+            this.txtMintenance.SelectionLength = 0;
+            this.txtMintenance.SelectionStart = 0;
+            this.txtMintenance.Size = new System.Drawing.Size(118, 23);
             this.txtMintenance.TabIndex = 17;
-            this.txtMintenance.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
+            this.txtMintenance.TabStop = false;
+            this.txtMintenance.UseSystemPasswordChar = false;
             // 
             // materialLabel25
             // 
@@ -1172,11 +1355,20 @@ namespace UCS
             // 
             // txtPatchURL
             // 
+            this.txtPatchURL.Depth = 0;
+            this.txtPatchURL.Hint = "";
             this.txtPatchURL.Location = new System.Drawing.Point(425, 117);
+            this.txtPatchURL.MaxLength = 32767;
+            this.txtPatchURL.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPatchURL.Name = "txtPatchURL";
-            this.txtPatchURL.Size = new System.Drawing.Size(254, 20);
+            this.txtPatchURL.PasswordChar = '\0';
+            this.txtPatchURL.SelectedText = "";
+            this.txtPatchURL.SelectionLength = 0;
+            this.txtPatchURL.SelectionStart = 0;
+            this.txtPatchURL.Size = new System.Drawing.Size(254, 23);
             this.txtPatchURL.TabIndex = 15;
-            this.txtPatchURL.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
+            this.txtPatchURL.TabStop = false;
+            this.txtPatchURL.UseSystemPasswordChar = false;
             // 
             // materialLabel24
             // 
@@ -1193,11 +1385,20 @@ namespace UCS
             // 
             // txtUpdateURL
             // 
+            this.txtUpdateURL.Depth = 0;
+            this.txtUpdateURL.Hint = "";
             this.txtUpdateURL.Location = new System.Drawing.Point(425, 67);
+            this.txtUpdateURL.MaxLength = 32767;
+            this.txtUpdateURL.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtUpdateURL.Name = "txtUpdateURL";
-            this.txtUpdateURL.Size = new System.Drawing.Size(254, 20);
+            this.txtUpdateURL.PasswordChar = '\0';
+            this.txtUpdateURL.SelectedText = "";
+            this.txtUpdateURL.SelectionLength = 0;
+            this.txtUpdateURL.SelectionStart = 0;
+            this.txtUpdateURL.Size = new System.Drawing.Size(254, 23);
             this.txtUpdateURL.TabIndex = 13;
-            this.txtUpdateURL.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.txtUpdateURL.TabStop = false;
+            this.txtUpdateURL.UseSystemPasswordChar = false;
             // 
             // materialLabel23
             // 
@@ -1211,14 +1412,23 @@ namespace UCS
             this.materialLabel23.Size = new System.Drawing.Size(91, 19);
             this.materialLabel23.TabIndex = 12;
             this.materialLabel23.Text = "Update URL:";
-            this.materialLabel23.Click += new System.EventHandler(this.materialLabel23_Click);
             // 
             // txtStartingLevel
             // 
+            this.txtStartingLevel.Depth = 0;
+            this.txtStartingLevel.Hint = "";
             this.txtStartingLevel.Location = new System.Drawing.Point(167, 169);
+            this.txtStartingLevel.MaxLength = 32767;
+            this.txtStartingLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingLevel.Name = "txtStartingLevel";
-            this.txtStartingLevel.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingLevel.PasswordChar = '\0';
+            this.txtStartingLevel.SelectedText = "";
+            this.txtStartingLevel.SelectionLength = 0;
+            this.txtStartingLevel.SelectionStart = 0;
+            this.txtStartingLevel.Size = new System.Drawing.Size(118, 23);
             this.txtStartingLevel.TabIndex = 11;
+            this.txtStartingLevel.TabStop = false;
+            this.txtStartingLevel.UseSystemPasswordChar = false;
             // 
             // materialLabel22
             // 
@@ -1235,10 +1445,20 @@ namespace UCS
             // 
             // txtStartingTrophies
             // 
+            this.txtStartingTrophies.Depth = 0;
+            this.txtStartingTrophies.Hint = "";
             this.txtStartingTrophies.Location = new System.Drawing.Point(167, 144);
+            this.txtStartingTrophies.MaxLength = 32767;
+            this.txtStartingTrophies.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingTrophies.Name = "txtStartingTrophies";
-            this.txtStartingTrophies.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingTrophies.PasswordChar = '\0';
+            this.txtStartingTrophies.SelectedText = "";
+            this.txtStartingTrophies.SelectionLength = 0;
+            this.txtStartingTrophies.SelectionStart = 0;
+            this.txtStartingTrophies.Size = new System.Drawing.Size(118, 23);
             this.txtStartingTrophies.TabIndex = 9;
+            this.txtStartingTrophies.TabStop = false;
+            this.txtStartingTrophies.UseSystemPasswordChar = false;
             // 
             // materialLabel21
             // 
@@ -1255,10 +1475,20 @@ namespace UCS
             // 
             // txtStartingDarkElixir
             // 
+            this.txtStartingDarkElixir.Depth = 0;
+            this.txtStartingDarkElixir.Hint = "";
             this.txtStartingDarkElixir.Location = new System.Drawing.Point(167, 117);
+            this.txtStartingDarkElixir.MaxLength = 32767;
+            this.txtStartingDarkElixir.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingDarkElixir.Name = "txtStartingDarkElixir";
-            this.txtStartingDarkElixir.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingDarkElixir.PasswordChar = '\0';
+            this.txtStartingDarkElixir.SelectedText = "";
+            this.txtStartingDarkElixir.SelectionLength = 0;
+            this.txtStartingDarkElixir.SelectionStart = 0;
+            this.txtStartingDarkElixir.Size = new System.Drawing.Size(118, 23);
             this.txtStartingDarkElixir.TabIndex = 7;
+            this.txtStartingDarkElixir.TabStop = false;
+            this.txtStartingDarkElixir.UseSystemPasswordChar = false;
             // 
             // materialLabel20
             // 
@@ -1275,11 +1505,20 @@ namespace UCS
             // 
             // txtStartingElixir
             // 
+            this.txtStartingElixir.Depth = 0;
+            this.txtStartingElixir.Hint = "";
             this.txtStartingElixir.Location = new System.Drawing.Point(167, 91);
+            this.txtStartingElixir.MaxLength = 32767;
+            this.txtStartingElixir.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingElixir.Name = "txtStartingElixir";
-            this.txtStartingElixir.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingElixir.PasswordChar = '\0';
+            this.txtStartingElixir.SelectedText = "";
+            this.txtStartingElixir.SelectionLength = 0;
+            this.txtStartingElixir.SelectionStart = 0;
+            this.txtStartingElixir.Size = new System.Drawing.Size(118, 23);
             this.txtStartingElixir.TabIndex = 5;
-            this.txtStartingElixir.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.txtStartingElixir.TabStop = false;
+            this.txtStartingElixir.UseSystemPasswordChar = false;
             // 
             // materialLabel19
             // 
@@ -1296,10 +1535,20 @@ namespace UCS
             // 
             // txtStartingGold
             // 
+            this.txtStartingGold.Depth = 0;
+            this.txtStartingGold.Hint = "";
             this.txtStartingGold.Location = new System.Drawing.Point(167, 65);
+            this.txtStartingGold.MaxLength = 32767;
+            this.txtStartingGold.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingGold.Name = "txtStartingGold";
-            this.txtStartingGold.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingGold.PasswordChar = '\0';
+            this.txtStartingGold.SelectedText = "";
+            this.txtStartingGold.SelectionLength = 0;
+            this.txtStartingGold.SelectionStart = 0;
+            this.txtStartingGold.Size = new System.Drawing.Size(118, 23);
             this.txtStartingGold.TabIndex = 3;
+            this.txtStartingGold.TabStop = false;
+            this.txtStartingGold.UseSystemPasswordChar = false;
             // 
             // materialLabel18
             // 
@@ -1316,11 +1565,20 @@ namespace UCS
             // 
             // txtStartingGems
             // 
+            this.txtStartingGems.Depth = 0;
+            this.txtStartingGems.Hint = "";
             this.txtStartingGems.Location = new System.Drawing.Point(167, 41);
+            this.txtStartingGems.MaxLength = 32767;
+            this.txtStartingGems.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingGems.Name = "txtStartingGems";
-            this.txtStartingGems.Size = new System.Drawing.Size(118, 20);
+            this.txtStartingGems.PasswordChar = '\0';
+            this.txtStartingGems.SelectedText = "";
+            this.txtStartingGems.SelectionLength = 0;
+            this.txtStartingGems.SelectionStart = 0;
+            this.txtStartingGems.Size = new System.Drawing.Size(118, 23);
             this.txtStartingGems.TabIndex = 1;
-            this.txtStartingGems.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txtStartingGems.TabStop = false;
+            this.txtStartingGems.UseSystemPasswordChar = false;
             // 
             // materialLabel17
             // 
@@ -1337,6 +1595,7 @@ namespace UCS
             // 
             // tabPage6
             // 
+            this.tabPage6.BackColor = System.Drawing.Color.White;
             this.tabPage6.Controls.Add(this.groupBox4);
             this.tabPage6.Controls.Add(this.groupBox2);
             this.tabPage6.Controls.Add(this.groupBox1);
@@ -1346,7 +1605,6 @@ namespace UCS
             this.tabPage6.Size = new System.Drawing.Size(700, 354);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Mail ";
-            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -1362,19 +1620,22 @@ namespace UCS
             this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox4.Location = new System.Drawing.Point(9, 203);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(685, 138);
+            this.groupBox4.Size = new System.Drawing.Size(685, 134);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Global Chat Bot";
             // 
             // materialRaisedButton19
             // 
+            this.materialRaisedButton19.AutoSize = true;
+            this.materialRaisedButton19.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton19.Depth = 0;
-            this.materialRaisedButton19.Location = new System.Drawing.Point(604, 31);
+            this.materialRaisedButton19.Icon = null;
+            this.materialRaisedButton19.Location = new System.Drawing.Point(607, 17);
             this.materialRaisedButton19.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton19.Name = "materialRaisedButton19";
             this.materialRaisedButton19.Primary = true;
-            this.materialRaisedButton19.Size = new System.Drawing.Size(75, 20);
+            this.materialRaisedButton19.Size = new System.Drawing.Size(56, 36);
             this.materialRaisedButton19.TabIndex = 9;
             this.materialRaisedButton19.Text = "Stop";
             this.materialRaisedButton19.UseVisualStyleBackColor = true;
@@ -1386,7 +1647,7 @@ namespace UCS
             this.materialLabel13.Depth = 0;
             this.materialLabel13.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel13.Location = new System.Drawing.Point(441, 31);
+            this.materialLabel13.Location = new System.Drawing.Point(472, 25);
             this.materialLabel13.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel13.Name = "materialLabel13";
             this.materialLabel13.Size = new System.Drawing.Size(17, 19);
@@ -1399,21 +1660,24 @@ namespace UCS
             this.materialLabel8.Depth = 0;
             this.materialLabel8.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel8.Location = new System.Drawing.Point(372, 31);
+            this.materialLabel8.Location = new System.Drawing.Point(380, 25);
             this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel8.Name = "materialLabel8";
-            this.materialLabel8.Size = new System.Drawing.Size(63, 19);
+            this.materialLabel8.Size = new System.Drawing.Size(86, 19);
             this.materialLabel8.TabIndex = 7;
-            this.materialLabel8.Text = "Sendet: ";
+            this.materialLabel8.Text = "Total Sent: ";
             // 
             // materialRaisedButton20
             // 
+            this.materialRaisedButton20.AutoSize = true;
+            this.materialRaisedButton20.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton20.Depth = 0;
-            this.materialRaisedButton20.Location = new System.Drawing.Point(523, 31);
+            this.materialRaisedButton20.Icon = null;
+            this.materialRaisedButton20.Location = new System.Drawing.Point(522, 17);
             this.materialRaisedButton20.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton20.Name = "materialRaisedButton20";
             this.materialRaisedButton20.Primary = true;
-            this.materialRaisedButton20.Size = new System.Drawing.Size(75, 20);
+            this.materialRaisedButton20.Size = new System.Drawing.Size(64, 36);
             this.materialRaisedButton20.TabIndex = 6;
             this.materialRaisedButton20.Text = "Start";
             this.materialRaisedButton20.UseVisualStyleBackColor = true;
@@ -1421,12 +1685,15 @@ namespace UCS
             // 
             // materialRaisedButton18
             // 
+            this.materialRaisedButton18.AutoSize = true;
+            this.materialRaisedButton18.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton18.Depth = 0;
-            this.materialRaisedButton18.Location = new System.Drawing.Point(330, 31);
+            this.materialRaisedButton18.Icon = null;
+            this.materialRaisedButton18.Location = new System.Drawing.Point(330, 17);
             this.materialRaisedButton18.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton18.Name = "materialRaisedButton18";
             this.materialRaisedButton18.Primary = true;
-            this.materialRaisedButton18.Size = new System.Drawing.Size(20, 20);
+            this.materialRaisedButton18.Size = new System.Drawing.Size(25, 36);
             this.materialRaisedButton18.TabIndex = 4;
             this.materialRaisedButton18.Text = "i";
             this.materialRaisedButton18.UseVisualStyleBackColor = true;
@@ -1434,12 +1701,15 @@ namespace UCS
             // 
             // materialRaisedButton17
             // 
+            this.materialRaisedButton17.AutoSize = true;
+            this.materialRaisedButton17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton17.Depth = 0;
-            this.materialRaisedButton17.Location = new System.Drawing.Point(147, 32);
+            this.materialRaisedButton17.Icon = null;
+            this.materialRaisedButton17.Location = new System.Drawing.Point(147, 17);
             this.materialRaisedButton17.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton17.Name = "materialRaisedButton17";
             this.materialRaisedButton17.Primary = true;
-            this.materialRaisedButton17.Size = new System.Drawing.Size(20, 20);
+            this.materialRaisedButton17.Size = new System.Drawing.Size(25, 36);
             this.materialRaisedButton17.TabIndex = 3;
             this.materialRaisedButton17.Text = "i";
             this.materialRaisedButton17.UseVisualStyleBackColor = true;
@@ -1447,6 +1717,9 @@ namespace UCS
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.ForeColor = System.Drawing.SystemColors.Window;
             this.textBox3.Location = new System.Drawing.Point(6, 59);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
@@ -1454,26 +1727,46 @@ namespace UCS
             this.textBox3.Size = new System.Drawing.Size(673, 70);
             this.textBox3.TabIndex = 2;
             this.textBox3.Text = "Visit http://ultrapowa.com!";
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(189, 32);
+            this.textBox2.Depth = 0;
+            this.textBox2.Hint = "";
+            this.textBox2.Location = new System.Drawing.Point(189, 30);
+            this.textBox2.MaxLength = 32767;
+            this.textBox2.MouseState = MaterialSkin.MouseState.HOVER;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(135, 20);
+            this.textBox2.PasswordChar = '\0';
+            this.textBox2.SelectedText = "";
+            this.textBox2.SelectionLength = 0;
+            this.textBox2.SelectionStart = 0;
+            this.textBox2.Size = new System.Drawing.Size(135, 23);
             this.textBox2.TabIndex = 1;
+            this.textBox2.TabStop = false;
             this.textBox2.Text = "0";
+            this.textBox2.UseSystemPasswordChar = false;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 32);
+            this.textBox1.Depth = 0;
+            this.textBox1.Hint = "";
+            this.textBox1.Location = new System.Drawing.Point(6, 30);
+            this.textBox1.MaxLength = 32767;
+            this.textBox1.MouseState = MaterialSkin.MouseState.HOVER;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(135, 20);
+            this.textBox1.PasswordChar = '\0';
+            this.textBox1.SelectedText = "";
+            this.textBox1.SelectionLength = 0;
+            this.textBox1.SelectionStart = 0;
+            this.textBox1.Size = new System.Drawing.Size(135, 23);
             this.textBox1.TabIndex = 0;
+            this.textBox1.TabStop = false;
             this.textBox1.Text = "Ultrapowa";
+            this.textBox1.UseSystemPasswordChar = false;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.materialRaisedButton10);
             this.groupBox2.Controls.Add(this.textBox24);
             this.groupBox2.Controls.Add(this.textBox23);
@@ -1486,14 +1779,30 @@ namespace UCS
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Private Mail ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Depth = 0;
+            this.label1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 19);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Chat Name: ";
+            // 
             // materialRaisedButton10
             // 
+            this.materialRaisedButton10.AutoSize = true;
+            this.materialRaisedButton10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton10.Depth = 0;
-            this.materialRaisedButton10.Location = new System.Drawing.Point(159, 147);
+            this.materialRaisedButton10.Icon = null;
+            this.materialRaisedButton10.Location = new System.Drawing.Point(200, 134);
             this.materialRaisedButton10.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton10.Name = "materialRaisedButton10";
             this.materialRaisedButton10.Primary = true;
-            this.materialRaisedButton10.Size = new System.Drawing.Size(165, 23);
+            this.materialRaisedButton10.Size = new System.Drawing.Size(140, 36);
             this.materialRaisedButton10.TabIndex = 5;
             this.materialRaisedButton10.Text = "Send to Mailbox";
             this.materialRaisedButton10.UseVisualStyleBackColor = true;
@@ -1501,23 +1810,37 @@ namespace UCS
             // 
             // textBox24
             // 
-            this.textBox24.Location = new System.Drawing.Point(6, 53);
+            this.textBox24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.textBox24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox24.ForeColor = System.Drawing.SystemColors.Window;
+            this.textBox24.Location = new System.Drawing.Point(6, 50);
             this.textBox24.Multiline = true;
             this.textBox24.Name = "textBox24";
-            this.textBox24.Size = new System.Drawing.Size(318, 85);
+            this.textBox24.Size = new System.Drawing.Size(334, 78);
             this.textBox24.TabIndex = 4;
             this.textBox24.Text = "Visit http://ultrapowa.com";
             // 
             // textBox23
             // 
-            this.textBox23.Location = new System.Drawing.Point(6, 21);
+            this.textBox23.Depth = 0;
+            this.textBox23.Hint = "";
+            this.textBox23.Location = new System.Drawing.Point(104, 22);
+            this.textBox23.MaxLength = 32767;
+            this.textBox23.MouseState = MaterialSkin.MouseState.HOVER;
             this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(135, 22);
+            this.textBox23.PasswordChar = '\0';
+            this.textBox23.SelectedText = "";
+            this.textBox23.SelectionLength = 0;
+            this.textBox23.SelectionStart = 0;
+            this.textBox23.Size = new System.Drawing.Size(236, 23);
             this.textBox23.TabIndex = 3;
+            this.textBox23.TabStop = false;
             this.textBox23.Text = "Ultrapowa";
+            this.textBox23.UseSystemPasswordChar = false;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox22);
             this.groupBox1.Controls.Add(this.materialRaisedButton9);
             this.groupBox1.Controls.Add(this.textBox21);
@@ -1530,22 +1853,48 @@ namespace UCS
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Global Chat Message";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Depth = 0;
+            this.label2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 19);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Chat Name: ";
+            // 
             // textBox22
             // 
-            this.textBox22.Location = new System.Drawing.Point(6, 21);
+            this.textBox22.Depth = 0;
+            this.textBox22.Hint = "";
+            this.textBox22.Location = new System.Drawing.Point(104, 22);
+            this.textBox22.MaxLength = 32767;
+            this.textBox22.MouseState = MaterialSkin.MouseState.HOVER;
             this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(135, 22);
+            this.textBox22.PasswordChar = '\0';
+            this.textBox22.SelectedText = "";
+            this.textBox22.SelectionLength = 0;
+            this.textBox22.SelectionStart = 0;
+            this.textBox22.Size = new System.Drawing.Size(220, 23);
             this.textBox22.TabIndex = 2;
+            this.textBox22.TabStop = false;
             this.textBox22.Text = "Ultrapowa";
+            this.textBox22.UseSystemPasswordChar = false;
             // 
             // materialRaisedButton9
             // 
+            this.materialRaisedButton9.AutoSize = true;
+            this.materialRaisedButton9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton9.Depth = 0;
-            this.materialRaisedButton9.Location = new System.Drawing.Point(159, 147);
+            this.materialRaisedButton9.Icon = null;
+            this.materialRaisedButton9.Location = new System.Drawing.Point(153, 134);
             this.materialRaisedButton9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton9.Name = "materialRaisedButton9";
             this.materialRaisedButton9.Primary = true;
-            this.materialRaisedButton9.Size = new System.Drawing.Size(165, 23);
+            this.materialRaisedButton9.Size = new System.Drawing.Size(171, 36);
             this.materialRaisedButton9.TabIndex = 1;
             this.materialRaisedButton9.Text = "Send to Global Chat";
             this.materialRaisedButton9.UseVisualStyleBackColor = true;
@@ -1553,10 +1902,13 @@ namespace UCS
             // 
             // textBox21
             // 
-            this.textBox21.Location = new System.Drawing.Point(6, 53);
+            this.textBox21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.textBox21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox21.ForeColor = System.Drawing.SystemColors.Window;
+            this.textBox21.Location = new System.Drawing.Point(6, 50);
             this.textBox21.Multiline = true;
             this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(318, 85);
+            this.textBox21.Size = new System.Drawing.Size(318, 78);
             this.textBox21.TabIndex = 0;
             this.textBox21.Text = "Visit http://ultrapowa.com";
             // 
@@ -1582,7 +1934,6 @@ namespace UCS
             this.materialTabSelector3.Size = new System.Drawing.Size(715, 30);
             this.materialTabSelector3.TabIndex = 1;
             this.materialTabSelector3.Text = "materialTabSelector3";
-            this.materialTabSelector3.Click += new System.EventHandler(this.materialTabSelector3_Click);
             // 
             // materialTabControl3
             // 
@@ -1610,12 +1961,15 @@ namespace UCS
             // 
             // materialRaisedButton21
             // 
+            this.materialRaisedButton21.AutoSize = true;
+            this.materialRaisedButton21.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton21.Depth = 0;
+            this.materialRaisedButton21.Icon = null;
             this.materialRaisedButton21.Location = new System.Drawing.Point(617, 43);
             this.materialRaisedButton21.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton21.Name = "materialRaisedButton21";
             this.materialRaisedButton21.Primary = true;
-            this.materialRaisedButton21.Size = new System.Drawing.Size(69, 23);
+            this.materialRaisedButton21.Size = new System.Drawing.Size(79, 36);
             this.materialRaisedButton21.TabIndex = 3;
             this.materialRaisedButton21.Text = "Refresh";
             this.materialRaisedButton21.UseVisualStyleBackColor = true;
@@ -1669,6 +2023,7 @@ namespace UCS
             // 
             // tabPage10
             // 
+            this.tabPage10.BackColor = System.Drawing.Color.White;
             this.tabPage10.Controls.Add(this.txtAllianceScore);
             this.tabPage10.Controls.Add(this.txtAllianceLevel);
             this.tabPage10.Controls.Add(this.materialLabel39);
@@ -1688,8 +2043,6 @@ namespace UCS
             this.tabPage10.Size = new System.Drawing.Size(706, 302);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Edit Alliance";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            this.tabPage10.Click += new System.EventHandler(this.tabPage10_Click);
             // 
             // txtAllianceScore
             // 
@@ -1706,11 +2059,20 @@ namespace UCS
             // 
             // txtAllianceLevel
             // 
+            this.txtAllianceLevel.Depth = 0;
+            this.txtAllianceLevel.Hint = "";
             this.txtAllianceLevel.Location = new System.Drawing.Point(298, 101);
+            this.txtAllianceLevel.MaxLength = 32767;
+            this.txtAllianceLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceLevel.Name = "txtAllianceLevel";
-            this.txtAllianceLevel.Size = new System.Drawing.Size(108, 20);
+            this.txtAllianceLevel.PasswordChar = '\0';
+            this.txtAllianceLevel.SelectedText = "";
+            this.txtAllianceLevel.SelectionLength = 0;
+            this.txtAllianceLevel.SelectionStart = 0;
+            this.txtAllianceLevel.Size = new System.Drawing.Size(108, 23);
             this.txtAllianceLevel.TabIndex = 49;
-            this.txtAllianceLevel.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.txtAllianceLevel.TabStop = false;
+            this.txtAllianceLevel.UseSystemPasswordChar = false;
             // 
             // materialLabel39
             // 
@@ -1724,16 +2086,18 @@ namespace UCS
             this.materialLabel39.Size = new System.Drawing.Size(106, 19);
             this.materialLabel39.TabIndex = 48;
             this.materialLabel39.Text = "Alliance Level:";
-            this.materialLabel39.Click += new System.EventHandler(this.materialLabel39_Click);
             // 
             // materialRaisedButton22
             // 
+            this.materialRaisedButton22.AutoSize = true;
+            this.materialRaisedButton22.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton22.Depth = 0;
+            this.materialRaisedButton22.Icon = null;
             this.materialRaisedButton22.Location = new System.Drawing.Point(430, 138);
             this.materialRaisedButton22.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton22.Name = "materialRaisedButton22";
             this.materialRaisedButton22.Primary = true;
-            this.materialRaisedButton22.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton22.Size = new System.Drawing.Size(63, 36);
             this.materialRaisedButton22.TabIndex = 45;
             this.materialRaisedButton22.Text = "Clear";
             this.materialRaisedButton22.UseVisualStyleBackColor = true;
@@ -1741,12 +2105,15 @@ namespace UCS
             // 
             // materialRaisedButton23
             // 
+            this.materialRaisedButton23.AutoSize = true;
+            this.materialRaisedButton23.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton23.Depth = 0;
+            this.materialRaisedButton23.Icon = null;
             this.materialRaisedButton23.Location = new System.Drawing.Point(430, 262);
             this.materialRaisedButton23.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton23.Name = "materialRaisedButton23";
             this.materialRaisedButton23.Primary = true;
-            this.materialRaisedButton23.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton23.Size = new System.Drawing.Size(55, 36);
             this.materialRaisedButton23.TabIndex = 44;
             this.materialRaisedButton23.Text = "Save ";
             this.materialRaisedButton23.UseVisualStyleBackColor = true;
@@ -1754,12 +2121,15 @@ namespace UCS
             // 
             // materialRaisedButton24
             // 
+            this.materialRaisedButton24.AutoSize = true;
+            this.materialRaisedButton24.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton24.Depth = 0;
+            this.materialRaisedButton24.Icon = null;
             this.materialRaisedButton24.Location = new System.Drawing.Point(430, 24);
             this.materialRaisedButton24.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton24.Name = "materialRaisedButton24";
             this.materialRaisedButton24.Primary = true;
-            this.materialRaisedButton24.Size = new System.Drawing.Size(109, 23);
+            this.materialRaisedButton24.Size = new System.Drawing.Size(123, 36);
             this.materialRaisedButton24.TabIndex = 43;
             this.materialRaisedButton24.Text = "Load Alliance";
             this.materialRaisedButton24.UseVisualStyleBackColor = true;
@@ -1767,10 +2137,20 @@ namespace UCS
             // 
             // txtID
             // 
+            this.txtID.Depth = 0;
+            this.txtID.Hint = "";
             this.txtID.Location = new System.Drawing.Point(290, 26);
+            this.txtID.MaxLength = 32767;
+            this.txtID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(116, 20);
+            this.txtID.PasswordChar = '\0';
+            this.txtID.SelectedText = "";
+            this.txtID.SelectionLength = 0;
+            this.txtID.SelectionStart = 0;
+            this.txtID.Size = new System.Drawing.Size(116, 23);
             this.txtID.TabIndex = 42;
+            this.txtID.TabStop = false;
+            this.txtID.UseSystemPasswordChar = false;
             // 
             // materialLabel43
             // 
@@ -1821,10 +2201,20 @@ namespace UCS
             // 
             // txtAllianceName
             // 
+            this.txtAllianceName.Depth = 0;
+            this.txtAllianceName.Hint = "";
             this.txtAllianceName.Location = new System.Drawing.Point(298, 61);
+            this.txtAllianceName.MaxLength = 32767;
+            this.txtAllianceName.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceName.Name = "txtAllianceName";
-            this.txtAllianceName.Size = new System.Drawing.Size(108, 20);
+            this.txtAllianceName.PasswordChar = '\0';
+            this.txtAllianceName.SelectedText = "";
+            this.txtAllianceName.SelectionLength = 0;
+            this.txtAllianceName.SelectionStart = 0;
+            this.txtAllianceName.Size = new System.Drawing.Size(108, 23);
             this.txtAllianceName.TabIndex = 32;
+            this.txtAllianceName.TabStop = false;
+            this.txtAllianceName.UseSystemPasswordChar = false;
             // 
             // materialLabel48
             // 
@@ -1851,6 +2241,22 @@ namespace UCS
             this.tabPage8.Text = "About";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // materialRaisedButton25
+            // 
+            this.materialRaisedButton25.AutoSize = true;
+            this.materialRaisedButton25.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton25.Depth = 0;
+            this.materialRaisedButton25.Icon = null;
+            this.materialRaisedButton25.Location = new System.Drawing.Point(285, 285);
+            this.materialRaisedButton25.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton25.Name = "materialRaisedButton25";
+            this.materialRaisedButton25.Primary = true;
+            this.materialRaisedButton25.Size = new System.Drawing.Size(121, 36);
+            this.materialRaisedButton25.TabIndex = 3;
+            this.materialRaisedButton25.Text = "Open Updater";
+            this.materialRaisedButton25.UseVisualStyleBackColor = true;
+            this.materialRaisedButton25.Click += new System.EventHandler(this.materialRaisedButton25_Click);
+            // 
             // materialLabel40
             // 
             this.materialLabel40.AutoSize = true;
@@ -1874,25 +2280,12 @@ namespace UCS
             this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
             this.materialTabSelector1.TabIndex = 1;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            this.materialTabSelector1.Click += new System.EventHandler(this.materialTabSelector1_Click);
-            // 
-            // materialRaisedButton25
-            // 
-            this.materialRaisedButton25.Depth = 0;
-            this.materialRaisedButton25.Location = new System.Drawing.Point(285, 285);
-            this.materialRaisedButton25.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton25.Name = "materialRaisedButton25";
-            this.materialRaisedButton25.Primary = true;
-            this.materialRaisedButton25.Size = new System.Drawing.Size(128, 23);
-            this.materialRaisedButton25.TabIndex = 3;
-            this.materialRaisedButton25.Text = "Open Updater";
-            this.materialRaisedButton25.UseVisualStyleBackColor = true;
-            this.materialRaisedButton25.Click += new System.EventHandler(this.materialRaisedButton25_Click);
             // 
             // UCSUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(705, 423);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.materialTabControl1);
@@ -1911,6 +2304,7 @@ namespace UCS
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -1923,6 +2317,7 @@ namespace UCS
             this.tabPage7.ResumeLayout(false);
             this.materialTabControl3.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             this.tabPage8.ResumeLayout(false);
@@ -1957,34 +2352,34 @@ namespace UCS
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton2;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton3;
-        private System.Windows.Forms.TextBox txtPatchURL;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPatchURL;
         private MaterialSkin.Controls.MaterialLabel materialLabel24;
-        private System.Windows.Forms.TextBox txtUpdateURL;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtUpdateURL;
         private MaterialSkin.Controls.MaterialLabel materialLabel23;
-        private System.Windows.Forms.TextBox txtStartingLevel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingLevel;
         private MaterialSkin.Controls.MaterialLabel materialLabel22;
-        private System.Windows.Forms.TextBox txtStartingTrophies;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingTrophies;
         private MaterialSkin.Controls.MaterialLabel materialLabel21;
-        private System.Windows.Forms.TextBox txtStartingDarkElixir;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingDarkElixir;
         private MaterialSkin.Controls.MaterialLabel materialLabel20;
-        private System.Windows.Forms.TextBox txtStartingElixir;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingElixir;
         private MaterialSkin.Controls.MaterialLabel materialLabel19;
-        private System.Windows.Forms.TextBox txtStartingGold;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingGold;
         private MaterialSkin.Controls.MaterialLabel materialLabel18;
-        private System.Windows.Forms.TextBox txtStartingGems;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStartingGems;
         private MaterialSkin.Controls.MaterialLabel materialLabel17;
         private MaterialSkin.Controls.MaterialLabel materialLabel26;
-        private System.Windows.Forms.TextBox txtMintenance;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtMintenance;
         private MaterialSkin.Controls.MaterialLabel materialLabel25;
         private MaterialSkin.Controls.MaterialLabel materialLabel27;
-        private System.Windows.Forms.TextBox txtDatabaseType;
-        private System.Windows.Forms.TextBox txtUsePatch;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtDatabaseType;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtUsePatch;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton4;
-        private System.Windows.Forms.TextBox txtLogLevel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtLogLevel;
         private MaterialSkin.Controls.MaterialLabel materialLabel30;
         private MaterialSkin.Controls.MaterialLabel materialLabel29;
-        private System.Windows.Forms.TextBox txtPort;
-        private System.Windows.Forms.TextBox txtAdminMessage;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPort;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtAdminMessage;
         private MaterialSkin.Controls.MaterialLabel materialLabel28;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton5;
         private MaterialSkin.Controls.MaterialTabSelector materialTabSelector2;
@@ -1992,30 +2387,30 @@ namespace UCS
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private MaterialSkin.Controls.MaterialLabel materialLabel31;
-        private System.Windows.Forms.TextBox txtAllianceID;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtAllianceID;
         private MaterialSkin.Controls.MaterialLabel materialLabel35;
-        private System.Windows.Forms.TextBox txtTownHallLevel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtTownHallLevel;
         private MaterialSkin.Controls.MaterialLabel materialLabel34;
-        private System.Windows.Forms.TextBox txtPlayerGems;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPlayerGems;
         private MaterialSkin.Controls.MaterialLabel materialLabel33;
-        private System.Windows.Forms.TextBox txtPlayerScore;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPlayerScore;
         private MaterialSkin.Controls.MaterialLabel materialLabel32;
-        private System.Windows.Forms.TextBox txtPlayerName;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPlayerName;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton6;
-        private System.Windows.Forms.TextBox txtPlayerID;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPlayerID;
         private MaterialSkin.Controls.MaterialLabel materialLabel36;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton7;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton8;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox22;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBox22;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton9;
         private System.Windows.Forms.TextBox textBox21;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton10;
         private System.Windows.Forms.TextBox textBox24;
-        private System.Windows.Forms.TextBox textBox23;
-        private System.Windows.Forms.ListView listView1;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBox23;
+        private MaterialSkin.Controls.MaterialListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -2024,28 +2419,27 @@ namespace UCS
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton11;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton12;
         private MaterialSkin.Controls.MaterialLabel materialLabel37;
-        private System.Windows.Forms.TextBox txtClientVersion;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtClientVersion;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
         public MaterialSkin.Controls.MaterialLabel labelOnlineStatus;
         private System.Windows.Forms.GroupBox groupBox3;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton15;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton14;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton13;
-        private System.Windows.Forms.TextBox txtSearchPlayer;
-        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton16;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtSearchPlayer;
         private MaterialSkin.Controls.MaterialLabel materialLabel7;
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBox2;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBox1;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton18;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton17;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton20;
         private MaterialSkin.Controls.MaterialLabel materialLabel13;
         private MaterialSkin.Controls.MaterialLabel materialLabel8;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton19;
-        private System.Windows.Forms.TextBox txtPlayerLevel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPlayerLevel;
         private MaterialSkin.Controls.MaterialLabel materialLabel38;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage8;
@@ -2061,19 +2455,22 @@ namespace UCS
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton21;
         private System.Windows.Forms.TabPage tabPage10;
-        private System.Windows.Forms.TextBox txtAllianceLevel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtAllianceLevel;
         private MaterialSkin.Controls.MaterialLabel materialLabel39;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton22;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton23;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton24;
-        private System.Windows.Forms.TextBox txtID;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtID;
         private MaterialSkin.Controls.MaterialLabel materialLabel43;
         private System.Windows.Forms.TextBox txtAllianceDescription;
         private MaterialSkin.Controls.MaterialLabel alliancename;
         private MaterialSkin.Controls.MaterialLabel materialLabel47;
-        private System.Windows.Forms.TextBox txtAllianceName;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtAllianceName;
         private MaterialSkin.Controls.MaterialLabel materialLabel48;
         private MaterialSkin.Controls.MaterialLabel txtAllianceScore;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton25;
+        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton16;
+        private MaterialSkin.Controls.MaterialLabel label1;
+        private MaterialSkin.Controls.MaterialLabel label2;
     }
 }
