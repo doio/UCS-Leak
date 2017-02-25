@@ -34,29 +34,22 @@ namespace UCS.Core.Checker
 
         public static void Directorys()
         {
-            if(!Directory.Exists("Logs"))
+            string[] Dirs = 
             {
-                Directory.CreateDirectory("Logs");
-            }
-            if (!Directory.Exists("Patch"))
+                "Logs",
+                "Patch",
+                "Tools",
+                "Library",
+                "Gamefiles",
+                "Gamefiles/update"
+            };
+
+            foreach (string Dir in Dirs)
             {
-                Directory.CreateDirectory("Patch");
-            }
-            if (!Directory.Exists("Tools"))
-            {
-                Directory.CreateDirectory("Tools");
-            }
-            if (!Directory.Exists("Library"))
-            {
-                Directory.CreateDirectory("Library");
-            }
-            if (!Directory.Exists("Gamefiles"))
-            {
-                Directory.CreateDirectory("Gamefiles");
-            }
-            if (!Directory.Exists("Gamefiles/update"))
-            {
-                Directory.CreateDirectory("Gamefiles/update");
+                if (!Directory.Exists(@Dir))
+                {
+                    Directory.CreateDirectory(@Dir);
+                }
             }
         }
 
