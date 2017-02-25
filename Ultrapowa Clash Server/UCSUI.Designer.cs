@@ -172,9 +172,9 @@ namespace UCS
             this.txtAllianceName = new System.Windows.Forms.TextBox();
             this.materialLabel48 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.materialRaisedButton25 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.materialRaisedButton25 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1376,12 +1376,12 @@ namespace UCS
             this.materialLabel8.Depth = 0;
             this.materialLabel8.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel8.Location = new System.Drawing.Point(372, 31);
+            this.materialLabel8.Location = new System.Drawing.Point(356, 31);
             this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel8.Name = "materialLabel8";
-            this.materialLabel8.Size = new System.Drawing.Size(63, 19);
+            this.materialLabel8.Size = new System.Drawing.Size(86, 19);
             this.materialLabel8.TabIndex = 7;
-            this.materialLabel8.Text = "Sendet: ";
+            this.materialLabel8.Text = "Total Sent: ";
             // 
             // materialRaisedButton20
             // 
@@ -1823,6 +1823,19 @@ namespace UCS
             this.tabPage8.Text = "About";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // materialRaisedButton25
+            // 
+            this.materialRaisedButton25.Depth = 0;
+            this.materialRaisedButton25.Location = new System.Drawing.Point(285, 285);
+            this.materialRaisedButton25.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton25.Name = "materialRaisedButton25";
+            this.materialRaisedButton25.Primary = true;
+            this.materialRaisedButton25.Size = new System.Drawing.Size(128, 23);
+            this.materialRaisedButton25.TabIndex = 3;
+            this.materialRaisedButton25.Text = "Open Updater";
+            this.materialRaisedButton25.UseVisualStyleBackColor = true;
+            this.materialRaisedButton25.Click += new System.EventHandler(this.materialRaisedButton25_Click);
+            // 
             // materialLabel40
             // 
             this.materialLabel40.AutoSize = true;
@@ -1846,19 +1859,6 @@ namespace UCS
             this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
             this.materialTabSelector1.TabIndex = 1;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            // 
-            // materialRaisedButton25
-            // 
-            this.materialRaisedButton25.Depth = 0;
-            this.materialRaisedButton25.Location = new System.Drawing.Point(285, 285);
-            this.materialRaisedButton25.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton25.Name = "materialRaisedButton25";
-            this.materialRaisedButton25.Primary = true;
-            this.materialRaisedButton25.Size = new System.Drawing.Size(128, 23);
-            this.materialRaisedButton25.TabIndex = 3;
-            this.materialRaisedButton25.Text = "Open Updater";
-            this.materialRaisedButton25.UseVisualStyleBackColor = true;
-            this.materialRaisedButton25.Click += new System.EventHandler(this.materialRaisedButton25_Click);
             // 
             // UCSUI
             // 
