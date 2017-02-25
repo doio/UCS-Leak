@@ -38,7 +38,7 @@ namespace UCS.Core.Network
                     _Message.Client.UpdateKey(sessionKey);
                 }
                 _Message.Process(_Message.Client.GetLevel());
-                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, SocketFlags.None, null, null);
+                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, 0, null, null);
             }
             catch (Exception)
             {

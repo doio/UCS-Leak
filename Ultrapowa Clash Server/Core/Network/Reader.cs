@@ -10,7 +10,7 @@ namespace UCS.Core.Network
 	internal class Reader
 	{
 		public delegate void IncomingReadHandler(Reader read, byte[] data);
-        public const int BufferSize = 256;
+        public const int BufferSize = 2048;
         private readonly byte[] _buffer = new byte[BufferSize];
 		private readonly IncomingReadHandler _readHandler;
 		public Socket Socket;

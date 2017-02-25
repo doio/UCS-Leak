@@ -20,6 +20,8 @@ namespace UCS.Core
         {
             try
             {
+                Program._Stopwatch.Stop();
+
                 back:
                 string Key = GetKey();
                 if (Key.Length == 32)
@@ -91,6 +93,8 @@ namespace UCS.Core
                     Say("You entered a wrong Key! Please try again.");
                     goto back;
                 }
+
+                Program._Stopwatch.Start();
             }
             catch (Exception e)
             {

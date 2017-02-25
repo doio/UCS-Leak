@@ -27,7 +27,7 @@ namespace UCS.Core.Network
                 Socket _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 _Socket.Bind(localEndPoint);
-                _Socket.Listen(10);
+                _Socket.Listen(200);
 
                 Say();
                 Say("UCS has been started at " + ipAddress + ":" + localEndPoint.Port + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds.");
