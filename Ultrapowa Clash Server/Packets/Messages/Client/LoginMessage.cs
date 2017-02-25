@@ -100,14 +100,17 @@ namespace UCS.Packets.Messages.Client
                         PacketProcessor.Send(new RC4SessionKey(Client));
                     }
 
-                    if(ResourcesManager.GetOnlinePlayers().Count >= Constants.MaxOnlinePlayers)
+                    if (Constants.LicensePlanID == 3)
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Client);
-                        p.SetErrorCode(12);
-                        p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
-                        PacketProcessor.Send(p);
-                        return;
-                    } 
+                        if (ResourcesManager.GetOnlinePlayers().Count >= Constants.MaxOnlinePlayers)
+                        {
+                            LoginFailedMessage p = new LoginFailedMessage(Client);
+                            p.SetErrorCode(12);
+                            p.SetReason("Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n");
+                            PacketProcessor.Send(p);
+                            return;
+                        }
+                    }
 
                     if (ParserThread.GetMaintenanceMode())
                     {
@@ -119,13 +122,24 @@ namespace UCS.Packets.Messages.Client
                         return;
                     }
 
-                    if (!Constants.IsPremiumServer)
+                    if (Constants.LicensePlanID < 1)
                     {
-                        if (ResourcesManager.GetOnlinePlayers().Count >= 200)
+                        if (ResourcesManager.GetOnlinePlayers().Count >= 350)
                         {
                             LoginFailedMessage p = new LoginFailedMessage(Client);
                             p.SetErrorCode(11);
-                            p.SetReason("This is a free Version of UCS. Please Upgrade to Premium on https://ultrapowa.com/forum");
+                            p.SetReason("This is a Free Version of UCS. Please Upgrade on https://ultrapowa.com/forum");
+                            PacketProcessor.Send(p);
+                            return;
+                        }
+                    }
+                    else if (Constants.LicensePlanID < 2)
+                    {
+                        if (ResourcesManager.GetOnlinePlayers().Count >= 700)
+                        {
+                            LoginFailedMessage p = new LoginFailedMessage(Client);
+                            p.SetErrorCode(11);
+                            p.SetReason("This is a Pro Version of UCS. Please Upgrade to Ultra on https://ultrapowa.com/forum");
                             PacketProcessor.Send(p);
                             return;
                         }

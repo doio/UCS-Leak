@@ -30,21 +30,21 @@ namespace UCS.Core.Threading
             _Thread.Start();
         }
 
-        public static async void Clean()
+        public static void Clean()
         {
             try
             {
-                foreach (Client _Player in ResourcesManager.GetConnectedClients())
+                foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
                 {
-                    if (!await _Player.IsClientSocketConnected())
+                    if (!_Player.GetClient().IsClientSocketConnected())
                     {
-                        _Player.Socket.Close();
-                        ResourcesManager.DropClient(_Player.GetSocketHandle());
+                        _Player.GetClient().Socket.Close();
+                        ResourcesManager.DropClient(_Player.GetClient().GetSocketHandle());
                     }
                 }
 
-                //GC.Collect(GC.MaxGeneration);
-                //GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration);
+                GC.WaitForPendingFinalizers();
             } catch (Exception) { }
         }
 

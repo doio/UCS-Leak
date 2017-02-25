@@ -227,7 +227,7 @@ namespace UCS.Packets
             EnDecrypt(this.OutgoingPacketsKey, data);
         }
 
-        public async Task<bool> IsClientSocketConnected()
+        public bool IsClientSocketConnected()
         {
             try
             {

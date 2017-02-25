@@ -59,7 +59,7 @@ namespace UCS.Helpers
                             Console.WriteLine("------------------------------------->");
                             Say("UCS Version:         " + Constants.Version);
                             Say("Build:               " + Constants.Build);
-                            Say("Is Premium Server:   " + Constants.IsPremiumServer);
+                            Say("LicenseID:           " + Constants.LicensePlanID);
                             Say("CoC Version from SC: " + VersionChecker.LatestCoCVersion());
                             Say("");
                             Say("©Ultrapowa 2014 - " + DateTime.Now.Year);

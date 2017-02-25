@@ -84,7 +84,7 @@ namespace UCS.Core
             DropClient(c.GetSocketHandle());
         }
 
-        public static async Task<bool> IsClientConnected(long socketHandle) => m_vClients[socketHandle] != null && await m_vClients[socketHandle].IsClientSocketConnected();
+        public static bool IsClientConnected(long socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
 
         public static async Task<Level> GetPlayerWithFacebookID(string id)
         {

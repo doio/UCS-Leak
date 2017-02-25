@@ -12,14 +12,22 @@ namespace UCS.Core.Network
 {
     class PacketProcessor
     {
-        public static async void Receive(Message _Message)
+        /// <summary>
+        /// Process the Message 
+        /// </summary>
+        /// <param name="_Message"></param>
+        public static void Receive(Message _Message)
         {
             _Message.Decrypt();
             _Message.Decode();
             _Message.Process(_Message.Client.GetLevel());
         }               
 
-        public static async void Send(Message _Message)
+        /// <summary>
+        /// Process and Send the Message
+        /// </summary>
+        /// <param name="_Message"></param>
+        public static void Send(Message _Message)
         {
             try
             {
@@ -34,6 +42,8 @@ namespace UCS.Core.Network
             }
             catch (Exception)
             {
+                ResourcesManager.DropClient(_Message.Client.GetSocketHandle());
+                Gateway.Disconnect(_Message.Client.Socket);
             }
         }
     }

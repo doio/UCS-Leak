@@ -10,7 +10,6 @@ namespace UCS.Core.Settings
         public static string Version                 = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         public static string Build                   = "12";
         
-        public const bool IsPremiumServer            = false;  // false = max. 200 Online Players; true = unlimited Online Players
         public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
 
         public const string RedisAddr                = "127.0.0.1";
@@ -18,5 +17,6 @@ namespace UCS.Core.Settings
 
         public const int CleanInterval               = 5000;
         public static int MaxOnlinePlayers           = Utils.ParseConfigInt("MaxOnlinePlayers");
+        public static int LicensePlanID              = 1;
     }
 }

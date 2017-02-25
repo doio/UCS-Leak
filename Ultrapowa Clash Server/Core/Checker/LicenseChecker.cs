@@ -9,159 +9,145 @@ using System.IO;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using static UCS.Core.Logger;
+using System.Net.Sockets;
+using UCS.Core.Settings;
 
 namespace UCS.Core
 {
-    internal class LicenseChecker
+    class LicenseChecker
     {
-        public static bool PremiumServer;
-
-        private static string User;
-
-        private static void CheckForPremium(string name, string key)
+        public LicenseChecker()
         {
             try
             {
-                var w = new WebClient();
-                var Key = w.DownloadString("http://clashoflights.cf/UCS/Key_" + name + "_.license");
-                if (Key == null)
+                back:
+                string Key = GetKey();
+                if (Key.Length == 32)
                 {
-                    DisablePremiumFeatures();
+                    CheckIfKeyIsSaved(Key);
                 }
-                else if (Key == key)
+
+                if (Key.Length == 32)
                 {
-                    ActivatePremiumFeatures();
-                    var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/UCS." + name + ".license";
-                    using (var s = new StreamWriter(path))
+                    TcpClient client     = new TcpClient("213.202.254.160", 8008);
+                    byte[] data          = Encoding.ASCII.GetBytes(Key);
+                    NetworkStream stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                    data                 = new byte[256];
+                    string responseData  = string.Empty;
+                    int bytes            = stream.Read(data, 0, data.Length);
+                    responseData         = Encoding.ASCII.GetString(data, 0, bytes);
+
+                    if (Convert.ToInt32(responseData) > 0)
                     {
-                        s.WriteLine(ToHexString(key));
+                        if (Convert.ToInt32(responseData) < 4)
+                        {
+                            Constants.LicensePlanID = Convert.ToInt32(responseData);
+                            Program.UpdateTitle();
+
+                            if (Convert.ToInt32(responseData)      == 1)
+                            {
+                                Say("UCS is running on Plan (Lite).");
+                            }
+                            else if (Convert.ToInt32(responseData) == 2)
+                            {
+                                Say("UCS is running on Plan (Pro).");
+                            }
+                            else if (Convert.ToInt32(responseData) == 3)
+                            {
+                                Say("UCS is running on Plan (Ultra).");
+                            }
+                        }
+                        else if(Convert.ToInt32(responseData) == 100)
+                        {
+                            Say();
+                            Say("This Key has been disabled, please contact the Support at Ultrapowa.com.");
+                            Say("UCS will be closed now...");
+                            Thread.Sleep(4000);
+                            Environment.Exit(0);
+                        }
+                        else if (Convert.ToInt32(responseData) == 200)
+                        {
+                            Say();
+                            Say("This Key is expired, please contact the Support at Ultrapowa.com.");
+                            Say("UCS will be closed now...");
+                            Thread.Sleep(4000);
+                            Environment.Exit(0);
+                        }
                     }
-                    Say();
-                    Say("Activation succeded!");
-                    Say("Restarting UCS to save all changes... ");
-                    Thread.Sleep(5000);
-                    Process.Start("UCS.exe");
-                    Environment.Exit(0);
+                    else
+                    {
+                        Say();
+                        Say("This Key is not valid.");
+                        Say("UCS will be closed now...");
+                        Thread.Sleep(4000);
+                        Environment.Exit(0);
+                    }
+                    stream.Close();
+                    client.Close();
                 }
                 else
                 {
-                    DisablePremiumFeatures();
-                    Say();
-                    Error("User/Key is not valid!");
-                    Say();
-                    Error("UCS will be closed now...");
-                    Thread.Sleep(5000);
-                    Environment.Exit(0);
+                    Say("You entered a wrong Key! Please try again.");
+                    goto back;
                 }
             }
-            catch(Exception)
+            catch (Exception e)
             {
-                Say();
-                Error("User/Key is not valid!");
-                Say();
-                Error("UCS will be closed now...");
-                Thread.Sleep(5000);
+                Console.WriteLine(e.Message);
+                Say("UCS will be closed now...");
+                Thread.Sleep(4000);
                 Environment.Exit(0);
             }
         }
 
-        private static void ActivatePremiumFeatures()
+        private static void CheckIfKeyIsSaved(string _Key)
         {
-            PremiumServer = true;
-        }
-
-        private static void DisablePremiumFeatures()
-        {
-            PremiumServer = false;
-        }
-
-        public static void ActivateUCS()
-        {
-            Say();
-            Say("To continue you have to activate UCS with your User ID and Activation Key.");
-            Say("Type in now your Username: ");
-            User = Console.ReadLine();
-            Say("Type in now your Activation Key: ");
-            var ActivationKey = Console.ReadLine();
-            Say("Trying to activate UCS...");
-            if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data"))
+            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+            if (!File.Exists(_FilePath))
             {
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data");
-                var s = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license");
-                s.WriteLine(ToHexString(User));
-                s.Close();
+                if (_Key.Length == 32)
+                {
+                    using (StreamWriter _SW = new StreamWriter(_FilePath))
+                    {
+                        _SW.Write(ToHexString(_Key));
+                    }
+                }
+            }
+        }
+
+        private static string GetKey()
+        {
+            back:
+            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+            if (File.Exists(_FilePath))
+            {
+                string Data = FromHexString(File.ReadAllText(_FilePath));
+                if (Data.Length == 32)
+                {
+                    return Data;
+                }
+                else
+                {
+                    File.Delete(_FilePath);
+                    goto back;
+                }
             }
             else
             {
-                if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license"))
-                {
-                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license");
-                    var s = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license");
-                    s.WriteLine(ToHexString(User));
-                    s.Close();
-                }
-                else
-                {
-                    var s = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license");
-                    s.WriteLine(ToHexString(User));
-                    s.Close();
-                }
-            }
-            CheckForPremium(User, ActivationKey);
-        }
-
-        public static void CheckForSavedKey()
-        {
-            try
-            {
-                if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license"))
-                {
-                    ActivateUCS();
-                }
-
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Data/Data.license";
-                var r = new StreamReader(path);
-                var UName = FromHexString(r.ReadLine());
-                User = UName;
-                r.Close();
-
-                var w = new WebClient();
-                var Key = w.DownloadString("http://clashoflights.cf/UCS/Key_" + User + "_.license");
-                string key;
-                var file = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/UCS." + User + ".license";
-                var gkey = new StreamReader(file);
-
-                key = FromHexString(gkey.ReadLine());
-                gkey.Close();
-
-                if (!File.Exists(file))
-                {
-                    ActivateUCS();
-                }
-                else
-                {
-                    if (key == Key)
-                    {
-                        Say();
-                        Say("You are using a Licensed version of UCS.");
-                    }
-                    else
-                    {
-                        ActivateUCS();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Say();
-                Error("[UCS]    Error [404] Key not found!");
-                ActivateUCS();
+                Say("Enter now your License Key:");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("[UCS]    ");
+                Console.ResetColor();
+                goback:
+                string Key = Console.ReadLine();
+                return Key;
             }
         }
 
         private static string ToHexString(string str)
         {
-            var sb = new StringBuilder();
+            var sb    = new StringBuilder();
             var bytes = Encoding.Unicode.GetBytes(str);
             foreach (var t in bytes)
             {

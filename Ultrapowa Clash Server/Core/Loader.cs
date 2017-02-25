@@ -28,9 +28,13 @@ namespace UCS.Core
         private CommandFactory _CommandFactory       = null;
         private MessageFactory _MessageFactory       = null;
         private MemoryThread _MemThread              = null;
+        private LicenseChecker _LicenseChecker       = null;
 
         public Loader()
-        { 
+        {
+            // License Check
+            _LicenseChecker    = new LicenseChecker();
+            
             // CSV Files and Logger
             _Logger            = new Logger();
               

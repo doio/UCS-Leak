@@ -25,13 +25,17 @@ namespace UCS
 
         static void Main()
         {
-            if (Constants.IsPremiumServer)
+            if (Constants.LicensePlanID == 3)
             {
                 Console.Title = Title + OP;
             }
-            else
+            else if(Constants.LicensePlanID == 2)
             {
-                Console.Title = Title + OP + "/200";
+                Console.Title = Title + OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + OP + "/350";
             }
 
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -73,7 +77,10 @@ namespace UCS
                 Say();
                 Say("Preparing Server...\n");
 
-                _Loader = new Loader();
+                new Thread(() =>
+                {
+                    _Loader = new Loader();
+                }).Start();
             }
             else if (Version == "Error")
             {
@@ -95,27 +102,51 @@ namespace UCS
             }
         }
 
+        public static void UpdateTitle()
+        {
+            if (Constants.LicensePlanID == 3)
+            {
+                Console.Title = Title + OP;
+            }
+            else if (Constants.LicensePlanID == 2)
+            {
+                Console.Title = Title + OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + OP + "/350";
+            }
+        }
+
         public static void TitleU()
         {
-            if (Constants.IsPremiumServer)
+            if (Constants.LicensePlanID == 3)
             {
                 Console.Title = Title + ++OP;
             }
-            else
+            else if(Constants.LicensePlanID == 2)
             {
-                Console.Title = Title + ++OP + "/200";
+                Console.Title = Title + ++OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + ++OP + "/350";
             }
         }
 
         public static void TitleD()
         {
-            if (Constants.IsPremiumServer)
+            if (Constants.LicensePlanID == 3)
             {
                 Console.Title = Title + --OP;
             }
-            else
+            else if(Constants.LicensePlanID == 2)
             {
-                Console.Title = Title + --OP + "/200";
+                Console.Title = Title + --OP + "/700";
+            }
+            else if(Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + --OP + "/350";
             }
         }
     }
