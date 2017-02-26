@@ -65,7 +65,7 @@ namespace UCS.Packets
             m_vCommands.Add(544, typeof(GetVillageLayoutsCommand));
             m_vCommands.Add(546, typeof(EditVillageLayoutCommand));
             m_vCommands.Add(549, typeof(UpgradeMultipleBuildingsCommand));
-            m_vCommands.Add(550, typeof(RemoveUnitsCommand));
+            //m_vCommands.Add(550, typeof(RemoveUnitsCommand));
             //m_vCommands.Add(551, typeof(ContinueBarrackBoostCommand));
             m_vCommands.Add(552, typeof(SaveVillageLayoutCommand));
             m_vCommands.Add(553, typeof(ClientServerTickCommand));

@@ -36,7 +36,7 @@ namespace UCS.Packets
             m_vMessages.Add(14120, typeof(ChallangeAttackMessage));
             m_vMessages.Add(14125, typeof(ChallangeCancelMessage));
             m_vMessages.Add(14134, typeof(AttackNpcMessage));
-            m_vMessages.Add(14201, typeof(FacebookLinkMessage));
+            //m_vMessages.Add(14201, typeof(FacebookLinkMessage));
             //m_vMessages.Add(14262, typeof(BindGoogleAccount));
             m_vMessages.Add(14316, typeof(EditClanSettingsMessage));
             m_vMessages.Add(14301, typeof(CreateAllianceMessage));

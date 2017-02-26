@@ -36,7 +36,7 @@ namespace UCS.Packets.Messages.Client
             {
                 if (LevelId > 0 || LevelId < 1000000)
                 {
-                    if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                    /*if (level.GetPlayerAvatar().GetUnits().Count < 10)
                     {
                         for (int i = 0; i < 31; i++)
                         {
@@ -59,7 +59,7 @@ namespace UCS.Packets.Messages.Client
                             level.GetPlayerAvatar().GetSpells().Add(spellSlot);
                             level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
                         }
-                    }
+                    }*/
                     p.State = ClientAvatar.UserState.PVE;
                     PacketProcessor.Send(new NpcDataMessage(Client, level, this));
                 }

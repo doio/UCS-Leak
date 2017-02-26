@@ -246,6 +246,7 @@
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
     <Compile Include="Core\Threading\ChatProcessor.cs" />
+    <Compile Include="Packets\Commands\Client\CastSpellCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
@@ -1189,7 +1190,6 @@
     <Compile Include="Packets\Commands\Client\ToggleHeroAttackModeCommand.cs" />
     <Compile Include="Packets\Commands\Client\TogglePlayerWarStateCommand.cs" />
     <Compile Include="Packets\GameOpCommandFactory.cs" />
-    <Compile Include="Packets\Commands\Client\CastSpellCommand.cs" />
     <Compile Include="Packets\Commands\Client\PlaceAttackerCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveUnitsCommand.cs" />
     <Compile Include="Packets\GameOpCommands\GetIdGameOpCommand.cs" />

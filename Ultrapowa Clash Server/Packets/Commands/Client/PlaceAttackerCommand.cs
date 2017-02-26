@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UCS.Core;
@@ -13,49 +14,25 @@ namespace UCS.Packets.Commands.Client
     {
         public PlaceAttackerCommand(PacketReader br)
         {
-            X = br.ReadInt32WithEndian();
-            Y = br.ReadInt32WithEndian();
-            Unit = (CharacterData) br.ReadDataReference();
-            Unknown1 = br.ReadUInt32WithEndian();
+            X    = br.ReadInt32WithEndian();
+            Y    = br.ReadInt32WithEndian();
+            Unit = (CombatItemData)br.ReadDataReference(); ; 
+            Tick = br.ReadUInt32WithEndian();
         }
 
         public override void Execute(Level level)
         {
-            /*ClientAvatar p = level.GetPlayerAvatar();
-            if (p.State == ClientAvatar.UserState.Searching)
-            {
-                p.State = ClientAvatar.UserState.PVP;
-            }
-            else if (p.State == ClientAvatar.UserState.Home)
-            {
-                p.State = ClientAvatar.UserState.PVE;
-            }
-            else 
-            {
-                ResourcesManager.DisconnectClient(level.GetClient());
-            }*/
+            List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
 
-            level.GetPlayerAvatar().AddUsedTroop(Unit, 1); //Deactive this when this funtion work again
-            var components = level.GetComponentManager().GetComponents(0);
-            for (var i = 0; i < components.Count; i++)
+            DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == Unit.GetGlobalID());
+            if (_DataSlot != null)
             {
-                var c = (UnitStorageComponent) components[i];
-                if (c.GetUnitTypeIndex(Unit) != -1)
-                {
-                    var storageCount = c.GetUnitCountByData(Unit);
-                    if (storageCount >= 0)
-                    {
-                        //Thing not call here
-                        c.RemoveUnits(Unit, 1);
-                        //level.GetPlayerAvatar().AddUsedTroop(Unit, 1); Active this when this funtion work again
-                        break;
-                    }
-                }
+                _DataSlot.Value = _DataSlot.Value - 1;
             }
         }
 
-        public CharacterData Unit { get; set; }
-        public uint Unknown1 { get; set; }
+        public CombatItemData Unit { get; set; }
+        public uint Tick { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
     }
