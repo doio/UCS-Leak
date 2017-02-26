@@ -77,7 +77,7 @@ namespace UCS.Packets
             }
             else
             {
-                Logger.Write("Message " + packetType + " is unhandled");
+                Logger.WriteError("Message " + packetType + " is unhandled");
                 return null;
             }
         }

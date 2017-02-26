@@ -42,6 +42,29 @@ namespace UCS.Core
             }
         }
 
+        public static async void WriteError(string text)
+        {
+            if (getlevel != 0)
+            {
+                try
+                {
+                    await _fileLock.WaitAsync();
+                    if (getlevel == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("[LOG]    " + text);
+                        Console.ResetColor();
+                    }
+                    using (StreamWriter sw = new StreamWriter(path, true))
+                        await sw.WriteLineAsync("[LOG]    " + text + " at " + DateTime.UtcNow);
+                }
+                finally
+                {
+                    _fileLock.Release();
+                }
+            }
+        }
+
         public static void Print(string message)
         {
             Console.WriteLine(message);

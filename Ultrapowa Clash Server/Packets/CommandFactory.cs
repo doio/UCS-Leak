@@ -102,7 +102,7 @@ namespace UCS.Packets
             }
             else
             {
-                Logger.Write("Command '" + cm + "' is unhandled");
+                Logger.WriteError("Command '" + cm + "' is unhandled");
                 return null;
             } 
         }

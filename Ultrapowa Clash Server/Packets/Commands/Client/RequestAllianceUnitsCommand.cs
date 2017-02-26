@@ -20,32 +20,51 @@ namespace UCS.Packets.Commands.Client
             Message2 = br.ReadString();
         }
 
-        public override void Execute(Level level)
-        {
-            /*
-            var player = level.GetPlayerAvatar();
-            var cm = new TroopRequestStreamEntry();
-            var all = ObjectManager.GetAlliance(player.GetAllianceId());
+        public override async void Execute(Level level)
+        {           
+            try
+            {
+                ClientAvatar player = level.GetPlayerAvatar();
+                TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
+                Alliance all = await ObjectManager.GetAlliance(player.GetAllianceId());
 
-            cm.SetId(all.GetChatMessages().Count + 1);
-            cm.SetSenderId(player.GetId());
-            cm.SetHomeId(player.GetId());
-            cm.SetSenderLeagueId(player.GetLeagueId());
-            cm.SetSenderName(player.GetAvatarName());
-            cm.SetSenderRole(player.GetAllianceRole());
-            cm.SetMessage(Message);
-            cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());  
-          
-            all.AddChatMessage(cm);
+                cm.SetId(all.GetChatMessages().Count + 1);
+                cm.SetSenderId(player.GetId());
+                cm.SetHomeId(player.GetId());
+                cm.SetSenderLeagueId(player.GetLeagueId());
+                cm.SetSenderName(player.GetAvatarName());
+                cm.SetSenderRole(await player.GetAllianceRole());
+                cm.SetMessage(Message);
+                cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
 
-            foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                if (onlinePlayer.GetPlayerAvatar().GetAllianceId() == player.GetAllianceId())
+                all.AddChatMessage(cm);
+
+                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == level.GetPlayerAvatar().GetId() && c.GetStreamEntryType() == 1);
+                if (s == null)
                 {
-                    var p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
-                    p.SetStreamEntry(cm);
-                    p.Send();
+                    all.GetChatMessages().RemoveAll(t => t == s);
                 }
-            */
+                all.AddChatMessage(cm);
+
+                foreach (AllianceMemberEntry op in all.GetAllianceMembers())
+                {
+                    Level aplayer = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                    if (aplayer.GetClient() != null)
+                    {
+                        if (s != null)
+                        {
+                            PacketProcessor.Send(new AllianceStreamEntryRemovedMessage(aplayer.GetClient(), s.GetId()));
+                        }
+                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(aplayer.GetClient());
+                        p.SetStreamEntry(cm);
+                        PacketProcessor.Send(p);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ResourcesManager.DropClient(level.GetClient().GetSocketHandle());
+            }
         }
 
         public byte FlagHasRequestMessage { get; set; }
