@@ -9,22 +9,25 @@ namespace UCS.Packets.Messages.Server
 {
     internal class PlayerWarStatusMessage : Message
     {
-        private int m_vStatus;
+        public PlayerWarStatusMessage(Packets.Client client) : base(client)
+        {
+            SetMessageType(24111);
+        }
 
-        // TODO
+        private int Status;
 
         public override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(14);
-            pack.AddInt32(0); //
-            pack.AddInt32(0);
-            Encrypt(pack.ToArray());
+            List<byte> _Data = new List<byte>();
+            _Data.AddInt32(14);
+            _Data.AddInt32(Status);
+            _Data.AddInt32(0);
+            Encrypt(_Data.ToArray());
         }
 
-        public void SetStatus(int s)
+        public void SetStatus(int i)
         {
-            m_vStatus = s;
+            Status = i;
         }
     }
 }

@@ -42,8 +42,8 @@ namespace UCS.Core.Network
             }
             catch (Exception)
             {
-                ResourcesManager.DropClient(_Message.Client.GetSocketHandle());
                 Gateway.Disconnect(_Message.Client.Socket);
+                ResourcesManager.DropClient(_Message.Client.GetSocketHandle());
             }
         }
     }

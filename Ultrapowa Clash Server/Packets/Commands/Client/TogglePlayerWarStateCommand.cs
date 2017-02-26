@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
 using UCS.Logic;
@@ -15,17 +17,23 @@ namespace UCS.Packets.Commands.Client
             br.ReadInt32();
         }
 
-        public override void Execute(Level level)
+        public override async void Execute(Level level)
         {
-            /*
-            var p = new PlayerWarStatusMessage();
-            p.SetStatus(0);
-
-            var a = new AvailableServerCommandMessage(level.GetClient());
-            a.SetCommandId(14);
-            a.SetCommand(p);
-            PacketManager.ProcessOutgoingPacket(a);*/
-            //TODO
+            try
+            {
+                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                if (a != null)
+                {
+                    AllianceMemberEntry _AllianceMemberEntry = a.GetAllianceMember(level.GetPlayerAvatar().GetId());
+                    _AllianceMemberEntry.ToggleStatus();
+                    PlayerWarStatusMessage _PlayerWarStatusMessage = new PlayerWarStatusMessage(level.GetClient());
+                    _PlayerWarStatusMessage.SetStatus(_AllianceMemberEntry.GetStatus());
+                    PacketProcessor.Send(_PlayerWarStatusMessage);
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

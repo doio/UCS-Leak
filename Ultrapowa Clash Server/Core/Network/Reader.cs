@@ -38,8 +38,8 @@ namespace UCS.Core.Network
 			}
 			catch (Exception)
 			{
-                ResourcesManager.DropClient(Socket.Handle.ToInt64());
                 Gateway.Disconnect(Socket);
+                ResourcesManager.DropClient(Socket.Handle.ToInt64());
 			}
 		}
 	}

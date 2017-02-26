@@ -247,6 +247,7 @@
     <Compile Include="Core\Settings\UCSControl.cs" />
     <Compile Include="Core\Threading\ChatProcessor.cs" />
     <Compile Include="Packets\Commands\Client\CastSpellCommand.cs" />
+    <Compile Include="Packets\Commands\Client\PlayerWarStatusCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />

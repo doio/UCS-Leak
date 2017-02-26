@@ -20,7 +20,7 @@ namespace UCS.Packets
             //m_vCommands.Add(1, typeof(JoinAlliance));
             //m_vCommands.Add(2, typeof(LeaveAllianceCommand));
             //m_vCommands.Add(3, typeof(ChangeAvatarCommand));
-            //m_vCommands.Add(14, typeof(PlayerWarStatusCommand));
+            m_vCommands.Add(14, typeof(PlayerWarStatusCommand));
             m_vCommands.Add(20, typeof(RemainingBuildingsLayoutCommand));
             m_vCommands.Add(500, typeof(BuyBuildingCommand));
             m_vCommands.Add(501, typeof(MoveBuildingCommand));
@@ -73,7 +73,7 @@ namespace UCS.Packets
             m_vCommands.Add(558, typeof(AddQuicKTrainingTroopCommand));
 	        m_vCommands.Add(559, typeof(TrainQuickUnitsCommand));
             m_vCommands.Add(560, typeof(StartClanWarCommand));
-            //m_vCommands.Add(563, typeof(CollectClanResourcesCommand)); // TODO
+            //m_vCommands.Add(563, typeof(CollectClanResourcesCommand));
             m_vCommands.Add(567, typeof(SetActiveVillageLayoutCommand));
             m_vCommands.Add(568, typeof(CopyVillageLayoutCommand));
             m_vCommands.Add(570, typeof(TogglePlayerWarStateCommand));
@@ -86,6 +86,7 @@ namespace UCS.Packets
             m_vCommands.Add(586, typeof(RenameQuickTrainCommand));
             m_vCommands.Add(590, typeof(EventsSeenCommand)); 
             m_vCommands.Add(600, typeof(PlaceAttackerCommand));
+            //m_vCommands.Add(601, typeof(PlaceAllianceTroopsCommand));
             m_vCommands.Add(603, typeof(EndOfBattleCommand));
             m_vCommands.Add(604, typeof(CastSpellCommand));
             m_vCommands.Add(605, typeof(PlaceHeroCommand));

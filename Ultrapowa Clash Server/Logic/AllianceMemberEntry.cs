@@ -27,7 +27,7 @@ namespace UCS.Logic
         readonly int m_vReceivedTroops;
         readonly int[] m_vRoleTable = { 1, 1, 4, 2, 3 };
         readonly int m_vWarCooldown;
-        readonly int m_vWarOptInStatus;
+        int m_vWarOptInStatus;
         long m_vAvatarId;
         int m_vOrder;
         int m_vPreviousOrder;
@@ -86,6 +86,8 @@ namespace UCS.Logic
 
         public int GetRole() => m_vRole;
 
+        public int GetStatus() => m_vWarOptInStatus;
+
         public bool HasLowerRoleThan(int role)
         {
             bool result = true;
@@ -117,19 +119,14 @@ namespace UCS.Logic
             m_vAvatarId = id;
         }
 
-        public void SetOrder(int order)
-        {
-            m_vOrder = order;
-        }
+        public void SetOrder(int order) => m_vOrder = order;
 
-        public void SetPreviousOrder(int order)
-        {
-            m_vPreviousOrder = order;
-        }
+        public void ToggleStatus() => m_vWarOptInStatus = m_vWarOptInStatus == 1 ? 0 : 1;
 
-        public void SetRole(int role)
-        {
-            m_vRole = role;
-        }
+        public void SetPreviousOrder(int order) => m_vPreviousOrder = order;
+
+        public void SetRole(int role) => m_vRole = role;
+
+        public void SetStatus(bool x) => m_vWarOptInStatus = (byte)(x ? 0x01 : 0x00);
     }
 }
