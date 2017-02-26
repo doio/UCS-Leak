@@ -176,7 +176,7 @@ namespace UCS.Core
 
         public static void LoadNpcLevels()
         {
-            int Size = 0;
+            int Count = 0;
             NpcLevels.Add(17000000, new StreamReader(@"Gamefiles/level/NPC/tutorial_npc.json").ReadToEnd());
             NpcLevels.Add(17000001, new StreamReader(@"Gamefiles/level/NPC/tutorial_npc2.json").ReadToEnd());
 
@@ -186,13 +186,10 @@ namespace UCS.Core
                 {
                     NpcLevels.Add(i + 17000000, sr.ReadToEnd());
                 }
+                Count++;
             }
 
-            foreach(var s in NpcLevels)
-            {
-                Size += System.Text.Encoding.UTF8.GetByteCount(s.Value);
-            }
-            Say("NPC Levels  have been succesfully loaded. (" + Size + ")");
+            Say("NPC Levels  have been succesfully loaded. (" + Count + ")");
         }
 
         /*public static void LoadRandomBase()

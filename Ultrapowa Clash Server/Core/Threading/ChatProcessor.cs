@@ -21,9 +21,7 @@ namespace UCS.Core.Threading
             {
                 Messages = new List<GlobalChatLineMessage>();
 
-                loop:
-
-                if (MessageIsWaiting())
+                while (true)
                 {
                     try
                     {
@@ -33,15 +31,10 @@ namespace UCS.Core.Threading
                             Messages.Remove(cl);
                         }
                     }
-                    catch (Exception) { goto loop; }
-                }
-                else if (!MessageIsWaiting())
-                {
-                    Thread.Sleep(100);
-                    goto loop;
+                    catch (Exception) {}
+                    Thread.Sleep(10);
                 }
 
-                goto loop;
             })).Start();
         }
 

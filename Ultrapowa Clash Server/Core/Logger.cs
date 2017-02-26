@@ -65,6 +65,13 @@ namespace UCS.Core
             }
         }
 
+        public static void WriteCenter(string _String)
+        {
+            Console.SetCursorPosition((Console.WindowWidth - _String.Length) / 2, Console.CursorTop);
+            Console.WriteLine(_String);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+        }
+
         public static void Print(string message)
         {
             Console.WriteLine(message);

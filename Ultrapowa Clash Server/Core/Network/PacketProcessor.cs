@@ -38,13 +38,18 @@ namespace UCS.Core.Network
                     _Message.Client.UpdateKey(sessionKey);
                 }
                 _Message.Process(_Message.Client.GetLevel());
-                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, 0, null, null);
+                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, SocketFlags.None, SendCallback, (object)null);
             }
             catch (Exception)
             {
                 Gateway.Disconnect(_Message.Client.Socket);
                 ResourcesManager.DropClient(_Message.Client.GetSocketHandle());
             }
+        }
+
+        private static void SendCallback(IAsyncResult _Ar)
+        {
+            Message _Message = _Ar.AsyncState as Message;
         }
     }
 }

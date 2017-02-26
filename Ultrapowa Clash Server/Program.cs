@@ -18,13 +18,20 @@ namespace UCS
     class Program
     {
         public static int OP                   = 0;
-        public static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - © " + DateTime.Now.Year + " | Online Players: ";
+        public static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - ©Ultrapowa | Online Players: ";
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
         private static Loader _Loader          = null;
 
         static void Main()
         {
+            int GWL_EXSTYLE = -20;
+            int WS_EX_LAYERED = 0x80000;
+            uint LWA_ALPHA = 0x2;
+            IntPtr Handle = GetConsoleWindow();
+            SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
+            SetLayeredWindowAttributes(Handle, 2, 240, LWA_ALPHA);
+
             if (Constants.LicensePlanID == 3)
             {
                 Console.Title = Title + OP;
@@ -38,31 +45,34 @@ namespace UCS
                 Console.Title = Title + OP + "/350";
             }
 
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(
+            Say();
 
-                @"
-      ____ ___.__   __                                              
-     |    |   \  |_/  |_____________  ______   ______  _  _______   
-     |    |   /  |\   __\_  __ \__  \ \____ \ /  _ \ \/ \/ /\__  \  
-     |    |  /|  |_|  |  |  | \// __ \|  |_> >  <_> )     /  / __ \_
-     |______/ |____/__|  |__|  (____  /   __/ \____/ \/\_/  (____  /
-                                    \/|__|                       \/
-            ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Logger.WriteCenter(@" ____ ___.__   __                                                  ");
+            Logger.WriteCenter(@"|    |   \  |_/  |_____________  ______   ______  _  _______       ");
+            Logger.WriteCenter(@"|    |   /  |\   __\_  __ \__  \ \____ \ /  _ \ \/ \/ /\__  \      ");
+            Logger.WriteCenter(@"|    |  /|  |_|  |  |  | \// __ \|  |_> >  <_> )     /  / __ \_    ");
+            Logger.WriteCenter(@"|______/ |____/__|  |__|  (____  /   __/ \____/ \/\_/  (____  /    ");
+            Logger.WriteCenter(@"                               \/|__|                       \/     ");
+            Logger.WriteCenter("            ");
+
             Console.ResetColor();
-            Say("> This program is made by the Ultrapowa Development Team.");
-            Say("> Ultrapowa is not affiliated to \"Supercell, Oy\".");
-            Say("> This program is copyrighted worldwide.");
-            Say("> Visit www.ultrapowa.com daily for News & Updates!");
+
+            Logger.WriteCenter("This program is made by the Ultrapowa Development Team.");
+            Logger.WriteCenter("Ultrapowa is not affiliated to \"Supercell, Oy\".");
+            Logger.WriteCenter("This program is copyrighted worldwide.");
+            Logger.WriteCenter("Visit www.ultrapowa.com daily for News & Updates!");
 
             if (Constants.IsRc4)
             {
-                Say("> UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
+                Logger.WriteCenter("UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
             }
             else
             {
-                Say("> UCS is running under Pepper mode. Please make sure client key is modded.");
+                Logger.WriteCenter("UCS is running under Pepper mode. Please make sure client key is modded.");
             }
+
+            Say();
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("[UCS]    ");
@@ -149,5 +159,17 @@ namespace UCS
                 Console.Title = Title + --OP + "/350";
             }
         }
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        static extern bool SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr GetConsoleWindow();
     }
 }

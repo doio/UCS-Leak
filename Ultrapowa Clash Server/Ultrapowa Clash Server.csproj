@@ -240,7 +240,6 @@
     <Compile Include="Core\Checker\LicenseChecker.cs" />
     <Compile Include="Core\Crypto\Key.cs" />
     <Compile Include="Core\CSVManager.cs" />
-    <Compile Include="Core\ExitHandler.cs" />
     <Compile Include="Core\Loader.cs" />
     <Compile Include="Core\Network\Reader.cs" />
     <Compile Include="Core\Settings\Constants.cs" />

@@ -52,13 +52,13 @@ namespace UCS.Core
                 gameFiles.Add(new Tuple<string, string, int>("War", @"Gamefiles/logic/war.csv", 28));
                 */
                 _DataTables = new DataTables();
-                int Size = 0;
+                int Count = 0;
                 foreach (var _File in _gameFiles)
                 {
                     _DataTables.InitDataTable(new CSVTable(_File.Item2), _File.Item3);
-                    Size += System.Text.Encoding.UTF8.GetByteCount(_File.Item1);
+                    Count++;
                 }
-                Say("CSV Tables  have been succesfully loaded. (" + Size + ")");
+                Say("CSV Tables  have been succesfully loaded. (" + Count + ")");
             }
             catch (Exception)
             {
