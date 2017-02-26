@@ -20,7 +20,7 @@ namespace UCS.Packets
             m_vMessages.Add(10105, typeof(AskForFriendListMessage));
             m_vMessages.Add(10108, typeof(KeepAliveMessage)); 
             m_vMessages.Add(10117, typeof(ReportPlayerMessage));
-            //m_vMessages.Add(10118, typeof(LoadFacebookVillageMessage));
+            m_vMessages.Add(10118, typeof(AccountSwitchMessage));
             m_vMessages.Add(10113, typeof(GetDeviceTokenMessage));
             m_vMessages.Add(10212, typeof(ChangeAvatarNameMessage)); 
             m_vMessages.Add(10502, typeof(AddClashFriendMessage));

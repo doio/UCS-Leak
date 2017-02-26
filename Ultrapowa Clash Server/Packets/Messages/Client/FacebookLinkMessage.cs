@@ -40,13 +40,12 @@ namespace UCS.Packets.Messages.Client
 
                 if (l != null)
                 {
-                    PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
-                    PacketProcessor.Send(new OwnHomeDataMessage(Client, l)); // Not done
+                    PacketProcessor.Send(new FacebookChooseVillageMessage(Client, l));
                 }
                 else if(player.GetFacebookID() == null)
                 {
                     player.SetFacebookID(UserID);
-                    PacketProcessor.Send(new OutOfSyncMessage(Client));
+                    PacketProcessor.Send(new OwnHomeDataMessage(Client, level)); // Until we got the other Message 
                 }
             } catch (Exception) { }
         }
