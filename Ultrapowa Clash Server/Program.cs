@@ -30,7 +30,7 @@ namespace UCS
             uint LWA_ALPHA = 0x2;
             IntPtr Handle = GetConsoleWindow();
             SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
-            SetLayeredWindowAttributes(Handle, 2, 240, LWA_ALPHA);
+            SetLayeredWindowAttributes(Handle, 0, 20, LWA_ALPHA);
 
             if (Constants.LicensePlanID == 3)
             {
@@ -62,6 +62,20 @@ namespace UCS
             Logger.WriteCenter("Ultrapowa is not affiliated to \"Supercell, Oy\".");
             Logger.WriteCenter("This program is copyrighted worldwide.");
             Logger.WriteCenter("Visit www.ultrapowa.com daily for News & Updates!");
+
+            for (int i = 20; i < 237; i++)
+            {
+                if (i < 100)
+                {
+                    SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                    Thread.Sleep(5);
+                }
+                else
+                {
+                    SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                    Thread.Sleep(15);
+                }
+            }
 
             if (Constants.IsRc4)
             {

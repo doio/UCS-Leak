@@ -64,15 +64,14 @@ namespace UCS.Helpers
 
         public override string ReadString()
         {
-            int length = ReadInt32();
-            if (length == -1)
+            int _Length = this.ReadInt32();
+            if ((_Length == -1) || (_Length < -1) || (_Length > this.BaseStream.Length - this.BaseStream.Position))
+            {
                 return null;
-            if (length < -1 || length > BaseStream.Length - BaseStream.Position)
-                return null;
-            if (length > 2000)
-                return null;
-            byte[] buffer = ReadBytesWithEndian(length, false);
-            return Encoding.UTF8.GetString(buffer);
+            }
+
+            byte[] _Buffer = this.ReadBytesWithEndian(_Length, false);
+            return Encoding.UTF8.GetString(_Buffer);
         }
 
         public override ushort ReadUInt16()

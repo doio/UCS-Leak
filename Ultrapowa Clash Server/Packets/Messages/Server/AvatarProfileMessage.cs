@@ -26,8 +26,8 @@ namespace UCS.Packets.Messages.Server
                 pack.AddRange(await m_vLevel.GetPlayerAvatar().Encode());
                 pack.AddCompressedString(ch.GetHomeJSON());
 
-                pack.AddInt32(0); //Donated
-                pack.AddInt32(0); //Received
+                pack.AddInt32(m_vLevel.GetPlayerAvatar().GetDonated()); //Donated
+                pack.AddInt32(m_vLevel.GetPlayerAvatar().GetReceived()); //Received
                 pack.AddInt32(0); //War Cooldown
 
                 pack.AddInt32(0); //Unknown
