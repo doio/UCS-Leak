@@ -8,39 +8,34 @@ namespace UCS.Packets.Commands.Server
 {
     internal class DonatedAllianceUnitCommand : Command
     {
-        public int MesasgeID { get; set; }
-
-        public CombatItemData TroopID { get; set; }
-
         public DonatedAllianceUnitCommand()
         {
         }
 
         public override byte[] Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt32(0);
-            data.AddInt32(MesasgeID);
-            data.AddInt32(0);
-            data.AddInt32(TroopID.GetGlobalID()); //TypeID
-            data.AddInt32(4);
-            data.AddInt32(0); //Tick
-            return data.ToArray();
+            List<byte> _Data = new List<byte>();
+            _Data.AddString(Donator);
+            _Data.AddInt32(0);
+            _Data.AddInt32(TroopID);
+            _Data.AddInt32(TroopLevel);
+            _Data.AddInt32(1);
+            _Data.AddInt32(0);
+            return _Data.ToArray();
         }
 
-        public void DonationMessageID(int i)
-        {
-            MesasgeID = i;
-        }
+        public string Donator { get; set; }
 
-        public void Troop(CombatItemData i)
-        {
-            TroopID = i;
-        }
+        public int TroopLevel { get; set; }
 
-        public void Tick(Level level)
-        {
-            level.Tick();
-        }
+        public int TroopID { get; set; }
+
+        public int SetUnitLevel(int t) => TroopLevel = t;
+
+        public int SetUnitID(int i) => TroopID = i;
+
+        public void SetDonator(string name) => Donator = name;
+
+        public void Tick(Level level) => level.Tick();
     }
 }

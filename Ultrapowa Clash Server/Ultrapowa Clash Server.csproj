@@ -246,6 +246,7 @@
     <Compile Include="Core\Settings\UCSControl.cs" />
     <Compile Include="Core\Threading\ChatProcessor.cs" />
     <Compile Include="Packets\Commands\Client\CastSpellCommand.cs" />
+    <Compile Include="Packets\Commands\Client\PlaceAllianceTroopsCommand.cs" />
     <Compile Include="Packets\Commands\Client\PlayerWarStatusCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
@@ -360,7 +361,7 @@
     <Compile Include="Packets\Messages\Client\JoinRequestAlllianceMessage.cs" />
     <Compile Include="Packets\Messages\Client\NewsSeenMessage.cs" />
     <Compile Include="Packets\Messages\Client\RemoveFromBookmark.cs" />
-    <Compile Include="Packets\Messages\Client\ReplayRequest.cs" />
+    <Compile Include="Packets\Messages\Client\ReplayRequestMessage.cs" />
     <Compile Include="Packets\Messages\Client\RequestAvatarNameChange.cs" />
     <Compile Include="Packets\Messages\Client\TakeDecisionJoinRequestMessage.cs" />
     <Compile Include="Packets\Messages\Client\TopLeaguePlayersMessage.cs" />

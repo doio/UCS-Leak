@@ -17,6 +17,6 @@ namespace UCS.Core.Settings
 
         public const int CleanInterval               = 5000;
         public static int MaxOnlinePlayers           = Utils.ParseConfigInt("MaxOnlinePlayers");
-        public static int LicensePlanID              = 1;
+        public static int LicensePlanID = /*1;*/ 3;
     }
 }

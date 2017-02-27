@@ -30,8 +30,8 @@ namespace UCS.Packets.Messages.Server
             //pack.AddInt64(1); //Attacker ID
 /*FOR FHX*/ //pack.AddString("FHx-Server"); //Attacker Name    
             pack.AddString("Ultrapowa Dev. Team"); //Attacker Name
-            pack.AddInt32(2);
-            pack.AddInt32(3);
+            pack.AddInt32(1);
+            pack.AddInt32(0);
             pack.AddInt32(999); //Age
             pack.Add(0); // 2 = new, 0 = old;
             pack.AddString(StreamTest);
@@ -39,7 +39,9 @@ namespace UCS.Packets.Messages.Server
             pack.AddInt32(0);
             pack.AddInt32(0);
             pack.AddInt32(0);
-            pack.Add(0);
+            pack.Add(1);
+            pack.AddInt64(1);
+            pack.AddInt32(int.MaxValue);
             Encrypt(pack.ToArray());
         }
     }

@@ -33,6 +33,7 @@ namespace UCS.Packets
             m_vMessages.Add(14110, typeof(ChallangeWatchLiveMessage));
             m_vMessages.Add(14111, typeof(ChallangeVisitMessage));
             m_vMessages.Add(14113, typeof(VisitHomeMessage));
+            m_vMessages.Add(14114, typeof(ReplayRequestMessage));
             m_vMessages.Add(14120, typeof(ChallangeAttackMessage));
             m_vMessages.Add(14125, typeof(ChallangeCancelMessage));
             m_vMessages.Add(14134, typeof(AttackNpcMessage));

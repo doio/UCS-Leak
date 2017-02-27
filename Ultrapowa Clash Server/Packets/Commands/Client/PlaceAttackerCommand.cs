@@ -22,12 +22,15 @@ namespace UCS.Packets.Commands.Client
 
         public override void Execute(Level level)
         {
-            List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
-
-            DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == Unit.GetGlobalID());
-            if (_DataSlot != null)
+            if (level.GetPlayerAvatar().State != ClientAvatar.UserState.CHA)
             {
-                _DataSlot.Value = _DataSlot.Value - 1;
+                List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
+
+                DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == Unit.GetGlobalID());
+                if (_DataSlot != null)
+                {
+                    _DataSlot.Value = _DataSlot.Value - 1;
+                }
             }
         }
 

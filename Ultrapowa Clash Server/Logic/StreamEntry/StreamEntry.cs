@@ -137,12 +137,11 @@ namespace UCS.Logic.StreamEntry
 
         public void AddDonatedTroop(long did, int id, int value, int level)
         {
-            m_vDonatedTroop = m_vDonatedTroop + ((CombatItemData)CSVManager.DataTables.GetDataById(id)).GetHousingSpace();
-            DonationSlot e  = m_vUnitDonation.Find(t => t.ID == id && t.UnitLevel == level);
+            DonationSlot e = m_vUnitDonation.Find(t => t.ID == id && t.UnitLevel == level);
             if (e != null)
             {
-                int i              = m_vUnitDonation.IndexOf(e);
-                e.Count            = e.Count + value;
+                int i = m_vUnitDonation.IndexOf(e);
+                e.Count = e.Count + value;
                 m_vUnitDonation[i] = e;
             }
             else
@@ -151,5 +150,7 @@ namespace UCS.Logic.StreamEntry
                 m_vUnitDonation.Add(ds);
             }
         }
+
+        public void AddUsedCapicity(int amount) => m_vDonatedTroop = m_vDonatedTroop + amount;
     }
 }

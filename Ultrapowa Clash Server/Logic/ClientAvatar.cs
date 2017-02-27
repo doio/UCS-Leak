@@ -17,44 +17,46 @@ namespace UCS.Logic
     internal class ClientAvatar : Avatar
     {
         // Long
-        long m_vAllianceId;
-        long m_vCurrentHomeId;
-        long m_vId;
+        private long m_vAllianceId;
+        private long m_vCurrentHomeId;
+        private long m_vId;
 
         // Int
-        int m_vHighInt;
-        int m_vLowInt;
-        int m_vAvatarLevel;
-        int m_vCurrentGems;
-        int m_vExperience;
-        int m_vLeagueId;
-        int m_vScore;          
-        int m_vDonatedUnits;
-        int m_vRecievedUnits;
-        int m_vActiveLayout;
-        int m_vAlliance_Gold       = 2800000;
-        int m_vAlliance_Elixir     = 2800000;
-        int m_vAlliance_DarkElixir = 14400;
-        int m_vShieldTime;
-        int m_vProtectionTime;
-        public int ReportedTimes   = 0;
+        private int m_vHighInt;
+        private int m_vLowInt;
+        private int m_vAvatarLevel;
+        private int m_vCurrentGems;
+        private int m_vExperience;
+        private int m_vLeagueId;
+        private int m_vScore;          
+        private int m_vDonatedUnits;
+        private int m_vRecievedUnits;
+        private int m_vActiveLayout;
+        private int m_vAlliance_Gold       = 2800000;
+        private int m_vAlliance_Elixir     = 2800000;
+        private int m_vAlliance_DarkElixir = 14400;
+        private int m_vShieldTime;
+        private int m_vProtectionTime;
+        public int ReportedTimes           = 0;
+        private int m_vDonated;
+        private int m_vReceived;
 
         // Byte
-        byte m_vNameChangingLeft;
-        byte m_vnameChosenByUser;
+        private byte m_vNameChangingLeft;
+        private byte m_vnameChosenByUser;
 
         // String
-        string m_vAvatarName;
-        string m_vToken;
-        string m_vRegion;
-        string m_vFacebookID;
+        private string m_vAvatarName;
+        private string m_vToken;
+        private string m_vRegion;
+        private string m_vFacebookID;
 
         // Boolean
-        bool m_vPremium;
-        bool m_vAndroid;
+        private bool m_vPremium;
+        private bool m_vAndroid;
         
         //Datetime
-        DateTime m_vAccountCreationDate;
+        private DateTime m_vAccountCreationDate;
 
         public enum UserState : int
         {
@@ -82,12 +84,11 @@ namespace UCS.Logic
         {
             Achievements         = new List<DataSlot>();
             AchievementsUnlocked = new List<DataSlot>();
-            AllianceUnits        = new List<TroopDataSlot>();
+            AllianceUnits        = new List<DonationSlot>();
             NpcStars             = new List<DataSlot>();
             NpcLootedGold        = new List<DataSlot>();
             NpcLootedElixir      = new List<DataSlot>();
             BookmarkedClan       = new List<BookmarkSlot>();
-            DonationSlot         = new List<DonationSlot>();
             QuickTrain1          = new List<DataSlot>();
             QuickTrain2          = new List<DataSlot>();
             QuickTrain3          = new List<DataSlot>();
@@ -127,7 +128,7 @@ namespace UCS.Logic
 
         public List<DataSlot> Achievements { get; set; }
         public List<DataSlot> AchievementsUnlocked { get; set; }
-        public List<TroopDataSlot> AllianceUnits { get; set; }
+        public List<DonationSlot> AllianceUnits { get; set; }
         public int EndShieldTime { get; set; }
         public int LastUpdate { get; set; }
         public UserState State { get; set; }
@@ -136,7 +137,6 @@ namespace UCS.Logic
         public List<DataSlot> NpcLootedGold { get; set; }
         public List<DataSlot> NpcStars { get; set; }
         public List<BookmarkSlot> BookmarkedClan { get; set; }
-        public List<DonationSlot> DonationSlot { get; set; }
         public Dictionary<long, AttackInfo> AttackingInfo { get; set; }
         public List<DataSlot> QuickTrain1 { get; set; }
         public List<DataSlot> QuickTrain2 { get; set; }
@@ -262,9 +262,9 @@ namespace UCS.Logic
                 data.AddInt32(60);
                 data.AddInt32(m_vScore);
                 data.AddInt32(200); // Attack Wins
-                data.AddInt32(1);
+                data.AddInt32(m_vDonated);
                 data.AddInt32(100); // Attack Loses
-                data.AddInt32(0);
+                data.AddInt32(m_vReceived);
 
                 data.AddInt32(m_vAlliance_Gold);
                 data.AddInt32(m_vAlliance_Elixir);
@@ -294,11 +294,11 @@ namespace UCS.Logic
                 data.AddDataSlots(m_vHeroState);
 
                 data.AddRange(BitConverter.GetBytes(AllianceUnits.Count).Reverse());
-                foreach (var u in AllianceUnits)
+                foreach (DonationSlot u in AllianceUnits)
                 {
-                    data.AddRange(BitConverter.GetBytes(u.Data.GetGlobalID()).Reverse());
-                    data.AddRange(BitConverter.GetBytes(u.Value).Reverse());
-                    data.AddRange(BitConverter.GetBytes(0).Reverse());
+                    data.AddInt32(u.ID);
+                    data.AddInt32(u.Count);
+                    data.AddInt32(u.UnitLevel);
                 }
 
                 data.AddRange(BitConverter.GetBytes(TutorialStepsCount).Reverse());
@@ -434,6 +434,10 @@ namespace UCS.Logic
 
         public string GetUserRegion() => m_vRegion;
 
+        public int GetDonated() => m_vDonated;
+
+        public int GetReceived() => m_vReceived;
+
         public bool HasEnoughDiamonds(int diamondCount) => m_vCurrentGems >= diamondCount;
 
         public bool HasEnoughResources(ResourceData rd, int buildCost) => GetResourceCount(rd) >= buildCost;
@@ -542,7 +546,7 @@ namespace UCS.Logic
             var jsonAllianceUnits = (JArray) jsonObject["alliance_units"];
             foreach (JObject data in jsonAllianceUnits)
             {
-                TroopDataSlot ds = new TroopDataSlot(null, 0, 0);
+                DonationSlot ds = new DonationSlot(0, 0, 0, 0);
                 ds.Load(data);
                 AllianceUnits.Add(ds);
             }
@@ -751,6 +755,22 @@ namespace UCS.Logic
             }*/
             //else
               //  Logger.Write("Unsuppored state! AddUsedTroop only for PVP for now.PVE Comming Soon");
+        }
+
+        public void AddAllianceTroop(long did, int id, int value, int level)
+        {
+            DonationSlot e = AllianceUnits.Find(t => t.ID == id && t.DonatorID == did && t.UnitLevel == level);
+            if (e != null)
+            {
+                int i = AllianceUnits.IndexOf(e);
+                e.Count = e.Count + value;
+                AllianceUnits[i] = e;
+            }
+            else
+            {
+                DonationSlot ds = new DonationSlot(did, id, value, level);
+                AllianceUnits.Add(ds);
+            }
         }
 
         public void SetAchievment(AchievementData ad, bool finished)

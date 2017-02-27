@@ -36,7 +36,6 @@ namespace UCS.Packets.Commands.Client
                         if (level.HasFreeWorkers())
                         {
                             string name = level.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
-                            Logger.Write("Building To Upgrade : " + name + " (" + BuildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
                                 ca.IncrementAllianceCastleLevel();

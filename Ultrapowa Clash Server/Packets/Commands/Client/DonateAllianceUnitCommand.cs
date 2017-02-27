@@ -1,24 +1,29 @@
 ﻿using System.IO;
+using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet ?
     internal class DonateAllianceUnitCommand : Command
     {
-        public DonateAllianceUnitCommand(PacketReader br)
+        public DonateAllianceUnitCommand()
         {
-            /*Unknown1 = br.ReadUInt32WithEndian();
-            PlayerId = br.ReadUInt32WithEndian();
-            UnitType = br.ReadUInt32WithEndian();
-            Unknown2 = br.ReadUInt32WithEndian();
-            Unknown3 = br.ReadUInt32WithEndian();*/
         }
 
-        public uint PlayerId { get; set; }
-        public uint UnitType { get; set; }
-        public uint Unknown1 { get; set; } 
-        public uint Unknown2 { get; set; } 
-        public uint Unknown3 { get; set; }
+        public override void Execute(Level level)
+        {
+        }
+
+        public int _MessageID { get; set; }
+
+        public CombatItemData _Unit { get; set; }
+
+        public void Tick(Level level) => level.Tick();
+
+        public void SetMessageID(int id) => _MessageID = id;
+
+        public void SetUnit(CombatItemData cd) => _Unit = cd;
     }
 }

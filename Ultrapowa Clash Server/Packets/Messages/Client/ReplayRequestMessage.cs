@@ -6,7 +6,7 @@ using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Messages.Client
 {
-    // Packet ?
+    // Packet 14114
     internal class ReplayRequestMessage : Message
     {
         public ReplayRequestMessage(Packets.Client client, PacketReader br) : base(client, br)
@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Client
 
         public override void Process(Level level)
         {
-            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+            PacketProcessor.Send(new HomeBattleReplayDataMessage(Client));
         }
     }
 }

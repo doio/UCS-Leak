@@ -27,7 +27,6 @@ namespace UCS.Packets.Commands.Client
             if (ca.HasEnoughResources(bd.GetBuildResource(b.GetUpgradeLevel()), bd.GetBuildCost(b.GetUpgradeLevel())))
             {
                 string name = level.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
-                Logger.Write("Unlocking Building: " + name + " (" + BuildingId + ')');
                 if (string.Equals(name, "Alliance Castle"))
                 {
                     ca.IncrementAllianceCastleLevel();

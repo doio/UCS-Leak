@@ -35,57 +35,40 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                /*if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                if (level.GetPlayerAvatar().State == ClientAvatar.UserState.CHA)
                 {
-                    for (int i = 0; i < 31; i++)
-                    {
-                        Data unitData = CSVManager.DataTables.GetDataById(4000000 + i);
-                        CharacterData combatData = (CharacterData)unitData;
-                        int maxLevel = combatData.GetUpgradeLevelCount();
-                        DataSlot unitSlot = new DataSlot(unitData, 1000);
-
-                        level.GetPlayerAvatar().GetUnits().Add(unitSlot);
-                        level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
-                    }
-
-                    for (int i = 0; i < 18; i++)
-                    {
-                        Data spellData = CSVManager.DataTables.GetDataById(26000000 + i);
-                        SpellData combatData = (SpellData)spellData;
-                        int maxLevel = combatData.GetUpgradeLevelCount();
-                        DataSlot spellSlot = new DataSlot(spellData, 1000);
-
-                        level.GetPlayerAvatar().GetSpells().Add(spellSlot);
-                        level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
-                    }
-                }*/
-
-                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                Level defender = await ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
-                if (defender != null)
-                {
-                    defender.Tick();
-                    PacketProcessor.Send(new ChallangeAttackDataMessage(Client, defender));
+                    ResourcesManager.DisconnectClient(Client);
                 }
                 else
                 {
-                    new OwnHomeDataMessage(Client, level);
-                }
-
-                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                StreamEntry s = alliance.GetChatMessages().Find(c => c.GetStreamEntryType() == 12);
-                if (s != null)
-                {
-                    alliance.GetChatMessages().RemoveAll(t => t == s);
-
-                    foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
+                    level.GetPlayerAvatar().State = ClientAvatar.UserState.CHA;
+                    Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    Level defender = await ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
+                    if (defender != null)
                     {
-                        Level playera = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                        if (playera.GetClient() != null)
+                        defender.Tick();
+                        PacketProcessor.Send(new ChallangeAttackDataMessage(Client, defender));
+                    }
+                    else
+                    {
+                        new OwnHomeDataMessage(Client, level);
+                    }
+
+                    Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    StreamEntry s = alliance.GetChatMessages().Find(c => c.GetStreamEntryType() == 12);
+                    if (s != null)
+                    {
+                        alliance.GetChatMessages().RemoveAll(t => t == s);
+
+                        foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                         {
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
-                            p.SetStreamEntry(s);
-                            PacketProcessor.Send(p);
+                            Level playera = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                            if (playera.GetClient() != null)
+                            {
+                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
+                                p.SetStreamEntry(s);
+                                PacketProcessor.Send(p);
+                            }
                         }
                     }
                 }

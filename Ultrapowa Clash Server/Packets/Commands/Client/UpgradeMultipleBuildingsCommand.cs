@@ -44,7 +44,6 @@ namespace UCS.Packets.Commands.Client
                         if (level.HasFreeWorkers())
                         {
                             string name = b.GetData().GetName();
-                            Logger.Write("Building To Upgrade : " + name + " (" + buildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
                                 ca.IncrementAllianceCastleLevel();

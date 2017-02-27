@@ -33,7 +33,7 @@ namespace UCS.Core
         public Loader()
         {
             // License Check
-            _LicenseChecker    = new LicenseChecker();
+            //_LicenseChecker    = new LicenseChecker();
             
             // CSV Files and Logger
             _Logger            = new Logger();
