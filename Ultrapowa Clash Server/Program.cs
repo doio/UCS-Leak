@@ -69,19 +69,22 @@ namespace UCS
             Logger.WriteCenter("+-------------------------------------------------------+");
             Console.ResetColor();
 
-            for (int i = 20; i < 237; i++)
+            new Thread(() =>
             {
-                if (i < 100)
+                for (int i = 20; i < 237; i++)
                 {
-                    SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                    Thread.Sleep(5);
+                    if (i < 100)
+                    {
+                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                        Thread.Sleep(5);
+                    }
+                    else
+                    {
+                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                        Thread.Sleep(15);
+                    }
                 }
-                else
-                {
-                    SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                    Thread.Sleep(15);
-                }
-            }
+            }).Start();
 
             if (Constants.IsRc4)
             {

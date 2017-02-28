@@ -16,7 +16,7 @@ namespace UCS.Core
 {
     internal class ResourcesManager : IDisposable
     {
-        private static ConcurrentDictionary<long, Client> m_vClients             = null;
+        public static ConcurrentDictionary<IntPtr, Client> m_vClients            = null;
         private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
         private static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
         private static List<Level> m_vOnlinePlayers                              = null;
@@ -26,7 +26,7 @@ namespace UCS.Core
         {
             m_vDatabase          = new DatabaseManager();
             m_vOnlinePlayers     = new List<Level>();
-            m_vClients           = new ConcurrentDictionary<long, Client>();
+            m_vClients           = new ConcurrentDictionary<IntPtr, Client>();
             m_vInMemoryLevels    = new ConcurrentDictionary<long, Level>();
             m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
         }
@@ -35,10 +35,10 @@ namespace UCS.Core
         {
             Client c     = new Client(_Socket);
             c.CIPAddress = ((System.Net.IPEndPoint)_Socket.RemoteEndPoint).Address.ToString();
-            m_vClients.TryAdd(c.Socket.Handle.ToInt64(), c);
+            m_vClients.TryAdd(c.Socket.Handle, c);
         }
 
-        public static void DropClient(long socketHandle)
+        public static void DropClient(IntPtr socketHandle)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace UCS.Core
 
         public static List<long> GetAllPlayerIds() => m_vDatabase.GetAllPlayerIds();
 
-        public static Client GetClient(long socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
+        public static Client GetClient(IntPtr socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
 
         public static List<Client> GetConnectedClients() => m_vClients.Values.ToList();
 
@@ -78,13 +78,13 @@ namespace UCS.Core
             return result;
         }
 
-        public static void DisconnectClient(Client c)
+        public static void DisconnectClient(Client _Client)
         {
-            PacketProcessor.Send(new OutOfSyncMessage(c));
-            DropClient(c.GetSocketHandle());
+            PacketProcessor.Send(new OutOfSyncMessage(_Client));
+            DropClient(_Client.GetSocketHandle());
         }
 
-        public static bool IsClientConnected(long socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
+        public static bool IsClientConnected(IntPtr socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
 
         public static async Task<Level> GetPlayerWithFacebookID(string id)
         {

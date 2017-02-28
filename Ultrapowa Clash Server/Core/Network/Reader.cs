@@ -39,7 +39,7 @@ namespace UCS.Core.Network
 			catch (Exception)
 			{
                 Gateway.Disconnect(Socket);
-                ResourcesManager.DropClient(Socket.Handle.ToInt64());
+                ResourcesManager.DropClient(Socket.Handle);
 			}
 		}
 	}

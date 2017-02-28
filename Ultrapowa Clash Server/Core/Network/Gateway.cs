@@ -36,7 +36,9 @@ namespace UCS.Core.Network
                 while (true)
                 {
                     AllDone.Reset();
+
                     _Socket.BeginAccept(this.AcceptCallback, _Socket);
+
                     AllDone.WaitOne();
                 }
             }
@@ -67,6 +69,7 @@ namespace UCS.Core.Network
                 else
                 {
                     Disconnect(_Handler);
+                    ResourcesManager.DropClient(_Handler.Handle);
                 }
             }
             catch (Exception)
@@ -78,17 +81,19 @@ namespace UCS.Core.Network
 		{
 			try
 			{
-				Client _Client = ResourcesManager.GetClient(_Reader.Socket.Handle.ToInt64());
+				Client _Client = ResourcesManager.GetClient(_Reader.Socket.Handle);
 				_Client.DataStream.AddRange(_Data);
-				Message p;
-                while (_Client.TryGetPacket(out p))
+				Message _Message;
+                while (_Client.TryGetPacket(out _Message))
                 {
-                    PacketProcessor.Receive(p);
+                    PacketProcessor.Receive(_Message);
                 }
 			}
 			catch
-			{
-			}
+            {
+                Disconnect(_Reader.Socket);
+                ResourcesManager.DropClient(_Reader.Socket.Handle);
+            }
 		}
 
 		public static void Disconnect(Socket _Socket)

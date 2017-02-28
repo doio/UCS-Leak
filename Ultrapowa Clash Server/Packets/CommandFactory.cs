@@ -62,6 +62,7 @@ namespace UCS.Packets
             m_vCommands.Add(538, typeof(MyLeagueCommand));
             m_vCommands.Add(539, typeof(NewsSeenCommand));
             m_vCommands.Add(540, typeof(RequestAllianceUnitsCommand));
+            m_vCommands.Add(541, typeof(SpeedUpRequestUnitsCommand));
             m_vCommands.Add(543, typeof(KickAllianceMemberCommand));
             m_vCommands.Add(544, typeof(GetVillageLayoutsCommand));
             m_vCommands.Add(546, typeof(EditVillageLayoutCommand));

@@ -15,13 +15,13 @@ namespace UCS.Packets
 {
     internal class Client
     {
-        readonly long m_vSocketHandle;
+        readonly IntPtr m_vSocketHandle;
         Level m_vLevel;
 
         public Client(Socket so)
         {
             Socket = so;
-            m_vSocketHandle = so.Handle.ToInt64();
+            m_vSocketHandle = so.Handle;
             DataStream = new List<byte>();
             State = ClientState.Exception;
             IncomingPacketsKey = new byte[Key._RC4_EndecryptKey.Length];
@@ -40,7 +40,7 @@ namespace UCS.Packets
         public List<byte> DataStream { get; set; }
         public Socket Socket { get; set; }
         public Level GetLevel() => m_vLevel;
-        public long GetSocketHandle() => m_vSocketHandle;
+        public IntPtr GetSocketHandle() => m_vSocketHandle;
         public uint ClientSeed { get; set; }
         public byte[] IncomingPacketsKey { get; set; }
         public byte[] OutgoingPacketsKey { get; set; }

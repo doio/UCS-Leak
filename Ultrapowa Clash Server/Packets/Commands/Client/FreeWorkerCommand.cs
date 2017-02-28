@@ -37,7 +37,7 @@ namespace UCS.Packets.Commands.Client
             {
                 IPEndPoint r = level.GetClient().Socket.RemoteEndPoint as IPEndPoint;
                 ConnectionBlocker.AddNewIpToBlackList(r.Address.ToString());
-                ResourcesManager.DropClient(level.GetClient().Socket.Handle.ToInt64());                
+                ResourcesManager.DropClient(level.GetClient().Socket.Handle);                
             }
 
             if (level.WorkerManager.GetFreeWorkers() == 0)

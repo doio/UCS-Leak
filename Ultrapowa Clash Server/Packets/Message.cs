@@ -190,10 +190,7 @@ namespace UCS.Packets
             Logger.Write("Server Message " + type + " was sent");
         }
 
-        public void SetMessageVersion(ushort v)
-        {
-            m_vMessageVersion = v;
-        }
+        public void SetMessageVersion(ushort v) => m_vMessageVersion = v;
 
         public string ToHexString()
         {
