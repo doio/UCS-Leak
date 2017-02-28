@@ -50,6 +50,7 @@ namespace UCS.Helpers
                             Say("/addip             - Add an IP to the Blacklist");
                             Say("/maintenance       - Begin Server Maintenance.");
                             Say("/saveall           - Saves everything to the Database");
+                            Say("/dl csv            - Downloads latest CSV Files (if Fingerprint is up to Date).");
                             Say("/info              - Shows the UCS Informations.");
                             Say("/info 'command'    - More Info On a Command. Ex: /info gui");
                             Print("------------------------------------------------------------------------------>");
@@ -64,6 +65,10 @@ namespace UCS.Helpers
                             Say("");
                             Say("©Ultrapowa 2014 - " + DateTime.Now.Year);
                             Console.WriteLine("------------------------------------->");
+                            break;
+
+                        case "/dl csv":
+                            CSVManager.DownloadLatestCSVFiles();
                             break;
 
                         case "/banned":

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -81,32 +82,85 @@ namespace UCS.Core
             try
             {
                 string _DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + ObjectManager.FingerPrint.sha + "/";
-                
+                bool DownloadOnlyCSV;
+                back:
+                Console.WriteLine("Do you want to download only CSV Files or all (Includes SC...)? Y = Yes, N = No.");
+                string answer = Console.ReadLine().ToUpper();
+
+                if (answer == "Y")
+                {
+                    DownloadOnlyCSV = true;
+                }
+                else if(answer == "N")
+                {
+                    DownloadOnlyCSV = false;
+                }
+                else
+                {
+                    goto back;
+                }
+
+                WebClient _WC = new WebClient();
+                string _FingerPrint = _WC.DownloadString(new Uri(_DownloadString + "fingerprint.json"));
+
+                JObject jsonObject = JObject.Parse(_FingerPrint);
+                JArray jsonFilesArray = (JArray)jsonObject["files"];
+
+                foreach (JObject _File in jsonFilesArray)
+                {
+                    string _CSV = _File["file"].ToObject<string>();
+                    string[] _Folder = _CSV.Split('/');
+
+                    if (DownloadOnlyCSV)
+                    {
+                        if (_Folder[0] == "csv")
+                        {
+                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1]);
+                        }
+                        else if (_Folder[0] == "logic")
+                        {
+                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1]);
+                        }
+                    }
+                    else
+                    {
+                        if (_Folder[0] != "sfx")
+                        {
+                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1]);
+                        }
+                    }
+                }
+                Console.WriteLine("All Files has been succesfully downloaded!");
             }
             catch (Exception)
             { 
             }
         } 
 
-        public static void DownloadFileFromWebServer(string _Link, string _Sublink, string _Folder)
+        public static void DownloadFile(string _Link, string _Sublink, string _Folder, string _FileName, bool HasSubFolder = false)
         {
             try
             {
                 string _FileLink = _Link + _Sublink;
 
-                if (_Folder == "csv")
+                if (HasSubFolder)
                 {
-                    if (!Directory.Exists("Gamefiles/update/csv"))
-                    {
-                        Directory.CreateDirectory("Gamefiles/update/csv");
-                    }
+                    // Todo
                 }
-                else if (_Folder == "logic")
+                else
                 {
-                    if(!Directory.Exists("Gamefiles/update/logic"))
+                    if (!Directory.Exists("Gamefiles/update/" + _Folder))
                     {
-                        Directory.CreateDirectory("Gamefiles/update/logic");
-                    }  
+                        Directory.CreateDirectory("Gamefiles/update/" + _Folder);
+                    }
+
+                    WebClient _WC = new WebClient();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write("Downloading '" + _FileName + "'... ");
+                    _WC.DownloadFile(new Uri(_FileLink), "Gamefiles/update/" + _Folder + "/" + _FileName);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("DONE");
+                    Console.ResetColor();
                 }
             }
             catch (Exception)

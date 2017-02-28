@@ -28,7 +28,7 @@
  <add key="ClientVersion" value="8.709"/>
       <!-- Required Client Version to connect -->
   <add key="MaxOnlinePlayers" value="1000"/>
-  <!-- This Function is only available for Ultra Users -->
+  <!-- (Max 2000) This Function is only available for Ultra Users -->
       
   <!-- ____________________________________ UCS SETTINGS ____________________________________ -->
 	

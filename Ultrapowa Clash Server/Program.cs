@@ -58,10 +58,16 @@ namespace UCS
 
             Console.ResetColor();
 
-            Logger.WriteCenter("This program is made by the Ultrapowa Development Team.");
-            Logger.WriteCenter("Ultrapowa is not affiliated to \"Supercell, Oy\".");
-            Logger.WriteCenter("This program is copyrighted worldwide.");
-            Logger.WriteCenter("Visit www.ultrapowa.com daily for News & Updates!");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Logger.WriteCenter("+-------------------------------------------------------+");
+            Console.ResetColor();
+            Logger.WriteCenter("|This program is made by the Ultrapowa Development Team.|");
+            Logger.WriteCenter("|    Ultrapowa is not affiliated to \"Supercell, Oy\".    |");
+            Logger.WriteCenter("|        This program is copyrighted worldwide.         |");
+            Logger.WriteCenter("|   Visit www.ultrapowa.com daily for News & Updates!   |");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Logger.WriteCenter("+-------------------------------------------------------+");
+            Console.ResetColor();
 
             for (int i = 20; i < 237; i++)
             {
@@ -79,10 +85,12 @@ namespace UCS
 
             if (Constants.IsRc4)
             {
+                Say();
                 Logger.WriteCenter("UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
             }
             else
             {
+                Say();
                 Logger.WriteCenter("UCS is running under Pepper mode. Please make sure client key is modded.");
             }
 

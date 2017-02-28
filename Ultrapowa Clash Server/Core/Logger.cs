@@ -72,6 +72,16 @@ namespace UCS.Core
             Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
         }
 
+        public static void WriteColored(string _String, int ColorID = 1)
+        {
+            if (ColorID == 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(_String);
+                Console.ResetColor();
+            }
+        }
+
         public static void Print(string message)
         {
             Console.WriteLine(message);

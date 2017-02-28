@@ -1009,6 +1009,9 @@
     <None Include="filter.ucs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="start.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ucsdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
