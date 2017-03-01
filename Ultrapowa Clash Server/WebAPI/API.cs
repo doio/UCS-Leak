@@ -49,7 +49,7 @@ namespace UCS.WebAPI
 
                     if (Port == 80)
                     {
-                        Console.WriteLine("[UCS]    Can't start the API on Port 80 using now default Port(88)");
+                        Logger.Say("Can't start the API on Port 80 using now default Port(88)");
                         Port = 88;
                         URL = "http://" + IP + ":" + Port + "/";
                     }
@@ -59,7 +59,7 @@ namespace UCS.WebAPI
                     Listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
                     Listener.Start();
 
-                    Console.WriteLine("[UCS]    The WebAPI has been started on '" + Port + "'");
+                    Logger.Say("The WebAPI has been started on '" + Port + "'");
 
                     ThreadPool.QueueUserWorkItem((o) =>
                     {
@@ -85,7 +85,7 @@ namespace UCS.WebAPI
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("[UCS]    Please check if the Port '" + Port + "' is not in use.");
+                    Logger.Say("Please check if the Port '" + Port + "' is not in use.");
                 }
             }).Start();
         }
