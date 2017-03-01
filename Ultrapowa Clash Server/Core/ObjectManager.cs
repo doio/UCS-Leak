@@ -66,20 +66,23 @@ namespace UCS.Core
 
         private async void Save(object state)
         {
-            if (!IsRunning)
+            new Thread(() =>
             {
-                IsRunning = true;
-
-                m_vDatabase.Save(ResourcesManager.GetInMemoryLevels()).Wait();
-                m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances()).Wait();
-
-                IsRunning = false;
-
-                if (m_vTimerCanceled)
+                if (!IsRunning)
                 {
-                    TimerReference.Dispose();
+                    IsRunning = true;
+
+                    m_vDatabase.Save(ResourcesManager.GetInMemoryLevels());
+                    m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances());
+
+                    IsRunning = false;
+
+                    if (m_vTimerCanceled)
+                    {
+                        TimerReference.Dispose();
+                    }
                 }
-            }
+            }).Start();
         }
 
         public static Alliance CreateAlliance(long seed)
