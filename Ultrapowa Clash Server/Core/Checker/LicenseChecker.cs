@@ -31,7 +31,7 @@ namespace UCS.Core
 
                 if (Key.Length == 32)
                 {
-                    TcpClient client     = new TcpClient("213.202.254.160", 8008);
+                    TcpClient client     = new TcpClient("94.23.23.117", 8008);
                     byte[] data          = Encoding.ASCII.GetBytes(Key);
                     NetworkStream stream = client.GetStream();
                     stream.Write(data, 0, data.Length);
@@ -75,6 +75,20 @@ namespace UCS.Core
                             Say("UCS will be closed now...");
                             Thread.Sleep(4000);
                             Environment.Exit(0);
+                        }
+                        else if (Convert.ToInt32(responseData) == 300)
+                        {
+                            Say();
+                            Say("The installed Key is invalid!");
+                            try
+                            {
+                                string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+                                File.Delete(_FilePath);
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            goto back;
                         }
                     }
                     else
