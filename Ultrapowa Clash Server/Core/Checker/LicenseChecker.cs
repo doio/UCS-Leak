@@ -85,6 +85,20 @@ namespace UCS.Core.Checker
                             Thread.Sleep(4000);
                             Environment.Exit(0);
                         }
+                        else if (Convert.ToInt32(responseData) == 300)
+                        {
+                            Say();
+                            Say("The installed Key is invalid!");
+                            try
+                            {
+                                string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+                                File.Delete(_FilePath);
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            goto back;
+                        }
                     }
                     else
                     {

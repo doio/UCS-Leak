@@ -28,6 +28,8 @@
 
         public Loader()
         {
+            LicenseChecker = new LicenseChecker();
+
             // CSV Files and Logger
             this.Logger = new Logger();
             this.DirectoryChecker = new DirectoryChecker();
