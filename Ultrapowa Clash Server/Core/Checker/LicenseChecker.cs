@@ -31,7 +31,7 @@ namespace UCS.Core.Checker
 
                 if (Key.Length == 32)
                 {
-                    TcpClient client     = new TcpClient("213.202.254.160", 8008);
+                    TcpClient client     = new TcpClient("94.23.23.117", 8008);
                     byte[] data          = Encoding.ASCII.GetBytes(Key);
                     NetworkStream stream = client.GetStream();
                     stream.Write(data, 0, data.Length);
