@@ -5,18 +5,23 @@ using UCS.Core;
 using UCS.Core.Checker;
 using UCS.Files.Logic;
 using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 518
     internal class BuyResourcesCommand : Command
     {
-        public BuyResourcesCommand(PacketReader br)
+        public BuyResourcesCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vResourceId = br.ReadInt32WithEndian();
-            m_vResourceCount = br.ReadInt32WithEndian();
-            m_vIsCommandEmbedded = br.ReadBoolean();
+       
+        }
+
+        internal override void Decode()
+        {
+            this.m_vResourceId = this.Reader.ReadInt32();
+            this.m_vResourceCount = this.Reader.ReadInt32();
+            this.m_vIsCommandEmbedded = this.Reader.ReadBoolean();
             if (m_vIsCommandEmbedded)
             {
                 Depth++;
@@ -25,29 +30,28 @@ namespace UCS.Packets.Commands.Client
                     Console.WriteLine("Detected UCS Exploit.");
                 }
                 Depth = Depth;
-                m_vCommand = CommandFactory.Read(br);
             }
-            Unknown1 = br.ReadInt32WithEndian();
+            this.Unknown1 = this.Reader.ReadInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Process()
         {
             if (Depth >= MaxEmbeddedDepth)
             {
-                IPEndPoint r = level.GetClient().Socket.RemoteEndPoint as IPEndPoint;
+                IPEndPoint r = this.Device.Socket.RemoteEndPoint as IPEndPoint;
                 ConnectionBlocker.AddNewIpToBlackList(r.Address.ToString());
-                ResourcesManager.DropClient(level.GetClient().Socket.Handle);
+                ResourcesManager.DropClient(this.Device.Socket.Handle);
             }
             else
             {
-                var rd = (ResourceData)CSVManager.DataTables.GetDataById(m_vResourceId);
+                var rd = (ResourceData) CSVManager.DataTables.GetDataById(m_vResourceId);
                 if (rd != null)
                 {
                     if (m_vResourceCount >= 1)
                     {
                         if (!rd.PremiumCurrency)
                         {
-                            var avatar = level.GetPlayerAvatar();
+                            var avatar = this.Device.Player.Avatar;
                             var diamondCost = GamePlayUtil.GetResourceDiamondCost(m_vResourceCount, rd);
                             var unusedResourceCap = avatar.GetUnusedResourceCap(rd);
                             if (m_vResourceCount <= unusedResourceCap)
@@ -58,25 +62,28 @@ namespace UCS.Packets.Commands.Client
                                     avatar.CommodityCountChangeHelper(0, rd, m_vResourceCount);
                                     if (m_vIsCommandEmbedded)
                                     {
-                                        Depth++;
-
-                                        if (Depth >= MaxEmbeddedDepth)
-                                            throw new ArgumentException(
-                                                "A command contained embedded command depth was greater than max embedded commands.");
-
-                                        ((Command)m_vCommand).Execute(level);
+                                        int CommandID = this.Reader.ReadInt32();
+                                        Command _Command =
+                                            Activator.CreateInstance(CommandFactory.Commands[CommandID], this.Reader,
+                                                this.Device, CommandID) as Command;
+                                        if (_Command != null)
+                                        {
+                                            _Command.Decode();
+                                            _Command.Process();
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                } }
+                }
+            }
         }
 
-        readonly object m_vCommand;
-        readonly bool m_vIsCommandEmbedded;
-        readonly int m_vResourceCount;
-        readonly int m_vResourceId;
-        readonly int Unknown1;
+        internal object m_vCommand;
+        internal bool m_vIsCommandEmbedded;
+        internal int m_vResourceCount;
+        internal int m_vResourceId;
+        internal int Unknown1;
     }
 }

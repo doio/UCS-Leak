@@ -1,25 +1,22 @@
-using System.Collections.Generic;
-using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24318
     internal class AllianceStreamEntryRemovedMessage : Message
     {
-        public AllianceStreamEntryRemovedMessage(Packets.Client client, int i) : base(client)
+        public AllianceStreamEntryRemovedMessage(Device client, int i) : base(client)
         {
-            SetMessageType(24318);
+            this.Identifier = 24318;
             m_vId = i;
         }
 
         public int m_vId;
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(0);
-            pack.AddInt32(m_vId);
-            Encrypt(pack.ToArray());
+            this.Data.AddInt(0);
+            this.Data.AddInt(m_vId);
         }
     }
 }

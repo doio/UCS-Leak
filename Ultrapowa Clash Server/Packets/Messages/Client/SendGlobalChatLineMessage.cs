@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using UCS.Core;
 using UCS.Core.Checker;
 using UCS.Core.Network;
 using UCS.Core.Threading;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -16,99 +17,95 @@ namespace UCS.Packets.Messages.Client
     // Packet 14715
     internal class SendGlobalChatLineMessage : Message
     {
-        public SendGlobalChatLineMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public SendGlobalChatLineMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         public string Message { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                Message = br.ReadString();
-            }
+            this.Message = this.Reader.ReadString();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
-            try
-            {
-                if (Message.Length > 0)
-                {
-                    if (Message.Length < 101)
-                    {
-                        if (Message[0] == '/')
-                        {
-                            if (Message == "/test")
-                            {
-                                PacketProcessor.Send(new HomeBattleReplayDataMessage(Client));
-                            }
 
-                            object obj = GameOpCommandFactory.Parse(Message);
-                            if (obj != null)
+            if (Message.Length > 0 && Message.Length < 200)
+            {
+                if (Message[0] == '/')
+                {
+                    object obj = GameOpCommandFactory.Parse(Message);
+                    if (obj != null)
+                    {
+                        string player = "";
+                        if (this.Device.Player != null)
+                            player += " (" + this.Device.Player.Avatar.GetId() + ", " +
+                                      this.Device.Player.Avatar.AvatarName + ")";
+                        ((GameOpCommand) obj).Execute(this.Device.Player);
+                    }
+                }
+                else
+                {
+                    long senderId = this.Device.Player.Avatar.GetId();
+                    string senderName = this.Device.Player.Avatar.AvatarName;
+
+                    bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
+
+                    try
+                    {
+                        if (badword)
+                        {
+                            foreach (Level pl in ResourcesManager.GetOnlinePlayers())
                             {
-                                string player = "";
-                                if (level != null)
-                                    player += " (" + level.GetPlayerAvatar().GetId() + ", " +
-                                              level.GetPlayerAvatar().GetAvatarName() + ")";
-                                ((GameOpCommand)obj).Execute(level);
+                                if (pl.Avatar.Region == this.Device.Player.Avatar.Region)
+                                {
+                                string NewMessage = "";
+
+                                for (int i = 0; i < Message.Length; i++)
+                                {
+                                    NewMessage += "*";
+                                }
+                                GlobalChatLineMessage p = new GlobalChatLineMessage(pl.Client)
+                                {
+                                    PlayerName = senderName,
+                                    Message = NewMessage,
+                                    HomeId = senderId,
+                                    CurrentHomeId = senderId,
+                                    LeagueId = this.Device.Player.Avatar.GetLeagueId()
+                                };
+
+                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId()));
+                                p.Send();
+                                }
                             }
                         }
                         else
                         {
-                            long senderId = level.GetPlayerAvatar().GetId();
-                            string senderName = level.GetPlayerAvatar().GetAvatarName();
-
-                            bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
-
-                            if (badword)
+                            foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                             {
-                                foreach (Level pl in ResourcesManager.GetOnlinePlayers())
+                                if (onlinePlayer.Avatar.Region == this.Device.Player.Avatar.Region)
                                 {
-                                    /*if (pl.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                    {*/
-                                    GlobalChatLineMessage p = new GlobalChatLineMessage(pl.GetClient());
-                                    string NewMessage = "";
-
-                                    for (int i = 0; i < Message.Length; i++)
+                                    GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.Client)
                                     {
-                                        NewMessage += "*";
-                                    }
-
-                                    p.SetPlayerName(senderName);
-                                    p.SetChatMessage(NewMessage);
-                                    p.SetPlayerId(senderId);
-                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                                    p.SetAlliance(await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-
-                                    ChatProcessor.AddMessage(p);
-                                    //PacketManager.Send(p);
-                                    //}
-                                }
-                            }
-                            else
-                            {
-                                foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                                {
-                                    /*if (onlinePlayer.GetPlayerAvatar().GetUserRegion() == level.GetPlayerAvatar().GetUserRegion())
-                                    {*/
-                                    GlobalChatLineMessage p = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                                    p.SetPlayerName(senderName);
-                                    p.SetChatMessage(Message);
-                                    p.SetPlayerId(senderId);
-                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                                    p.SetAlliance(await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId()));
-                                    //PacketManager.Send(p);
-                                    ChatProcessor.AddMessage(p);
+                                        PlayerName = senderName,
+                                        Message = this.Message,
+                                        HomeId = senderId,
+                                        CurrentHomeId = senderId,
+                                        LeagueId = this.Device.Player.Avatar.GetLeagueId()
+                                    };
+                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId()));
+                                    p.Send();
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
-                                    //}
                                 }
                             }
                         }
                     }
+                    catch (Exception)
+                    {
+                    }
                 }
-            } catch (Exception) { }
+            }
         }
     }
 }

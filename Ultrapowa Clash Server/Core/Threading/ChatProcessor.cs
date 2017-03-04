@@ -27,7 +27,7 @@ namespace UCS.Core.Threading
                     {
                         foreach (GlobalChatLineMessage cl in Messages)
                         {
-                            PacketProcessor.Send(cl);
+                            Processor.Send(cl);
                             Messages.Remove(cl);
                         }
                     }

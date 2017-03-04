@@ -2,10 +2,10 @@
 {
     public class xsalsa20poly1305
     {
+        internal readonly int crypto_secretbox_BOXZEROBYTES = 16;
         internal readonly int crypto_secretbox_KEYBYTES = 32;
         internal readonly int crypto_secretbox_NONCEBYTES = 24;
         internal readonly int crypto_secretbox_ZEROBYTES = 32;
-        internal readonly int crypto_secretbox_BOXZEROBYTES = 16;
 
         public static int crypto_secretbox(byte[] c, byte[] m, long mlen, byte[] n, byte[] k)
         {

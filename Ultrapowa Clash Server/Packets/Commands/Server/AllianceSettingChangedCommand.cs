@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace  UCS.Packets.Commands.Server
@@ -11,19 +9,18 @@ namespace  UCS.Packets.Commands.Server
         private Alliance m_vAlliance;
         private Level m_vPlayer;
 
-        public AllianceSettingChangedCommand()
+        public AllianceSettingChangedCommand(Device client) : base(client)
         {
+            this.Identifier = 6;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
             m_vPlayer.Tick();
-            List<byte> data = new List<byte>();
-            data.AddInt64(m_vAlliance.GetAllianceId());
-            data.AddInt32(m_vAlliance.GetAllianceBadgeData());
-            data.AddInt32(m_vAlliance.GetAllianceLevel());
-            data.AddInt32(0); //Tick
-            return data.ToArray();
+            this.Data.AddLong(m_vAlliance.GetAllianceId());
+            this.Data.AddInt(m_vAlliance.GetAllianceBadgeData());
+            this.Data.AddInt(m_vAlliance.GetAllianceLevel());
+            this.Data.AddInt(0); //Tick
         }
 
         public void SetAlliance(Alliance alliance)

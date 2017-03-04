@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Logic.Enums;
 using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Commands.Client
@@ -13,26 +11,28 @@ namespace UCS.Packets.Commands.Client
     // Packet 700
     internal class SearchOpponentCommand : Command
     {
-        public SearchOpponentCommand(PacketReader br)
+        public SearchOpponentCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
         }
 
-        public override async void Execute(Level level)
+        internal override void Decode()
+        {
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override async void Process()
         {
             try
             {
-                ClientAvatar p = level.GetPlayerAvatar();
-
-                if (p.State == ClientAvatar.UserState.PVP || p.State == ClientAvatar.UserState.PVE)
+                if (this.Device.PlayerState == State.IN_BATTLE)
                 {
-                    ResourcesManager.DisconnectClient(level.GetClient());
+                    ResourcesManager.DisconnectClient(this.Device);
                 }
                 else
                 {
-                    /*if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                    /*if (level.Avatar.GetUnits().Count < 10)
                     {
                         for (int i = 0; i < 31; i++)
                         {
@@ -41,8 +41,8 @@ namespace UCS.Packets.Commands.Client
                             int maxLevel = combatData.GetUpgradeLevelCount();
                             DataSlot unitSlot = new DataSlot(unitData, 1000);
 
-                            level.GetPlayerAvatar().GetUnits().Add(unitSlot);
-                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                            level.Avatar.GetUnits().Add(unitSlot);
+                            level.Avatar.SetUnitUpgradeLevel(combatData, maxLevel - 1);
                         }
 
                         for (int i = 0; i < 18; i++)
@@ -52,25 +52,28 @@ namespace UCS.Packets.Commands.Client
                             int maxLevel = combatData.GetUpgradeLevelCount();
                             DataSlot spellSlot = new DataSlot(spellData, 1000);
 
-                            level.GetPlayerAvatar().GetSpells().Add(spellSlot);
-                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                            level.Avatar.GetSpells().Add(spellSlot);
+                            level.Avatar.SetUnitUpgradeLevel(combatData, maxLevel - 1);
                         }
                     }*/
 
                     // New Method
-                    p.State = ClientAvatar.UserState.Searching;
+                    this.Device.PlayerState = State.SEARCH_BATTLE;
                     Level Defender = await ObjectManager.GetRandomOnlinePlayerWithoutShield();
                     if (Defender != null)
                     {
                         Defender.Tick();
-                        PacketProcessor.Send(new EnemyHomeDataMessage(level.GetClient(), Defender, level));
+                        new EnemyHomeDataMessage(this.Device, Defender, this.Device.Player).Send();
                     }
                     else
                     {
-                        PacketProcessor.Send(new OutOfSyncMessage(level.GetClient()));
+                        new OutOfSyncMessage(this.Device).Send();
                     }
                 }
-            } catch (Exception) { }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,23 +6,27 @@ namespace UCS.Packets.Commands.Client
     // Packet 501
     internal class MoveBuildingCommand : Command
     {
-        public MoveBuildingCommand(PacketReader br)
+        public MoveBuildingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X = br.ReadInt32WithEndian();
-            Y = br.ReadInt32WithEndian();
-            BuildingId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            GameObject go = level.GameObjectManager.GetGameObjectByID(BuildingId);
-            go.SetPositionXY(X, Y, level.GetPlayerAvatar().GetActiveLayout());
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
         }
 
-        public int BuildingId { get; set; }
-        public uint Unknown1 { get; set; }
-        public int X { get; set; } 
-        public int Y { get; set; }
+        internal override void Process()
+        {
+            GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
+            go.SetPositionXY(X, Y, this.Device.Player.Avatar.GetActiveLayout());
+        }
+
+        public int BuildingId;
+        public uint Unknown1;
+        public int X;
+        public int Y;
     }
 }

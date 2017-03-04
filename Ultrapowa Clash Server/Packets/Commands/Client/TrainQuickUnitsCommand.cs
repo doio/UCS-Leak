@@ -1,34 +1,34 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
 	internal class TrainQuickUnitsCommand : Command
 	{
-		public TrainQuickUnitsCommand(PacketReader br)
+	    public TrainQuickUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
+	    {
+	        
+	    }
+
+	    internal override void Decode()
 		{
-			DataSlotID = br.ReadInt32(); 
-			Tick = br.ReadInt32(); 
+		    this.DataSlotID = this.Reader.ReadInt32(); 
+			this.Tick = this.Reader.ReadInt32(); 
 		}
 
-		public int DataSlotID { get; set; }
-		public int Tick { get; set; }
+	    public int DataSlotID;
+	    public int Tick;
 
-		public override void Execute(Level level)
+		internal override void Process()
 		{
-			var player = level.GetPlayerAvatar();
-			var units = player.GetUnits();
+			var player = this.Device.Player.Avatar;
 
 			if (DataSlotID == 1)
 			{
 				foreach (DataSlot i in player.QuickTrain1)
 				{
-                    List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
                     DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {
@@ -45,7 +45,7 @@ namespace UCS.Packets.Commands.Client
 			{
 				foreach (DataSlot i in player.QuickTrain2)
 				{
-                    List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
                     DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {
@@ -62,7 +62,7 @@ namespace UCS.Packets.Commands.Client
 			{
 				foreach (DataSlot i in player.QuickTrain3)
 				{
-                    List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
                     DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {

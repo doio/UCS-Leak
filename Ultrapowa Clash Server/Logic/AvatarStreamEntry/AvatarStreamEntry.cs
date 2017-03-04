@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.AvatarStreamEntry
 {
@@ -22,14 +23,14 @@ namespace UCS.Logic.AvatarStreamEntry
         public virtual byte[] Encode()
         {
             var data = new List<byte>();
-            data.AddInt32(GetStreamEntryType());
-            data.AddInt64(m_vId);
+            data.AddInt(GetStreamEntryType());
+            data.AddLong(m_vId);
             data.Add(1);
-            data.AddInt64(m_vSenderId);
+            data.AddLong(m_vSenderId);
             data.AddString(m_vSenderName);
-            data.AddInt32(m_vSenderLevel);
-            data.AddInt32(m_vSenderLeagueId);
-            data.AddInt32(10);
+            data.AddInt(m_vSenderLevel);
+            data.AddInt(m_vSenderLeagueId);
+            data.AddInt(10);
             data.Add(m_vIsNew);
             return data.ToArray();
         }
@@ -52,7 +53,7 @@ namespace UCS.Logic.AvatarStreamEntry
         public void SetAvatar(ClientAvatar avatar)
         {
             m_vSenderId = avatar.GetId();
-            m_vSenderName = avatar.GetAvatarName();
+            m_vSenderName = avatar.AvatarName;
             m_vSenderLevel = avatar.GetAvatarLevel();
             m_vSenderLeagueId = avatar.GetLeagueId();
         }

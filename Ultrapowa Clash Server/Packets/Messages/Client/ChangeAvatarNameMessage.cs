@@ -1,7 +1,7 @@
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -10,32 +10,31 @@ namespace UCS.Packets.Messages.Client
     // Packet 10212
     internal class ChangeAvatarNameMessage : Message
     {
-        public ChangeAvatarNameMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChangeAvatarNameMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         string PlayerName { get; set; }  
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                PlayerName = br.ReadString();
-            }
+            this.PlayerName = this.Reader.ReadString();
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
             if (string.IsNullOrEmpty(PlayerName) || PlayerName.Length > 15)
             {
-                ResourcesManager.DisconnectClient(Client);
+                ResourcesManager.DisconnectClient(Device);
             }
             else
             {
-                level.GetPlayerAvatar().SetName(PlayerName);
-                AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(Client);
-                p.SetAvatarName(level.GetPlayerAvatar().GetAvatarName());
-                PacketProcessor.Send(p);
+                this.Device.Player.Avatar.SetName(PlayerName);
+                AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(this.Device)
+                {
+                    AvatarName = this.Device.Player.Avatar.AvatarName
+                };
+                p.Send();
             }
             //new RequestConfirmChangeNameMessage(Client, PlayerName);
         }

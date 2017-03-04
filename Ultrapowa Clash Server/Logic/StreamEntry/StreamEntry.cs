@@ -5,6 +5,7 @@ using UCS.Helpers;
 using UCS.Logic.DataSlots;
 using UCS.Files.Logic;
 using UCS.Core;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -36,17 +37,17 @@ namespace UCS.Logic.StreamEntry
         public virtual byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            data.AddInt32(GetStreamEntryType());
-            data.AddInt32(0);
-            data.AddInt32(m_vId);
+            data.AddInt(GetStreamEntryType());
+            data.AddInt(0);
+            data.AddInt(m_vId);
             data.Add(3);
-            data.AddInt64(m_vSenderId);
-            data.AddInt64(m_vHomeId);
+            data.AddLong(m_vSenderId);
+            data.AddLong(m_vHomeId);
             data.AddString(m_vSenderName);
-            data.AddInt32(m_vSenderLevel);
-            data.AddInt32(m_vSenderLeagueId);
-            data.AddInt32(m_vSenderRole);
-            data.AddInt32(GetAgeSeconds());
+            data.AddInt(m_vSenderLevel);
+            data.AddInt(m_vSenderLeagueId);
+            data.AddInt(m_vSenderRole);
+            data.AddInt(GetAgeSeconds());
             return data.ToArray();
         }
 
@@ -105,7 +106,7 @@ namespace UCS.Logic.StreamEntry
         {
             m_vSenderId       = avatar.GetId();
             m_vHomeId         = avatar.GetId();
-            m_vSenderName     = avatar.GetAvatarName();
+            m_vSenderName     = avatar.AvatarName;
             m_vSenderLeagueId = avatar.GetLeagueId();
             m_vSenderLevel    = avatar.GetAvatarLevel();
             m_vSenderRole     = await avatar.GetAllianceRole();

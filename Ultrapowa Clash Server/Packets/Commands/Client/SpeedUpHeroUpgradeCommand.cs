@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,27 +6,29 @@ namespace UCS.Packets.Commands.Client
     // Packet 528
     internal class SpeedUpHeroUpgradeCommand : Command
     {
-        public SpeedUpHeroUpgradeCommand(PacketReader br)
+        public SpeedUpHeroUpgradeCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingId = br.ReadInt32WithEndian();
-            m_vUnknown1 = br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.m_vUnknown1 = this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(m_vBuildingId);
 
             if (go != null)
             {
                 var b = (Building) go;
                 var hbc = b.GetHeroBaseComponent();
-                if (hbc != null)
-                    hbc.SpeedUpUpgrade();
+                hbc?.SpeedUpUpgrade();
             }
         }
 
-        readonly int m_vBuildingId;
-        int m_vUnknown1;
+        internal int m_vBuildingId;
+        internal int m_vUnknown1;
     }
 }

@@ -18,7 +18,7 @@ namespace UCS.Packets.GameOpCommands
         }
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 if (m_vArgs.Length >= 2)
                 {
@@ -28,8 +28,10 @@ namespace UCS.Packets.GameOpCommands
                         Level l = await ResourcesManager.GetPlayer(id);
                         if (l != null)
                         {
-                            ClientAvatar acc = l.GetPlayerAvatar();
-                            Message = "Player Info : \n\n" + "ID = " + id + "\nName = " + acc.GetAvatarName() + "\nCreation Date : " + acc.GetAccountCreationDate() + "\nRegion : " + acc.GetUserRegion() + "\nIP Address : " + l.GetIPAddress();
+                            ClientAvatar acc = l.Avatar;
+                            Message = "Player Info : \n\n" + "ID = " + id + "\nName = " + acc.AvatarName +
+                                      "\nCreation Date : " + acc.GetAccountCreationDate() + "\nRegion : " + acc.Region +
+                                      "\nIP Address : " + l.Avatar.IPAddress;
                             if (acc.GetAllianceId() != 0)
                             {
                                 Alliance a = await ObjectManager.GetAlliance(acc.GetAllianceId());
@@ -57,13 +59,15 @@ namespace UCS.Packets.GameOpCommands
                                         break;
                                 }
                             }
-                            Message = Message + "\nLevel : " + acc.GetAvatarLevel() + "\nTrophy : " + acc.GetScore() + "\nTown Hall Level : " + (acc.GetTownHallLevel() + 1)  + "\nAlliance Castle Level : " + (acc.GetAllianceCastleLevel() + 1);
+                            Message = Message + "\nLevel : " + acc.GetAvatarLevel() + "\nTrophy : " + acc.GetScore() +
+                                      "\nTown Hall Level : " + (acc.GetTownHallLevel() + 1) +
+                                      "\nAlliance Castle Level : " + (acc.GetAllianceCastleLevel() + 1);
 
-                            var avatar = level.GetPlayerAvatar();
+                            var avatar = level.Avatar;
                             AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
                             mail.SetSenderId(avatar.GetId());
                             mail.SetSenderAvatarId(avatar.GetId());
-                            mail.SetSenderName(avatar.GetAvatarName());
+                            mail.SetSenderName(avatar.AvatarName);
                             mail.SetIsNew(2);
                             mail.SetAllianceId(0);
                             mail.SetAllianceBadgeData(1526735450);
@@ -72,30 +76,37 @@ namespace UCS.Packets.GameOpCommands
                             mail.SetSenderLevel(avatar.GetAvatarLevel());
                             mail.SetSenderLeagueId(avatar.GetLeagueId());
 
-                            AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.GetClient());
+                            AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.Client);
                             p.SetAvatarStreamEntry(mail);
-                            PacketProcessor.Send(p);
+                            Processor.Send(p);
                         }
                     }
                     catch (Exception)
                     {
-                        GlobalChatLineMessage c = new GlobalChatLineMessage(level.GetClient());
-                        c.SetChatMessage("Command Failed, Wrong Format Or User Doesn't Exist (/accinfo id).");
-                        c.SetPlayerId(level.GetPlayerAvatar().GetId());
-                        c.SetLeagueId(22);
-                        c.SetPlayerName("Ultrapowa Clash Server");
-                        PacketProcessor.Send(c);
+                        GlobalChatLineMessage c = new GlobalChatLineMessage(level.Client)
+                        {
+                            Message = "Command Failed, Wrong Format Or User Doesn't Exist (/accinfo id).",
+                            HomeId = level.Avatar.GetId(),
+                            CurrentHomeId = level.Avatar.GetId(),
+                            LeagueId = 22,
+                            PlayerName = "Ultrapowa Clash Server"
+                        };
+
+                        Processor.Send(c);
                         return;
                     }
                 }
                 else
                 {
-                    GlobalChatLineMessage b = new GlobalChatLineMessage(level.GetClient());
-                    b.SetChatMessage("Command Failed, Wrong Format (/accinfo id).");
-                    b.SetPlayerId(level.GetPlayerAvatar().GetId());
-                    b.SetLeagueId(22);
-                    b.SetPlayerName("Ultrapowa Clash Server");
-                    PacketProcessor.Send(b);
+                    GlobalChatLineMessage b = new GlobalChatLineMessage(level.Client)
+                    {
+                        Message = "Command Failed, Wrong Format (/accinfo id).",
+                        HomeId = level.Avatar.GetId(),
+                        CurrentHomeId = level.Avatar.GetId(),
+                        LeagueId = 22,
+                        PlayerName = "Ultrapowa Clash Server"
+                    };
+                    Processor.Send(b);
                 }
             }
         }

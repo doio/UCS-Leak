@@ -23,7 +23,7 @@ namespace UCS.Logic
 
         public void FillAmmo()
         {
-            var ca = GetParent().GetLevel().GetPlayerAvatar();
+            var ca = GetParent().Avatar.Avatar;
             var bd = (BuildingData) GetParent().GetData();
             var rd = CSVManager.DataTables.GetResourceByName(bd.AmmoResource);
 

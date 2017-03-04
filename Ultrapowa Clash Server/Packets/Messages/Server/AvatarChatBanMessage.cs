@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
@@ -11,16 +6,14 @@ namespace UCS.Packets.Messages.Server
     {
         public int m_vCode = 86400;
 
-        public AvatarChatBanMessage(Packets.Client client) : base(client)
+        public AvatarChatBanMessage(Device client) : base(client)
         {
-            SetMessageType(20118);
+            this.Identifier = 20118;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt32(m_vCode);
-            Encrypt(data.ToArray());
+            this.Data.AddInt(m_vCode);
         }
 
         public void SetBanPeriod(int code)

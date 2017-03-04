@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -11,44 +12,40 @@ namespace UCS.Packets.Messages.Server
     // Packet 24401
     internal class GlobalAlliancesMessage : Message
     {
-        List<Alliance> m_vAlliances;
-
-        public GlobalAlliancesMessage(Packets.Client client) : base(client)
+        public GlobalAlliancesMessage(Device client) : base(client)
         {
-            SetMessageType(24401);
+            this.Identifier = 24401;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
             List<byte> packet1 = new List<byte>();
             int i = 0;
 
-            foreach (var alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.GetScore()))
+            foreach (Alliance alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.GetScore()))
             {
                 if (i >= 100)
                     break;
-                packet1.AddInt64(alliance.GetAllianceId());
+                packet1.AddLong(alliance.GetAllianceId());
                 packet1.AddString(alliance.GetAllianceName());
-                packet1.AddInt32(i + 1);
-                packet1.AddInt32(alliance.GetScore());
-                packet1.AddInt32(i + 1);
-                packet1.AddInt32(alliance.GetAllianceBadgeData());
-                packet1.AddInt32(alliance.GetAllianceMembers().Count);
-                packet1.AddInt32(0);
-                packet1.AddInt32(alliance.GetAllianceLevel());
+                packet1.AddInt(i + 1);
+                packet1.AddInt(alliance.GetScore());
+                packet1.AddInt(i + 1);
+                packet1.AddInt(alliance.GetAllianceBadgeData());
+                packet1.AddInt(alliance.GetAllianceMembers().Count);
+                packet1.AddInt(0);
+                packet1.AddInt(alliance.GetAllianceLevel());
                 i++;
             }
 
-            data.AddInt32(i);
-            data.AddRange(packet1);
+            this.Data.AddInt(i);
+            this.Data.AddRange(packet1);
 
-            data.AddInt32((int) TimeSpan.FromDays(1).TotalSeconds);
-            data.AddInt32(3);
-            data.AddInt32(50000);
-            data.AddInt32(30000);
-            data.AddInt32(15000);
-            Encrypt(data.ToArray());
+            this.Data.AddInt((int) TimeSpan.FromDays(1).TotalSeconds);
+            this.Data.AddInt(3);
+            this.Data.AddInt(50000);
+            this.Data.AddInt(30000);
+            this.Data.AddInt(15000);
         }
     }
 }

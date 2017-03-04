@@ -1,23 +1,19 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using UCS.Utilities.ZLib;
+﻿using System.IO;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24224
     internal class ReplayData : Message
     {
-        public ReplayData(Packets.Client client) : base(client)
+        public ReplayData(Device client) : base(client)
         {
-            SetMessageType(24114);
+            this.Identifier = 24114;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            string text = File.ReadAllText("replay-json.txt");
-            data.AddRange(ZlibStream.CompressString(text));
-            Encrypt(data.ToArray());
+            this.Data.AddCompressed(File.ReadAllText("replay-json.txt"), false);
         }
     }
 }

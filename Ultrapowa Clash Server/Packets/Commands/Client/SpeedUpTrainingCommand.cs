@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using UCS.Core;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -11,15 +7,15 @@ namespace UCS.Packets.Commands.Client
     {
         readonly int m_vBuildingId;
 
-        public SpeedUpTrainingCommand(PacketReader br)
+        public SpeedUpTrainingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            br.ReadInt32();
-            br.ReadInt32(); // Troop Count?
-            br.ReadUInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadUInt32();
         }
     }
 }

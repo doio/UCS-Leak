@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,15 +6,20 @@ namespace UCS.Packets.Commands.Client
     // Packet 506
     internal class CollectResourcesCommand : Command
     {
-        public CollectResourcesCommand(PacketReader br)
+        public CollectResourcesCommand(Reader reader, Device client, int id) : base(reader, client, id)
+
         {
-            BuildingId = br.ReadInt32WithEndian(); 
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
 
             if (go != null)
             {
@@ -27,7 +31,7 @@ namespace UCS.Packets.Commands.Client
             }
         }
 
-        public int BuildingId { get; set; }
-        public uint Unknown1 { get; set; }
+        public int BuildingId;
+        public uint Unknown1;
     }
 }

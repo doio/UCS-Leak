@@ -1,32 +1,34 @@
-﻿using System.IO;
-using UCS.Core;
+﻿using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 523
     internal class ClaimAchievementRewardCommand : Command
     {
-        public ClaimAchievementRewardCommand(PacketReader br)
+        public ClaimAchievementRewardCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            AchievementId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
+            this.AchievementId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
 
-            var ad = (AchievementData)CSVManager.DataTables.GetDataById(AchievementId);
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
+
+            var ad = (AchievementData)CSVManager.DataTables.GetDataById(this.AchievementId);
 
             ca.AddDiamonds(ad.DiamondReward);
             ca.AddExperience(ad.ExpReward);
             ca.SetAchievment(ad, true);
         }
 
-        public int AchievementId { get; set; }
-        public uint Unknown1 { get; set; }
+        public int AchievementId;
+        public uint Unknown1;
     }
 }

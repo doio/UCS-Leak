@@ -122,7 +122,7 @@ namespace UCS.Logic.Manager
 
         public JObject Save()
         {
-            ClientAvatar pl = m_vLevel.GetPlayerAvatar();
+            ClientAvatar pl = m_vLevel.Avatar;
             var jsonData = new JObject();
             jsonData.Add("exp_ver", 1);
             jsonData.Add("android_client", pl.GetAndroid());
@@ -270,7 +270,7 @@ namespace UCS.Logic.Manager
             };
             jsonData.Add("newShopDecos", newShopDecos);
             jsonData.Add("troop_req_msg", "Ultrapowa Developement");
-            jsonData.Add("last_league_rank", m_vLevel.GetPlayerAvatar().GetLeagueId());
+            jsonData.Add("last_league_rank", m_vLevel.Avatar.GetLeagueId());
             jsonData.Add("last_league_shuffle", 1);
             jsonData.Add("last_season_seen", 1);
             jsonData.Add("last_news_seen", 999);

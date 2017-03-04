@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.DataSlots;
 using UCS.Packets.Messages.Server;
@@ -11,28 +11,25 @@ namespace UCS.Packets.Messages.Client
     // Packet 14344
     internal class RemoveFromBookmarkMessage : Message
     {
-        public RemoveFromBookmarkMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public RemoveFromBookmarkMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         private long id;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                id = br.ReadInt64WithEndian();
-            }
+            this.id = this.Reader.ReadInt64();
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
-            BookmarkSlot al = level.GetPlayerAvatar().BookmarkedClan.Find(a => a.Value == id);
+            BookmarkSlot al = this.Device.Player.Avatar.BookmarkedClan.Find(a => a.Value == id);
             if (al != null)
             {
-                level.GetPlayerAvatar().BookmarkedClan.Remove(al);
+                this.Device.Player.Avatar.BookmarkedClan.Remove(al);
             }
-            PacketProcessor.Send(new BookmarkRemoveAllianceMessage(Client));
+            new BookmarkRemoveAllianceMessage(Device).Send();
         } 
     }
 }

@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using UCS.Core;
+﻿using System.Collections.Generic;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Logic.Enums;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 600
     internal class PlaceAttackerCommand : Command
     {
-        public PlaceAttackerCommand(PacketReader br)
+        public PlaceAttackerCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X    = br.ReadInt32WithEndian();
-            Y    = br.ReadInt32WithEndian();
-            Unit = (CombatItemData)br.ReadDataReference(); ; 
-            Tick = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            if (level.GetPlayerAvatar().State != ClientAvatar.UserState.CHA)
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.Unit = (CombatItemData) this.Reader.ReadDataReference();
+            this.Tick = this.Reader.ReadUInt32();
+        }
+
+
+        internal override void Process()
+        {
+            if (this.Device.PlayerState != State.IN_BATTLE)
             {
-                List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
+                List<DataSlot> _PlayerUnits = this.Device.Player.Avatar.GetUnits();
 
                 DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == Unit.GetGlobalID());
                 if (_DataSlot != null)
@@ -34,9 +36,9 @@ namespace UCS.Packets.Commands.Client
             }
         }
 
-        public CombatItemData Unit { get; set; }
-        public uint Tick { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public CombatItemData Unit;
+        public uint Tick;
+        public int X;
+        public int Y;
     }
 }

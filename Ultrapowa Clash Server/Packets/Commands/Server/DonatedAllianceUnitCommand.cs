@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Files.Logic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Server
 {
     internal class DonatedAllianceUnitCommand : Command
     {
-        public DonatedAllianceUnitCommand()
+        public DonatedAllianceUnitCommand(Device client) : base(client)
         {
+            this.Identifier = 4;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
-            List<byte> _Data = new List<byte>();
-            _Data.AddString(Donator);
-            _Data.AddInt32(0);
-            _Data.AddInt32(TroopID);
-            _Data.AddInt32(TroopLevel);
-            _Data.AddInt32(1);
-            _Data.AddInt32(0);
-            return _Data.ToArray();
+            this.Data.AddString(Donator);
+            this.Data.AddInt(0);
+            this.Data.AddInt(TroopID);
+            this.Data.AddInt(TroopLevel);
+            this.Data.AddInt(1);
+            this.Data.AddInt(0);
         }
 
         public string Donator { get; set; }

@@ -41,7 +41,7 @@ namespace UCS.Logic
                 {
                     m_vUnits[unitIndex].Count++;
                 }
-                var ca = GetParent().GetLevel().GetPlayerAvatar();
+                var ca = GetParent().Avatar.Avatar;
                 var unitCount = ca.GetUnitCount(cd);
                 ca.SetUnitCount(cd, unitCount + 1);
             }
@@ -58,7 +58,7 @@ namespace UCS.Logic
                 }
                 else
                 {
-                    var cm = GetParent().GetLevel().GetComponentManager();
+                    var cm = GetParent().Avatar.GetComponentManager();
                     var maxCapacity = cm.GetTotalMaxHousing(); 
                     var usedCapacity = cm.GetTotalUsedHousing(); 
                     var housingSpace = cd.GetHousingSpace();
@@ -175,7 +175,7 @@ namespace UCS.Logic
                 {
                     us.Count -= count;
                 }
-                var ca = GetParent().GetLevel().GetPlayerAvatar();
+                var ca = GetParent().Avatar.Avatar;
                 var unitCount = ca.GetUnitCount(cd);
                 ca.SetUnitCount(cd, unitCount - count);
             }

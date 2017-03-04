@@ -3,61 +3,32 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UCS.Logic.Manager;
 using UCS.Packets;
-using System.Data.Entity;
-using UCS.Database;
-using System.Threading.Tasks;
 
 namespace UCS.Logic
 {
     internal class Level
     {
-        public GameObjectManager GameObjectManager;
-        public WorkerManager WorkerManager;
-        DateTime m_vTime;
-        Client m_vClient;
-        byte m_vAccountPrivileges;
-        byte m_vAccountStatus;
-        string m_vIPAddress;
-        readonly ClientAvatar m_vClientAvatar;
+        internal GameObjectManager GameObjectManager;
+        internal WorkerManager WorkerManager;
+        internal Device Client;
+        internal ClientAvatar Avatar;
+
 
         public Level()
         {
-            WorkerManager        = new WorkerManager();
-            GameObjectManager    = new GameObjectManager(this);
-            m_vClientAvatar      = new ClientAvatar();
-            m_vAccountPrivileges = 0;
-            m_vAccountStatus     = 0;
-            m_vIPAddress         = "0.0.0.0";
+            this.WorkerManager = new WorkerManager();
+            this.GameObjectManager = new GameObjectManager(this);
+            this.Avatar = new ClientAvatar();
         }
 
         public Level(long id, string token)
         {
-            WorkerManager        = new WorkerManager();
-            GameObjectManager    = new GameObjectManager(this);
-            m_vClientAvatar      = new ClientAvatar(id, token);
-            m_vTime              = DateTime.UtcNow;
-            m_vAccountPrivileges = 0;
-            m_vAccountStatus     = 0;
-            m_vIPAddress         = "0.0.0.0";
+            this.WorkerManager = new WorkerManager();
+            this.GameObjectManager = new GameObjectManager(this);
+            this.Avatar = new ClientAvatar(id, token);
         }
 
-        public byte GetAccountPrivileges() => m_vAccountPrivileges;
-
-        public bool Banned() => m_vAccountStatus > 99;
-
-        public byte GetAccountStatus() => m_vAccountStatus;
-
-        public Client GetClient() => m_vClient;
-
         public ComponentManager GetComponentManager() => GameObjectManager.GetComponentManager();
-
-        public ClientAvatar GetHomeOwnerAvatar() => m_vClientAvatar;
-
-        public string GetIPAddress() => m_vIPAddress;
-
-        public ClientAvatar GetPlayerAvatar() => m_vClientAvatar;
-
-        public DateTime GetTime() => m_vTime;
 
         public bool HasFreeWorkers() => WorkerManager.GetFreeWorkers() > 0;
 
@@ -69,21 +40,11 @@ namespace UCS.Logic
 
         public string SaveToJSON() => JsonConvert.SerializeObject(GameObjectManager.Save(), Formatting.Indented);
 
-        public void SetAccountPrivileges(byte privileges) => m_vAccountPrivileges = privileges;
-
-        public void SetAccountStatus(byte status) => m_vAccountStatus = status;
-
-        public void SetClient(Client client) => m_vClient = client;
-
         public void SetHome(string jsonHome) => GameObjectManager.Load(JObject.Parse(jsonHome));
-
-        public void SetIPAddress(string IP) => m_vIPAddress = IP;
-
-        public void SetTime(DateTime t) => m_vTime = t;
 
         public void Tick()
         {
-            SetTime(DateTime.UtcNow);
+            this.Avatar.LastTickSaved = DateTime.UtcNow;
             GameObjectManager.Tick();
         }
     }

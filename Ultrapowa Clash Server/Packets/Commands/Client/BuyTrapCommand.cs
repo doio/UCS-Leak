@@ -2,6 +2,7 @@
 using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -9,37 +10,41 @@ namespace UCS.Packets.Commands.Client
     // Packet 510
     internal class BuyTrapCommand : Command
     {
-        public BuyTrapCommand(PacketReader br)
+        public BuyTrapCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X = br.ReadInt32WithEndian();
-            Y = br.ReadInt32WithEndian();
-            TrapId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.TrapId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
 
             var td = (TrapData)CSVManager.DataTables.GetDataById(TrapId);
-            var t = new Trap(td, level);
+            var t = new Trap(td, this.Device.Player);
 
             if (ca.HasEnoughResources(td.GetBuildResource(0), td.GetBuildCost(0)))
             {
-                if (level.HasFreeWorkers())
+                if (this.Device.Player.HasFreeWorkers())
                 {
                     var rd = td.GetBuildResource(0);
                     ca.CommodityCountChangeHelper(0, rd, -td.GetBuildCost(0));
 
                     t.StartConstructing(X, Y);
-                    level.GameObjectManager.AddGameObject(t);
+                    this.Device.Player.GameObjectManager.AddGameObject(t);
                 }
             }
         }
 
-        public int TrapId { get; set; }
-        public uint Unknown1 { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int TrapId;
+        public uint Unknown1;
+        public int X;
+        public int Y;
     }
 }

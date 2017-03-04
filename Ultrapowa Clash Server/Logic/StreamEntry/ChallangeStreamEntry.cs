@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -19,7 +20,7 @@ namespace UCS.Logic.StreamEntry
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
             data.AddString(Message);
-            data.AddInt32(0);
+            data.AddInt(0);
             return data.ToArray();
         }
 

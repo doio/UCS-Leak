@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 
@@ -14,26 +15,25 @@ namespace UCS.Packets.Messages.Server
     {
         readonly Alliance m_vAlliance;
 
-        public AllianceStreamMessage(Packets.Client client, Alliance alliance) : base(client)
+        public AllianceStreamMessage(Device client, Alliance alliance) : base(client)
         {
-            SetMessageType(24311);
+            this.Identifier = 24311;
             m_vAlliance = alliance;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
             var chatMessages = m_vAlliance.GetChatMessages().ToList();
-            pack.AddInt32(0); //Unknown
-            pack.AddInt32(chatMessages.Count);
+            this.Data.AddInt(0);
+            this.Data.AddInt(chatMessages.Count);
             int count = 0;
             foreach(StreamEntry chatMessage in chatMessages)
             {
-                if (chatMessage != null)
+                if (chatMessage.GetStreamEntryType() != 12)
                 {
-                    if (chatMessage.Encode() != null)
+                    if (chatMessage.GetStreamEntryType() != 1)
                     {
-                        pack.AddRange(chatMessage.Encode());
+                        this.Data.AddRange(chatMessage.Encode());
                         count++;
                         if (count >= 150)
                         {
@@ -42,7 +42,6 @@ namespace UCS.Packets.Messages.Server
                     }
                 }
             }
-            Encrypt(pack.ToArray());
         }
     }
 }

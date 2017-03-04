@@ -3,6 +3,9 @@
     // Packet 24308
     internal class AllianceMemberMessage : Message
     {
-        public static int PacketID = 24308;
+        public AllianceMemberMessage(Device client) : base(client)
+        {
+            this.Identifier = 24308;
+        }
     }
 }

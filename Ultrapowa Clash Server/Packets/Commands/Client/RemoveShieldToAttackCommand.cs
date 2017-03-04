@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class RemoveShieldToAttackCommand : Command
+    internal class RemoveShieldToAttackCommand : Command
     {
-        public RemoveShieldToAttackCommand(PacketReader br)
-        {
-            //Todo
-        }
-
-        public int Tick { get; set; }
-
-        public override void Execute(Level level)
+        public RemoveShieldToAttackCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
     }

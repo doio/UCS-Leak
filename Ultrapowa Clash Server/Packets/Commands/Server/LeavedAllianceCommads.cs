@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Server
@@ -11,17 +9,16 @@ namespace UCS.Packets.Commands.Server
         private Alliance m_vAlliance;
         private int m_vReason;
 
-        public LeavedAllianceCommand()
+        public LeavedAllianceCommand(Device client) : base(client)
         {
+            this.Identifier = 2;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt64(m_vAlliance.GetAllianceId());
-            data.AddInt32(m_vReason);
-            data.AddInt32(-1); //Tick Probably
-            return data.ToArray();
+            this.Data.AddLong(m_vAlliance.GetAllianceId());
+            this.Data.AddInt(m_vReason);
+            this.Data.AddInt(-1); //Tick Probably
         }
 
         public void SetAlliance(Alliance alliance)

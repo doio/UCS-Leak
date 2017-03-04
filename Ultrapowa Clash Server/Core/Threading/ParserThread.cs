@@ -105,10 +105,10 @@ namespace UCS.Helpers
                             try
                             {
                                 var l = await ResourcesManager.GetPlayer(long.Parse(id));
-                                var avatar = l.GetPlayerAvatar();
+                                var avatar = l.Avatar;
                                 var playerID = avatar.GetId();
                                 var p = avatar.GetPremium();
-                                Say("Set the Privileges for Player: '" + avatar.GetAvatarName() + "' ID: '" + avatar.GetId() + "' to Premium?");
+                                Say("Set the Privileges for Player: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "' to Premium?");
                                 Say("Type in 'y':Yes or 'n': Cancel");
                                 loop:
                                 var a = ReadLine();
@@ -120,8 +120,8 @@ namespace UCS.Helpers
                                     }
                                     else if (p == false)
                                     {
-                                        ResourcesManager.GetPlayer(playerID).GetPlayerAvatar().SetPremium(true);
-                                        Say("Privileges set succesfully for: '" + avatar.GetAvatarName() + "' ID: '" + avatar.GetId() + "'");
+                                        ResourcesManager.GetPlayer(playerID).Avatar.SetPremium(true);
+                                        Say("Privileges set succesfully for: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "'");
                                         DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
                                     }
                                 }
@@ -261,7 +261,7 @@ namespace UCS.Helpers
 
             foreach (Level p in ResourcesManager.GetOnlinePlayers())
             {
-                PacketProcessor.Send(new ShutdownStartedMessage(p.GetClient()));
+                Processor.Send(new ShutdownStartedMessage(p.Client));
             }
 
             Timer.Elapsed += ShutdownMessage;
@@ -277,7 +277,7 @@ namespace UCS.Helpers
         {
             foreach(Level p in ResourcesManager.GetOnlinePlayers())
             {
-                PacketProcessor.Send(new ShutdownStartedMessage(p.GetClient()));
+                Processor.Send(new ShutdownStartedMessage(p.Client));
             }
         }
 
@@ -304,8 +304,8 @@ namespace UCS.Helpers
 
             foreach(Level p in ResourcesManager.GetInMemoryLevels())
             {
-                PacketProcessor.Send(new OutOfSyncMessage(p.GetClient()));
-                ResourcesManager.DropClient(p.GetClient().GetSocketHandle());
+                Processor.Send(new OutOfSyncMessage(p.Client));
+                ResourcesManager.DropClient(p.Client.SocketHandle);
             }
             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
         }

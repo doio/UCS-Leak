@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 
 namespace UCS.Packets.Commands.Server
 {
     internal class ChangedNameCommand : Command
     {
-        public ChangedNameCommand()
+        public ChangedNameCommand(Device client) : base(client)
         {
+            this.Identifier = 3;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddString(Name);
-            data.AddInt64(ID);
-            return data.ToArray();
+            this.Data.AddString(Name);
+            this.Data.AddLong(ID);
         }
 
         public string Name { get; set; }

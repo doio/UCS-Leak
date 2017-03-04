@@ -10,104 +10,93 @@ namespace UCS.Packets
 {
     internal class CommandFactory
     {
-        public static Dictionary<uint, Type> m_vCommands;
+        public static Dictionary<int, Type> Commands;
 
         public CommandFactory()
         {
-            m_vCommands = new Dictionary<uint, Type>();
-
-            //m_vCommands.Add(0, typeof(UnknownCommand));
-            //m_vCommands.Add(1, typeof(JoinAlliance));
-            //m_vCommands.Add(2, typeof(LeaveAllianceCommand));
-            //m_vCommands.Add(3, typeof(ChangeAvatarCommand));
-            //m_vCommands.Add(5, typeof());
-            m_vCommands.Add(14, typeof(PlayerWarStatusCommand));
-            m_vCommands.Add(20, typeof(RemainingBuildingsLayoutCommand));
-            m_vCommands.Add(500, typeof(BuyBuildingCommand));
-            m_vCommands.Add(501, typeof(MoveBuildingCommand));
-            m_vCommands.Add(502, typeof(UpgradeBuildingCommand));
-            m_vCommands.Add(503, typeof(SellBuildingCommand));
-            m_vCommands.Add(504, typeof(SpeedUpConstructionCommand));
-            m_vCommands.Add(505, typeof(CancelConstructionCommand));
-            m_vCommands.Add(506, typeof(CollectResourcesCommand));
-            m_vCommands.Add(507, typeof(ClearObstacleCommand));
-            m_vCommands.Add(508, typeof(TrainUnitCommand));
-            m_vCommands.Add(509, typeof(CancelUnitProductionCommand));
-            m_vCommands.Add(510, typeof(BuyTrapCommand));
-            m_vCommands.Add(511, typeof(RequestAllianceUnitsCommand));
-            m_vCommands.Add(512, typeof(BuyDecoCommand));
-            m_vCommands.Add(513, typeof(SpeedUpTrainingCommand));
-            m_vCommands.Add(514, typeof(SpeedUpClearingCommand));
-            m_vCommands.Add(515, typeof(CancelUpgradeUnitCommand));
-            m_vCommands.Add(516, typeof(UpgradeUnitCommand));
-            m_vCommands.Add(517, typeof(SpeedUpUpgradeUnitCommand));
-            m_vCommands.Add(518, typeof(BuyResourcesCommand));
-            m_vCommands.Add(519, typeof(MissionProgressCommand));
-            m_vCommands.Add(520, typeof(UnlockBuildingCommand));
-            m_vCommands.Add(521, typeof(FreeWorkerCommand));
-            m_vCommands.Add(522, typeof(BuyShieldCommand));
-            m_vCommands.Add(523, typeof(ClaimAchievementRewardCommand));
-            m_vCommands.Add(524, typeof(ToggleAttackModeCommand));
-            m_vCommands.Add(525, typeof(LoadTurretCommand));
-            m_vCommands.Add(526, typeof(BoostBuildingCommand));
-            m_vCommands.Add(527, typeof(UpgradeHeroCommand));
-            m_vCommands.Add(528, typeof(SpeedUpHeroUpgradeCommand));
-            m_vCommands.Add(529, typeof(ToggleHeroSleepCommand));
-            m_vCommands.Add(530, typeof(SpeedUpHeroHealthCommand));
-            m_vCommands.Add(531, typeof(CancelHeroUpgradeCommand));
-            m_vCommands.Add(532, typeof(NewShopItemsSeenCommand));
-            m_vCommands.Add(533, typeof(MoveMultipleBuildingsCommand));
-            m_vCommands.Add(534, typeof(CancelShieldCommand));
-            m_vCommands.Add(537, typeof(SendAllianceMailCommand));
-            m_vCommands.Add(538, typeof(MyLeagueCommand));
-            m_vCommands.Add(539, typeof(NewsSeenCommand));
-            m_vCommands.Add(540, typeof(RequestAllianceUnitsCommand));
-            m_vCommands.Add(541, typeof(SpeedUpRequestUnitsCommand));
-            m_vCommands.Add(543, typeof(KickAllianceMemberCommand));
-            m_vCommands.Add(544, typeof(GetVillageLayoutsCommand));
-            m_vCommands.Add(546, typeof(EditVillageLayoutCommand));
-            m_vCommands.Add(549, typeof(UpgradeMultipleBuildingsCommand));
-            //m_vCommands.Add(550, typeof(RemoveUnitsCommand));
-            //m_vCommands.Add(551, typeof(ContinueBarrackBoostCommand));
-            m_vCommands.Add(552, typeof(SaveVillageLayoutCommand));
-            m_vCommands.Add(553, typeof(ClientServerTickCommand));
-            m_vCommands.Add(554, typeof(RotateDefenseCommand));
-            m_vCommands.Add(558, typeof(AddQuicKTrainingTroopCommand));
-	        m_vCommands.Add(559, typeof(TrainQuickUnitsCommand));
-            m_vCommands.Add(560, typeof(StartClanWarCommand));
-            //m_vCommands.Add(563, typeof(CollectClanResourcesCommand));
-            m_vCommands.Add(567, typeof(SetActiveVillageLayoutCommand));
-            m_vCommands.Add(568, typeof(CopyVillageLayoutCommand));
-            m_vCommands.Add(570, typeof(TogglePlayerWarStateCommand));
-            m_vCommands.Add(571, typeof(FilterChatCommand));
-            m_vCommands.Add(572, typeof(ToggleHeroAttackModeCommand));
-            //m_vCommands.Add(573, typeof(RemoveShieldToAttackCommand));
-            m_vCommands.Add(574, typeof(ChallangeCommand));
-            m_vCommands.Add(577, typeof(MoveBuildingsCommand)); 
-	        m_vCommands.Add(584, typeof(BoostBarracksCommand));
-            m_vCommands.Add(586, typeof(RenameQuickTrainCommand));
-            m_vCommands.Add(590, typeof(EventsSeenCommand)); 
-            m_vCommands.Add(600, typeof(PlaceAttackerCommand));
-            m_vCommands.Add(601, typeof(PlaceAllianceTroopsCommand));
-            m_vCommands.Add(603, typeof(EndOfBattleCommand));
-            m_vCommands.Add(604, typeof(CastSpellCommand));
-            m_vCommands.Add(605, typeof(PlaceHeroCommand));
-            m_vCommands.Add(700, typeof(SearchOpponentCommand));
-        }
-
-        public static object Read(PacketReader br)
-        {
-            UInt32 cm = br.ReadUInt32WithEndian();
-            if (m_vCommands.ContainsKey(cm))
+            Commands = new Dictionary<int, Type>
             {
-                Logger.Write("Command '" + cm + "' is handled");
-                return Activator.CreateInstance(m_vCommands[cm], br);
-            }
-            else
-            {
-                Logger.WriteError("Command '" + cm + "' is unhandled");
-                return null;
-            } 
+                {14, typeof(PlayerWarStatusCommand)},
+                {20, typeof(RemainingBuildingsLayoutCommand)},
+                {500, typeof(BuyBuildingCommand)},
+                {501, typeof(MoveBuildingCommand)},
+                {502, typeof(UpgradeBuildingCommand)},
+                {503, typeof(SellBuildingCommand)},
+                {504, typeof(SpeedUpConstructionCommand)},
+                {505, typeof(CancelConstructionCommand)},
+                {506, typeof(CollectResourcesCommand)},
+                {507, typeof(ClearObstacleCommand)},
+                {508, typeof(TrainUnitCommand)},
+                {509, typeof(CancelUnitProductionCommand)},
+                {510, typeof(BuyTrapCommand)},
+                {511, typeof(RequestAllianceUnitsCommand)},
+                {512, typeof(BuyDecoCommand)},
+                {513, typeof(SpeedUpTrainingCommand)},
+                {514, typeof(SpeedUpClearingCommand)},
+                {515, typeof(CancelUpgradeUnitCommand)},
+                {516, typeof(UpgradeUnitCommand)},
+                {517, typeof(SpeedUpUpgradeUnitCommand)},
+                {518, typeof(BuyResourcesCommand)},
+                {519, typeof(MissionProgressCommand)},
+                {520, typeof(UnlockBuildingCommand)},
+                {521, typeof(FreeWorkerCommand)},
+                {522, typeof(BuyShieldCommand)},
+                {523, typeof(ClaimAchievementRewardCommand)},
+                {524, typeof(ToggleAttackModeCommand)},
+                {525, typeof(LoadTurretCommand)},
+                {526, typeof(BoostBuildingCommand)},
+                {527, typeof(UpgradeHeroCommand)},
+                {528, typeof(SpeedUpHeroUpgradeCommand)},
+                {529, typeof(ToggleHeroSleepCommand)},
+                {530, typeof(SpeedUpHeroHealthCommand)},
+                {531, typeof(CancelHeroUpgradeCommand)},
+                {532, typeof(NewShopItemsSeenCommand)},
+                {533, typeof(MoveMultipleBuildingsCommand)},
+                {534, typeof(CancelShieldCommand)},
+                {537, typeof(SendAllianceMailCommand)},
+                {538, typeof(MyLeagueCommand)},
+                {539, typeof(NewsSeenCommand)},
+                {540, typeof(RequestAllianceUnitsCommand)},
+                {541, typeof(SpeedUpRequestUnitsCommand)},
+                {543, typeof(KickAllianceMemberCommand)},
+                {544, typeof(GetVillageLayoutsCommand)},
+                {546, typeof(EditVillageLayoutCommand)},
+                {549, typeof(UpgradeMultipleBuildingsCommand)},
+                {552, typeof(SaveVillageLayoutCommand)},
+                {553, typeof(ClientServerTickCommand)},
+                {554, typeof(RotateDefenseCommand)},
+                {558, typeof(AddQuicKTrainingTroopCommand)},
+                {559, typeof(TrainQuickUnitsCommand)},
+                {560, typeof(StartClanWarCommand)},
+                {567, typeof(SetActiveVillageLayoutCommand)},
+                {568, typeof(CopyVillageLayoutCommand)},
+                {570, typeof(TogglePlayerWarStateCommand)},
+                {571, typeof(FilterChatCommand)},
+                {572, typeof(ToggleHeroAttackModeCommand)},
+                {574, typeof(ChallangeCommand)},
+                {577, typeof(MoveBuildingsCommand)},
+                {584, typeof(BoostBarracksCommand)},
+                {586, typeof(RenameQuickTrainCommand)},
+                {590, typeof(EventsSeenCommand)},
+                {600, typeof(PlaceAttackerCommand)},
+                {601, typeof(PlaceAllianceTroopsCommand)},
+                {603, typeof(EndOfBattleCommand)},
+                {604, typeof(CastSpellCommand)},
+                {605, typeof(PlaceHeroCommand)},
+                {700, typeof(SearchOpponentCommand)}
+            };
+
+            //Commands.Add(0, typeof(UnknownCommand));
+            //Commands.Add(1, typeof(JoinAlliance));
+            //Commands.Add(2, typeof(LeaveAllianceCommand));
+            //Commands.Add(3, typeof(ChangeAvatarCommand));
+            //Commands.Add(5, typeof());
+            //Commands.Add(550, typeof(RemoveUnitsCommand));
+            //Commands.Add(551, typeof(ContinueBarrackBoostCommand));
+            //Commands.Add(563, typeof(CollectClanResourcesCommand));
+            //Commands.Add(573, typeof(RemoveShieldToAttackCommand));
+
+
         }
     }
 }

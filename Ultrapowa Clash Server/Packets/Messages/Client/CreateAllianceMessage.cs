@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Commands.Client;
 using UCS.Packets.Messages.Server;
@@ -13,7 +13,7 @@ namespace UCS.Packets.Messages.Client
     // Packet 14301
     internal class CreateAllianceMessage : Message
     {
-        public CreateAllianceMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public CreateAllianceMessage(Device device, Reader reader) : base(device, reader)
         {
 
         }
@@ -27,22 +27,20 @@ namespace UCS.Packets.Messages.Client
         int m_vWarFrequency;
         byte m_vWarAndFriendlyStatus;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                m_vAllianceName = br.ReadString();
-                m_vAllianceDescription = br.ReadString();
-                m_vAllianceBadgeData = br.ReadInt32WithEndian();
-                m_vAllianceType = br.ReadInt32WithEndian();
-                m_vRequiredScore = br.ReadInt32WithEndian();
-                m_vWarFrequency = br.ReadInt32WithEndian();
-                m_vAllianceOrigin = br.ReadInt32WithEndian();
-                m_vWarAndFriendlyStatus = br.ReadByte();
-            }
+                this.m_vAllianceName = this.Reader.ReadString();
+                this.m_vAllianceDescription = this.Reader.ReadString();
+                this.m_vAllianceBadgeData = this.Reader.ReadInt32();
+                this.m_vAllianceType = this.Reader.ReadInt32();
+                this.m_vRequiredScore = this.Reader.ReadInt32();
+                this.m_vWarFrequency = this.Reader.ReadInt32();
+                this.m_vAllianceOrigin = this.Reader.ReadInt32();
+                this.m_vWarAndFriendlyStatus = this.Reader.ReadByte();
+            
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
             if (m_vAllianceName == null)
                 m_vAllianceName = "Clan";
@@ -72,69 +70,63 @@ namespace UCS.Packets.Messages.Client
                                             alliance.SetAllianceOrigin(m_vAllianceOrigin);
                                             alliance.SetWarFrequency(m_vWarFrequency);
                                             alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-                                            level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
+                                            this.Device.Player.Avatar.SetAllianceId(alliance.GetAllianceId());
 
-                                            AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
+                                            AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.GetId());
                                             member.SetRole(2);
                                             alliance.AddAllianceMember(member);
 
-                                            JoinedAllianceCommand b = new JoinedAllianceCommand();
+                                            JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);
                                             b.SetAlliance(alliance);
 
-                                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand();
+                                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand(this.Device);
                                             d.SetAlliance(alliance);
                                             d.SetRole(2);
-                                            d.Tick(level);
+                                            d.Tick(this.Device.Player);
 
-                                            AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
-                                            a.SetCommandId(1);
-                                            a.SetCommand(b);
+                                            new AvailableServerCommandMessage(this.Device, b.Handle()).Send();
 
-                                            AvailableServerCommandMessage c = new AvailableServerCommandMessage(Client);
-                                            c.SetCommandId(8);
-                                            c.SetCommand(d);
-
-                                            PacketProcessor.Send(a);
-                                            PacketProcessor.Send(c);
+                                            new AvailableServerCommandMessage(this.Device, d.Handle()).Send();
+  
                                         }
                                         else
                                         {
-                                            ResourcesManager.DisconnectClient(Client);
+                                            ResourcesManager.DisconnectClient(Device);
                                         }
                                     }
                                     else
                                     {
-                                        ResourcesManager.DisconnectClient(Client);
+                                        ResourcesManager.DisconnectClient(Device);
                                     }
                                 }
                                 else
                                 {
-                                    ResourcesManager.DisconnectClient(Client);
+                                    ResourcesManager.DisconnectClient(Device);
                                 }
                             }
                             else
                             {
-                                ResourcesManager.DisconnectClient(Client);
+                                ResourcesManager.DisconnectClient(Device);
                             }
                         }
                         else
                         {
-                            ResourcesManager.DisconnectClient(Client);
+                            ResourcesManager.DisconnectClient(Device);
                         }
                     }
                     else
                     {
-                        ResourcesManager.DisconnectClient(Client);
+                        ResourcesManager.DisconnectClient(Device);
                     }
                 }
                 else
                 {
-                    ResourcesManager.DisconnectClient(Client);
+                    ResourcesManager.DisconnectClient(Device);
                 }
             }
             else
             {
-                ResourcesManager.DisconnectClient(Client);
+                ResourcesManager.DisconnectClient(Device);
             }
         }
     }

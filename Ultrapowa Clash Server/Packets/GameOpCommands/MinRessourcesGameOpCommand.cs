@@ -19,17 +19,17 @@ namespace UCS.Packets.GameOpCommands
 
         public override void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
-                ClientAvatar p = level.GetPlayerAvatar();
+                ClientAvatar p = level.Avatar;
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), 1000);
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), 1000);
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("DarkElixir"), 100);
                 p.SetDiamonds(200);
-                PacketProcessor.Send(new OwnHomeDataMessage(level.GetClient(), level));
+                new OwnHomeDataMessage(level.Client, level).Send();
             }
             else
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
         }
     }
 }

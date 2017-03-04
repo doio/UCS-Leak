@@ -1,17 +1,11 @@
-﻿using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 571
     internal class FilterChatCommand : Command
     {
-        public FilterChatCommand(PacketReader br)
-        {
-        }
-
-        public override void Execute(Level level)
+        public FilterChatCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
     }

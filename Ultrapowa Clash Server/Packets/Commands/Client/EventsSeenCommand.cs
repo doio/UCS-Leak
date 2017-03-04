@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class EventsSeenCommand : Command
+    internal class EventsSeenCommand : Command
     {
-        public EventsSeenCommand(PacketReader br)
+        public EventsSeenCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            UnknownID = br.ReadInt32WithEndian();
-            Tick = br.ReadInt32WithEndian();
         }
 
-        public int Tick { get; set; }
+        public int Tick;
 
-        public int UnknownID { get; set; }
+        public int UnknownID;
 
-        public override void Execute(Level level)
+        internal override void Process()
         {
+            this.UnknownID = this.Reader.ReadInt32();
+            this.Tick = this.Reader.ReadInt32();
         }
     }
 }

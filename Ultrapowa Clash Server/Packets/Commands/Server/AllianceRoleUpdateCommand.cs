@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace  UCS.Packets.Commands.Server
@@ -9,18 +7,18 @@ namespace  UCS.Packets.Commands.Server
     {
         public Alliance m_vAlliance;
 
-        public AllianceRoleUpdateCommand()
+        public AllianceRoleUpdateCommand(Device client) : base(client)
         {
+            this.Identifier = 8;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt64(m_vAlliance.GetAllianceId());
-            data.AddInt32(Role);
-            data.AddInt32(Role);
-            data.AddInt32(0);
-            return data.ToArray();
+            
+            this.Data.AddLong(m_vAlliance.GetAllianceId());
+            this.Data.AddInt(Role);
+            this.Data.AddInt(Role);
+            this.Data.AddInt(0);
         }
 
         public int Role { get; set; }

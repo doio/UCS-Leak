@@ -1,75 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Core.Checker;
-using UCS.Core.Network;
-using UCS.Core.Threading;
-using UCS.Helpers;
-using UCS.Packets;
-using UCS.WebAPI;
-
-namespace UCS.Core
+﻿namespace UCS.Core
 {
-    class Loader
+    using UCS.Core.Checker;
+    using UCS.Database;
+    using UCS.Core.Events;
+    using UCS.Core.Settings;
+    using UCS.Core.Threading;
+    using UCS.Helpers;
+    using UCS.Packets;
+    using UCS.WebAPI;
+    internal class Loader
     {
-        private Gateway _Gateway                     = null;
-        private CSVManager _CSVManager               = null;
-        private ChatProcessor _ChatProcessor         = null;
-        private ConnectionBlocker _ConnectionBlocker = null;
-        private DirectoryChecker _DirectoryChecker   = null;
-        private API _API                             = null;
-        private Logger _Logger                       = null;
-        private ParserThread _Parser                 = null;
-        private ResourcesManager _ResourcesManager   = null;
-        private ObjectManager _ObjectManager         = null;
-        private CommandFactory _CommandFactory       = null;
-        private MessageFactory _MessageFactory       = null;
-        private MemoryThread _MemThread              = null;
-        private LicenseChecker _LicenseChecker       = null;
+        internal CSVManager CsvManager;
+        internal ChatProcessor ChatProcessor;
+        internal ConnectionBlocker ConnectionBlocker;
+        internal DirectoryChecker DirectoryChecker;
+        internal API API;
+        internal Redis Redis;
+        internal Logger Logger;
+        internal ParserThread Parser;
+        internal ResourcesManager ResourcesManager;
+        internal ObjectManager ObjectManager;
+        internal CommandFactory CommandFactory;
+        internal MessageFactory MessageFactory;
+        internal MemoryThread MemThread;
+        internal LicenseChecker LicenseChecker;
+        internal EventsHandler Events;
 
         public Loader()
         {
-            // License Check
-            _LicenseChecker    = new LicenseChecker();
-            
             // CSV Files and Logger
-            _Logger            = new Logger();
-              
-            _DirectoryChecker  = new DirectoryChecker();
-
-            _CSVManager        = new CSVManager();
+            this.Logger = new Logger();
+            this.DirectoryChecker = new DirectoryChecker();
+            this.CsvManager = new CSVManager();
 
 
             // Network and Packets
-            _ChatProcessor     = new ChatProcessor();
+            this.ChatProcessor = new ChatProcessor();
 
-            _ConnectionBlocker = new ConnectionBlocker();
-
+            this.ConnectionBlocker = new ConnectionBlocker();
             if (Utils.ParseConfigBoolean("UseWebAPI"))
-            {
-                _API           = new API();
-            }
+                this.API = new API();
+
 
             // Core
-            _ResourcesManager  = new ResourcesManager();     
+            //this.LicenseChecker = new LicenseChecker();
+            this.ResourcesManager = new ResourcesManager();
+            this.ObjectManager = new ObjectManager();
+            this.Events = new EventsHandler();
+            if (Constants.UseCacheServer)
+                this.Redis = new Redis();
 
-            _ObjectManager     = new ObjectManager();
 
-            _CommandFactory    = new CommandFactory();
+            this.CommandFactory = new CommandFactory();
 
-            _MessageFactory    = new MessageFactory();
+            this.MessageFactory = new MessageFactory();
 
             // Optimazions
-            _MemThread         = new MemoryThread(); 
+            this.MemThread = new MemoryThread();
 
             // User
-            _Parser            = new ParserThread();
+            this.Parser = new ParserThread();
 
-            // Creates a new Socket
-            _Gateway           = new Gateway();
         }
     }
 }

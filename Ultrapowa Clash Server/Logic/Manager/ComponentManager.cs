@@ -117,7 +117,7 @@ namespace UCS.Logic.Manager
                         resourceCap += res.GetMax(i);
                     var resource = (ResourceData) table.GetItemAt(i);
                     if (!resource.PremiumCurrency)
-                        m_vLevel.GetPlayerAvatar().SetResourceCap(resource, resourceCap);
+                        m_vLevel.Avatar.SetResourceCap(resource, resourceCap);
                 }
             }
         }

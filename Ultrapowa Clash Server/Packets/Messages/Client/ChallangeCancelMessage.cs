@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -14,20 +14,16 @@ namespace UCS.Packets.Messages.Client
 {
     internal class ChallangeCancelMessage : Message
     {
-        public ChallangeCancelMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChallangeCancelMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
-        {
-        }
-
-        public override async void Process(Level level)
+        internal async void Process()
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == level.GetPlayerAvatar().GetId() && c.GetStreamEntryType() == 12);
+                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.GetId() && c.GetStreamEntryType() == 12);
 
                 if (s != null)
                 {
@@ -35,9 +31,9 @@ namespace UCS.Packets.Messages.Client
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {
                         Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                        if (player.GetClient() != null)
+                        if (player.Client != null)
                         {
-                            PacketProcessor.Send(new AllianceStreamEntryRemovedMessage(Client, s.GetId()));
+                            new AllianceStreamEntryRemovedMessage(Device, s.GetId()).Send();
                         }
                     }
                 }

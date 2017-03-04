@@ -3,6 +3,9 @@
     // Packet 24309
     internal class AllianceMemberRemovedMessage : Message
     {
-        public static int PacketID = 24309;
+        public AllianceMemberRemovedMessage(Device client) : base(client)
+        {
+            this.Identifier = 24309;
+        }
     }
 }

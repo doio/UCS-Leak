@@ -1,57 +1,77 @@
-﻿using System;
-
-namespace UCS.Utilities.Blake2b
+﻿namespace UCS.Utilities.Blake2B
 {
-    internal class Blake2BHasher : Hasher
-    {
-        readonly Blake2BCore core = new Blake2BCore();
-        readonly ulong[] rawConfig;
-        readonly byte[] key;
-        readonly int outputSizeInBytes;
-        static readonly Blake2BConfig DefaultConfig = new Blake2BConfig();
+    #region Usings
 
-        public override void Init()
+    using System;
+
+    #endregion Usings
+
+    internal class Blake2BHasher : Blake2BBase
+    {
+        private readonly Blake2BConfig _Config = new Blake2BConfig();
+        private readonly Blake2BCore _Core = new Blake2BCore();
+        private readonly byte[] _Key;
+        private readonly int _OutputSize;
+        private readonly ulong[] _RawConfig;
+
+        /// <summary>
+        /// Initialize a new instance of the <see cref="Blake2BHasher"/> class.
+        /// </summary>
+        public Blake2BHasher()
         {
-            core.Initialize(rawConfig);
-            if (key != null)
+            this._RawConfig = Blake2Builder.ConfigB(this._Config, null);
+
+            if (this._Config.Key != null && this._Config.Key.Length != 0)
             {
-                core.HashCore(key, 0, key.Length);
+                this._Key = new byte[24];
+                Array.Copy(this._Config.Key, this._Key, this._Config.Key.Length);
             }
+
+            this._OutputSize = this._Config.OutputSize;
+
+            this.Init();
         }
 
+        /// <summary>
+        /// Finish this instance.
+        /// </summary>
+        /// <returns>The nonce.</returns>
         public override byte[] Finish()
         {
-            try
-            {
-                var fullResult = core.HashFinal();
-                if (outputSizeInBytes != fullResult.Length)
-                {
-                    var result = new byte[outputSizeInBytes];
-                    Array.Copy(fullResult, result, result.Length);
-                    return result;
-                }
-                else
-                    return fullResult;
-            } catch (Exception) { return null; }
-        }
+            byte[] _FResult = this._Core.HashFinal();
 
-        public Blake2BHasher(Blake2BConfig config)
-        {
-            if (config == null)
-                config = DefaultConfig;
-            rawConfig = Blake2IvBuilder.ConfigB(config, null);
-            if (config.Key != null && config.Key.Length != 0)
+            if (this._OutputSize != _FResult.Length)
             {
-                key = new byte[128];
-                Array.Copy(config.Key, key, config.Key.Length);
+                byte[] _Result = new byte[this._OutputSize];
+                Array.Copy(_FResult, _Result, _Result.Length);
+                return _Result;
             }
-            outputSizeInBytes = config.OutputSizeInBytes;
-            Init();
+
+            return _FResult;
         }
 
-        public override void Update(byte[] data, int start, int count)
+        /// <summary>
+        /// Initialize the Blake2B Hasher.
+        /// </summary>
+        public override sealed void Init()
         {
-            core.HashCore(data, start, count);
+            this._Core.Initialize(this._RawConfig);
+
+            if (this._Key != null)
+            {
+                this._Core.HashCore(this._Key, 0, this._Key.Length);
+            }
+        }
+
+        /// <summary>
+        /// Update the Blake2B Hasher with the specified data.
+        /// </summary>
+        /// <param name="_Data">The data.</param>
+        /// <param name="_Index">The index.</param>
+        /// <param name="_Count">The count.</param>
+        public override void Update(byte[] _Data, int _Index, int _Count)
+        {
+            this._Core.HashCore(_Data, _Index, _Count);
         }
     }
 }

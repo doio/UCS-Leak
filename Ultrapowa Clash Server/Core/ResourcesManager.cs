@@ -16,9 +16,9 @@ namespace UCS.Core
 {
     internal class ResourcesManager : IDisposable
     {
-        public static ConcurrentDictionary<IntPtr, Client> m_vClients            = null;
+        public static ConcurrentDictionary<IntPtr, Device> m_vClients            = null;
         private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
-        private static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
+        public static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
         private static List<Level> m_vOnlinePlayers                              = null;
         private static DatabaseManager m_vDatabase                               = null;
 
@@ -26,27 +26,46 @@ namespace UCS.Core
         {
             m_vDatabase          = new DatabaseManager();
             m_vOnlinePlayers     = new List<Level>();
-            m_vClients           = new ConcurrentDictionary<IntPtr, Client>();
+            m_vClients           = new ConcurrentDictionary<IntPtr, Device>();
             m_vInMemoryLevels    = new ConcurrentDictionary<long, Level>();
             m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
         }
 
         public static void AddClient(Socket _Socket)
         {
-            Client c     = new Client(_Socket);
-            c.CIPAddress = ((System.Net.IPEndPoint)_Socket.RemoteEndPoint).Address.ToString();
+            Device c = new Device(_Socket)
+            {
+                IPAddress = ((System.Net.IPEndPoint) _Socket.RemoteEndPoint).Address.ToString()
+            };
             m_vClients.TryAdd(c.Socket.Handle, c);
         }
-
+        public static void AddClient(Device Client)
+        {
+            m_vClients.TryAdd(Client.Socket.Handle, Client);
+        }
         public static void DropClient(IntPtr socketHandle)
         {
             try
             {
-                Client _Client = null;
+                Device _Client = null;
                 m_vClients.TryRemove(socketHandle, out _Client);
-                if (_Client.GetLevel() != null)
+                if (_Client.Player != null)
                 {
-                    LogPlayerOut(_Client.GetLevel());
+                    LogPlayerOut(_Client.Player);
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        public static void DropClient(Device client)
+        {
+            try
+            {
+                m_vClients.TryRemove(client.SocketHandle);
+                if (client.Player != null)
+                {
+                    LogPlayerOut(client.Player);
                 }
             }
             catch (Exception e)
@@ -56,9 +75,9 @@ namespace UCS.Core
 
         public static List<long> GetAllPlayerIds() => m_vDatabase.GetAllPlayerIds();
 
-        public static Client GetClient(IntPtr socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
+        public static Device GetClient(IntPtr socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
 
-        public static List<Client> GetConnectedClients() => m_vClients.Values.ToList();
+        public static List<Device> GetConnectedClients() => m_vClients.Values.ToList();
 
         public static List<Level> GetInMemoryLevels() => m_vInMemoryLevels.Values.ToList();
 
@@ -78,50 +97,25 @@ namespace UCS.Core
             return result;
         }
 
-        public static void DisconnectClient(Client _Client)
+        public static void DisconnectClient(Device _Client)
         {
-            PacketProcessor.Send(new OutOfSyncMessage(_Client));
-            DropClient(_Client.GetSocketHandle());
+            Processor.Send(new OutOfSyncMessage(_Client));
+            DropClient(_Client.SocketHandle);
         }
 
         public static bool IsClientConnected(IntPtr socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
-
-        public static async Task<Level> GetPlayerWithFacebookID(string id)
-        {
-            foreach (Level p in GetInMemoryLevels())
-            {
-                if (p.GetPlayerAvatar().GetFacebookID() == id)
-                {
-                    return p;
-                }
-                else
-                {
-                    for (long i = 1; i < ObjectManager.GetMaxPlayerID(); i++)
-                    {
-                        Level l = await m_vDatabase.GetAccount(i);
-
-                        if (l.GetPlayerAvatar().GetFacebookID() == id)
-                        {
-                            return l;
-                            break;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
 
         public static bool IsPlayerOnline(Level l) => m_vOnlinePlayers.Contains(l);
 
         public static void LoadLevel(Level level)
         {
-            m_vInMemoryLevels.TryAdd(level.GetPlayerAvatar().GetId(), level);
+            m_vInMemoryLevels.TryAdd(level.Avatar.GetId(), level);
         }
 
-        public static void LogPlayerIn(Level l, Client c)
+        public static void LogPlayerIn(Level l, Device c)
         {
-            l.SetClient(c);
-            c.SetLevel(l);
+            l.Client = c;
+            c.Player = l;
 
             if (!m_vOnlinePlayers.Contains(l))
             {
@@ -140,8 +134,8 @@ namespace UCS.Core
         {
             DatabaseManager.Single().Save(level);
             m_vOnlinePlayers.Remove(level);
-            m_vInMemoryLevels.TryRemove(level.GetPlayerAvatar().GetId());
-            m_vClients.TryRemove(level.GetClient().GetSocketHandle());
+            m_vInMemoryLevels.TryRemove(level.Avatar.GetId());
+            m_vClients.TryRemove(level.Client.SocketHandle);
             Program.TitleD();
         }
 
@@ -181,7 +175,7 @@ namespace UCS.Core
 
         public static void SetGameObject(Level level, string json)
         {
-            level.GetHomeOwnerAvatar().LoadFromJSON(json);
+            level.Avatar.LoadFromJSON(json);
 
             LogPlayerOut(level);
         }

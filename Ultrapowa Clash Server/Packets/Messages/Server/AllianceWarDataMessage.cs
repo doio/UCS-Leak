@@ -1,77 +1,74 @@
 ﻿using System.Collections.Generic;
-using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24331
     internal class AllianceWarDataMessage : Message
     {
-        public AllianceWarDataMessage(Packets.Client client) : base(client)
+        public AllianceWarDataMessage(Device client) : base(client)
         {
-            SetMessageType(24331);
+            this.Identifier = 24331;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt32(0);
-            data.AddInt32(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
 
-            data.AddInt64(1); // Team ID
-            data.AddString("Ultrapowa");
-            data.AddInt32(0);
-            data.AddInt32(1);
-            data.Add(0);
-            data.AddRange(new List<byte> { 1, 2, 3, 4 });
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
+            this.Data.AddLong(1); // Team ID
+            this.Data.AddString("Ultrapowa");
+            this.Data.AddInt(0);
+            this.Data.AddInt(1);
+            this.Data.Add(0);
+            this.Data.AddRange(new List<byte> { 1, 2, 3, 4 });
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
 
-            data.AddInt64(1); // Team ID
-            data.AddString("Ultrapowa");
-            data.AddInt32(0);
-            data.AddInt32(1);
-            data.Add(0);
-            data.AddRange(new List<byte> { 1, 2, 3, 4 });
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
+            this.Data.AddLong(1); // Team ID
+            this.Data.AddString("Ultrapowa");
+            this.Data.AddInt(0);
+            this.Data.AddInt(1);
+            this.Data.Add(0);
+            this.Data.AddRange(new List<byte> { 1, 2, 3, 4 });
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
 
-            data.AddInt64(11);
+            this.Data.AddLong(11);
 
-            data.AddInt32(0);
-            data.AddInt32(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
 
-            data.AddInt32(1);
-            data.AddInt32(3600);
-            data.AddInt64(1);
-            data.AddInt64(1);
-            data.AddInt64(2);
-            data.AddInt64(2);
+            this.Data.AddInt(1);
+            this.Data.AddInt(3600);
+            this.Data.AddLong(1);
+            this.Data.AddLong(1);
+            this.Data.AddLong(2);
+            this.Data.AddLong(2);
 
-            data.AddString("Ultra");
-            data.AddString("Powa");
+            this.Data.AddString("Ultra");
+            this.Data.AddString("Powa");
 
-            data.AddInt32(2);
-            data.AddInt32(1);
-            data.AddInt32(50);
+            this.Data.AddInt(2);
+            this.Data.AddInt(1);
+            this.Data.AddInt(50);
 
-            data.AddInt32(0);
+            this.Data.AddInt(0);
 
-            data.AddInt32(8);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.Add(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-            data.AddInt32(0);
-
-            Encrypt(data.ToArray());
+            this.Data.AddInt(8);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.Add(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
         }
     }
 }

@@ -1,28 +1,22 @@
 ﻿using System.Collections.Generic;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 20161
     internal class ShutdownStartedMessage : Message
     {
-        int m_vCode;
+        internal int Code;
 
-        public ShutdownStartedMessage(Packets.Client client) : base(client)
+        public ShutdownStartedMessage(Device client) : base(client)
         {
-            SetMessageType(20161);
+            this.Identifier = 20161;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt32(m_vCode);
-            Encrypt(data.ToArray());
-        }
-
-        public void SetCode(int code)
-        {
-            m_vCode = code;
+            this.Data.AddInt(this.Code);
         }
     }
 }

@@ -1,26 +1,20 @@
-using System;
-using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 554
     internal class RotateDefenseCommand : Command
     {
-        public RotateDefenseCommand(PacketReader br)
+        public RotateDefenseCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingID = br.ReadInt32();
-            //Console.WriteLine(br.ReadInt32());
-            //Console.WriteLine(br.ReadInt64()); // Unknown
-            //Console.WriteLine(br.ReadInt32()); // Tick
+        }
+
+        internal override void Decode()
+        {
+            this.BuildingID = this.Reader.ReadInt32();
         }
 
         public int BuildingID { get; set; }
 
-        public override void Execute(Level level)
-        {
-            //Console.WriteLine(BuildingID);
-        }
     }
 }

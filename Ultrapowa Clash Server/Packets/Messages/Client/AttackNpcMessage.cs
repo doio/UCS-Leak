@@ -2,8 +2,9 @@ using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Logic.Enums;
 using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Messages.Client
@@ -11,32 +12,28 @@ namespace UCS.Packets.Messages.Client
     // Packet 14134
     internal class AttackNpcMessage : Message
     {
-        public AttackNpcMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AttackNpcMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         public int LevelId { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                LevelId = br.ReadInt32WithEndian();
-            }
+            this.LevelId = this.Reader.ReadInt32();
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
-            ClientAvatar p = level.GetPlayerAvatar();
-            if (p.State == ClientAvatar.UserState.PVE || p.State == ClientAvatar.UserState.PVP)
+            if (this.Device.PlayerState == State.IN_BATTLE)
             {
-                ResourcesManager.DisconnectClient(Client);
+                ResourcesManager.DisconnectClient(Device);
             }
             else
             {
                 if (LevelId > 0 || LevelId < 1000000)
                 {
-                    /*if (level.GetPlayerAvatar().GetUnits().Count < 10)
+                    /*if (level.Avatar.GetUnits().Count < 10)
                     {
                         for (int i = 0; i < 31; i++)
                         {
@@ -45,8 +42,8 @@ namespace UCS.Packets.Messages.Client
                             int maxLevel = combatData.GetUpgradeLevelCount();
                             DataSlot unitSlot = new DataSlot(unitData, 1000);
 
-                            level.GetPlayerAvatar().GetUnits().Add(unitSlot);
-                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                            level.Avatar.GetUnits().Add(unitSlot);
+                            level.Avatar.SetUnitUpgradeLevel(combatData, maxLevel - 1);
                         }
 
                         for (int i = 0; i < 18; i++)
@@ -56,12 +53,12 @@ namespace UCS.Packets.Messages.Client
                             int maxLevel = combatData.GetUpgradeLevelCount();
                             DataSlot spellSlot = new DataSlot(spellData, 1000);
 
-                            level.GetPlayerAvatar().GetSpells().Add(spellSlot);
-                            level.GetPlayerAvatar().SetUnitUpgradeLevel(combatData, maxLevel - 1);
+                            level.Avatar.GetSpells().Add(spellSlot);
+                            level.Avatar.SetUnitUpgradeLevel(combatData, maxLevel - 1);
                         }
                     }*/
-                    p.State = ClientAvatar.UserState.PVE;
-                    PacketProcessor.Send(new NpcDataMessage(Client, level, this));
+                    this.Device.PlayerState = State.SEARCH_BATTLE;
+                    new NpcDataMessage(Device, this.Device.Player, this).Send();
                 }
             }
         }

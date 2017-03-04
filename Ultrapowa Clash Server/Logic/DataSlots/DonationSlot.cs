@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.DataSlots
 {
@@ -23,21 +25,21 @@ namespace UCS.Logic.DataSlots
             UnitLevel = ulevel;
         }
 
-        public void Decode(PacketReader br)            
+        public void Decode(Reader br)            
         {
-            DonatorID = br.ReadInt64WithEndian();
-            ID        = br.ReadInt32WithEndian();
-            Count     = br.ReadInt32WithEndian();
-            UnitLevel = br.ReadInt32WithEndian();
+            DonatorID = br.ReadInt64();
+            ID        = br.ReadInt32();
+            Count     = br.ReadInt32();
+            UnitLevel = br.ReadInt32();
         }
 
         public byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            data.AddInt64(DonatorID);
-            data.AddInt32(ID);
-            data.AddInt32(Count);
-            data.AddInt32(UnitLevel);
+            data.AddLong(DonatorID);
+            data.AddInt(ID);
+            data.AddInt(Count);
+            data.AddInt(UnitLevel);
             return data.ToArray();
         }
 

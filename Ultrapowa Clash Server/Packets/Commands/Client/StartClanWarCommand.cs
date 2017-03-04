@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Core;
-using UCS.Core.Network;
-using UCS.Helpers;
-using UCS.Logic;
-using UCS.Packets.Messages.Server;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     internal class StartClanWarCommand : Command
     {
-        public StartClanWarCommand(PacketReader br)
+        public StartClanWarCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Tick = br.ReadInt32WithEndian();
         }
 
-        public int Tick { get; set; }
-
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            /*Alliance an = ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+            this.Tick = this.Reader.ReadInt32();
+        }
+
+        public int Tick;
+
+        internal override void Process()
+        {
+            /*Alliance an = ObjectManager.GetAlliance(level.Avatar.GetAllianceId());
             if (an != null)
             {
                 if(an.GetAllianceMembers().Count >= 10)
@@ -30,7 +25,7 @@ namespace UCS.Packets.Commands.Client
                     foreach(AllianceMemberEntry a in an.GetAllianceMembers())
                     {
                         Level l = ResourcesManager.GetPlayer(a.GetAvatarId());
-                        new AllianceWarMapDataMessage(l.GetClient()).Send();
+                        new AllianceWarMapDataMessage(l.Client).Send();
                     }
                 }
             }*/

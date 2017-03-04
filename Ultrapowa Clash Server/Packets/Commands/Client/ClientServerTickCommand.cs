@@ -1,23 +1,21 @@
-﻿using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 553
     internal class ClientServerTickCommand : Command
     {
-        public static int Tick { get; set; }
-        public static int Unknown1 { get; set; }
+        public int Tick;
+        public int Unknown1;
 
-        public ClientServerTickCommand(PacketReader br)
+        public ClientServerTickCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Unknown1 = br.ReadInt32();
-            Tick = br.ReadInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
+            this.Unknown1 = this.Reader.ReadInt32();
+            this.Tick = this.Reader.ReadInt32();
         }
     }
 }

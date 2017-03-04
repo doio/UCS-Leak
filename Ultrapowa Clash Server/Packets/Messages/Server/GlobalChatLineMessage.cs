@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -7,79 +6,64 @@ namespace UCS.Packets.Messages.Server
     // Packet 24715
     internal class GlobalChatLineMessage : Message
     {
-        public GlobalChatLineMessage(Packets.Client client) : base(client)
+        public GlobalChatLineMessage(Device client) : base(client)
         {
-            SetMessageType(24715);
+            this.Identifier = 24715;
 
-            m_vMessage = "default";
-            m_vPlayerName = "default";
-            m_vHomeId = 1;
-            m_vCurrentHomeId = 1;
-            m_vPlayerLevel = 1;
-            m_vHasAlliance = false;
+            this.Message = "default";
+            this.PlayerName = "default";
+            this.HomeId = 1;
+            this.CurrentHomeId = 1;
+            this.PlayerLevel = 1;
+            this.HasAlliance = false;
         }
 
-        readonly int m_vPlayerLevel;
-        int m_vAllianceIcon;
-        long m_vAllianceId;
-        string m_vAllianceName;
-        long m_vCurrentHomeId;
-        bool m_vHasAlliance;
-        long m_vHomeId;
-        int m_vLeagueId;
-        string m_vMessage;
-        string m_vPlayerName;
+        internal int PlayerLevel;
+        internal int AllianceIcon;
+        internal int LeagueId;
 
-        public override void Encode()
+        internal long AllianceId;
+        internal long CurrentHomeId;
+        internal bool HasAlliance;
+        internal long HomeId;
+
+        internal string AllianceName;
+        internal string Message;
+        internal string PlayerName;
+
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
+            this.Data.AddString(this.Message);
+            this.Data.AddString(this.PlayerName);
+            this.Data.AddInt(this.PlayerLevel);
+            this.Data.AddInt(this.LeagueId);
+            this.Data.AddLong(this.HomeId);
+            this.Data.AddLong(this.CurrentHomeId);
 
-            pack.AddString(m_vMessage);
-            pack.AddString(m_vPlayerName);
-            pack.AddInt32(m_vPlayerLevel);
-            pack.AddInt32(m_vLeagueId);
-            pack.AddInt64(m_vHomeId);
-            pack.AddInt64(m_vCurrentHomeId);
-
-            if (!m_vHasAlliance)
+            if (!this.HasAlliance)
             {
-                pack.Add(0);
+                
+                    this.Data.Add(1);
+                    this.Data.AddLong(this.AllianceId);
+                    this.Data.AddString(this.AllianceName);
+                    this.Data.AddInt(this.AllianceIcon);
             }
             else
             {
-                pack.Add(1);
-                pack.AddInt64(m_vAllianceId);
-                pack.AddString(m_vAllianceName);
-                pack.AddInt32(m_vAllianceIcon);
+                this.Data.Add(0);
             }
 
-            Encrypt(pack.ToArray());
         }
 
         public void SetAlliance(Alliance alliance)
         {
-            if (alliance != null)
+            if(alliance?.GetAllianceId() > 0)
             {
-                if(alliance.GetAllianceId() != null)
-                {
-                    m_vHasAlliance = true;
-                    m_vAllianceId = alliance.GetAllianceId();
-                    m_vAllianceName = alliance.GetAllianceName();
-                    m_vAllianceIcon = alliance.GetAllianceBadgeData();
-                }
+                this.HasAlliance = true;
+                this.AllianceId = alliance.GetAllianceId();
+                this.AllianceName = alliance.GetAllianceName();
+                this.AllianceIcon = alliance.GetAllianceBadgeData();
             }
         }
-
-        public void SetChatMessage(string message) => m_vMessage = message;
-
-        public void SetLeagueId(int leagueId) => m_vLeagueId = leagueId;
-
-        public void SetPlayerId(long id)
-        {
-            m_vHomeId = id;
-            m_vCurrentHomeId = id;
-        }
-
-        public void SetPlayerName(string name) => m_vPlayerName = name;
     }
 }

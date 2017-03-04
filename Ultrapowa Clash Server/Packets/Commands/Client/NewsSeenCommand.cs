@@ -1,6 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -9,18 +7,20 @@ namespace UCS.Packets.Commands.Client
     {
         public byte[] packet;
 
-        public NewsSeenCommand(PacketReader br)
+        public NewsSeenCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
             //packet = br.ReadAllBytes();
             //Unknown1 = br.ReadUInt32WithEndian();
             //Unknown2 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
         }
 
-        public uint Unknown1 { get; set; }
-        public uint Unknown2 { get; set; }
+        public int Unknown1 { get; set; }
+        public int Unknown2 { get; set; }
     }
 }

@@ -1,31 +1,29 @@
-﻿using System;
-using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 605
     internal class PlaceHeroCommand : Command
     {
-        public PlaceHeroCommand(PacketReader br)
-        {
-            X      = br.ReadInt32();
-            Y      = br.ReadInt32();
-            HeroID = br.ReadInt32();
-            Tick   = br.ReadInt32();
-        }
-
-        public override void Execute(Level level)
+        public PlaceHeroCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
 
-        public int X { get; set; }
 
-        public int Y { get; set; }
+        internal override void Decode()
+        {
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.HeroID = this.Reader.ReadInt32();
+            this.Tick = this.Reader.ReadInt32();
+        }
 
-        public int Tick { get; set; }
+        public int X;
 
-        public int HeroID { get; set; }
+        public int Y;
+
+        public int Tick;
+
+        public int HeroID;
     }
 }

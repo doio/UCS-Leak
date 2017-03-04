@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,31 +6,28 @@ namespace UCS.Packets.Commands.Client
     // Packet 517
     internal class SpeedUpUpgradeUnitCommand : Command
     {
-        readonly int m_vBuildingId;
+        internal int m_vBuildingId;
 
-        public SpeedUpUpgradeUnitCommand(PacketReader br)
+        public SpeedUpUpgradeUnitCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingId = br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
-            if (go != null)
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            if (go?.ClassId == 0)
             {
-                if (go.ClassId == 0)
+                var b = (Building) go;
+                var uuc = b.GetUnitUpgradeComponent();
+                if (uuc?.GetCurrentlyUpgradedUnit() != null)
                 {
-                    var b = (Building) go;
-                    var uuc = b.GetUnitUpgradeComponent();
-                    if (uuc != null)
-                    {
-                        if (uuc.GetCurrentlyUpgradedUnit() != null)
-                        {
-                            uuc.SpeedUp();
-                        }
-                    }
+                    uuc.SpeedUp();
                 }
             }
         }

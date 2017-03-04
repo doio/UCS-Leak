@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -14,7 +15,7 @@ namespace UCS.Logic.StreamEntry
             data.AddRange(base.Encode());
             data.AddString(Message);
             data.AddString(m_vJudge);
-            data.AddInt32(m_vState);
+            data.AddInt(m_vState);
             return data.ToArray();
         }
 

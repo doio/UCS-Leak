@@ -12,9 +12,9 @@ using static UCS.Core.Logger;
 using System.Net.Sockets;
 using UCS.Core.Settings;
 
-namespace UCS.Core
+namespace UCS.Core.Checker
 {
-    class LicenseChecker
+    internal class LicenseChecker
     {
         public LicenseChecker()
         {
@@ -31,7 +31,7 @@ namespace UCS.Core
 
                 if (Key.Length == 32)
                 {
-                    TcpClient client     = new TcpClient("94.23.23.117", 8008);
+                    TcpClient client     = new TcpClient("213.202.254.160", 8008);
                     byte[] data          = Encoding.ASCII.GetBytes(Key);
                     NetworkStream stream = client.GetStream();
                     stream.Write(data, 0, data.Length);
@@ -47,20 +47,29 @@ namespace UCS.Core
                             Constants.LicensePlanID = Convert.ToInt32(responseData);
                             Program.UpdateTitle();
 
-                            if (Convert.ToInt32(responseData)      == 1)
+                            switch (Convert.ToInt32(responseData))
                             {
-                                Say("UCS is running on Plan (Lite).");
-                            }
-                            else if (Convert.ToInt32(responseData) == 2)
-                            {
-                                Say("UCS is running on Plan (Pro).");
-                            }
-                            else if (Convert.ToInt32(responseData) == 3)
-                            {
-                                Say("UCS is running on Plan (Ultra).");
+
+                                case 1:
+                                {
+                                    Say("UCS is running on Plan (Lite).");
+                                    break;
+                                }
+
+                                case 2:
+                                {
+                                    Say("UCS is running on Plan (Pro).");
+                                    break;
+                                }
+
+                                case 3:
+                                {
+                                    Say("UCS is running on Plan (Ultra).");
+                                    break;
+                                }
                             }
                         }
-                        else if(Convert.ToInt32(responseData) == 100)
+                        else if (Convert.ToInt32(responseData) == 100)
                         {
                             Say();
                             Say("This Key has been disabled, please contact the Support at Ultrapowa.com.");
@@ -75,20 +84,6 @@ namespace UCS.Core
                             Say("UCS will be closed now...");
                             Thread.Sleep(4000);
                             Environment.Exit(0);
-                        }
-                        else if (Convert.ToInt32(responseData) == 300)
-                        {
-                            Say();
-                            Say("The installed Key is invalid!");
-                            try
-                            {
-                                string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
-                                File.Delete(_FilePath);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                            goto back;
                         }
                     }
                     else

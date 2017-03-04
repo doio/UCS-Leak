@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.AvatarStreamEntry
 {
@@ -17,10 +18,10 @@ namespace UCS.Logic.AvatarStreamEntry
             data.AddRange(base.Encode());
             data.AddString(m_vMessage);
             data.Add(1);
-            data.AddInt64(m_vSenderId);
-            data.AddInt64(m_vAllianceId);
+            data.AddLong(m_vSenderId);
+            data.AddLong(m_vAllianceId);
             data.AddString(m_vAllianceName);
-            data.AddInt32(m_vAllianceBadgeData);
+            data.AddInt(m_vAllianceBadgeData);
             return data.ToArray();
         }
 

@@ -38,10 +38,10 @@ namespace UCS.Logic
                 m_vUnits.Add(ds);
                 if (m_vTimer == null)
                 {
-                    var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
+                    var ca = GetParent().Avatar.Avatar;
                     m_vTimer = new Timer();
                     var trainingTime = cd.GetTrainingTime(ca.GetUnitUpgradeLevel(cd));
-                    m_vTimer.StartTimer(trainingTime, GetParent().GetLevel().GetTime());
+                    m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.LastTickSaved);
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace UCS.Logic
             }
             if (m_vIsSpellForge)
             {
-                count += GetParent().GetLevel().GetComponentManager().GetTotalUsedHousing(true);
+                count += GetParent().Avatar.GetComponentManager().GetTotalUsedHousing(true);
             }
             return count;
         }
@@ -101,11 +101,11 @@ namespace UCS.Logic
                             if (firstUnit)
                             {
                                 if (m_vTimer != null)
-                                    result += m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime());
+                                    result += m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
                                 count--;
                                 firstUnit = false;
                             }
-                            var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
+                            var ca = GetParent().Avatar.Avatar;
                             result += count * cd.GetTrainingTime(ca.GetUnitUpgradeLevel(cd));
                         }
                     }
@@ -129,7 +129,7 @@ namespace UCS.Logic
                     totalRoom += cd.GetHousingSpace() * ds.Value;
                 }
             }
-            var cm = GetParent().GetLevel().GetComponentManager();
+            var cm = GetParent().Avatar.GetComponentManager();
             var usedHousing = cm.GetTotalUsedHousing(m_vIsSpellForge);
             var maxHousing = cm.GetTotalMaxHousing(m_vIsSpellForge);
             return totalRoom <= maxHousing - usedHousing;
@@ -144,7 +144,7 @@ namespace UCS.Logic
             {
                 if (m_vTimer != null)
                 {
-                    if (m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()) == 0)
+                    if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) == 0)
                     {
                         result = m_vIsWaitingForSpace;
                     }
@@ -162,7 +162,7 @@ namespace UCS.Logic
             {
                 m_vTimer = new Timer();
                 var remainingTime = timeToken.ToObject<int>();
-                m_vTimer.StartTimer(remainingTime, GetParent().GetLevel().GetTime());
+                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.LastTickSaved);
             }
             var unitJsonArray = (JArray) unitProdObject["slots"];
             if (unitJsonArray != null)
@@ -182,7 +182,7 @@ namespace UCS.Logic
             var cf = new ComponentFilter(0);
             var x = GetParent().X;
             var y = GetParent().Y;
-            var cm = GetParent().GetLevel().GetComponentManager();
+            var cm = GetParent().Avatar.GetComponentManager();
             var c = cm.GetClosestComponent(x, y, cf);
 
             while (c != null)
@@ -236,10 +236,10 @@ namespace UCS.Logic
                         {
                             var ds = m_vUnits[0];
                             var newcd = (CombatItemData) m_vUnits[0].Data;
-                            var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
+                            var ca = GetParent().Avatar.Avatar;
                             m_vTimer = new Timer();
                             var trainingTime = newcd.GetTrainingTime(ca.GetUnitUpgradeLevel(newcd));
-                            m_vTimer.StartTimer(trainingTime, GetParent().GetLevel().GetTime());
+                            m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.LastTickSaved);
                         }
                     }
                 }
@@ -256,7 +256,7 @@ namespace UCS.Logic
 
             if (m_vTimer != null)
             {
-                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()));
+                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved));
             }
 
             if (GetSlotCount() >= 1)
@@ -302,7 +302,7 @@ namespace UCS.Logic
         {
             if (m_vTimer != null)
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()) <= 0)
+                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
                 {
                     ProductionCompleted();
                 }

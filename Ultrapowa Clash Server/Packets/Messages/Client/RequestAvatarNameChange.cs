@@ -2,7 +2,7 @@
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -11,7 +11,7 @@ namespace UCS.Packets.Messages.Client
     // Packet 14600
     internal class RequestAvatarNameChange : Message
     {
-        public RequestAvatarNameChange(Packets.Client client, PacketReader br) : base(client, br)
+        public RequestAvatarNameChange(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -19,32 +19,28 @@ namespace UCS.Packets.Messages.Client
 
         public byte Unknown1 { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                PlayerName = br.ReadString();
-            }
+            this.PlayerName = this.Reader.ReadString();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
-                long id = level.GetPlayerAvatar().GetId();
+                long id = this.Device.Player.Avatar.GetId();
                 Level l = await ResourcesManager.GetPlayer(id);
                 if (l != null)
                 {
                     if (PlayerName.Length > 15)
                     {
-                        ResourcesManager.DisconnectClient(Client);
+                        ResourcesManager.DisconnectClient(Device);
                     }
                     else
                     {
-                        l.GetPlayerAvatar().SetName(PlayerName);
-                        AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.GetClient());
-                        p.SetAvatarName(PlayerName);
-                        PacketProcessor.Send(p);
+                        l.Avatar.SetName(PlayerName);
+                        AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.Client) {AvatarName = PlayerName};
+                        p.Send();
                     }
                 }
             } catch (Exception) { }

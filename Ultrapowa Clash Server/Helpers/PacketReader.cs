@@ -4,9 +4,10 @@ using System.Text;
 
 namespace UCS.Helpers
 {
-    public class PacketReader : BinaryReader
+    //Obsolate
+    internal class PacketReader12121 : BinaryReader
     {
-        public PacketReader(Stream stream) : base(stream)
+        public PacketReader12121(Stream stream) : base(stream)
         {
         }
 

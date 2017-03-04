@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.IO;
-using UCS.Core;
+using System.IO;using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -10,27 +9,31 @@ namespace UCS.Packets.Commands.Client
     // Packet 550
     internal class RemoveUnitsCommand : Command
     {
-        public RemoveUnitsCommand(PacketReader br)
+        public RemoveUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
+        { 
+        }
+
+        internal override void Decode()
         {
-            br.ReadUInt32WithEndian();
-            UnitTypesCount = br.ReadInt32WithEndian();
+            this.Reader.ReadUInt32();
+            UnitTypesCount = this.Reader.ReadInt32();
 
             UnitsToRemove = new List<UnitToRemove>();
             for (var i = 0; i < UnitTypesCount; i++)
             {
-                int UnitType = br.ReadInt32WithEndian();
-                int count = br.ReadInt32WithEndian();
-                int level = br.ReadInt32WithEndian();
-                UnitsToRemove.Add(new UnitToRemove { Data = UnitType, Count = count, Level = level });
+                int UnitType = this.Reader.ReadInt32();
+                int count = this.Reader.ReadInt32();
+                int level = this.Reader.ReadInt32();
+                this.UnitsToRemove.Add(new UnitToRemove { Data = UnitType, Count = count, Level = level });
             }
-
-            br.ReadUInt32WithEndian();
+            this.Reader.ReadUInt32();
         }
 
-        public override void Execute(Level level)
+
+        internal override void Process()
         {
-            List<DataSlot> _PlayerUnits = level.GetPlayerAvatar().GetUnits();
-            List<DataSlot> _PlayerSpells = level.GetPlayerAvatar().GetSpells();
+            List<DataSlot> _PlayerUnits = this.Device.Player.Avatar.GetUnits();
+            List<DataSlot> _PlayerSpells = this.Device.Player.Avatar.GetSpells();
 
             foreach (UnitToRemove _Unit in UnitsToRemove)
             {
@@ -55,14 +58,14 @@ namespace UCS.Packets.Commands.Client
             }
         }
 
-        public List<UnitToRemove> UnitsToRemove { get; set; }
-        public int UnitTypesCount { get; set; }
+        public List<UnitToRemove> UnitsToRemove;
+        public int UnitTypesCount;
     }
 
     internal class UnitToRemove
     {
-        public int Data { get; set; }
-        public int Count { get; set; }
-        public int Level { get; set; }
+        public int Data;
+        public int Count;
+        public int Level;
     }
 }

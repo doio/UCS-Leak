@@ -15,48 +15,64 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 /* Starting saving of players */
-                var pm = new GlobalChatLineMessage(level.GetClient());
-                pm.SetChatMessage("Starting saving process of every player!");
-                pm.SetPlayerId(0);
-                pm.SetLeagueId(22);
-                pm.SetPlayerName("UCS Bot");
-                PacketProcessor.Send(pm);
+                var pm = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "Starting saving process of every player!",
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
+                Processor.Send(pm);
                 DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
-                var p = new GlobalChatLineMessage(level.GetClient());
+                var p = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "All Players are saved!",
+                     HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
                 /* Confirmation */
-                p.SetChatMessage("All Players are saved!");
-                p.SetPlayerId(0);
-                p.SetLeagueId(22);
-                p.SetPlayerName("UCS Bot");
-                PacketProcessor.Send(p);
+                Processor.Send(p);
                 /* Starting saving of Clans */
-                var pmm = new GlobalChatLineMessage(level.GetClient());
-                pmm.SetPlayerId(0);
-                pmm.SetLeagueId(22);
-                pmm.SetPlayerName("UCS Bot");
-                pmm.SetChatMessage("Starting with saving of every Clan!");
-                PacketProcessor.Send(pmm);
+                var pmm = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "Starting with saving of every Clan!",
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
+                Processor.Send(pmm);
                 /* Confirmation */
                 //var clans = DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
                 //clans.Wait();
-                var pmp = new GlobalChatLineMessage(level.GetClient());
-                pmp.SetPlayerId(0);
-                pmp.SetLeagueId(22);
-                pmp.SetPlayerName("UCS Bot");
-                pmp.SetChatMessage("All Clans are saved!");
-                PacketProcessor.Send(pmp);
+                var pmp = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "All Clans are saved!",
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
+                Processor.Send(pmp);
             }
             else
             {
-                var p = new GlobalChatLineMessage(level.GetClient());
-                p.SetChatMessage("GameOp command failed. Access to Admin GameOP is prohibited.");
-                p.SetPlayerId(0);
-                p.SetLeagueId(22);
-                p.SetPlayerName("UCS Bot");
-                PacketProcessor.Send(p);
+                var p = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "GameOp command failed. Access to Admin GameOP is prohibited.",
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
+
+                Processor.Send(p);
             }
         }
         readonly string[] m_vArgs;

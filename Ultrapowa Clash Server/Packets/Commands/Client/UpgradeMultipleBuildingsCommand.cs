@@ -3,6 +3,7 @@ using System.IO;
 using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -10,40 +11,41 @@ namespace UCS.Packets.Commands.Client
     // Packet 549
     internal class UpgradeMultipleBuildingsCommand : Command
     {
-        public UpgradeMultipleBuildingsCommand(PacketReader br)
+        public UpgradeMultipleBuildingsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vIsAltResource = br.ReadByte();
-            m_vBuildingIdList = new List<int>();
-            var buildingCount = br.ReadInt32WithEndian();
-            for (var i = 0; i < buildingCount; i++)
-            {
-                var buildingId = br.ReadInt32WithEndian();
-                m_vBuildingIdList.Add(buildingId);
-            }
-            br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
+            this.m_vIsAltResource = this.Reader.ReadByte();
+            this.m_vBuildingIdList = new List<int>();
+            var buildingCount = this.Reader.ReadInt32();
+            for (var i = 0; i < buildingCount; i++)
+            {
+                var buildingId = this.Reader.ReadInt32();
+                this.m_vBuildingIdList.Add(buildingId);
+            }
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
 
             foreach (var buildingId in m_vBuildingIdList)
             {
-                var b = (Building) level.GameObjectManager.GetGameObjectByID(buildingId);
+                var b = (Building) this.Device.Player.GameObjectManager.GetGameObjectByID(buildingId);
                 if (b.CanUpgrade())
                 {
                     var bd = b.GetBuildingData();
                     var cost = bd.GetBuildCost(b.GetUpgradeLevel() + 1);
-                    ResourceData rd;
-                    if (m_vIsAltResource == 0)
-                        rd = bd.GetBuildResource(b.GetUpgradeLevel() + 1);
-                    else
-                        rd = bd.GetAltBuildResource(b.GetUpgradeLevel() + 1);
+                    ResourceData rd = m_vIsAltResource == 0 ? bd.GetBuildResource(b.GetUpgradeLevel() + 1) : bd.GetAltBuildResource(b.GetUpgradeLevel() + 1);
                     if (ca.HasEnoughResources(rd, cost))
                     {
-                        if (level.HasFreeWorkers())
+                        if (this.Device.Player.HasFreeWorkers())
                         {
                             string name = b.GetData().GetName();
+                            Logger.Write("Building To Upgrade : " + name + " (" + buildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
                                 ca.IncrementAllianceCastleLevel();
@@ -58,7 +60,7 @@ namespace UCS.Packets.Commands.Client
                 }
             }
         }
-        readonly List<int> m_vBuildingIdList;
-        readonly byte m_vIsAltResource;
+        internal List<int> m_vBuildingIdList;
+        internal byte m_vIsAltResource;
     }
 }

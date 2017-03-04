@@ -10,10 +10,10 @@
 
             for (int i = 0; i < 15; i++)
             {
-                differentbits |= ((int) (x[xoffset + i] ^ y[i])) & 0xff;
+                differentbits |= (x[xoffset + i] ^ y[i]) & 0xff;
             }
 
-            return (1 & ((int) ((uint) ((int) differentbits - 1) >> 8))) - 1;
+            return (1 & (int) ((uint) (differentbits - 1) >> 8)) - 1;
         }
     }
 }

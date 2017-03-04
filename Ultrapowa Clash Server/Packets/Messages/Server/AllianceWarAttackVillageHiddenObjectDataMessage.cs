@@ -3,6 +3,9 @@
     // Packet 24326
     internal class AllianceWarAttackVillageHiddenObjectDataMessage : Message
     {
-        public static int PacketID = 24326;
+        public AllianceWarAttackVillageHiddenObjectDataMessage(Device client) : base(client)
+        {
+            this.Identifier = 24326;
+        }
     }
 }

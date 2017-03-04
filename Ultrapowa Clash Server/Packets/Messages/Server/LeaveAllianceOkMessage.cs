@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -7,25 +6,23 @@ namespace UCS.Packets.Messages.Server
     // Packet 24111
     internal class LeaveAllianceOkMessage : Message
     {
-        public LeaveAllianceOkMessage(Packets.Client client, Alliance alliance) : base(client)
+        public LeaveAllianceOkMessage(Device client, Alliance alliance) : base(client)
         {
-            SetMessageType(24111);
+            this.Identifier = 24111;
 
-            m_vServerCommandType = 0x02;
-            m_vAlliance = alliance;
+            this.ServerCommandType = 0x02;
+            this.Alliance = alliance;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(m_vServerCommandType);
-            pack.AddInt64(m_vAlliance.GetAllianceId());
-            pack.AddInt32(1); // 1 = leave, 2 = kick
-            pack.AddInt32(-1);
-            Encrypt(pack.ToArray());
+            this.Data.AddInt(this.ServerCommandType);
+            this.Data.AddLong(this.Alliance.GetAllianceId());
+            this.Data.AddInt(1); // 1 = leave, 2 = kick
+            this.Data.AddInt(-1);
         }
 
-        readonly Alliance m_vAlliance;
-        readonly int m_vServerCommandType;
+        internal Alliance Alliance;
+        internal int ServerCommandType;
     }
 }

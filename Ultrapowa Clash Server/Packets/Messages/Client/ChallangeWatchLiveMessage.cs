@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets;
 using UCS.Packets.Messages.Server;
@@ -13,17 +13,13 @@ namespace UCS.Packets.Messages.Client
 {
     internal class ChallangeWatchLiveMessage : Message
     {
-        public ChallangeWatchLiveMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChallangeWatchLiveMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Process()
         {
-        }
-
-        public override void Process(Level level)
-        {
-            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+            new OwnHomeDataMessage(Device, this.Device.Player).Send();
         }
     }
 }

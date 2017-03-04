@@ -1,6 +1,7 @@
 using System.IO;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 
 namespace UCS.Logic
 {
@@ -17,11 +18,11 @@ namespace UCS.Logic
             Count    = count;
         }
 
-        public void Decode(PacketReader br)
+        public void Decode(Reader br)
         {
             UnitData = (CombatItemData) br.ReadDataReference();
-            Level    = br.ReadInt32WithEndian();
-            Count    = br.ReadInt32WithEndian();
+            Level    = br.ReadInt32();
+            Count    = br.ReadInt32();
         }
     }
 }

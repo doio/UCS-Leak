@@ -98,9 +98,9 @@ namespace UCS.Logic
 			m_vNormalTimer = new Timer();
 			m_vGemBoxTimer = new Timer();
 			m_vSpecialTimer = new Timer();
-			m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, level.GetTime());
-			m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, level.GetTime());
-			m_vSpecialTimer.StartTimer(m_vObstacleRespawnSeconds, level.GetTime());
+			m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, level.Avatar.LastTickSaved);
+			m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, level.Avatar.LastTickSaved);
+			m_vSpecialTimer.StartTimer(m_vObstacleRespawnSeconds, level.Avatar.LastTickSaved);
 			m_vObstacleClearCount = 0;
 			m_vRespawnSeed = new Random().Next();
 		}
@@ -132,9 +132,9 @@ namespace UCS.Logic
 			}
 			else
 			{
-				m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.GetTime());
-				m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.GetTime());
-				m_vSpecialTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.GetTime());
+				m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.Avatar.LastTickSaved);
+				m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.Avatar.LastTickSaved);
+				m_vSpecialTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.Avatar.LastTickSaved);
 			}
 		}
 
@@ -147,9 +147,9 @@ namespace UCS.Logic
 			if (m_vNormalTimer != null)
 			{
 				jobj.Add("secondsFromLastRespawn",
-					m_vObstacleRespawnSeconds - m_vNormalTimer.GetRemainingSeconds(m_vLevel.GetTime()));
-				jobj.Add("time_to_gembox_drop", m_vGemBoxTimer.GetRemainingSeconds(m_vLevel.GetTime()));
-				jobj.Add("time_to_special_drop", m_vSpecialTimer.GetRemainingSeconds(m_vLevel.GetTime()));
+					m_vObstacleRespawnSeconds - m_vNormalTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved));
+				jobj.Add("time_to_gembox_drop", m_vGemBoxTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved));
+				jobj.Add("time_to_special_drop", m_vSpecialTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved));
 				jobj.Add("normal_t", m_vNormalTimer.GetStartTime());
 				jobj.Add("gembox_t", m_vGemBoxTimer.GetStartTime());
 				jobj.Add("special_t", m_vSpecialTimer.GetStartTime());
@@ -162,7 +162,7 @@ namespace UCS.Logic
 
 		public void Tick()
 		{
-			while (m_vObstacleClearCount > 0 && m_vNormalTimer.GetRemainingSeconds(m_vLevel.GetTime()) <= 0)
+			while (m_vObstacleClearCount > 0 && m_vNormalTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved) <= 0)
 			{
 				var ob = GetRandomObstacle();
 				var pos = GetFreePlace(ob);
@@ -177,16 +177,16 @@ namespace UCS.Logic
 					}
 					else
 					{
-						m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.GetTime());
+						m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.Avatar.LastTickSaved);
 					}
 				}
 				else
 				{
-					m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.GetTime());
+					m_vNormalTimer.StartTimer(m_vObstacleRespawnSeconds, m_vLevel.Avatar.LastTickSaved);
 					break;
 				}
 			}
-			if (m_vGemBoxTimer.GetRemainingSeconds(m_vLevel.GetTime()) <= 0)
+			if (m_vGemBoxTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved) <= 0)
 			{
 				if (new Random().Next(0, 4) == 0)
 				{
@@ -195,12 +195,12 @@ namespace UCS.Logic
 					if (pos != null)
 					{
 						SpawnObstacle(pos, ob);
-						m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.GetTime());
+						m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.Avatar.LastTickSaved);
 					}
 				}
 				else
 				{
-					m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.GetTime());
+					m_vGemBoxTimer.StartTimer(m_vObstacleRespawnSeconds * 2, m_vLevel.Avatar.LastTickSaved);
 				}
 			}
 		}
@@ -328,7 +328,7 @@ namespace UCS.Logic
 		private void SpawnObstacle(int[] position, ObstacleData data)
 		{
 			var o = new Obstacle(data, m_vLevel);
-			o.SetPositionXY(position[0], position[1], m_vLevel.GetPlayerAvatar().GetActiveLayout());
+			o.SetPositionXY(position[0], position[1], m_vLevel.Avatar.GetActiveLayout());
 			m_vLevel.GameObjectManager.AddGameObject(o);
 		}*/
 	}

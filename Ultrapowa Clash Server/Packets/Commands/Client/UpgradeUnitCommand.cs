@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -8,18 +10,21 @@ namespace UCS.Packets.Commands.Client
     // Packet 516
     internal class UpgradeUnitCommand : Command
     {
-        public UpgradeUnitCommand(PacketReader br)
+        public UpgradeUnitCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
-            UnitData = (CombatItemData) br.ReadDataReference();
-            Unknown2 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+            this.UnitData = (CombatItemData)this.Reader.ReadDataReference();
+            this.Unknown2 = this.Reader.ReadUInt32();
+        }
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
             var b = (Building) go;
             var uuc = b.GetUnitUpgradeComponent();
             var unitLevel = ca.GetUnitUpgradeLevel(UnitData);
@@ -29,15 +34,16 @@ namespace UCS.Packets.Commands.Client
                 var rd = UnitData.GetUpgradeResource(unitLevel);
                 if (ca.HasEnoughResources(rd, cost))
                 {
+                    Logger.Write("Unit To Upgrade : " + UnitData.GetName() + " (" + UnitData.GetGlobalID() + ')');
                     ca.SetResourceCount(rd, ca.GetResourceCount(rd) - cost);
                     uuc.StartUpgrading(UnitData);
                 }
             }
         }
 
-        public int BuildingId { get; set; }
-        public CombatItemData UnitData { get; set; }
-        public uint Unknown1 { get; set; } 
-        public uint Unknown2 { get; set; }
+        public int BuildingId;
+        public CombatItemData UnitData;
+        public uint Unknown1;
+        public uint Unknown2;
     }
 }

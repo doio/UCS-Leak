@@ -19,7 +19,7 @@ namespace UCS.Core
 
         public CSVManager()
         {
-            DownloadLatestCSVFiles();
+            //DownloadLatestCSVFiles();
 
             try
             {

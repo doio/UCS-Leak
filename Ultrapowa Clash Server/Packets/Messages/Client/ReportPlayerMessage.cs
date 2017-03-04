@@ -2,7 +2,7 @@
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -11,7 +11,7 @@ namespace UCS.Packets.Messages.Client
     // Packet 10117
     internal class ReportPlayerMessage : Message
     {
-        public ReportPlayerMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ReportPlayerMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -19,28 +19,25 @@ namespace UCS.Packets.Messages.Client
 
         public int Tick { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                br.ReadInt32();
-                ReportedPlayerID = br.ReadInt64();
-                br.ReadInt32();               
-            }
+            this.Reader.ReadInt32();
+            this.ReportedPlayerID = this.Reader.ReadInt64();
+            this.Reader.ReadInt32();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
                 Level ReportedPlayer = await ResourcesManager.GetPlayer(ReportedPlayerID);
-                ReportedPlayer.GetPlayerAvatar().ReportedTimes++;
-                if (ReportedPlayer.GetPlayerAvatar().ReportedTimes >= 3)
+                ReportedPlayer.Avatar.ReportedTimes++;
+                if (ReportedPlayer.Avatar.ReportedTimes >= 3)
                 {
-                    AvatarChatBanMessage _AvatarChatBanMessage = new AvatarChatBanMessage(ReportedPlayer.GetClient());
+                    AvatarChatBanMessage _AvatarChatBanMessage = new AvatarChatBanMessage(ReportedPlayer.Client);
                     //_AvatarChatBanMessage.SetBanPeriod(86400); // A Day
                     _AvatarChatBanMessage.SetBanPeriod(1800); // 30 Minutes
-                    PacketProcessor.Send(_AvatarChatBanMessage);
+                    _AvatarChatBanMessage.Send();
                 }
             }
             catch (Exception)

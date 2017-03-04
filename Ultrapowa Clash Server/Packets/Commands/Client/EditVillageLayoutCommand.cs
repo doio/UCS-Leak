@@ -1,30 +1,31 @@
-using System;
-using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 546
     internal class EditVillageLayoutCommand : Command
     {
-        private int X;
-        private int Y;
-        private int BuildingID;
-        private int Layout;
+        internal int X;
+        internal int Y;
+        internal int BuildingID;
+        internal int Layout;
 
-        public EditVillageLayoutCommand(PacketReader br)
+        public EditVillageLayoutCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X = br.ReadInt32();
-            Y = br.ReadInt32();
-            BuildingID = br.ReadInt32();
-            Layout = br.ReadInt32();
-            br.ReadInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            /*if (Layout != level.GetPlayerAvatar().GetActiveLayout())
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.BuildingID = this.Reader.ReadInt32();
+            this.Layout = this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            /*if (Layout != level.Avatar.GetActiveLayout())
             {
                 GameObject go = level.GameObjectManager.GetGameObjectByID(BuildingID);
                 go.SetPositionXY(X, Y, Layout);

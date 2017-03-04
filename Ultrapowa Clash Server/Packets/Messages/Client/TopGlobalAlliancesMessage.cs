@@ -1,6 +1,7 @@
 using System.IO;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -10,24 +11,23 @@ namespace UCS.Packets.Messages.Client
     internal class TopGlobalAlliancesMessage : Message
     {
         public int unknown { get; set; }
-        public TopGlobalAlliancesMessage(Packets.Client client, PacketReader br) : base(client, br)
+
+        public TopGlobalAlliancesMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                unknown = GetData().Length == 10 ? GetData()[9] : br.Read();
-            }
+            this.unknown = this.Reader.BaseStream.Length == 10 ? this.Reader.ReadBytes(10)[9] : this.Reader.Read();
+
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
             if (unknown == 0)
-            PacketProcessor.Send(new GlobalAlliancesMessage(Client));
+                new GlobalAlliancesMessage(Device).Send();
             else
-            PacketProcessor.Send(new LocalAlliancesMessage(Client));
+                new LocalAlliancesMessage(this.Device).Send();
         }
     }
 }

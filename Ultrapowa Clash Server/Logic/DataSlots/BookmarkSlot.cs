@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.DataSlots
 {
@@ -17,15 +19,15 @@ namespace UCS.Logic.DataSlots
             Value = value;
         }
 
-        public void Decode(PacketReader br)
+        public void Decode(Reader br)
         {
-            Value = br.ReadInt32WithEndian();
+            Value = br.ReadInt32();
         }
 
         public byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            data.AddInt64(Value);
+            data.AddLong(Value);
             return data.ToArray();
         }
 

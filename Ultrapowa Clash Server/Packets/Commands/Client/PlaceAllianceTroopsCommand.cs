@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
-    class PlaceAllianceTroopsCommand : Command
+    internal class PlaceAllianceTroopsCommand : Command
     {
-        public PlaceAllianceTroopsCommand(PacketReader br)
+        public PlaceAllianceTroopsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
-            br.ReadUInt32WithEndian();
         }
 
-        public override async void Execute(Level level)
+        internal override void Decode()
         {
-            ClientAvatar _Player = level.GetPlayerAvatar();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override async void Process()
+        {
+            ClientAvatar _Player = this.Device.Player.Avatar;
 
             if (_Player != null)
             {

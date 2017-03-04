@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,18 +8,22 @@ namespace UCS.Packets.Commands.Client
     // Packet 503
     internal class SellBuildingCommand : Command
     {
-        readonly int m_vBuildingId;
+        internal int m_vBuildingId;
 
-        public SellBuildingCommand(PacketReader br)
+        public SellBuildingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingId = br.ReadInt32WithEndian();
-            br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(m_vBuildingId);
 
             if (go != null)
             {
@@ -29,7 +34,7 @@ namespace UCS.Packets.Commands.Client
                     var rd = t.GetTrapData().GetBuildResource(upgradeLevel);
                     var sellPrice = t.GetTrapData().GetSellPrice(upgradeLevel);
                     ca.CommodityCountChangeHelper(0, rd, sellPrice);
-                    level.GameObjectManager.RemoveGameObject(t);
+                    this.Device.Player.GameObjectManager.RemoveGameObject(t);
                 }
                 else if (go.ClassId == 6)
                 {
@@ -44,7 +49,7 @@ namespace UCS.Packets.Commands.Client
                     {
                         ca.CommodityCountChangeHelper(0, rd, sellPrice);
                     }
-                    level.GameObjectManager.RemoveGameObject(d);
+                    this.Device.Player.GameObjectManager.RemoveGameObject(d);
                 }
             }
         }

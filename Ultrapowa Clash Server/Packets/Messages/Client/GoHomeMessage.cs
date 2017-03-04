@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 using UCS.Packets.Commands.Client;
@@ -16,30 +16,27 @@ namespace UCS.Packets.Messages.Client
     // Packet 14101
     internal class GoHomeMessage : Message
     {
-        public GoHomeMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public GoHomeMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                State = br.ReadInt32WithEndian();              
-            }
+            this.State = this.Reader.ReadInt32();
         }
 
-        public int State { get; set; }
+        public int State;
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
-                ClientAvatar player = level.GetPlayerAvatar();
+                ClientAvatar player = this.Device.Player.Avatar;
 
                 /*if (player.State == UserState.PVP)
                 {
                     var info = default(ClientAvatar.AttackInfo);
-                    if (!level.GetPlayerAvatar().AttackingInfo.TryGetValue(level.GetPlayerAvatar().GetId(), out info))
+                    if (!level.Avatar.AttackingInfo.TryGetValue(level.Avatar.GetId(), out info))
                     {
                         Logger.Write("Unable to obtain attack info.");
                     }
@@ -53,11 +50,11 @@ namespace UCS.Packets.Messages.Client
 
                         List<DataSlot> usedtroop = info.UsedTroop;
 
-                        int attackerscore = attacker.GetPlayerAvatar().GetScore();
-                        int defenderscore = defender.GetPlayerAvatar().GetScore();
+                        int attackerscore = attacker.Avatar.GetScore();
+                        int defenderscore = defender.Avatar.GetScore();
 
-                        if (defender.GetPlayerAvatar().GetScore() > 0)
-                            defender.GetPlayerAvatar().SetScore(defenderscore -= lost);
+                        if (defender.Avatar.GetScore() > 0)
+                            defender.Avatar.SetScore(defenderscore -= lost);
 
                         Logger.Write("Used troop type: " + usedtroop.Count);
                         foreach(DataSlot a in usedtroop)
@@ -65,8 +62,8 @@ namespace UCS.Packets.Messages.Client
                             Logger.Write("Troop Name: " + a.Data.GetName());
                             Logger.Write("Troop Used Value: " + a.Value);
                         }
-                        attacker.GetPlayerAvatar().SetScore(attackerscore += reward);
-                        attacker.GetPlayerAvatar().AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
+                        attacker.Avatar.SetScore(attackerscore += reward);
+                        attacker.Avatar.AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
                         Resources(attacker);
 
                         DatabaseManager.Single().Save(attacker);
@@ -76,31 +73,35 @@ namespace UCS.Packets.Messages.Client
                 }*/
                 if (State == 1)
                 {
-                    player.State = UserState.Editmode;
-                    level.Tick();
-                    PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+                    this.Device.PlayerState = Logic.Enums.State.WAR_EMODE;
+                    this.Device.Player.Tick();
+                    new OwnHomeDataMessage(this.Device, this.Device.Player).Send();
                 }
-                else if (player.State == UserState.Home)
+                else if (this.Device.PlayerState == Logic.Enums.State.LOGGED)
                 {
-                    ResourcesManager.DisconnectClient(Client);
+                    ResourcesManager.DisconnectClient(Device);
                 }
                 else
                 {
-                    player.State = UserState.Home;
-                    level.Tick();
-                    Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                    PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+                    this.Device.PlayerState = Logic.Enums.State.LOGGED;
+                    this.Device.Player.Tick();
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                    new OwnHomeDataMessage(Device, this.Device.Player).Send();
                     if (alliance != null)
                     {
-                        PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                        new AllianceStreamMessage(Device, alliance).Send();
                     }
                 }
-            } catch (Exception) { }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         public void Resources(Level level)
         {
-            ClientAvatar avatar = level.GetPlayerAvatar();
+            ClientAvatar avatar = level.Avatar;
             int currentGold = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"));
             int currentElixir = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"));
             ResourceData goldLocation = CSVManager.DataTables.GetResourceByName("Gold");

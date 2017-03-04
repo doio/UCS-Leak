@@ -1,7 +1,6 @@
-﻿using System.IO;
-using UCS.Core;
+﻿using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -9,16 +8,21 @@ namespace UCS.Packets.Commands.Client
     // Packet 520
     internal class UnlockBuildingCommand : Command
     {
-        public UnlockBuildingCommand(PacketReader br)
+        public UnlockBuildingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
+            
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
 
             var b = (ConstructionItem) go;
 
@@ -26,11 +30,12 @@ namespace UCS.Packets.Commands.Client
 
             if (ca.HasEnoughResources(bd.GetBuildResource(b.GetUpgradeLevel()), bd.GetBuildCost(b.GetUpgradeLevel())))
             {
-                string name = level.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
+                string name = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
+                Logger.Write("Unlocking Building: " + name + " (" + BuildingId + ')');
                 if (string.Equals(name, "Alliance Castle"))
                 {
                     ca.IncrementAllianceCastleLevel();
-                    Building a = (Building)level.GameObjectManager.GetGameObjectByID(BuildingId);
+                    Building a = (Building)this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
                     BuildingData al = a.GetBuildingData();
                     ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
                 }
@@ -39,7 +44,8 @@ namespace UCS.Packets.Commands.Client
                 b.Unlock();
             }
         }
-        public int BuildingId { get; set; }
-        public uint Unknown1 { get; set; }
+
+        public int BuildingId;
+        public uint Unknown1;
     }
 }

@@ -34,17 +34,17 @@ namespace UCS.Core.Threading
         {
             try
             {
-                foreach (Client _Player in ResourcesManager.GetConnectedClients())
+                foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
                 {
-                    if (!_Player.IsClientSocketConnected())
+                    if (!_Player.Client.IsClientSocketConnected())
                     {
-                        _Player.Socket.Close();
-                        ResourcesManager.DropClient(_Player.GetSocketHandle());
+                        _Player.Client.Socket.Close();
+                        ResourcesManager.DropClient(_Player.Client.SocketHandle);
                     }
                 }
 
-                /*GC.Collect(GC.MaxGeneration);
-                GC.WaitForPendingFinalizers();*/
+                GC.Collect(GC.MaxGeneration);
+                GC.WaitForPendingFinalizers();
             } catch (Exception) { }
         }
 

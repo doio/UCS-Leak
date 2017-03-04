@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UCS.Core;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 using UCS.Logic.DataSlots;
 
@@ -12,49 +9,44 @@ namespace UCS.Packets.Messages.Server
     // Packet 24341
     internal class BookmarkListMessage : Message
     {
-        public ClientAvatar player { get; set; }
-        public int i;
+        public ClientAvatar Player;
+        public int I;
 
-        public BookmarkListMessage(Packets.Client client) : base(client)
+        public BookmarkListMessage(Device client) : base(client)
         {
-            SetMessageType(24341);
-            player = client.GetLevel().GetPlayerAvatar();
-            i = 0;
+            this.Identifier = 24341;
+            this.Player = client.Player.Avatar;
+            I = 0;
         }
 
-        public override async void Encode()
+        internal override async void Encode()
         {
-            try
+            List<byte> list = new List<byte>();
+            List<BookmarkSlot> rem = new List<BookmarkSlot>();
+
+            foreach (var p in Player.BookmarkedClan)
             {
-                List<byte> data = new List<byte>();
-                List<byte> list = new List<byte>();
-                List<BookmarkSlot> rem = new List<BookmarkSlot>();
-
-                foreach (var p in player.BookmarkedClan)
+                Alliance a = await ObjectManager.GetAlliance(p.Value);
+                if (a != null)
                 {
-                    Alliance a = await ObjectManager.GetAlliance(p.Value);
-                    if (a != null)
-                    {
-                        list.AddRange(a.EncodeFullEntry());
-                        i++;
-                    }
-                    else
-                    {
-                        rem.Add(p);
-                        if (i > 0)
-                            i--;
-                    }
+                    list.AddRange(a.EncodeFullEntry());
+                    I++;
                 }
-
-                data.AddInt32(i);
-                data.AddRange(list);
-                Encrypt(data.ToArray());
-
-                foreach (BookmarkSlot im in rem)
+                else
                 {
-                    player.BookmarkedClan.RemoveAll(t => t == im);
+                    rem.Add(p);
+                    if (I > 0)
+                        I--;
                 }
-            } catch (Exception) { }
+            }
+
+            this.Data.AddInt(I);
+            this.Data.AddRange(list);
+
+            foreach (BookmarkSlot im in rem)
+            {
+                Player.BookmarkedClan.RemoveAll(t => t == im);
+            }
         }
     }
 }

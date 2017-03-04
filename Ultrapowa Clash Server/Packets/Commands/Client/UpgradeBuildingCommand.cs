@@ -2,6 +2,7 @@
 using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -9,21 +10,25 @@ namespace UCS.Packets.Commands.Client
     // Packet 502
     internal class UpgradeBuildingCommand : Command
     {
-        public int BuildingId { get; set; }
-        public uint Unknown1 { get; set; }
-        public uint Unknown2 { get; set; }
+        public int BuildingId;
+        public uint Unknown1;
+        public uint Unknown2;
 
-        public UpgradeBuildingCommand(PacketReader br)
+        public UpgradeBuildingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadInt32WithEndian();
-            Unknown2 = br.ReadByte();
-            Unknown1 = br.ReadUInt32WithEndian();
+            
+        }
+        internal override void Decode()
+        {
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown2 = this.Reader.ReadByte();
+            this.Unknown1 = this.Reader.ReadUInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Process()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            var ca = this.Device.Player.Avatar;
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
             if (go !=null)
             {
                 var b = (ConstructionItem)go;
@@ -33,13 +38,14 @@ namespace UCS.Packets.Commands.Client
                     if (ca.HasEnoughResources(bd.GetBuildResource(b.GetUpgradeLevel() + 1),
                         bd.GetBuildCost(b.GetUpgradeLevel() + 1)))
                     {
-                        if (level.HasFreeWorkers())
+                        if (this.Device.Player.HasFreeWorkers())
                         {
-                            string name = level.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
+                            string name = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId).GetData().GetName();
+                            Logger.Write("Building To Upgrade : " + name + " (" + BuildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
                                 ca.IncrementAllianceCastleLevel();
-                                Building a = (Building)level.GameObjectManager.GetGameObjectByID(BuildingId);
+                                Building a = (Building)this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
                                 BuildingData al = a.GetBuildingData();
                                 ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
                             }

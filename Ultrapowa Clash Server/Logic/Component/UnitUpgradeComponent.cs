@@ -24,8 +24,8 @@ namespace UCS.Logic
             if (m_vCurrentlyUpgradedUnit == null)
             {
                 var b = (Building) GetParent();
-                var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
-                var cm = GetParent().GetLevel().GetComponentManager();
+                var ca = GetParent().Avatar.Avatar;
+                var cm = GetParent().Avatar.GetComponentManager();
                 int maxProductionBuildingLevel;
                 if (cid.GetCombatItemType() == 1)
                     maxProductionBuildingLevel = cm.GetMaxSpellForgeLevel();
@@ -47,7 +47,7 @@ namespace UCS.Logic
         {
             if (m_vCurrentlyUpgradedUnit != null)
             {
-                var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
+                var ca = GetParent().Avatar.Avatar;
                 var level = ca.GetUnitUpgradeLevel(m_vCurrentlyUpgradedUnit);
                 ca.SetUnitUpgradeLevel(m_vCurrentlyUpgradedUnit, level + 1);
             }
@@ -62,7 +62,7 @@ namespace UCS.Logic
             var result = 0;
             if (m_vTimer != null)
             {
-                result = m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime());
+                result = m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
             }
             return result;
         }
@@ -72,7 +72,7 @@ namespace UCS.Logic
             var result = 0;
             if (m_vCurrentlyUpgradedUnit != null)
             {
-                var ca = GetParent().GetLevel().GetHomeOwnerAvatar();
+                var ca = GetParent().Avatar.Avatar;
                 var level = ca.GetUnitUpgradeLevel(m_vCurrentlyUpgradedUnit);
                 result = m_vCurrentlyUpgradedUnit.GetUpgradeTime(level);
             }
@@ -86,7 +86,7 @@ namespace UCS.Logic
             {
                 m_vTimer = new Timer();
                 var remainingTime = unitUpgradeObject["t"].ToObject<int>();
-                m_vTimer.StartTimer(remainingTime, GetParent().GetLevel().GetTime());
+                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.LastTickSaved);
 
                 var id = unitUpgradeObject["id"].ToObject<int>();
                 m_vCurrentlyUpgradedUnit = (CombatItemData)CSVManager.DataTables.GetDataById(id);
@@ -100,7 +100,7 @@ namespace UCS.Logic
                 var unitUpgradeObject = new JObject();
 
                 unitUpgradeObject.Add("unit_type", m_vCurrentlyUpgradedUnit.GetCombatItemType());
-                unitUpgradeObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()));
+                unitUpgradeObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved));
                 unitUpgradeObject.Add("id", m_vCurrentlyUpgradedUnit.GetGlobalID());
                 jsonObject.Add("unit_upg", unitUpgradeObject);
             }
@@ -114,10 +114,10 @@ namespace UCS.Logic
                 var remainingSeconds = 0;
                 if (m_vTimer != null)
                 {
-                    remainingSeconds = m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime());
+                    remainingSeconds = m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
                 }
                 var cost = GamePlayUtil.GetSpeedUpCost(remainingSeconds);
-                var ca = GetParent().GetLevel().GetPlayerAvatar();
+                var ca = GetParent().Avatar.Avatar;
                 if (ca.HasEnoughDiamonds(cost))
                 {
                     ca.UseDiamonds(cost);
@@ -132,7 +132,7 @@ namespace UCS.Logic
             {
                 m_vCurrentlyUpgradedUnit = cid;
                 m_vTimer = new Timer();
-                m_vTimer.StartTimer(GetTotalSeconds(), GetParent().GetLevel().GetTime());
+                m_vTimer.StartTimer(GetTotalSeconds(), GetParent().Avatar.Avatar.LastTickSaved);
             }
         }
 
@@ -140,7 +140,7 @@ namespace UCS.Logic
         {
             if (m_vTimer != null)
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().GetLevel().GetTime()) <= 0)
+                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
                 {
                     FinishUpgrading();
                 }

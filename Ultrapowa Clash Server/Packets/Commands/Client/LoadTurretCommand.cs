@@ -1,6 +1,4 @@
-﻿using System.IO;
-using UCS.Core;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -8,23 +6,26 @@ namespace UCS.Packets.Commands.Client
     // Packet 525
     internal class LoadTurretCommand : Command
     {
-        public LoadTurretCommand(PacketReader br)
+        public LoadTurretCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vUnknown1 = br.ReadUInt32WithEndian();
-            m_vBuildingId = br.ReadInt32WithEndian();
-            m_vUnknown2 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
-            if (go != null)
-                if (go.GetComponent(1, true) != null)
-                    ((CombatComponent) go.GetComponent(1, true)).FillAmmo();
+            this.m_vUnknown1 = this.Reader.ReadUInt32();
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.m_vUnknown2 = this.Reader.ReadUInt32();
         }
 
-        public int m_vBuildingId { get; set; }
-        public uint m_vUnknown1 { get; set; }
-        public uint m_vUnknown2 { get; set; }
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            if (go?.GetComponent(1, true) != null)
+                ((CombatComponent) go.GetComponent(1, true)).FillAmmo();
+        }
+
+        public int m_vBuildingId;
+        public uint m_vUnknown1;
+        public uint m_vUnknown2;
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UCS.Logic;
-using UCS.Packets;
+﻿using UCS.Logic;
 
 namespace  UCS.Packets.Commands.Server
 {
@@ -10,15 +7,14 @@ namespace  UCS.Packets.Commands.Server
     {
         private Alliance m_vAlliance;
 
-        public JoinedAllianceCommand()
+        public JoinedAllianceCommand(Device client) : base(client)
         {
+            this.Identifier = 1;
         }
 
-        public override byte[] Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddRange(m_vAlliance.EncodeHeader());
-            return data.ToArray();
+            this.Data.AddRange(m_vAlliance.EncodeHeader());
         }
 
         public void SetAlliance(Alliance alliance)

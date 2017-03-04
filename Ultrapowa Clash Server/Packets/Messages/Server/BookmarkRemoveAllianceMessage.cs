@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace UCS.Packets.Messages.Server
+﻿namespace UCS.Packets.Messages.Server
 {
     // Packet 24344
     internal class BookmarkRemoveAllianceMessage : Message
     {
-        public BookmarkRemoveAllianceMessage(Packets.Client client) : base(client)
+        public BookmarkRemoveAllianceMessage(Device client) : base(client)
         {
-            SetMessageType(24344);
+            this.Identifier = 24344;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.Add(1);
-            Encrypt(data.ToArray());
+            this.Data.Add(1);
         }
     }
 }

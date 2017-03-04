@@ -1,26 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UCS.Core;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24402
     internal class LocalAlliancesMessage : Message
     {
-        List<Alliance> m_vAlliances;
-
-        public LocalAlliancesMessage(Packets.Client client) : base(client)
+        public LocalAlliancesMessage(Device client) : base(client)
         {
-            SetMessageType(24402);
-            m_vAlliances = new List<Alliance>();
+            this.Identifier = 24402;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> packet = new List<byte>();
             List<byte> packet1 = new List<byte>();
             int i = 0;
 
@@ -28,20 +22,19 @@ namespace UCS.Packets.Messages.Server
             {
                 if (i >= 100)
                     break;
-                packet1.AddInt64(alliance.GetAllianceId());
+                packet1.AddLong(alliance.GetAllianceId());
                 packet1.AddString(alliance.GetAllianceName());
-                packet1.AddInt32(i + 1);
-                packet1.AddInt32(alliance.GetScore());
-                packet1.AddInt32(i + 1);
-                packet1.AddInt32(alliance.GetAllianceBadgeData());
-                packet1.AddInt32(alliance.GetAllianceMembers().Count);
-                packet1.AddInt32(0);
-                packet1.AddInt32(alliance.GetAllianceLevel());
+                packet1.AddInt(i + 1);
+                packet1.AddInt(alliance.GetScore());
+                packet1.AddInt(i + 1);
+                packet1.AddInt(alliance.GetAllianceBadgeData());
+                packet1.AddInt(alliance.GetAllianceMembers().Count);
+                packet1.AddInt(0);
+                packet1.AddInt(alliance.GetAllianceLevel());
                 i++;
             }
-            packet.AddInt32(0);       
-            packet.AddRange(packet1.ToArray());
-            Encrypt(packet.ToArray());
+            this.Data.AddInt(0);       
+            this.Data.AddRange(packet1.ToArray());
         }
     }
 }

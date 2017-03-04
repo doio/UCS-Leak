@@ -1,28 +1,20 @@
-﻿using System.Collections.Generic;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24115
     internal class ServerErrorMessage : Message
     {
-        string m_vErrorMessage;
+        internal string ErrorMessage;
 
-        public ServerErrorMessage(Packets.Client client) : base(client)
+        public ServerErrorMessage(Device client) : base(client)
         {
-            SetMessageType(24115);
+            this.Identifier = 24115;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddString(m_vErrorMessage);
-            Encrypt(data.ToArray());
-        }
-
-        public void SetErrorMessage(string message)
-        {
-            m_vErrorMessage = message;
+            this.Data.AddString(this.ErrorMessage);
         }
     }
 }

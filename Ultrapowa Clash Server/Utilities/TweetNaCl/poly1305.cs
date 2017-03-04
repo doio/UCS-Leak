@@ -2,105 +2,13 @@
 {
     public class poly1305
     {
+        internal static readonly int[] minusp =
+        {
+            5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252
+        };
+
         internal readonly int CRYPTO_BYTES = 16;
         internal readonly int CRYPTO_KEYBYTES = 32;
-
-        internal static readonly int[] minusp = new int[] {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252};
-
-        public static int crypto_onetimeauth_verify(byte[] h, int hoffset, byte[] inv, int invoffset, long inlen, byte[] k)
-        {
-            byte[] correct = new byte[16];
-
-            crypto_onetimeauth(correct, 0, inv, invoffset, inlen, k);
-            return verify_16.crypto_verify(h, hoffset, correct);
-        }
-
-        internal static void add(int[] h, int[] c)
-        {
-            int j;
-            int u = 0;
-
-            for (j = 0; j < 17; ++j)
-            {
-                u += h[j] + c[j];
-                h[j] = u & 255;
-                u = (int) ((uint) u >> 8);
-            }
-        }
-
-        internal static void squeeze(int[] h)
-        {
-            int u = 0;
-
-            for (int j = 0; j < 16; ++j)
-            {
-                u += h[j];
-                h[j] = u & 255;
-                u = (int) ((uint) u >> 8);
-            }
-
-            u += h[16];
-            h[16] = u & 3;
-            u = 5 * ((int) ((uint) u >> 2));
-
-            for (int j = 0; j < 16; ++j)
-            {
-                u += h[j];
-                h[j] = u & 255;
-                u = (int) ((uint) u >> 8);
-            }
-
-            u += h[16];
-            h[16] = u;
-        }
-
-        internal static void freeze(int[] h)
-        {
-            int[] horig = new int[17];
-
-            for (int j = 0; j < 17; ++j)
-            {
-                horig[j] = h[j];
-            }
-
-            add(h, minusp);
-
-            int negative = (int) (-((int) ((uint) h[16] >> 7)));
-
-            for (int j = 0; j < 17; ++j)
-            {
-                h[j] ^= negative & (horig[j] ^ h[j]);
-            }
-        }
-
-        internal static void mulmod(int[] h, int[] r)
-        {
-            int[] hr = new int[17];
-
-            for (int i = 0; i < 17; ++i)
-            {
-                int u = 0;
-
-                for (int j = 0; j <= i; ++j)
-                {
-                    u += h[j] * r[i - j];
-                }
-
-                for (int j = i + 1; j < 17; ++j)
-                {
-                    u += 320 * h[j] * r[i + 17 - j];
-                }
-
-                hr[i] = u;
-            }
-
-            for (int i = 0; i < 17; ++i)
-            {
-                h[i] = hr[i];
-            }
-
-            squeeze(h);
-        }
 
         public static int crypto_onetimeauth(byte[] outv, int outvoffset, byte[] inv, int invoffset, long inlen, byte[] k)
         {
@@ -139,7 +47,7 @@
                     c[j] = 0;
                 }
 
-                for (j = 0; (j < 16) && (j < inlen); ++j)
+                for (j = 0; j < 16 && j < inlen; ++j)
                 {
                     c[j] = inv[invoffset + j] & 0xff;
                 }
@@ -147,11 +55,11 @@
                 c[j] = 1;
                 invoffset += j;
                 inlen -= j;
-                add(h, c);
-                mulmod(h, r);
+                poly1305.add(h, c);
+                poly1305.mulmod(h, r);
             }
 
-            freeze(h);
+            poly1305.freeze(h);
 
             for (j = 0; j < 16; ++j)
             {
@@ -159,7 +67,7 @@
             }
 
             c[16] = 0;
-            add(h, c);
+            poly1305.add(h, c);
 
             for (j = 0; j < 16; ++j)
             {
@@ -167,6 +75,101 @@
             }
 
             return 0;
+        }
+
+        public static int crypto_onetimeauth_verify(byte[] h, int hoffset, byte[] inv, int invoffset, long inlen, byte[] k)
+        {
+            byte[] correct = new byte[16];
+
+            poly1305.crypto_onetimeauth(correct, 0, inv, invoffset, inlen, k);
+            return verify_16.crypto_verify(h, hoffset, correct);
+        }
+
+        internal static void add(int[] h, int[] c)
+        {
+            int j;
+            int u = 0;
+
+            for (j = 0; j < 17; ++j)
+            {
+                u += h[j] + c[j];
+                h[j] = u & 255;
+                u = (int) ((uint) u >> 8);
+            }
+        }
+
+        internal static void freeze(int[] h)
+        {
+            int[] horig = new int[17];
+
+            for (int j = 0; j < 17; ++j)
+            {
+                horig[j] = h[j];
+            }
+
+            poly1305.add(h, poly1305.minusp);
+
+            int negative = -(int) ((uint) h[16] >> 7);
+
+            for (int j = 0; j < 17; ++j)
+            {
+                h[j] ^= negative & (horig[j] ^ h[j]);
+            }
+        }
+
+        internal static void mulmod(int[] h, int[] r)
+        {
+            int[] hr = new int[17];
+
+            for (int i = 0; i < 17; ++i)
+            {
+                int u = 0;
+
+                for (int j = 0; j <= i; ++j)
+                {
+                    u += h[j] * r[i - j];
+                }
+
+                for (int j = i + 1; j < 17; ++j)
+                {
+                    u += 320 * h[j] * r[i + 17 - j];
+                }
+
+                hr[i] = u;
+            }
+
+            for (int i = 0; i < 17; ++i)
+            {
+                h[i] = hr[i];
+            }
+
+            poly1305.squeeze(h);
+        }
+
+        internal static void squeeze(int[] h)
+        {
+            int u = 0;
+
+            for (int j = 0; j < 16; ++j)
+            {
+                u += h[j];
+                h[j] = u & 255;
+                u = (int) ((uint) u >> 8);
+            }
+
+            u += h[16];
+            h[16] = u & 3;
+            u = 5 * (int) ((uint) u >> 2);
+
+            for (int j = 0; j < 16; ++j)
+            {
+                u += h[j];
+                h[j] = u & 255;
+                u = (int) ((uint) u >> 8);
+            }
+
+            u += h[16];
+            h[16] = u;
         }
     }
 }

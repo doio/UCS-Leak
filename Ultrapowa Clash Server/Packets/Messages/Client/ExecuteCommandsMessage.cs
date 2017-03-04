@@ -1,67 +1,84 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UCS.Core;
+using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Messages.Client
 {
     // Packet 14102
     internal class ExecuteCommandsMessage : Message
     {
-        public ExecuteCommandsMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ExecuteCommandsMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public uint Checksum;
-        public byte[] NestedCommands;
-        public uint NumberOfCommands;
-        public uint Subtick;
+        internal int CTick;
+        internal int STick;
+        internal int Checksum;
+        internal int Count;
 
-        public override void Decode()
+        internal byte[] Commands;
+        internal List<Command> LCommands;
+
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                Subtick = br.ReadUInt32WithEndian();
-                Checksum = br.ReadUInt32WithEndian();
-                NumberOfCommands = br.ReadUInt32WithEndian();
-
-                if (NumberOfCommands > 0 && NumberOfCommands < 135)
-                {
-                    NestedCommands = br.ReadBytes(GetLength() - 12);
-                }
-                else
-                {
-                    NumberOfCommands = 0;
-                }
-            }
+            this.CTick = this.Reader.ReadInt32();
+            this.Checksum = this.Reader.ReadInt32();
+            this.Count = this.Reader.ReadInt32();
+            this.STick =  this.STick = (int) Math.Floor(DateTime.UtcNow.Subtract(this.Device.Player.Avatar.LastTickSaved).TotalSeconds * 20);
+            this.LCommands = new List<Command>((int) this.Count);
+            this.Commands = this.Reader.ReadBytes((int) (this.Reader.BaseStream.Length - this.Reader.BaseStream.Position));
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
-            try
-            {
-                level.Tick();
 
-                if (NumberOfCommands > 0 && NumberOfCommands < 135)
+            this.Device.Player.Tick();
+
+            if (this.Count > -1 && this.Count <= 50)
+            {
+                using (Reader Reader = new Reader(this.Commands))
                 {
-                    using (PacketReader br = new PacketReader(new MemoryStream(NestedCommands)))
+                    for (int _Index = 0; _Index < this.Count; _Index++)
                     {
-                        for (int i = 0; i < NumberOfCommands; i++)
+                        int CommandID = Reader.ReadInt32();
+                        if (CommandFactory.Commands.ContainsKey(CommandID))
                         {
-                            var obj = CommandFactory.Read(br);
-                            if (obj != null)
+                            Logger.Write("Command '" + CommandID + "' is handled");
+                            Command Command =
+                                Activator.CreateInstance(CommandFactory.Commands[CommandID], Reader, this.Device,
+                                    CommandID) as Command;
+
+                            if (Command != null)
                             {
-                                ((Command)obj).Execute(level);
+                                Command.Decode();
+                                Command.Process();
+
+                                this.LCommands.Add(Command);
                             }
-                            else
-                                break;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Logger.Write("Command " + CommandID + " has not been handled.");
+                            if (this.LCommands.Any())
+                                Logger.Write("Previous command was " + this.LCommands.Last().Identifier + ". [" + (_Index + 1) + " / " + this.Count + "]");
+                            Console.ResetColor();
+                            break;
+
                         }
                     }
                 }
             }
-            catch (Exception)
+            else
             {
+                new OutOfSyncMessage(this.Device).Send();
             }
         }
     }

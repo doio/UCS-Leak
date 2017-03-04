@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -14,8 +15,8 @@ namespace UCS.Logic.StreamEntry
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddInt32(m_vEventType);
-            data.AddInt64(m_vAvatarId);
+            data.AddInt(m_vEventType);
+            data.AddLong(m_vAvatarId);
             data.AddString(m_vAvatarName);
             return data.ToArray();
         }

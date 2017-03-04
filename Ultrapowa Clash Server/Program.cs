@@ -15,13 +15,12 @@ using static UCS.Core.Logger;
 
 namespace UCS
 {
-    class Program
+    internal class Program
     {
         public static int OP                   = 0;
         public static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - ©Ultrapowa | Online Players: ";
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
-        private static Loader _Loader          = null;
 
         static void Main()
         {
@@ -71,7 +70,7 @@ namespace UCS
 
             new Thread(() =>
             {
-                for (int i = 20; i < 237; i++)
+                for (int i = 20; i < 227; i++)
                 {
                     if (i < 100)
                     {
@@ -112,10 +111,7 @@ namespace UCS
                 Say();
                 Say("Preparing Server...\n");
 
-                new Thread(() =>
-                {
-                    _Loader = new Loader();
-                }).Start();
+                Resources.Initialize();
             }
             else if (Version == "Error")
             {

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -10,15 +9,19 @@ namespace UCS.Packets.Commands.Client
     // Packet 522
     internal class BuyShieldCommand : Command
     {
-        public BuyShieldCommand(PacketReader br)
+        public BuyShieldCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            ShieldId = br.ReadInt32WithEndian(); 
-            Tick = br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            ClientAvatar player = level.GetPlayerAvatar();
+            this.ShieldId = this.Reader.ReadInt32();
+            this.Tick = this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            ClientAvatar player = this.Device.Player.Avatar;
             /*if (ShieldId == 20000000)
             {
                 player.SetProtectionTime(Convert.ToInt32(TimeSpan.FromHours(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH).TotalSeconds));
@@ -31,7 +34,7 @@ namespace UCS.Packets.Commands.Client
             //}
         }
 
-        public int ShieldId { get; set; }
-        public int Tick { get; set; }
+        public int ShieldId;
+        public int Tick;
     }
 }

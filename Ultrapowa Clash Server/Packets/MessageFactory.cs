@@ -10,78 +10,67 @@ namespace UCS.Packets
 {
     internal class MessageFactory
     {
-        public static Dictionary<int, Type> m_vMessages;
+        public static Dictionary<int, Type> Messages;
 
         public MessageFactory()
         {
-            m_vMessages = new Dictionary<int, Type>();
-            m_vMessages.Add(10100, typeof(SessionRequest));
-            m_vMessages.Add(10101, typeof(LoginMessage));
-            m_vMessages.Add(10105, typeof(AskForFriendListMessage));
-            m_vMessages.Add(10108, typeof(KeepAliveMessage)); 
-            m_vMessages.Add(10117, typeof(ReportPlayerMessage));
-            m_vMessages.Add(10118, typeof(AccountSwitchMessage));
-            m_vMessages.Add(10113, typeof(GetDeviceTokenMessage));
-            m_vMessages.Add(10212, typeof(ChangeAvatarNameMessage)); 
-            m_vMessages.Add(10502, typeof(AddClashFriendMessage));
-            //m_vMessages.Add(10513, typeof(UnknownFacebookMessage));
-            m_vMessages.Add(10905, typeof(NewsSeenMessage));
-            m_vMessages.Add(14100, typeof(AttackResultMessage));
-            m_vMessages.Add(14101, typeof(GoHomeMessage));
-            m_vMessages.Add(14102, typeof(ExecuteCommandsMessage));
-            m_vMessages.Add(14106, typeof(RetributionAttackerMessage));
-            m_vMessages.Add(14110, typeof(ChallangeWatchLiveMessage));
-            m_vMessages.Add(14111, typeof(ChallangeVisitMessage));
-            m_vMessages.Add(14113, typeof(VisitHomeMessage));
-            m_vMessages.Add(14114, typeof(ReplayRequestMessage));
-            m_vMessages.Add(14120, typeof(ChallangeAttackMessage));
-            m_vMessages.Add(14125, typeof(ChallangeCancelMessage));
-            m_vMessages.Add(14134, typeof(AttackNpcMessage));
-            //m_vMessages.Add(14201, typeof(FacebookLinkMessage));
-            //m_vMessages.Add(14262, typeof(BindGoogleAccount));
-            m_vMessages.Add(14316, typeof(EditClanSettingsMessage));
-            m_vMessages.Add(14301, typeof(CreateAllianceMessage));
-            m_vMessages.Add(14302, typeof(AskForAllianceDataMessage));
-            m_vMessages.Add(14303, typeof(AskForJoinableAlliancesListMessage));
-            m_vMessages.Add(14305, typeof(JoinAllianceMessage));
-            m_vMessages.Add(14306, typeof(PromoteAllianceMemberMessage));
-            m_vMessages.Add(14308, typeof(LeaveAllianceMessage));
-            m_vMessages.Add(14310, typeof(DonateAllianceUnitMessage));
-            m_vMessages.Add(14315, typeof(ChatToAllianceStreamMessage));
-            m_vMessages.Add(14317, typeof(JoinRequestAllianceMessage));
-            m_vMessages.Add(14321, typeof(TakeDecisionJoinRequestMessage));
-            m_vMessages.Add(14322, typeof(AllianceInviteMessage));
-            m_vMessages.Add(14324, typeof(SearchAlliancesMessage));
-            m_vMessages.Add(14325, typeof(AskForAvatarProfileMessage));
-            m_vMessages.Add(14331, typeof(AskForAllianceWarDataMessage));
-            m_vMessages.Add(14336, typeof(AskForAllianceWarHistoryMessage));
-            m_vMessages.Add(14341, typeof(AskForBookmarkMessage));
-            m_vMessages.Add(14343, typeof(AddToBookmarkMessage));
-            m_vMessages.Add(14344, typeof(RemoveFromBookmarkMessage));
-            m_vMessages.Add(14715, typeof(SendGlobalChatLineMessage));
-            m_vMessages.Add(14401, typeof(TopGlobalAlliancesMessage));
-            m_vMessages.Add(14402, typeof(TopLocalAlliancesMessage));
-            m_vMessages.Add(14403, typeof(TopGlobalPlayersMessage));
-            m_vMessages.Add(14404, typeof(TopLocalPlayersMessage));
-            m_vMessages.Add(14406, typeof(TopPreviousGlobalPlayersMessage));
-            m_vMessages.Add(14503, typeof(TopLeaguePlayersMessage));
-            m_vMessages.Add(14600, typeof(RequestAvatarNameChange));
-            m_vMessages.Add(15001, typeof(AllianceWarAttackAvatarMessage));
-        }
-
-        public static object Read(Client c, PacketReader br, int packetType)
-        {
-            if (m_vMessages.ContainsKey(packetType))
+            Messages = new Dictionary<int, Type>
             {
-                Logger.Write("Message " + m_vMessages[packetType].Name + " is handled");
-                return Activator.CreateInstance(m_vMessages[packetType], c, br);
-            }
-            else
-            {
-                Logger.WriteError("Message " + packetType + " is unhandled");
-                return null;
-            }
-        }
+                {10100, typeof(SessionRequest)},
+                {10101, typeof(LoginMessage)},
+                {10105, typeof(AskForFriendListMessage)},
+                {10108, typeof(KeepAliveMessage)},
+                {10117, typeof(ReportPlayerMessage)},
+                {10118, typeof(AccountSwitchMessage)},
+                {10113, typeof(GetDeviceTokenMessage)},
+                {10212, typeof(ChangeAvatarNameMessage)},
+                {10502, typeof(AddClashFriendMessage)},
+                {10905, typeof(NewsSeenMessage)},
+                {14100, typeof(AttackResultMessage)},
+                {14101, typeof(GoHomeMessage)},
+                {14102, typeof(ExecuteCommandsMessage)},
+                {14106, typeof(RetributionAttackerMessage)},
+                {14110, typeof(ChallangeWatchLiveMessage)},
+                {14111, typeof(ChallangeVisitMessage)},
+                {14113, typeof(VisitHomeMessage)},
+                {14114, typeof(ReplayRequestMessage)},
+                {14120, typeof(ChallangeAttackMessage)},
+                {14125, typeof(ChallangeCancelMessage)},
+                {14134, typeof(AttackNpcMessage)},
+                {14201, typeof(Bind_Facebook_Message)},
+                {14316, typeof(EditClanSettingsMessage)},
+                {14301, typeof(CreateAllianceMessage)},
+                {14302, typeof(AskForAllianceDataMessage)},
+                {14303, typeof(AskForJoinableAlliancesListMessage)},
+                {14305, typeof(JoinAllianceMessage)},
+                {14306, typeof(PromoteAllianceMemberMessage)},
+                {14308, typeof(LeaveAllianceMessage)},
+                {14310, typeof(DonateAllianceUnitMessage)},
+                {14315, typeof(ChatToAllianceStreamMessage)},
+                {14317, typeof(JoinRequestAllianceMessage)},
+                {14321, typeof(TakeDecisionJoinRequestMessage)},
+                {14322, typeof(AllianceInviteMessage)},
+                {14324, typeof(SearchAlliancesMessage)},
+                {14325, typeof(AskForAvatarProfileMessage)},
+                {14331, typeof(AskForAllianceWarDataMessage)},
+                {14336, typeof(AskForAllianceWarHistoryMessage)},
+                {14341, typeof(AskForBookmarkMessage)},
+                {14343, typeof(AddToBookmarkMessage)},
+                {14344, typeof(RemoveFromBookmarkMessage)},
+                {14715, typeof(SendGlobalChatLineMessage)},
+                {14401, typeof(TopGlobalAlliancesMessage)},
+                {14402, typeof(TopLocalAlliancesMessage)},
+                {14403, typeof(TopGlobalPlayersMessage)},
+                {14404, typeof(TopLocalPlayersMessage)},
+                {14406, typeof(TopPreviousGlobalPlayersMessage)},
+                {14503, typeof(TopLeaguePlayersMessage)},
+                {14600, typeof(RequestAvatarNameChange)},
+                {15001, typeof(AllianceWarAttackAvatarMessage)}
+            };
 
+
+            //Messages.Add(10513, typeof(UnknownFacebookMessage));
+            //Messages.Add(14262, typeof(BindGoogleAccount));
+        }
     }
 }

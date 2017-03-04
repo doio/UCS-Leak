@@ -1,113 +1,81 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UCS.Core.Crypto;
 using UCS.Helpers;
+using UCS.Helpers.List;
+using UCS.Logic;
+using UCS.Logic.API;
+using UCS.Logic.Enums;
+using UCS.Utilities.Blake2B;
+using UCS.Utilities.Sodium;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 20104
     internal class LoginOkMessage : Message
     {
-        public LoginOkMessage(Packets.Client client) : base(client)
+        public LoginOkMessage(Device client) : base(client)
         {
-            SetMessageType(20104);
+            this.Identifier = 20104;
+            this.Device.PlayerState = State.LOGGED;
         }
 
-        readonly string m_vFacebookAppID = "297484437009394";
-        string m_vAccountCreatedDate;
-        long m_vAccountId;
-        int m_vContentVersion;
-        string m_vCountryCode;
-        int m_vDaysSinceStartedPlaying;
-        string m_vFacebookId;
-        string m_vGamecenterId;
-        int m_vGoogleID;
-        int m_vLastUpdate;
-        string m_vPassToken;
-        int m_vPlayTimeSeconds;
-        int m_vServerBuild;
-        string m_vServerEnvironment;
-        int m_vServerMajorVersion;
-        string m_vServerTime;
-        int m_vSessionCount;
-        int m_vStartupCooldownSeconds;
+        internal int ServerBuild;
+        internal int ServerMajorVersion;
+        internal int ContentVersion;
 
-        public string Unknown11 { get; set; }
-
-        public string Unknown9 { get; set; }
-
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
+            ClientAvatar avatar = this.Device.Player.Avatar;
+            this.Data.AddLong(avatar.UserId);
+            this.Data.AddLong(avatar.UserId);
 
-            pack.AddInt64(m_vAccountId);
-            pack.AddInt64(m_vAccountId);
-            pack.AddString(m_vPassToken);
-            pack.AddString(m_vFacebookId);
-            pack.AddString(m_vGamecenterId);
-            pack.AddInt32(m_vServerMajorVersion);
-            pack.AddInt32(m_vServerBuild);
-            pack.AddInt32(m_vContentVersion);
-            pack.AddString(m_vServerEnvironment);
-            pack.AddInt32(m_vSessionCount);
-            pack.AddInt32(m_vPlayTimeSeconds);
-            pack.AddInt32(0);
-            pack.AddString(m_vFacebookAppID);
-            pack.AddString(m_vStartupCooldownSeconds.ToString());
-            pack.AddString(m_vAccountCreatedDate);
-            pack.AddString(null);
-            pack.AddString(m_vGoogleID.ToString());
-            pack.AddString(null);
-            pack.AddString(m_vCountryCode);
-            pack.AddString(null);
+            this.Data.AddString(avatar.UserToken);
 
-            /* // DEBUG INFO
-            Console.WriteLine("Account ID : " + m_vAccountId);
-            Console.WriteLine("User Token : " + m_vPassToken);
-            Console.WriteLine("FacebookID : " + m_vFacebookId);
-            Console.WriteLine("GameCenter : " + m_vGamecenterId);
-            Console.WriteLine("MajorVers  : " + m_vServerMajorVersion);
-            Console.WriteLine("MinorVers  : " + m_vServerBuild);
-            Console.WriteLine("RevisionV  : " + m_vContentVersion);
-            Console.WriteLine("LoginCount : " + m_vSessionCount);
-            Console.WriteLine("PlayTime S : " + m_vPlayTimeSeconds);
-            Console.WriteLine("FB APP ID  : " + m_vFacebookAppID.ToString());
-            Console.WriteLine("Cooldown S : " + m_vStartupCooldownSeconds.ToString());
-            Console.WriteLine("CreateDate : " + m_vAccountCreatedDate);
-            Console.WriteLine("Google ID  : " + m_vGoogleID);
-            Console.WriteLine("CountryCod : " + m_vCountryCode);
-            Console.WriteLine("Environne  : " + m_vServerEnvironment);
-            // END DEBUG */
+            this.Data.AddString(avatar.FacebookId);
+            this.Data.AddString(null);
 
-            Encrypt(pack.ToArray());
+
+            this.Data.AddInt(ServerMajorVersion);
+            this.Data.AddInt(ServerBuild);
+            this.Data.AddInt(ContentVersion);
+
+            this.Data.AddString("prod");
+
+            this.Data.AddInt(3); //Session Count
+            this.Data.AddInt(490); //Playtime Second
+            this.Data.AddInt(0);
+
+            this.Data.AddString(FacebookApi.ApplicationID);
+
+            this.Data.AddString("1482970881296"); // 14 75 26 87 86 11 24 33
+            this.Data.AddString("1482952262000"); // 14 78 03 95 03 10 0
+
+            this.Data.AddInt(0);
+            this.Data.AddString(avatar.GoogleId);
+            this.Data.AddString(avatar.Region.ToUpper());
+            this.Data.AddString(null);
+            this.Data.AddInt(1);
+
         }
 
-        public void SetAccountCreatedDate(string date) => m_vAccountCreatedDate = date;
+        internal override void Encrypt()
+        {
+            Blake2BHasher blake = new Blake2BHasher();
 
-        public void SetAccountId(long id) => m_vAccountId = id;
+            blake.Update(this.Device.Keys.SNonce);
+            blake.Update(this.Device.Keys.PublicKey);
+            blake.Update(Key.PublicKey);
 
-        public void SetContentVersion(int version) => m_vContentVersion = version;
+            byte[] Nonce = blake.Finish();
+            byte[] encrypted =
+                this.Device.Keys.RNonce.Concat(this.Device.Keys.PublicKey).Concat(this.Data).ToArray();
 
-        public void SetCountryCode(string code) => m_vCountryCode = code;
+            this.Data =  new List<byte>(Sodium.Encrypt(encrypted, Nonce, Key.PrivateKey, this.Device.Keys.PublicKey));
 
-        public void SetDaysSinceStartedPlaying(int days) => m_vDaysSinceStartedPlaying = days;
-
-        public void SetFacebookId(string id) => m_vFacebookId = id;
-
-        public void SetGamecenterId(string id) => m_vGamecenterId = id;
-
-        public void SetPassToken(string token) => m_vPassToken = token;
-
-        public void SetPlayTimeSeconds(int seconds) => m_vPlayTimeSeconds = seconds;
-
-        public void SetServerBuild(int build) => m_vServerBuild = build;
-
-        public void SetServerEnvironment(string env) => m_vServerEnvironment = env;
-
-        public void SetServerMajorVersion(int version) => m_vServerMajorVersion = version;
-
-        public void SetServerTime(string time) => m_vServerTime = time;
-
-        public void SetSessionCount(int count) => m_vSessionCount = count;
-
-        public void SetStartupCooldownSeconds(int seconds) => m_vStartupCooldownSeconds = seconds;
+            this.Length = (ushort) this.Data.Count;
+        }
     }
 }

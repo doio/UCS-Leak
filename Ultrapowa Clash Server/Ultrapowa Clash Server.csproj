@@ -162,6 +162,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.10-beta\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Unofficial.Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
       <Private>True</Private>
@@ -185,9 +188,6 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Sodium, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\libsodium-net.0.10.0\lib\Net40\Sodium.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.1\lib\net46\StackExchange.Redis.dll</HintPath>
@@ -240,22 +240,44 @@
     <Compile Include="Core\Checker\LicenseChecker.cs" />
     <Compile Include="Core\Crypto\Key.cs" />
     <Compile Include="Core\CSVManager.cs" />
-    <Compile Include="Core\Database\Redis.cs" />
+    <Compile Include="Core\Network\Processor.cs" />
+    <Compile Include="Core\Network\TCP\Gateway.cs" />
+    <Compile Include="Core\Network\TCP\SocketAsyncEventArgsPool.cs" />
+    <Compile Include="Core\Network\TCP\Token.cs" />
+    <Compile Include="Database\Clan.cs">
+      <DependentUpon>ucsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Mysql.cs" />
+    <Compile Include="Database\Redis.cs" />
+    <Compile Include="Core\Events\EventsHandler.cs" />
     <Compile Include="Core\Loader.cs" />
-    <Compile Include="Core\Network\Reader.cs" />
+    <Compile Include="Core\Resources.cs" />
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
     <Compile Include="Core\Threading\ChatProcessor.cs" />
+    <Compile Include="Database\Player.cs">
+      <DependentUpon>ucsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Binary\Reader.cs" />
+    <Compile Include="Helpers\List\Writter.cs" />
+    <Compile Include="Logic\API\FacebookApi.cs" />
+    <Compile Include="Logic\Enums\Database.cs" />
+    <Compile Include="Logic\Enums\Exits.cs" />
+    <Compile Include="Logic\Enums\Save.cs" />
+    <Compile Include="Logic\Enums\State.cs" />
     <Compile Include="Packets\Commands\Client\CastSpellCommand.cs" />
     <Compile Include="Packets\Commands\Client\PlaceAllianceTroopsCommand.cs" />
     <Compile Include="Packets\Commands\Client\PlayerWarStatusCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\Commands\Client\SpeedUpRequestUnitsCommand.cs" />
+    <Compile Include="Packets\Crypto.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
     <Compile Include="Packets\Messages\Client\AccountSwitchMessage.cs" />
+    <Compile Include="Packets\Messages\Client\Api\Bind_Google_Message.cs" />
     <Compile Include="Packets\Messages\Client\RetributionAttackerMessage.cs" />
-    <Compile Include="Packets\Messages\Server\FacebookChooseVillageMessage.cs" />
+    <Compile Include="Packets\Messages\Server\Api\Facebook_Connect_OK.cs" />
+    <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
     <Compile Include="UpdaterGUI.cs">
       <SubType>Form</SubType>
@@ -263,6 +285,26 @@
     <Compile Include="UpdaterGUI.Designer.cs">
       <DependentUpon>UpdaterGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Blake2B\Blake2BBase.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BBuilder.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BConfig.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BCore-FullyUnrolled.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BCore.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BHasher.cs" />
+    <Compile Include="Utilities\Blake2B\Blake2BTreeConfig.cs" />
+    <Compile Include="Utilities\Sodium\KeyPair.cs" />
+    <Compile Include="Utilities\Sodium\KeyPairUCS.cs" />
+    <Compile Include="Utilities\Sodium\PublicBox.cs" />
+    <Compile Include="Utilities\Sodium\SecretBox.cs" />
+    <Compile Include="Utilities\Sodium\Sodium.cs" />
+    <Compile Include="Utilities\TweetNaCl\curve25519.cs" />
+    <Compile Include="Utilities\TweetNaCl\curve25519xsalsa20poly1305.cs" />
+    <Compile Include="Utilities\TweetNaCl\hsalsa20.cs" />
+    <Compile Include="Utilities\TweetNaCl\poly1305.cs" />
+    <Compile Include="Utilities\TweetNaCl\salsa20.cs" />
+    <Compile Include="Utilities\TweetNaCl\verify_16.cs" />
+    <Compile Include="Utilities\TweetNaCl\xsalsa20.cs" />
+    <Compile Include="Utilities\TweetNaCl\xsalsa20poly1305.cs" />
     <Compile Include="WebAPI\API.cs" />
     <Compile Include="Logic\DataSlots\DonationSlot.cs" />
     <Compile Include="Logic\DataSlots\UnitSlot.cs" />
@@ -270,7 +312,6 @@
     <Compile Include="Logic\Manager\ObstacleManager.cs" />
     <Compile Include="Logic\Obstacle.cs" />
     <Compile Include="Logic\StreamEntry\ChallangeStreamEntry.cs" />
-    <Compile Include="Logic\UnitProduction.cs" />
     <Compile Include="Packets\Commands\Client\AddQuickTrainingTroopCommand.cs" />
     <Compile Include="Packets\Commands\Client\BoostBarracksCommand.cs" />
     <Compile Include="Packets\Commands\Client\ChallangeCommand.cs" />
@@ -300,23 +341,6 @@
     <Compile Include="Packets\Messages\Server\ChallangeVisitDataMessage.cs" />
     <Compile Include="Packets\Messages\Server\RC4SessionKey.cs" />
     <Compile Include="Packets\Messages\Server\RequestConfirmChangeNameMessage.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2B.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BConfig.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BCore-FullyUnrolled.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BCore-Inline.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BCore-Simple.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BCore.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BHasher.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BNodeHasher.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2BTreeConfig.cs" />
-    <Compile Include="Utilities\Blake2b\Blake2IvBuilder.cs" />
-    <Compile Include="Utilities\Blake2b\Hasher.cs" />
-    <Compile Include="Utilities\Blake2b\NodeHasher.cs" />
-    <Compile Include="Utilities\Blake2b\TreeHasher.cs" />
-    <Compile Include="Utilities\CustomNaCl\CustomNaCl.cs" />
-    <Compile Include="Utilities\CustomNaCl\KeyPair.cs" />
-    <Compile Include="Utilities\CustomNaCl\PublicBox.cs" />
-    <Compile Include="Utilities\CustomNaCl\SecretBox.cs" />
     <Compile Include="Utilities\LZMA\Common\CommandLineParser.cs" />
     <Compile Include="Utilities\LZMA\Common\CRC.cs" />
     <Compile Include="Utilities\LZMA\Common\InBuffer.cs" />
@@ -334,14 +358,6 @@
     <Compile Include="Utilities\LZMA\Compress\RangeCoder\RangeCoderBit.cs" />
     <Compile Include="Utilities\LZMA\Compress\RangeCoder\RangeCoderBitTree.cs" />
     <Compile Include="Utilities\LZMA\ICoder.cs" />
-    <Compile Include="Utilities\TweetNaCl\curve25519.cs" />
-    <Compile Include="Utilities\TweetNaCl\curve25519xsalsa20poly1305.cs" />
-    <Compile Include="Utilities\TweetNaCl\hsalsa20.cs" />
-    <Compile Include="Utilities\TweetNaCl\poly1305.cs" />
-    <Compile Include="Utilities\TweetNaCl\salsa20.cs" />
-    <Compile Include="Utilities\TweetNaCl\verify_16.cs" />
-    <Compile Include="Utilities\TweetNaCl\xsalsa20.cs" />
-    <Compile Include="Utilities\TweetNaCl\xsalsa20poly1305.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Checker\VersionChecker.cs" />
     <Compile Include="Core\Performances.cs" />
@@ -1068,13 +1084,6 @@
     <Compile Include="Core\DatabaseManager.cs" />
     <Compile Include="Core\Threading\MemoryThread.cs" />
     <Compile Include="Core\Threading\NetworkThread.cs" />
-    <Compile Include="Database\ucsdbEntities.cs" />
-    <Compile Include="Database\clan.cs">
-      <DependentUpon>ucsdb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\player.cs">
-      <DependentUpon>ucsdb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Database\ucsdb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1175,9 +1184,7 @@
     <Compile Include="Logic\GameObject.cs" />
     <Compile Include="Logic\Trap.cs" />
     <Compile Include="Logic\Building.cs" />
-    <Compile Include="Core\Network\Gateway.cs" />
-    <Compile Include="Core\Network\PacketProcessor.cs" />
-    <Compile Include="Packets\Client.cs" />
+    <Compile Include="Packets\Device.cs" />
     <Compile Include="Packets\Commands\Client\CancelShieldCommand.cs" />
     <Compile Include="Packets\Commands\Client\EndOfBattleCommand.cs" />
     <Compile Include="Packets\Commands\Client\MyLeagueCommand.cs" />
@@ -1222,10 +1229,10 @@
     <Compile Include="Packets\Messages\Client\ChangeAllianceMemberRoleMessage.cs" />
     <Compile Include="Packets\Messages\Client\DonateAllianceUnitMessage.cs" />
     <Compile Include="Packets\Messages\Client\EditClanSettingsMessage.cs" />
-    <Compile Include="Packets\Messages\Client\FacebookLinkMessage.cs" />
+    <Compile Include="Packets\Messages\Client\Api\Bind_Facebook_Message.cs" />
     <Compile Include="Packets\Messages\Client\FetchWarBaseMessage.cs" />
     <Compile Include="Packets\Messages\Client\ReportPlayerMessage.cs" />
-    <Compile Include="Packets\Messages\Client\SessionRequest.cs" />
+    <Compile Include="Packets\Messages\Client\Authentication\SessionRequest.cs" />
     <Compile Include="Packets\Messages\Client\KeepAliveMessage.cs" />
     <Compile Include="Packets\Messages\Client\AttackNpcMessage.cs" />
     <Compile Include="Packets\Messages\Client\GetDeviceTokenMessage.cs" />
@@ -1234,7 +1241,7 @@
     <Compile Include="Packets\Messages\Client\TopLocalPlayersMessage.cs" />
     <Compile Include="Packets\Messages\Client\VisitHomeMessage.cs" />
     <Compile Include="Packets\Messages\Client\GoHomeMessage.cs" />
-    <Compile Include="Packets\Messages\Client\LoginMessage.cs" />
+    <Compile Include="Packets\Messages\Client\Authentication\LoginMessage.cs" />
     <Compile Include="Packets\Messages\Client\ExecuteCommandsMessage.cs" />
     <Compile Include="Packets\Messages\Client\SearchAlliancesMessage.cs" />
     <Compile Include="Packets\Messages\Client\JoinAllianceMessage.cs" />
@@ -1269,7 +1276,6 @@
     <Compile Include="Packets\Commands\Client\SpeedUpConstructionCommand.cs" />
     <Compile Include="Packets\Commands\Client\ClearObstacleCommand.cs" />
     <Compile Include="Packets\Commands\Client\CancelUnitProductionCommand.cs" />
-    <Compile Include="Packets\Commands\Client\DonateAllianceUnitCommand.cs" />
     <Compile Include="Packets\Commands\Client\TrainUnitCommand.cs" />
     <Compile Include="Packets\Commands\Client\SellBuildingCommand.cs" />
     <Compile Include="Packets\Commands\Client\UnlockBuildingCommand.cs" />

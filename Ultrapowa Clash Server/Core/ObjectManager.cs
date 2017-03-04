@@ -15,6 +15,7 @@ using Timer = System.Threading.Timer;
 using static UCS.Core.Logger;
 using UCS.Core.Threading;
 using System.Threading.Tasks;
+using UCS.Logic.Enums;
 
 namespace UCS.Core
 {
@@ -27,7 +28,8 @@ namespace UCS.Core
         private static DatabaseManager m_vDatabase;
         private static string m_vHomeDefault;
         public static bool m_vTimerCanceled;
-        public static Timer TimerReference;
+        public static Timer TimerReferenceRedis;
+        public static Timer TimerReferenceMysql;
         public static Dictionary<int, string> NpcLevels;
         public static Dictionary<int, string> m_vRandomBases;
         public static FingerPrint FingerPrint;
@@ -58,31 +60,20 @@ namespace UCS.Core
             LoadNpcLevels();
             //LoadRandomBase(); // Useless atm
 
-            TimerReference         = new Timer(Save, null, 10000, 60000);
+            TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
+            TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
             Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 
-        public bool IsRunning = false;
-
-        private async void Save(object state)
+        private static void SaveRedis(object state)
         {
-            new Thread(() =>
-            {
-                if (!IsRunning)
-                {
-                    IsRunning = true;
-
-                    m_vDatabase.Save(ResourcesManager.GetInMemoryLevels());
-                    m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances());
-
-                    IsRunning = false;
-
-                    if (m_vTimerCanceled)
-                    {
-                        TimerReference.Dispose();
-                    }
-                }
-            }).Start();
+            m_vDatabase.Save(ResourcesManager.GetInMemoryLevels(), Save.Redis);
+            m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances(), Save.Redis);
+        }
+        private static async void SaveMysql(object state)
+        {
+            m_vDatabase.Save(ResourcesManager.GetInMemoryLevels(), Save.Mysql).Wait();
+            m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances(), Save.Mysql).Wait();
         }
 
         public static Alliance CreateAlliance(long seed)
@@ -150,11 +141,11 @@ namespace UCS.Core
             {
                 loop:
                 Level l = GetRandomOnlinePlayer();
-                ClientAvatar ca = l.GetPlayerAvatar();
+                ClientAvatar ca = l.Avatar;
 
                 if (ResourcesManager.GetOnlinePlayers().Count >= 500)
                 {
-                    if (l != null && l.GetPlayerAvatar().GetAvatarLevel() > 90)
+                    if (l != null && l.Avatar.GetAvatarLevel() > 90)
                     {
                         return l;
                     }
@@ -217,10 +208,12 @@ namespace UCS.Core
 
         public void Dispose()
         {
-            if (TimerReference != null)
+            if (TimerReferenceRedis != null && TimerReferenceMysql != null)
             {
-                TimerReference.Dispose();
-                TimerReference = null;
+                TimerReferenceRedis.Dispose();
+                TimerReferenceMysql.Dispose();
+                TimerReferenceRedis = null;
+                TimerReferenceMysql = null;
             }
         }
 

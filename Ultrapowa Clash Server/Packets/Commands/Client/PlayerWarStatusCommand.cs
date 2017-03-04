@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class PlayerWarStatusCommand : Command
+    internal class PlayerWarStatusCommand : Command
     {
-        public PlayerWarStatusCommand(PacketReader _Reader)
+        public PlayerWarStatusCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
     }

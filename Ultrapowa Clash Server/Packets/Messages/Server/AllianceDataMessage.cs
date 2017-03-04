@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UCS.Core;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -12,38 +9,32 @@ namespace UCS.Packets.Messages.Server
     {
         readonly Alliance m_vAlliance;
 
-        public AllianceDataMessage(Packets.Client client, Alliance alliance) : base(client)
+        public AllianceDataMessage(Device client, Alliance alliance) : base(client)
         {
-            SetMessageType(24301);
+            this.Identifier = 24301;
             m_vAlliance = alliance;
         }
 
-        public override async void Encode()
+        internal override async void Encode()
         {
-            try
+            var allianceMembers = m_vAlliance.GetAllianceMembers();
+
+            this.Data.AddRange(m_vAlliance.EncodeFullEntry());
+            this.Data.AddString(m_vAlliance.GetAllianceDescription());
+            this.Data.AddInt(0);
+            this.Data.Add(0);
+            this.Data.AddInt(0);
+            this.Data.Add(0);
+
+            this.Data.AddInt(allianceMembers.Count);
+
+            foreach (AllianceMemberEntry m in allianceMembers)
             {
-                List<byte> pack = new List<byte>();
-                var allianceMembers = m_vAlliance.GetAllianceMembers();
-
-                pack.AddRange(m_vAlliance.EncodeFullEntry());
-                pack.AddString(m_vAlliance.GetAllianceDescription());
-                pack.AddInt32(0);
-                pack.Add(0);
-                pack.AddInt32(0);
-                pack.Add(0);
-
-                pack.AddInt32(allianceMembers.Count);
-
-                foreach (AllianceMemberEntry m in allianceMembers)
-                {
-                    pack.AddRange(await m.Encode());
-                }
-
-                pack.AddInt32(0);
-                pack.AddInt32(32);
-                Encrypt(pack.ToArray());
+                this.Data.AddRange(await m.Encode());
             }
-            catch (Exception) { }
+
+            this.Data.AddInt(0);
+            this.Data.AddInt(32);
         }
     }
 }

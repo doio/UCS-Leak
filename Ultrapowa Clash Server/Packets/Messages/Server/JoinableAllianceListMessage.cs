@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -8,33 +7,25 @@ namespace UCS.Packets.Messages.Server
     // Packet 24304
     internal class JoinableAllianceListMessage : Message
     {
-        List<Alliance> m_vAlliances;
+        internal List<Alliance> Alliances;
 
-        public JoinableAllianceListMessage(Packets.Client client) : base(client)
+        public JoinableAllianceListMessage(Device client) : base(client)
         {
-            SetMessageType(24304);
-            m_vAlliances = new List<Alliance>();
+            this.Identifier = 24304;
+            this.Alliances = new List<Alliance>();
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(m_vAlliances.Count);
+            this.Data.AddInt(this.Alliances.Count);
 
-            foreach(Alliance alliance in m_vAlliances)
-            {               
-                if(alliance != null)
+            foreach (Alliance alliance in this.Alliances)
+            {
+                if (alliance != null)
                 {
-                    pack.AddRange(alliance.EncodeFullEntry());
+                    this.Data.AddRange(alliance.EncodeFullEntry());
                 }
             }
-
-            Encrypt(pack.ToArray());
-        }
-
-        public void SetJoinableAlliances(List<Alliance> alliances)
-        {
-            m_vAlliances = alliances;
         }
     }
 }

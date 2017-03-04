@@ -1,23 +1,20 @@
-using System.IO;
-using UCS.Core;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 552
     internal class SaveVillageLayoutCommand : Command
     {
-        public SaveVillageLayoutCommand(PacketReader br)
+        public SaveVillageLayoutCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            br.Read();
-            br.ReadInt32();
-            br.ReadInt32();
-            br.ReadInt32();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
+            this.Reader.Read();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
         }
     }
 }

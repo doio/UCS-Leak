@@ -2,6 +2,7 @@
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.DataSlots;
 using UCS.Packets.Messages.Server;
@@ -11,25 +12,21 @@ namespace UCS.Packets.Messages.Client
     // Packet 14343
     internal class AddToBookmarkMessage : Message
     {
-        public AddToBookmarkMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AddToBookmarkMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         private long id;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                id = br.ReadInt64WithEndian();
-            }
+            this.id = this.Reader.ReadInt64();
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
-            BookmarkSlot ds = new BookmarkSlot(id);
-            level.GetPlayerAvatar().BookmarkedClan.Add(ds);
-            PacketProcessor.Send(new BookmarkAddAllianceMessage(Client));
+            this.Device.Player.Avatar.BookmarkedClan.Add(new BookmarkSlot(id));;
+            new BookmarkAddAllianceMessage(Device).Send();
         }
     }
 }

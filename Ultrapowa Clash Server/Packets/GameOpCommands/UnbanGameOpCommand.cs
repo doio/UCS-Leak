@@ -16,7 +16,7 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 if (m_vArgs.Length >= 2)
                 {
@@ -26,7 +26,7 @@ namespace UCS.Packets.GameOpCommands
                         var l = await ResourcesManager.GetPlayer(id);
                         if (l != null)
                         {
-                            l.SetAccountStatus(0);
+                            l.Avatar.AccountBanned = false;
                         }
                         else
                         {
@@ -39,7 +39,7 @@ namespace UCS.Packets.GameOpCommands
             }
             else
             {
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
             }
         }
     }

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.AvatarStreamEntry;
 using UCS.Packets.Messages.Server;
@@ -12,19 +11,23 @@ namespace UCS.Packets.Commands.Client
     // Packet 537
     internal class SendAllianceMailCommand : Command
     {
-        readonly string m_vMailContent;
+        internal string m_vMailContent;
 
-        public SendAllianceMailCommand(PacketReader br)
+        public SendAllianceMailCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vMailContent = br.ReadScString();
-            br.ReadInt32WithEndian();
         }
 
-        public override async void Execute(Level level)
+        internal override void Decode()
+        {
+            this.m_vMailContent = this.Reader.ReadString();
+            this.Reader.ReadInt32();
+        }
+
+        internal override async void Process()
         {
             try
             {
-                var avatar = level.GetPlayerAvatar();
+                var avatar = this.Device.Player.Avatar;
                 var allianceId = avatar.GetAllianceId();
                 if (allianceId > 0)
                 {
@@ -43,16 +46,19 @@ namespace UCS.Packets.Commands.Client
 
                         foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
                         {
-                            if (onlinePlayer.GetPlayerAvatar().GetAllianceId() == allianceId)
+                            if (onlinePlayer.Avatar.GetAllianceId() == allianceId)
                             {
-                                var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
+                                var p = new AvatarStreamEntryMessage(onlinePlayer.Client);
                                 p.SetAvatarStreamEntry(mail);
-                                PacketProcessor.Send(p);
+                                p.Send();
                             }
                         }
                     }
                 }
-            } catch (Exception) { }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

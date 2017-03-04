@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -15,7 +15,7 @@ namespace UCS.Packets.Messages.Client
     // Packet 14316
     internal class EditClanSettingsMessage : Message
     {
-        public EditClanSettingsMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public EditClanSettingsMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -25,28 +25,25 @@ namespace UCS.Packets.Messages.Client
         int m_vAllianceType;
         int m_vRequiredScore;
         int m_vWarFrequency;
-        byte m_vWarAndFriendlyStatus;      
+        byte m_vWarAndFriendlyStatus;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader (new MemoryStream(GetData())))
-            {
-                m_vAllianceDescription = br.ReadString();
-                br.ReadInt32();
-                m_vAllianceBadgeData = br.ReadInt32();
-                m_vAllianceType = br.ReadInt32();
-                m_vRequiredScore = br.ReadInt32();
-                m_vWarFrequency = br.ReadInt32();
-                m_vAllianceOrigin = br.ReadInt32();
-                m_vWarAndFriendlyStatus = br.ReadByte();
-            }
+            this.m_vAllianceDescription = this.Reader.ReadString();
+            this.Reader.ReadInt32();
+            this.m_vAllianceBadgeData = this.Reader.ReadInt32();
+            this.m_vAllianceType = this.Reader.ReadInt32();
+            this.m_vRequiredScore = this.Reader.ReadInt32();
+            this.m_vWarFrequency = this.Reader.ReadInt32();
+            this.m_vAllianceOrigin = this.Reader.ReadInt32();
+            this.m_vWarAndFriendlyStatus = this.Reader.ReadByte();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
-                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
                 if (alliance != null)
                 {
                     if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
@@ -71,35 +68,32 @@ namespace UCS.Packets.Messages.Client
                                                 alliance.SetAllianceOrigin(m_vAllianceOrigin);
                                                 alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
 
-                                                ClientAvatar avatar = level.GetPlayerAvatar();
+                                                ClientAvatar avatar = this.Device.Player.Avatar;
                                                 long allianceId = avatar.GetAllianceId();
                                                 AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                                                 eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                                                 eventStreamEntry.SetSender(avatar);
                                                 eventStreamEntry.SetEventType(10);
                                                 eventStreamEntry.SetAvatarId(avatar.GetId());
-                                                eventStreamEntry.SetAvatarName(avatar.GetAvatarName());
+                                                eventStreamEntry.SetAvatarName(avatar.AvatarName);
                                                 eventStreamEntry.SetSenderId(avatar.GetId());
-                                                eventStreamEntry.SetSenderName(avatar.GetAvatarName());
+                                                eventStreamEntry.SetSenderName(avatar.AvatarName);
                                                 alliance.AddChatMessage(eventStreamEntry);
 
-                                                AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand();
+                                                AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand(this.Device);
                                                 edit.SetAlliance(alliance);
-                                                edit.SetPlayer(level);
+                                                edit.SetPlayer(this.Device.Player);
 
-                                                AvailableServerCommandMessage availableServerCommandMessage = new AvailableServerCommandMessage(level.GetClient());
-                                                availableServerCommandMessage.SetCommandId(6);
-                                                availableServerCommandMessage.SetCommand(edit);
-                                                PacketProcessor.Send(availableServerCommandMessage);
+                                                new AvailableServerCommandMessage(this.Device, edit.Handle()).Send();
 
                                                 foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                                                 {
                                                     Level user = await ResourcesManager.GetPlayer(op.GetAvatarId());
                                                     if (ResourcesManager.IsPlayerOnline(user))
                                                     {
-                                                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(user.GetClient());
+                                                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(user.Client);
                                                         p.SetStreamEntry(eventStreamEntry);
-                                                        PacketProcessor.Send(p);
+                                                        p.Send();
                                                     }
                                                 }
 
@@ -107,37 +101,37 @@ namespace UCS.Packets.Messages.Client
                                             }
                                             else
                                             {
-                                                ResourcesManager.DisconnectClient(Client);
+                                                ResourcesManager.DisconnectClient(Device);
                                             }
                                         }
                                         else
                                         {
-                                            ResourcesManager.DisconnectClient(Client);
+                                            ResourcesManager.DisconnectClient(Device);
                                         }
                                     }
                                     else
                                     {
-                                        ResourcesManager.DisconnectClient(Client);
+                                        ResourcesManager.DisconnectClient(Device);
                                     }
                                 }
                                 else
                                 {
-                                    ResourcesManager.DisconnectClient(Client);
+                                    ResourcesManager.DisconnectClient(Device);
                                 }
                             }
                             else
                             {
-                                ResourcesManager.DisconnectClient(Client);
+                                ResourcesManager.DisconnectClient(Device);
                             }
                         }
                         else
                         {
-                            ResourcesManager.DisconnectClient(Client);
+                            ResourcesManager.DisconnectClient(Device);
                         }
                     }
                     else
                     {
-                        ResourcesManager.DisconnectClient(Client);
+                        ResourcesManager.DisconnectClient(Device);
                     }
                 }
             } catch (Exception) { }

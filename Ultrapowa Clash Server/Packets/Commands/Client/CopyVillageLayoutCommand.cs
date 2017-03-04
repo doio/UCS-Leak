@@ -1,27 +1,25 @@
-﻿using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 568
     internal class CopyVillageLayoutCommand : Command
     {
-        public CopyVillageLayoutCommand(PacketReader br)
+        public CopyVillageLayoutCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Tick = br.ReadInt32WithEndian();
-            CopiedLayoutID = br.ReadInt32WithEndian();
-            PasteLayoutID = br.ReadInt32WithEndian();
         }
 
-        public int PasteLayoutID { get; set; }
+        public int PasteLayoutID;
 
-        public int CopiedLayoutID { get; set; }
+        public int CopiedLayoutID;
 
-        public int Tick { get; set; }
+        public int Tick;
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
+            this.Tick = this.Reader.ReadInt32();
+            this.CopiedLayoutID = this.Reader.ReadInt32();
+            this.PasteLayoutID = this.Reader.ReadInt32();
         }
     }
 }

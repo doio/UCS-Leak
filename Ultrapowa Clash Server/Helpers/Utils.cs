@@ -31,78 +31,30 @@ namespace UCS.Helpers
 
     internal static class Utils
     {
-        private static Random m_Random = new Random();
-        public static Random Random { get { return m_Random; } }
+        public static string Padding(string _String, int _Limit = 23)
+        {
+            if (_String.Length > _Limit)
+            {
+                _String = _String.Remove(_String.Length - (_String.Length - _Limit + 3), _String.Length - _Limit + 3) + "...";
+            }
+            else if (_String.Length < _Limit)
+            {
+                int _Length = _Limit - _String.Length;
+
+                for (int i = 0; i < _Length; i++)
+                {
+                    _String += " ";
+                }
+            }
+
+            return _String;
+        }
+
         public static byte[] CreateRandomByteArray()
         {
-            byte[] buffer = new byte[Random.Next(20)];
-            Random.NextBytes(buffer);
+            byte[] buffer = new byte[Resources.Random.Next(20)];
+            Resources.Random.NextBytes(buffer);
             return buffer;
-        }
-
-        public static void AddDataSlots(this List<byte> list, List<DataSlot> data)
-        {
-            list.AddInt32(data.Count);
-            foreach (var dataSlot in data)
-            {
-                list.AddRange(dataSlot.Encode());
-            }
-        }
-
-        public static void AddByteArray(this List<byte> list, byte[] data)
-        {
-            if (data == null)
-                list.AddInt32(-1);
-            else
-            {
-                list.AddInt32(data.Length);
-                list.AddRange(data);
-            }
-        }
-        public static void AddInt32(this List<byte> list, int data) => list.AddRange(BitConverter.GetBytes(data).Reverse());
-
-        public static void AddInt32WithSkip(this List<byte> list, int data, int skip) => list.AddRange(BitConverter.GetBytes(data).Reverse().Skip(skip));
-
-        public static void AddUInt16(this List<byte> list, ushort data) => list.AddRange(BitConverter.GetBytes(data).Reverse());
-
-        public static void AddInt64(this List<byte> list, long data) => list.AddRange(BitConverter.GetBytes(data).Reverse());
-
-        public static void AddString(this List<byte> list, string data)
-        {
-            if (data == null)
-                list.AddRange(BitConverter.GetBytes(-1).Reverse());
-            else
-            {
-                list.AddRange(BitConverter.GetBytes(Encoding.UTF8.GetByteCount(data)).Reverse());
-                list.AddRange(Encoding.UTF8.GetBytes(data));
-            }
-        }
-
-        public static void AddCompressedString(this List<byte> list, string data)
-        {
-            if (data == null)
-                list.AddInt32(-1);
-            else
-            {
-
-                MemoryStream mem = new MemoryStream();
-                using (BinaryWriter bw = new BinaryWriter(mem))
-                {
-                    byte[] compressedString = ZlibStream.CompressString(data);
-
-                    bw.Write(data.Length);
-                    bw.Write(compressedString);
-                }
-
-                list.AddInt32(mem.ToArray().Length);
-                list.AddRange(mem.ToArray());
-            }
-        }
-
-        public static string ByteArrayToHex(byte[] ba)
-        {
-            string hex = BitConverter.ToString(ba);
-            return hex.Replace("-", " ").ToUpper();
         }
 
         public static void Increment(this byte[] nonce, int timesToIncrease = 2)
@@ -122,76 +74,7 @@ namespace UCS.Helpers
 
         public static bool ParseConfigBoolean(string str) => Boolean.Parse(ConfigurationManager.AppSettings[str]);
 
-        public static string parseConfigString(string str) => ConfigurationManager.AppSettings[str];
-
-        public static byte[] ReadAllBytes(this BinaryReader br)
-        {
-            const int bufferSize = 1024;
-            using (var ms = new MemoryStream())
-            {
-                byte[] buffer = new byte[bufferSize];
-                int count;
-                while ((count = br.Read(buffer, 0, buffer.Length)) != 0)
-                    ms.Write(buffer, 0, count);
-                return ms.ToArray();
-            }
-        }
-
-        public static Data ReadDataReference(this BinaryReader br) => CSVManager.DataTables.GetDataById(br.ReadInt32WithEndian());
-
-        public static int ReadInt32WithEndian(this BinaryReader br)
-        {
-            var a32 = br.ReadBytes(4);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(a32);
-            return BitConverter.ToInt32(a32, 0);
-        }
-
-        public static long ReadInt64WithEndian(this BinaryReader br)
-        {
-            var a64 = br.ReadBytes(8);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(a64);
-            return BitConverter.ToInt64(a64, 0);
-        }
-
-        public static string ReadScString(this BinaryReader br)
-        {
-            int stringLength = br.ReadInt32WithEndian();
-            string result;
-
-            if (stringLength > -1)
-            {
-                if (stringLength > 0)
-                {
-                    var astr = br.ReadBytes(stringLength);
-                    result = Encoding.UTF8.GetString(astr);
-                }
-                else
-                {
-                    result = string.Empty;
-                }
-            }
-            else
-                result = null;
-            return result;
-        }
-
-        public static ushort ReadUInt16WithEndian(this BinaryReader br)
-        {
-            byte[] a16 = br.ReadBytes(2);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(a16);
-            return BitConverter.ToUInt16(a16, 0);
-        }
-
-        public static uint ReadUInt32WithEndian(this BinaryReader br)
-        {
-            byte[] a32 = br.ReadBytes(4);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(a32);
-            return BitConverter.ToUInt32(a32, 0);
-        }
+        public static string ParseConfigString(string str) => ConfigurationManager.AppSettings[str];
 
         public static bool TryRemove<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> self, TKey key)
         {

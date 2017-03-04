@@ -3,6 +3,7 @@ using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -13,26 +14,26 @@ namespace UCS.Packets.Messages.Client
     {
         long m_vAllianceId;
 
-        public AskForAllianceDataMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AskForAllianceDataMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                m_vAllianceId = br.ReadInt64WithEndian();
-            }
+            this.m_vAllianceId = this.Reader.ReadInt64();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
                 Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
                 if (alliance != null)
-                    PacketProcessor.Send(new AllianceDataMessage(Client, alliance));
-            } catch (Exception) { }
+                    new AllianceDataMessage(Device, alliance).Send();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

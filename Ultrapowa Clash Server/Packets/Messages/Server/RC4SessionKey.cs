@@ -1,24 +1,19 @@
-﻿using System.Collections.Generic;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     //Packet 20000
     internal class RC4SessionKey : Message
     {
-        public RC4SessionKey(Packets.Client client) : base(client)
+        public RC4SessionKey(Device client) : base(client)
         {
-            SetMessageType(20000);
-            Key = Utils.CreateRandomByteArray();
+            this.Identifier = 20000;
         }
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddByteArray(Key);
-            pack.AddInt32(1);
-            Encrypt(pack.ToArray());
+            this.Data.AddByteArray(Utils.CreateRandomByteArray());
+            this.Data.AddInt(1);
         }
-        public byte[] Key { get; set; }
     }
 }

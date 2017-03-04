@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using UCS.Core;
+using System.Linq;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -16,39 +14,39 @@ namespace UCS.Packets.Commands.Client
         public int Tick;
         public int TroopType;
         public List<UnitToAdd> UnitsToAdd { get; set; }
-        public AddQuicKTrainingTroopCommand(PacketReader br)
+        public AddQuicKTrainingTroopCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Database = br.ReadInt32();
-            TroopType = br.ReadInt32();
-            UnitsToAdd = new List<UnitToAdd>();
-            for (int i = 0; i < TroopType; i++)
-                UnitsToAdd.Add(new UnitToAdd { Data = (CharacterData)br.ReadDataReference(), Count = br.ReadInt32() });
-            Tick = br.ReadInt32();
+            this.UnitsToAdd = new List<UnitToAdd>();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var defaultdatbase = level.GetPlayerAvatar().QuickTrain1;
-            if (Database == 1)
-                defaultdatbase.Clear();
-            else if (Database == 2)
-            {
-                defaultdatbase = level.GetPlayerAvatar().QuickTrain2;
-                defaultdatbase.Clear();
-            }
-            else if (Database == 3)
-            {
-                defaultdatbase = level.GetPlayerAvatar().QuickTrain3;
-                defaultdatbase.Clear();
-            }
-            else
-                throw new NullReferenceException("Unknown Database Detected");
+            this.Database = this.Reader.ReadInt32();
+            this.TroopType = this.Reader.ReadInt32();
+            for (int i = 0; i < TroopType; i++)
+                this.UnitsToAdd.Add(new UnitToAdd { Data = (CharacterData)this.Reader.ReadDataReference(), Count = this.Reader.ReadInt32() });
+            this.Tick = this.Reader.ReadInt32();
 
-            foreach (var i in UnitsToAdd)
-                {
-                    DataSlot ds = new DataSlot(i.Data, i.Count);
-                    defaultdatbase.Add(ds);
-                }
+        }
+        internal override void Process()
+        {
+            var defaultdatbase = this.Device.Player.Avatar.QuickTrain1;
+            switch (Database)
+            {
+                case 1:
+                    break;
+                case 2:
+                    defaultdatbase = this.Device.Player.Avatar.QuickTrain2;
+                    break;
+                case 3:
+                    defaultdatbase = this.Device.Player.Avatar.QuickTrain3;
+                    break;
+                default:
+                    throw new NullReferenceException("Unknown Database Detected");
+            }
+
+            defaultdatbase.Clear();
+            defaultdatbase.AddRange(UnitsToAdd.Select(i => new DataSlot(i.Data, i.Count)));
         }
         internal class UnitToAdd
         {

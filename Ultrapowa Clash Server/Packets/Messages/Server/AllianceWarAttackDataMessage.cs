@@ -3,6 +3,9 @@
     // Packet 25003
     internal class AllianceWarAttackDataMessage : Message
     {
-        public static int PacketID = 25003;
+        public AllianceWarAttackDataMessage(Device client) : base(client)
+        {
+            this.Identifier = 25003;
+        }
     }
 }

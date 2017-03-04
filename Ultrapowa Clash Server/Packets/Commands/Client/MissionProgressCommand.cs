@@ -1,23 +1,25 @@
-﻿using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 519
     internal class MissionProgressCommand : Command
     {
-        public MissionProgressCommand(PacketReader br)
+        public MissionProgressCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            MissionID = br.ReadUInt32();
-            Tick = br.ReadUInt32();
         }
 
-        public uint MissionID { get; set; }
+        internal override void Decode()
+        {
+            this.MissionID = this.Reader.ReadUInt32();
+            this.Tick = this.Reader.ReadUInt32();
+        }
 
-        public uint Tick { get; set; }
+        public uint MissionID;
 
-        public override void Execute(Level level)
+        public uint Tick;
+
+        internal override void Process()
         {
         }
     }

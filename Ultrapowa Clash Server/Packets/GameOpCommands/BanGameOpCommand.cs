@@ -18,7 +18,7 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 if (m_vArgs.Length >= 2)
                 {
@@ -28,13 +28,13 @@ namespace UCS.Packets.GameOpCommands
                         var l = await ResourcesManager.GetPlayer(id);
                         if (l != null)
                         {
-                            if (l.GetAccountPrivileges() < level.GetAccountPrivileges())
+                            if (l.Avatar.AccountPrivileges < level.Avatar.AccountPrivileges)
                             {
-                                l.SetAccountStatus(99);
-                                l.SetAccountPrivileges(0);
+                                l.Avatar.AccountBanned = true;
+                                l.Avatar.AccountPrivileges = 0;
                                 if (ResourcesManager.IsPlayerOnline(l))
                                 {
-                                    PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
+                                    Processor.Send(new OutOfSyncMessage(l.Client));
                                 }
                             }
                             else
@@ -52,7 +52,7 @@ namespace UCS.Packets.GameOpCommands
             }
             else
             {
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
             }
         }
     }

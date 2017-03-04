@@ -10,15 +10,18 @@ namespace UCS.Packets
     {
         byte m_vRequiredAccountPrivileges;
 
-        public static void SendCommandFailedMessage(Client c)
+        public static void SendCommandFailedMessage(Device c)
         {
-            Console.WriteLine("GameOp command failed. Insufficient privileges. Requster ID -> " + c.GetLevel().GetPlayerAvatar().GetId());
-            var p = new GlobalChatLineMessage(c);
-            p.SetChatMessage("GameOp command failed. Insufficient privileges.");
-            p.SetPlayerId(0);
-            p.SetLeagueId(22);
-            p.SetPlayerName("Ultrapowa Clash Server");
-            PacketProcessor.Send(p);
+            Console.WriteLine("GameOp command failed. Insufficient privileges. Requster ID -> " + c.Player.Avatar.GetId());
+            var p = new GlobalChatLineMessage(c)
+            {
+                Message = "GameOp command failed. Insufficient privileges.",
+                HomeId = 0,
+                CurrentHomeId = 0,
+                LeagueId = 22,
+                PlayerName = "Ultrapowa Clash Server"
+            };
+            p.Send();
         }
 
         public virtual void Execute(Level level)

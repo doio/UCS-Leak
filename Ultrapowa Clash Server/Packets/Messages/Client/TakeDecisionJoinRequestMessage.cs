@@ -3,6 +3,7 @@ using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Commands.Server;
@@ -13,49 +14,46 @@ namespace UCS.Packets.Messages.Client
     // Packet 14321
     internal class TakeDecisionJoinRequestMessage : Message
     {
-        public TakeDecisionJoinRequestMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public TakeDecisionJoinRequestMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         public long MessageID { get; set; }
 
-        public int Choice { get; set; }
+        public byte Choice { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                MessageID = br.ReadInt64();
-                Choice = br.ReadByte();
-            }
+            this.MessageID = this.Reader.ReadInt64();
+            this.Choice    = this.Reader.ReadByte();
         }
 
-        public override async void Process(Level level)
+        internal async void Process()
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
                 StreamEntry message = a.GetChatMessages().Find(c => c.GetId() == MessageID);
                 Level requester = await ResourcesManager.GetPlayer(message.GetSenderId());
                 if (Choice == 1)
                 {
                     if (!a.IsAllianceFull())
                     {
-                        requester.GetPlayerAvatar().SetAllianceId(a.GetAllianceId());
+                        requester.Avatar.SetAllianceId(a.GetAllianceId());
 
-                        AllianceMemberEntry member = new AllianceMemberEntry(requester.GetPlayerAvatar().GetId());
+                        AllianceMemberEntry member = new AllianceMemberEntry(requester.Avatar.GetId());
                         member.SetRole(1);
                         a.AddAllianceMember(member);
 
                         StreamEntry e = a.GetChatMessages().Find(c => c.GetId() == MessageID);
-                        e.SetJudgeName(level.GetPlayerAvatar().GetAvatarName());
+                        e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                         e.SetState(2);
 
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                         eventStreamEntry.SetId(a.GetChatMessages().Count + 1);
-                        eventStreamEntry.SetSender(requester.GetPlayerAvatar());
-                        eventStreamEntry.SetAvatarName(level.GetPlayerAvatar().GetAvatarName());
-                        eventStreamEntry.SetAvatarId(level.GetPlayerAvatar().GetId());
+                        eventStreamEntry.SetSender(requester.Avatar);
+                        eventStreamEntry.SetAvatarName(this.Device.Player.Avatar.AvatarName);
+                        eventStreamEntry.SetAvatarId(this.Device.Player.Avatar.GetId());
                         eventStreamEntry.SetEventType(2);
 
                         a.AddChatMessage(eventStreamEntry);
@@ -63,56 +61,49 @@ namespace UCS.Packets.Messages.Client
                         foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                         {
                             Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                            if (player.GetClient() != null)
+                            if (player.Client != null)
                             {
-                                AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.GetClient());
-                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.GetClient());
+                                AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.Client);
+                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.Client);
                                 p.SetStreamEntry(eventStreamEntry);
                                 c.SetStreamEntry(e);
 
-                                PacketProcessor.Send(p);
-                                PacketProcessor.Send(c);
+                                p.Send();
+                                c.Send();
                             }
                         }
                         if (ResourcesManager.IsPlayerOnline(requester))
                         {
-                            JoinedAllianceCommand joinAllianceCommand = new JoinedAllianceCommand();
+                            JoinedAllianceCommand joinAllianceCommand = new JoinedAllianceCommand(requester.Client);
                             joinAllianceCommand.SetAlliance(a);
 
-                            AvailableServerCommandMessage availableServerCommandMessage = new AvailableServerCommandMessage(requester.GetClient());
-                            availableServerCommandMessage.SetCommandId(1);
-                            availableServerCommandMessage.SetCommand(joinAllianceCommand);
+                            new AvailableServerCommandMessage(requester.Client, joinAllianceCommand.Handle()).Send();
 
-                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand();
+                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand(requester.Client);
                             d.SetAlliance(a);
                             d.SetRole(4);
-                            d.Tick(level);
+                            d.Tick(requester);
 
-                            AvailableServerCommandMessage c = new AvailableServerCommandMessage(Client);
-                            c.SetCommandId(8);
-                            c.SetCommand(d);
+                            new AvailableServerCommandMessage(requester.Client, d.Handle()).Send();
 
-                            PacketProcessor.Send(new AnswerJoinRequestAllianceMessage(Client));
-                            PacketProcessor.Send(availableServerCommandMessage);
-                            PacketProcessor.Send(c);
-                            PacketProcessor.Send(new AllianceStreamMessage(requester.GetClient(), a));
+                            new AllianceStreamMessage(requester.Client, a).Send();
                         }
                     }
                 }
                 else
                 {
                     StreamEntry e = a.GetChatMessages().Find(c => c.GetId() == MessageID);
-                    e.SetJudgeName(level.GetPlayerAvatar().GetAvatarName());
+                    e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                     e.SetState(3);
 
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {
                         Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                        if (player.GetClient() != null)
+                        if (player.Client != null)
                         {
-                            AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.GetClient());
+                            AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.Client);
                             c.SetStreamEntry(e);
-                            PacketProcessor.Send(c);
+                            c.Send();
                         }
                     }
                 }

@@ -18,7 +18,7 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 if (m_vArgs.Length >= 2)
                 {
@@ -28,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                         var l = await ResourcesManager.GetPlayer(id);
                         if (ResourcesManager.IsPlayerOnline(l))
                         {
-                            PacketProcessor.Send(new OutOfSyncMessage(l.GetClient()));
+                            Processor.Send(new OutOfSyncMessage(l.Client));
                         }
                         else
                         {
@@ -43,7 +43,7 @@ namespace UCS.Packets.GameOpCommands
             }
             else
             {
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
             }
         }
     }

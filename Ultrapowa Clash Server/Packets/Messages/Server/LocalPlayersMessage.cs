@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UCS.Core;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -11,60 +10,55 @@ namespace UCS.Packets.Messages.Server
     // Packet 24404
     internal class LocalPlayersMessage : Message
     {
-        public LocalPlayersMessage(Packets.Client client) : base(client)
+        public LocalPlayersMessage(Device client) : base(client)
         {
-            SetMessageType(24404);
+            this.Identifier = 24404;
         }
 
-        public override async void Encode()
+        internal override async void Encode()
         {
-            try
+            List<byte> data = new List<byte>();
+            var i = 0;
+
+            foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetScore()))
             {
-                List<byte> packet = new List<byte>();
-                List<byte> data = new List<byte>();
-                var i = 0;
-
-                foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.GetPlayerAvatar().GetScore()))
+                /*if (player.Avatar.GetAvatarLevel() >= 70)
+                {*/
+                ClientAvatar pl = player.Avatar;
+                long id = pl.GetAllianceId();
+                if (i >= 100)
+                    break;
+                data.AddLong(pl.GetId());
+                data.AddString(pl.AvatarName);
+                data.AddInt(i + 1);
+                data.AddInt(pl.GetScore());
+                data.AddInt(i + 1);
+                data.AddInt(pl.GetAvatarLevel());
+                data.AddInt(100);
+                data.AddInt(1);
+                data.AddInt(100);
+                data.AddInt(1);
+                data.AddInt(pl.GetLeagueId());
+                data.AddString(pl.Region.ToUpper());
+                data.AddLong(pl.GetAllianceId());
+                data.AddInt(1);
+                data.AddInt(1);
+                if (pl.GetAllianceId() > 0)
                 {
-                    /*if (player.GetPlayerAvatar().GetAvatarLevel() >= 70)
-                    {*/
-                        ClientAvatar pl = player.GetPlayerAvatar();
-                        long id = pl.GetAllianceId();
-                        if (i >= 100)
-                            break;
-                        data.AddInt64(pl.GetId());
-                        data.AddString(pl.GetAvatarName());
-                        data.AddInt32(i + 1);
-                        data.AddInt32(pl.GetScore());
-                        data.AddInt32(i + 1);
-                        data.AddInt32(pl.GetAvatarLevel());
-                        data.AddInt32(100);
-                        data.AddInt32(1);
-                        data.AddInt32(100);
-                        data.AddInt32(1);
-                        data.AddInt32(pl.GetLeagueId());
-                        data.AddString(pl.GetUserRegion().ToUpper());
-                        data.AddInt64(pl.GetAllianceId());
-                        data.AddInt32(1);
-                        data.AddInt32(1);
-                        if (pl.GetAllianceId() > 0)
-                        {
-                            data.Add(1); // 1 = Have an alliance | 0 = No alliance
-                            data.AddInt64(pl.GetAllianceId());
-                            Alliance _Alliance = await ObjectManager.GetAlliance(id);
-                            data.AddString(_Alliance.GetAllianceName());
-                            data.AddInt32(_Alliance.GetAllianceBadgeData());
-                        }
-                        else
-                            data.Add(0);
-                        i++;
-                    //}
+                    data.Add(1); // 1 = Have an alliance | 0 = No alliance
+                    data.AddLong(pl.GetAllianceId());
+                    Alliance _Alliance = await ObjectManager.GetAlliance(id);
+                    data.AddString(_Alliance.GetAllianceName());
+                    data.AddInt(_Alliance.GetAllianceBadgeData());
                 }
+                else
+                    data.Add(0);
+                i++;
+                //}
+            }
 
-                packet.AddInt32(i);
-                packet.AddRange(data.ToArray());
-                Encrypt(packet.ToArray());
-            } catch (Exception) { }
+            this.Data.AddInt(i);
+            this.Data.AddRange(data.ToArray());
         }
     }
 }

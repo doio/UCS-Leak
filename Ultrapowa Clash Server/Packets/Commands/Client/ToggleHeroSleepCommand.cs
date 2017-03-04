@@ -1,20 +1,24 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 529
     internal class ToggleHeroSleepCommand : Command
     {
-        public ToggleHeroSleepCommand(PacketReader br)
+        public ToggleHeroSleepCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadUInt32WithEndian(); 
-            FlagSleep = br.ReadByte();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public uint BuildingId { get; set; }
-        public byte FlagSleep { get; set; }
-        public uint Unknown1 { get; set; }
+        internal override void Decode()
+        {
+            this.BuildingId = this.Reader.ReadInt32();
+            this.FlagSleep = this.Reader.ReadByte();
+            this.Tick = this.Reader.ReadUInt32();
+        }
+
+        public int BuildingId;
+        public byte FlagSleep;
+        public uint Tick;
     }
 }

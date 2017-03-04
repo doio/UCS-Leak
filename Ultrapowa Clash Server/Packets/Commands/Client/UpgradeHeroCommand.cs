@@ -1,6 +1,5 @@
-﻿using System.IO;
-using UCS.Core;
-using UCS.Helpers;
+﻿using UCS.Core;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -8,16 +7,20 @@ namespace UCS.Packets.Commands.Client
     // Packet 527
     internal class UpgradeHeroCommand : Command
     {
-        public UpgradeHeroCommand(PacketReader br)
+        public UpgradeHeroCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var ca = level.GetPlayerAvatar();
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var ca = this.Device.Player.Avatar;
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
             if (go != null)
             {
                 var b = (Building) go;
@@ -32,8 +35,9 @@ namespace UCS.Packets.Commands.Client
                         var cost = hd.GetUpgradeCost(currentLevel);
                         if (ca.HasEnoughResources(rd, cost))
                         {
-                            if (level.HasFreeWorkers())
+                            if (this.Device.Player.HasFreeWorkers())
                             {
+                                Logger.Write("Hero To Upgrade : " + b.GetData().GetName() + " (" + BuildingId + ')');
                                 hbc.StartUpgrading();
                             }
                         }
@@ -42,7 +46,7 @@ namespace UCS.Packets.Commands.Client
             }
         }
 
-        public int BuildingId { get; set; }
-        public uint Unknown1 { get; set; }
+        public int BuildingId;
+        public uint Unknown1;
     }
 }

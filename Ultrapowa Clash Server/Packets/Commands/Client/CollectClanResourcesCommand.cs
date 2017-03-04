@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class CollectClanResourcesCommand : Command
+    internal class CollectClanResourcesCommand : Command
     {
-        public CollectClanResourcesCommand(PacketReader br)
+        public CollectClanResourcesCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Tick = br.ReadInt32WithEndian();
         }
 
-        public int Tick { get; set; }
+        internal override void Decode()
+        {
+            this.Tick = this.Reader.ReadInt32();
+        }
 
-        public override void Execute(Level level)
+        public int Tick;
+
+        internal override void Process()
         {
             // Database change is needed for the Player
         }

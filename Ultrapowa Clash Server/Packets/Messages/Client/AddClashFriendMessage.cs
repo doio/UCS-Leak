@@ -5,27 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Client
 {
     internal class AddClashFriendMessage : Message
     {
-        public AddClashFriendMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AddClashFriendMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                 FriendID = br.ReadInt64();  
-            }
+            this.FriendID = this.Reader.ReadInt64();
         }
 
         public long FriendID { get; set; }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
         }
     }

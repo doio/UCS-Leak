@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -8,36 +7,42 @@ namespace UCS.Packets.Commands.Client
     // Packet 533
     internal class BuildingToMove
     {
-        public int GameObjectId { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int GameObjectId;
+        public int X;
+        public int Y;
     }
 
     internal class MoveMultipleBuildingsCommand : Command
     {
-        readonly List<BuildingToMove> m_vBuildingsToMove;
+        internal List<BuildingToMove> m_vBuildingsToMove;
 
-        public MoveMultipleBuildingsCommand(PacketReader br)
+        public MoveMultipleBuildingsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingsToMove = new List<BuildingToMove>();
-            var buildingCount = br.ReadInt32WithEndian();
-            for (var i = 0; i < buildingCount; i++)
-            {
-                var buildingToMove = new BuildingToMove();
-                buildingToMove.X = br.ReadInt32WithEndian();
-                buildingToMove.Y = br.ReadInt32WithEndian();
-                buildingToMove.GameObjectId = br.ReadInt32WithEndian();
-                m_vBuildingsToMove.Add(buildingToMove);
-            }
-            br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            foreach (var buildingToMove in m_vBuildingsToMove)
+            this.m_vBuildingsToMove = new List<BuildingToMove>();
+            var buildingCount = this.Reader.ReadInt32();
+            for (var i = 0; i < buildingCount; i++)
             {
-                GameObject go = level.GameObjectManager.GetGameObjectByID(buildingToMove.GameObjectId);
-                go.SetPositionXY(buildingToMove.X, buildingToMove.Y, level.GetPlayerAvatar().GetActiveLayout());
+                var buildingToMove = new BuildingToMove
+                {
+                    X = this.Reader.ReadInt32(),
+                    Y = this.Reader.ReadInt32(),
+                    GameObjectId = this.Reader.ReadInt32()
+                };
+                this.m_vBuildingsToMove.Add(buildingToMove);
+            }
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            foreach (var buildingToMove in this.m_vBuildingsToMove)
+            {
+                GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(buildingToMove.GameObjectId);
+                go.SetPositionXY(buildingToMove.X, buildingToMove.Y, this.Device.Player.Avatar.GetActiveLayout());
             }
         }
     }

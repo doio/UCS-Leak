@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -14,23 +14,20 @@ namespace UCS.Packets.Messages.Client
 {
     internal class ChallangeVisitMessage : Message
     {
-        public ChallangeVisitMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChallangeVisitMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         public long AvatarID { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader r = new PacketReader(new MemoryStream(GetData())))
-            {
-                AvatarID = r.ReadInt64WithEndian();
-            }
+            this.AvatarID = this.Reader.ReadInt64();
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
-            PacketProcessor.Send(new OwnHomeDataMessage(Client, level));
+            new OwnHomeDataMessage(Device, this.Device.Player).Send();
             //var defender = ResourcesManager.GetPlayer(AvatarID); // TODO: FIX BUGS		
             //PacketManager.ProcessOutgoingPacket(new VisitedHomeDataMessage(Client, defender, level)); 
         }

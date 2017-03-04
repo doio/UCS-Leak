@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -15,19 +15,16 @@ namespace UCS.Packets.Messages.Client
     {
         string m_vChatMessage;
 
-        public ChatToAllianceStreamMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChatToAllianceStreamMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                m_vChatMessage = br.ReadScString();
-            }
+            this.m_vChatMessage = this.Reader.ReadString();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try {
                 if (m_vChatMessage.Length > 0)
@@ -40,15 +37,15 @@ namespace UCS.Packets.Messages.Client
                             if (obj != null)
                             {
                                 string player = "";
-                                if (level != null)
-                                    player += " (" + level.GetPlayerAvatar().GetId() + ", " +
-                                              level.GetPlayerAvatar().GetAvatarName() + ")";
-                                ((GameOpCommand)obj).Execute(level);
+                                if (this.Device.Player != null)
+                                    player += " (" + this.Device.Player.Avatar.GetId() + ", " +
+                                              this.Device.Player.Avatar.AvatarName + ")";
+                                ((GameOpCommand)obj).Execute(this.Device.Player);
                             }
                         }
                         else
                         {
-                            ClientAvatar avatar = level.GetPlayerAvatar();
+                            ClientAvatar avatar = this.Device.Player.Avatar;
                             long allianceId = avatar.GetAllianceId();
                             if (allianceId > 0)
                             {
@@ -65,11 +62,11 @@ namespace UCS.Packets.Messages.Client
                                     foreach (var op in alliance.GetAllianceMembers())
                                     {
                                         Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                                        if (player.GetClient() != null)
+                                        if (player.Client != null)
                                         {
-                                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.GetClient());
+                                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.Client);
                                             p.SetStreamEntry(cm);
-                                            PacketProcessor.Send(p);
+                                            p.Send();
                                         }
                                     }
                                 }

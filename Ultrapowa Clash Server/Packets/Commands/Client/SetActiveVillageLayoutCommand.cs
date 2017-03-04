@@ -1,7 +1,4 @@
-using System;
-using System.IO;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -9,15 +6,15 @@ namespace UCS.Packets.Commands.Client
     internal class SetActiveVillageLayoutCommand : Command
     {
         private int Layout;
-        public SetActiveVillageLayoutCommand(PacketReader br)
+        public SetActiveVillageLayoutCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Layout = br.ReadInt32();
+            //Layout = br.ReadInt32();
             //Console.WriteLine(br.ReadInt32());
             //Console.WriteLine(br.ReadInt32());
         }
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            //level.GetPlayerAvatar().SetActiveLayout(Layout);
+            this.Layout = this.Reader.ReadInt32();
         }
     }
 }

@@ -17,12 +17,12 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
-                var clanid = level.GetPlayerAvatar().GetAllianceId();
+                var clanid = level.Avatar.GetAllianceId();
                 if (clanid != 0)
                 {
-                    Alliance _Alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    Alliance _Alliance = await ObjectManager.GetAlliance(level.Avatar.GetAllianceId());
 
                     foreach (var pl in _Alliance.GetAllianceMembers())
                     {
@@ -32,17 +32,20 @@ namespace UCS.Packets.GameOpCommands
                             break;
                         }
                     }
-                    level.GetPlayerAvatar().SetAllianceRole(2);
+                    level.Avatar.SetAllianceRole(2);
                 }
             }
             else
             {
-                var p = new GlobalChatLineMessage(level.GetClient());
-                p.SetChatMessage("GameOp command failed. Access to Admin GameOP is prohibited.");
-                p.SetPlayerId(0);
-                p.SetLeagueId(22);
-                p.SetPlayerName("UCS Bot");
-                PacketProcessor.Send(p);
+                var p = new GlobalChatLineMessage(level.Client)
+                {
+                    Message = "GameOp command failed. Access to Admin GameOP is prohibited.",
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = "UCS Bot"
+                };
+                Processor.Send(p);
             }
         }
     }

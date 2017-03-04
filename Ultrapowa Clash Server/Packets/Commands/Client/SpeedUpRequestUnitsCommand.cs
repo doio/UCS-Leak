@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class SpeedUpRequestUnitsCommand : Command
+    internal class SpeedUpRequestUnitsCommand : Command
     {
-        public SpeedUpRequestUnitsCommand(PacketReader br)
+        public SpeedUpRequestUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Tick = br.ReadInt32();
         }
 
-        public int Tick { get; set; }
 
-        public override void Execute(Level level)
+        public int Tick;
+
+        internal override void Decode()
         {
+            this.Tick = this.Reader.ReadInt32();
         }
     }
 }

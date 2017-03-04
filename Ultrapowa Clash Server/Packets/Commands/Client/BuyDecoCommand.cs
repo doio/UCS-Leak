@@ -1,7 +1,6 @@
-﻿using System.IO;
-using UCS.Core;
+﻿using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -9,17 +8,21 @@ namespace UCS.Packets.Commands.Client
     // Packet 512
     internal class BuyDecoCommand : Command
     {
-        public BuyDecoCommand(PacketReader br)
+        public BuyDecoCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X = br.ReadInt32WithEndian();
-            Y = br.ReadInt32WithEndian();
-            DecoId = br.ReadInt32WithEndian();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            ClientAvatar ca = level.GetPlayerAvatar();
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.DecoId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            ClientAvatar ca = this.Device.Player.Avatar;
 
             DecoData dd = (DecoData)CSVManager.DataTables.GetDataById(DecoId);
 
@@ -28,15 +31,15 @@ namespace UCS.Packets.Commands.Client
                 ResourceData rd = dd.GetBuildResource();
                 ca.CommodityCountChangeHelper(0, rd, -dd.GetBuildCost());
 
-                Deco d = new Deco(dd, level);
-                d.SetPositionXY(X, Y, level.GetPlayerAvatar().GetActiveLayout());
-                level.GameObjectManager.AddGameObject(d);
+                Deco d = new Deco(dd, this.Device.Player);
+                d.SetPositionXY(X, Y, this.Device.Player.Avatar.GetActiveLayout());
+                this.Device.Player.GameObjectManager.AddGameObject(d);
             }
         }
 
-        public int DecoId { get; set; }
-        public uint Unknown1 { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int DecoId;
+        public uint Unknown1;
+        public int X;
+        public int Y;
     }
 }

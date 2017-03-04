@@ -1,12 +1,11 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 4294967295
     internal class RemoveMultiBuildingsCommand : Command
     {
-        public RemoveMultiBuildingsCommand(PacketReader br)
+        public RemoveMultiBuildingsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
     }

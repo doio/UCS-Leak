@@ -87,12 +87,22 @@ namespace UCS.Core
             Console.WriteLine(message);
         }
 
-        public static void Say(string message)
+        public static void Say(string message, bool write = false)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("[UCS]    ");
-            Console.ResetColor();
-            Console.WriteLine(message);
+            if (!write)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("[UCS]    ");
+                Console.ResetColor();
+                Console.WriteLine(message);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("[UCS]    ");
+                Console.ResetColor();
+                Console.Write(message);
+            }
         }
 
         public static void Say()

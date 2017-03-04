@@ -94,11 +94,11 @@ namespace UCS
             int count = 0;
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.GetPlayerAvatar().GetAvatarName());
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetId()));
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetAvatarLevel()));
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetScore()));
-                item.SubItems.Add(Convert.ToString(acc.GetAccountPrivileges()));
+                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
                 if(count >= 100)
@@ -174,11 +174,11 @@ namespace UCS
             listView1.Items.Clear();
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.GetPlayerAvatar().GetAvatarName());
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetId()));
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetAvatarLevel()));
-                item.SubItems.Add(Convert.ToString(acc.GetPlayerAvatar().GetScore()));
-                item.SubItems.Add(Convert.ToString(acc.GetAccountPrivileges()));
+                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
                 if(count >= 100)
@@ -206,13 +206,13 @@ namespace UCS
 
                 Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
-                txtPlayerName.Text = Convert.ToString(l.GetPlayerAvatar().GetAvatarName());
-                txtPlayerScore.Text = Convert.ToString(l.GetPlayerAvatar().GetScore());
-                txtPlayerGems.Text = Convert.ToString(l.GetPlayerAvatar().GetDiamonds());
-                txtTownHallLevel.Text = Convert.ToString(l.GetPlayerAvatar().GetTownHallLevel());
-                txtAllianceID.Text = Convert.ToString(l.GetPlayerAvatar().GetAllianceId());
-                materialLabel7.Text = l.GetPlayerAvatar().GetUserRegion();
-                txtPlayerLevel.Text = l.GetPlayerAvatar().GetAvatarLevel().ToString();
+                txtPlayerName.Text = Convert.ToString(l.Avatar.AvatarName);
+                txtPlayerScore.Text = Convert.ToString(l.Avatar.GetScore());
+                txtPlayerGems.Text = Convert.ToString(l.Avatar.GetDiamonds());
+                txtTownHallLevel.Text = Convert.ToString(l.Avatar.GetTownHallLevel());
+                txtAllianceID.Text = Convert.ToString(l.Avatar.GetAllianceId());
+                materialLabel7.Text = l.Avatar.Region;
+                txtPlayerLevel.Text = l.Avatar.GetAvatarLevel().ToString();
             }
             catch (NullReferenceException)
             {
@@ -255,12 +255,12 @@ namespace UCS
             /* SAVE PLAYER */
             Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
-            l.GetPlayerAvatar().SetName(txtPlayerName.Text);
-            l.GetPlayerAvatar().SetScore(Convert.ToInt32(txtPlayerScore.Text));
-            l.GetPlayerAvatar().SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
-            l.GetPlayerAvatar().SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
-            l.GetPlayerAvatar().SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
-            l.GetPlayerAvatar().SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
+            l.Avatar.SetName(txtPlayerName.Text);
+            l.Avatar.SetScore(Convert.ToInt32(txtPlayerScore.Text));
+            l.Avatar.SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
+            l.Avatar.SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
+            l.Avatar.SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
+            l.Avatar.SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
 
             var title = "Finished!";
             MessageBox.Show("Player has been saved!", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -380,12 +380,16 @@ namespace UCS
         {
             foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
             {
-                var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                pm.SetChatMessage(textBox21.Text);
-                pm.SetPlayerId(0);
-                pm.SetLeagueId(22);
-                pm.SetPlayerName(textBox22.Text);
-                PacketProcessor.Send(pm);
+                var pm = new GlobalChatLineMessage(onlinePlayer.Client)
+                {
+                    Message = textBox21.Text,
+                    HomeId = 0,
+                    CurrentHomeId = 0,
+                    LeagueId = 22,
+                    PlayerName = textBox22.Text
+                };
+
+                pm.Send();
             }
         }
 
@@ -407,9 +411,9 @@ namespace UCS
 
             foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
             {
-                var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
+                var p = new AvatarStreamEntryMessage(onlinePlayer.Client);
                 p.SetAvatarStreamEntry(mail);
-                PacketProcessor.Send(p);
+                p.Send();
             }
         }
 
@@ -425,7 +429,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = await ResourcesManager.GetPlayer(id);
-                PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
+                new OutOfSyncMessage(player.Client).Send();
             }
         }
 
@@ -439,9 +443,9 @@ namespace UCS
             {
                 long id = Convert.ToInt64(txtPlayerID.Text);
                 Level player = await ResourcesManager.GetPlayer(id);
-                player.SetAccountStatus(100);
+                player.Avatar.AccountBanned = true;
                 DatabaseManager.Single().Save(player);
-                PacketProcessor.Send(new OutOfSyncMessage(player.GetClient()));
+                new OutOfSyncMessage(player.Client).Send();
             }
         }
 
@@ -455,7 +459,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = await ResourcesManager.GetPlayer(id);
-                player.SetAccountStatus(0);
+                player.Avatar.AccountBanned = true;
                 DatabaseManager.Single().Save(player);
             }
         }
@@ -472,15 +476,15 @@ namespace UCS
             {
                 foreach (var n in ResourcesManager.GetInMemoryLevels())
                 {
-                    var l = await ResourcesManager.GetPlayer(n.GetPlayerAvatar().GetId());
-                    var na = l.GetPlayerAvatar().GetAvatarName();
+                    var l = await ResourcesManager.GetPlayer(n.Avatar.GetId());
+                    var na = l.Avatar.AvatarName;
                     if (na == name || na == name.ToUpper() || na == name.ToLower())
                     {
-                        ListViewItem item = new ListViewItem(n.GetPlayerAvatar().GetAvatarName());
-                        item.SubItems.Add(Convert.ToString(n.GetPlayerAvatar().GetId()));
-                        item.SubItems.Add(Convert.ToString(n.GetPlayerAvatar().GetAvatarLevel()));
-                        item.SubItems.Add(Convert.ToString(n.GetPlayerAvatar().GetScore()));
-                        item.SubItems.Add(Convert.ToString(n.GetAccountPrivileges()));
+                        ListViewItem item = new ListViewItem(n.Avatar.AvatarName);
+                        item.SubItems.Add(Convert.ToString(n.Avatar.GetId()));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.GetAvatarLevel()));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.GetScore()));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.AccountPrivileges));
                         listView1.Items.Add(item);
                     }
                 }
@@ -517,12 +521,15 @@ namespace UCS
 
                 foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                 {
-                    var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                    pm.SetChatMessage(Message);
-                    pm.SetPlayerId(0);
-                    pm.SetLeagueId(22);
-                    pm.SetPlayerName(Name);
-                    PacketProcessor.Send(pm);
+                    var pm = new GlobalChatLineMessage(onlinePlayer.Client)
+                    {
+                        Message = Message,
+                        HomeId = 0,
+                        CurrentHomeId = 0,
+                        LeagueId = 22,
+                        PlayerName = Name
+                    };
+                    pm.Send();
                 }
 
                 Count++;
@@ -533,12 +540,15 @@ namespace UCS
                 {
                     foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                     {
-                        var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                        pm.SetChatMessage(Message);
-                        pm.SetPlayerId(0);
-                        pm.SetLeagueId(22);
-                        pm.SetPlayerName(Name);
-                        PacketProcessor.Send(pm);
+                        var pm = new GlobalChatLineMessage(onlinePlayer.Client)
+                        {
+                            Message = Message,
+                            HomeId = 0,
+                            CurrentHomeId = 0,
+                            LeagueId = 22,
+                            PlayerName = Name
+                        };
+                        pm.Send();
                     }
                     Count++;
                     materialLabel13.Text = Convert.ToString(Count);

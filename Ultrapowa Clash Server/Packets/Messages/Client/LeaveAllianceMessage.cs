@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Commands.Server;
@@ -17,22 +17,17 @@ namespace UCS.Packets.Messages.Client
     {
         public static bool done;
 
-        public LeaveAllianceMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public LeaveAllianceMessage(Device device, Reader reader) : base(device, reader)
         {
 
         }
 
-        public override void Decode()
-        {
-
-        }
-
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
-                ClientAvatar avatar = level.GetPlayerAvatar();
-                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                ClientAvatar avatar = this.Device.Player.Avatar;
+                Alliance alliance = await ObjectManager.GetAlliance(avatar.GetAllianceId());
 
                 if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
@@ -43,16 +38,15 @@ namespace UCS.Packets.Messages.Client
 
                         if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
                         {
-                            AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
-                            c.SetAlliance(alliance);
-                            c.SetRole(2);
-                            c.Tick(level);
 
                             Level l = await ResourcesManager.GetPlayer(player.GetAvatarId());
-                            AvailableServerCommandMessage d = new AvailableServerCommandMessage(l.GetClient());
-                            d.SetCommandId(8);
-                            d.SetCommand(c);
-                            PacketProcessor.Send(d);
+
+                            AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand(l.Client);
+                            c.SetAlliance(alliance);
+                            c.SetRole(2);
+                            c.Tick(l);
+
+                             new AvailableServerCommandMessage(l.Client, c.Handle()).Send();
                         }
                         done = true;
                         break;
@@ -62,7 +56,7 @@ namespace UCS.Packets.Messages.Client
                         int count = alliance.GetAllianceMembers().Count;
                         Random rnd = new Random();
                         int id = rnd.Next(1, count);
-                        while (id != level.GetPlayerAvatar().GetId())
+                        while (id != this.Device.Player.Avatar.GetId())
                             id = rnd.Next(1, count);
                         int loop = 0;
                         foreach (AllianceMemberEntry player in members)
@@ -73,30 +67,24 @@ namespace UCS.Packets.Messages.Client
                                 player.SetRole(2);
                                 if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
                                 {
-                                    AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand();
+                                    Level l2 = await ResourcesManager.GetPlayer(player.GetAvatarId());
+                                    AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand(l2.Client);
                                     e.SetAlliance(alliance);
                                     e.SetRole(2);
-                                    e.Tick(level);
+                                    e.Tick(l2);
 
-                                    Level l2 = await ResourcesManager.GetPlayer(player.GetAvatarId());
-                                    AvailableServerCommandMessage f = new AvailableServerCommandMessage(l2.GetClient());
-                                    f.SetCommandId(8);
-                                    f.SetCommand(e);
-                                    PacketProcessor.Send(f);
+                                    new AvailableServerCommandMessage(l2.Client, e.Handle()).Send();
                                 }
                                 break;
                             }
                         }
                     }
                 }
-                LeavedAllianceCommand a = new LeavedAllianceCommand();
+                LeavedAllianceCommand a = new LeavedAllianceCommand(this.Device);
                 a.SetAlliance(alliance);
                 a.SetReason(1);
 
-                AvailableServerCommandMessage b = new AvailableServerCommandMessage(Client);
-                b.SetCommandId(2);
-                b.SetCommand(a);
-                PacketProcessor.Send(b);
+                new AvailableServerCommandMessage(Device, a.Handle()).Send();
 
                 alliance.RemoveMember(avatar.GetId());
                 avatar.SetAllianceId(0);
@@ -108,21 +96,21 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.SetSender(avatar);
                     eventStreamEntry.SetEventType(4);
                     eventStreamEntry.SetAvatarId(avatar.GetId());
-                    eventStreamEntry.SetAvatarName(avatar.GetAvatarName());
+                    eventStreamEntry.SetAvatarName(avatar.AvatarName);
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                        if (onlinePlayer.GetPlayerAvatar().GetAllianceId() == alliance.GetAllianceId())
+                        if (onlinePlayer.Avatar.GetAllianceId() == alliance.GetAllianceId())
                         {
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.GetClient());
+                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.Client);
                             p.SetStreamEntry(eventStreamEntry);
-                            PacketProcessor.Send(p);
+                            p.Send();
                         }
                 }
                 else
                 {
                     DatabaseManager.Single().RemoveAlliance(alliance);
                 }
-                PacketProcessor.Send(new LeaveAllianceOkMessage(Client, alliance));
+                new LeaveAllianceOkMessage(Device, alliance).Send();
             } catch (Exception) { }
         }
     }

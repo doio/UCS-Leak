@@ -1,7 +1,6 @@
-﻿using System.IO;
-using UCS.Core;
+﻿using UCS.Core;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -9,19 +8,23 @@ namespace UCS.Packets.Commands.Client
     // Packet 509
     internal class CancelUnitProductionCommand : Command
     {
-        public CancelUnitProductionCommand(PacketReader br)
+        public CancelUnitProductionCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingId = br.ReadInt32WithEndian(); 
-            Unknown1 = br.ReadUInt32WithEndian();
-            UnitType = br.ReadInt32WithEndian();
-            Count = br.ReadInt32WithEndian();
-            Unknown3 = br.ReadUInt32WithEndian();
-            Unknown4 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var go = level.GameObjectManager.GetGameObjectByID(BuildingId);
+            this.BuildingId = this.Reader.ReadInt32();
+            this.Unknown1 = this.Reader.ReadUInt32();
+            this.UnitType = this.Reader.ReadInt32();
+            this.Count = this.Reader.ReadInt32();
+            this.Unknown3 = this.Reader.ReadUInt32();
+            this.Unknown4 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
             if (Count > 0)
             {
                 var b = (Building) go;
@@ -36,11 +39,11 @@ namespace UCS.Packets.Commands.Client
             }
         }
 
-        public int BuildingId { get; set; }
-        public int Count { get; set; }
-        public int UnitType { get; set; }
-        public uint Unknown1 { get; set; } 
-        public uint Unknown3 { get; set; }
-        public uint Unknown4 { get; set; }
+        public int BuildingId;
+        public int Count;
+        public int UnitType;
+        public uint Unknown1;
+        public uint Unknown3;
+        public uint Unknown4;
     }
 }

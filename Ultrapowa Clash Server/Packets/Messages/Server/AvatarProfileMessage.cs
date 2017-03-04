@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -8,39 +7,33 @@ namespace UCS.Packets.Messages.Server
     // Packet 24334
     internal class AvatarProfileMessage : Message
     {
-        Level m_vLevel;
+        internal Level Level;
 
-        public AvatarProfileMessage(Packets.Client client) : base(client)
+        public AvatarProfileMessage(Device client) : base(client)
         {
-            SetMessageType(24334);
+            this.Identifier = 24334;
         }
 
-        public override async void Encode()
+        internal override async void Encode()
         {
             try
             {
-                var pack = new List<byte>();
-                var ch = new ClientHome(m_vLevel.GetPlayerAvatar().GetId());
-                ch.SetHomeJSON(m_vLevel.SaveToJSON());
+                ClientHome ch = new ClientHome(this.Level.Avatar.GetId());
+                ch.SetHomeJSON(this.Level.SaveToJSON());
 
-                pack.AddRange(await m_vLevel.GetPlayerAvatar().Encode());
-                pack.AddCompressedString(ch.GetHomeJSON());
+                this.Data.AddRange(await this.Level.Avatar.Encode());
+                this.Data.AddCompressed(ch.GetHomeJSON(), false);
 
-                pack.AddInt32(m_vLevel.GetPlayerAvatar().GetDonated()); //Donated
-                pack.AddInt32(m_vLevel.GetPlayerAvatar().GetReceived()); //Received
-                pack.AddInt32(0); //War Cooldown
+                this.Data.AddInt(this.Level.Avatar.GetDonated()); //Donated
+                this.Data.AddInt(this.Level.Avatar.GetReceived()); //Received
+                this.Data.AddInt(0); //War Cooldown
 
-                pack.AddInt32(0); //Unknown
-                pack.Add(0); //Unknown
-
-
-                Encrypt(pack.ToArray());
-            } catch (Exception) { }
-        }
-
-        public void SetLevel(Level level)
-        {
-            m_vLevel = level;
+                this.Data.AddInt(0); //Unknown
+                this.Data.Add(0); //Unknown
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using UCS.Core;
+﻿using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -11,28 +9,28 @@ namespace UCS.Packets.Commands.Client
     // Packet 570
     internal class TogglePlayerWarStateCommand : Command
     {
-        public TogglePlayerWarStateCommand(PacketReader br)
+        public TogglePlayerWarStateCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            br.ReadInt32();
-            br.ReadInt32();
         }
 
-        public override async void Execute(Level level)
+        internal override void Decode()
         {
-            try
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override async void Process()
+        {
+            Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+            if (a != null)
             {
-                Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                if (a != null)
+                AllianceMemberEntry _AllianceMemberEntry = a.GetAllianceMember(this.Device.Player.Avatar.GetId());
+                _AllianceMemberEntry.ToggleStatus();
+                PlayerWarStatusMessage _PlayerWarStatusMessage = new PlayerWarStatusMessage(this.Device)
                 {
-                    AllianceMemberEntry _AllianceMemberEntry = a.GetAllianceMember(level.GetPlayerAvatar().GetId());
-                    _AllianceMemberEntry.ToggleStatus();
-                    PlayerWarStatusMessage _PlayerWarStatusMessage = new PlayerWarStatusMessage(level.GetClient());
-                    _PlayerWarStatusMessage.SetStatus(_AllianceMemberEntry.GetStatus());
-                    PacketProcessor.Send(_PlayerWarStatusMessage);
-                }
-            }
-            catch (Exception)
-            {
+                    Status = _AllianceMemberEntry.GetStatus()
+                };
+                _PlayerWarStatusMessage.Send();
             }
         }
     }

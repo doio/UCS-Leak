@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Commands.Server;
 using UCS.Packets.Messages.Server;
@@ -14,19 +14,16 @@ namespace UCS.Packets.Messages.Client
     {
         long m_vAllianceId;
 
-        public JoinAllianceMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public JoinAllianceMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                m_vAllianceId = br.ReadInt64WithEndian();
-            }
+            this.m_vAllianceId = this.Reader.ReadInt64();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
@@ -35,31 +32,24 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (!alliance.IsAllianceFull())
                     {
-                        level.GetPlayerAvatar().SetAllianceId(alliance.GetAllianceId());
-                        AllianceMemberEntry member = new AllianceMemberEntry(level.GetPlayerAvatar().GetId());
+                        this.Device.Player.Avatar.SetAllianceId(alliance.GetAllianceId());
+                        AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.GetId());
                         member.SetRole(1);
                         alliance.AddAllianceMember(member);
 
-                        JoinedAllianceCommand b = new JoinedAllianceCommand();
+                        JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);
                         b.SetAlliance(alliance);
 
-                        AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand();
+                        AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand(this.Device);
                         c.SetAlliance(alliance);
                         c.SetRole(1);
-                        c.Tick(level);
+                        c.Tick(this.Device.Player);
 
-                        AvailableServerCommandMessage a = new AvailableServerCommandMessage(Client);
-                        a.SetCommandId(1);
-                        a.SetCommand(b);
+                        new AvailableServerCommandMessage(this.Device, b.Handle()).Send();
 
-                        AvailableServerCommandMessage d = new AvailableServerCommandMessage(Client);
-                        d.SetCommandId(8);
-                        d.SetCommand(c);
+                        new AvailableServerCommandMessage(this.Device, c.Handle()).Send();
 
-                        PacketProcessor.Send(a);
-                        PacketProcessor.Send(d);
-
-                        PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                        new AllianceStreamMessage(Device, alliance).Send();
                     }
                 }
             } catch (Exception) { }

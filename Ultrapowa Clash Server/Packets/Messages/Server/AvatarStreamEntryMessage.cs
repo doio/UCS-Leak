@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UCS.Logic.AvatarStreamEntry;
+﻿using UCS.Logic.AvatarStreamEntry;
 
 namespace UCS.Packets.Messages.Server
 {
@@ -8,16 +7,14 @@ namespace UCS.Packets.Messages.Server
     {
         AvatarStreamEntry m_vAvatarStreamEntry;
 
-        public AvatarStreamEntryMessage(Packets.Client client) : base(client)
+        public AvatarStreamEntryMessage(Device client) : base(client)
         {
-            SetMessageType(24412);
+            this.Identifier = 24412;
         }
 
-        public override void Encode()
-        {
-            List<byte> pack = new List<byte>();   
-            pack.AddRange(m_vAvatarStreamEntry.Encode());
-            Encrypt(pack.ToArray());
+        internal override void Encode()
+        { 
+            this.Data.AddRange(m_vAvatarStreamEntry.Encode());
         }
 
         public void SetAvatarStreamEntry(AvatarStreamEntry entry)

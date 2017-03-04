@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -14,15 +14,11 @@ namespace UCS.Packets.Messages.Client
     {
         const int m_vAllianceLimit = 40;
 
-        public AskForJoinableAlliancesListMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AskForJoinableAlliancesListMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
-        {
-        }
-
-        public override void Process(Level level)
+        internal override void Process()
         {
             List<Alliance> alliances = ObjectManager.GetInMemoryAlliances();
             List<Alliance> joinableAlliances = new List<Alliance>();
@@ -39,9 +35,8 @@ namespace UCS.Packets.Messages.Client
             }
             joinableAlliances = joinableAlliances.ToList();
 
-            JoinableAllianceListMessage p = new JoinableAllianceListMessage(Client);
-            p.SetJoinableAlliances(joinableAlliances);
-            PacketProcessor.Send(p);
+            JoinableAllianceListMessage p = new JoinableAllianceListMessage(Device) {Alliances = joinableAlliances};
+            p.Send();
         }
     }
 }

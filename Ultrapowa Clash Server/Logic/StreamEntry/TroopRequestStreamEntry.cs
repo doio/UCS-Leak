@@ -4,6 +4,7 @@ using UCS.Helpers;
 using UCS.Logic.DataSlots;
 using UCS.Core;
 using System;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -22,26 +23,26 @@ namespace UCS.Logic.StreamEntry
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddInt32(ID); // ID
-            data.AddInt32(m_vMaxTroop); // Max Troops
-            data.AddInt32(m_vMaxSpell); // Max Spells
-            data.AddInt32(m_vDonatedTroop); // Donated Troops
-            data.AddInt32(m_vDonatedSpell); // Donated Spells
-            data.AddInt32(m_vDonatorList.Count);
+            data.AddInt(ID); // ID
+            data.AddInt(m_vMaxTroop); // Max Troops
+            data.AddInt(m_vMaxSpell); // Max Spells
+            data.AddInt(m_vDonatedTroop); // Donated Troops
+            data.AddInt(m_vDonatedSpell); // Donated Spells
+            data.AddInt(m_vDonatorList.Count);
             for (int d = 0; d < m_vDonatorList.Count; d++)
             {
                 foreach (DonationSlot i in m_vUnitDonation) // Components
                 {
                     DonationSlot tp = m_vUnitDonation.Find(t => t.DonatorID == i.DonatorID && t.UnitLevel == i.UnitLevel);
-                    data.AddInt64(tp.DonatorID);
-                    data.AddInt32(tp.Count);
+                    data.AddLong(tp.DonatorID);
+                    data.AddInt(tp.Count);
                     for (int a = 0; a < i.Count - 1; a++)
                     {
-                        data.AddInt32(tp.ID);
-                        data.AddInt32(tp.UnitLevel - 1);
+                        data.AddInt(tp.ID);
+                        data.AddInt(tp.UnitLevel - 1);
                     }
-                    data.AddInt32(tp.ID);
-                    data.AddInt32(tp.UnitLevel);
+                    data.AddInt(tp.ID);
+                    data.AddInt(tp.UnitLevel);
                 }
             }
             if (string.IsNullOrEmpty(m_vMessage))
@@ -53,12 +54,12 @@ namespace UCS.Logic.StreamEntry
                 data.Add(1);
                 data.AddString(m_vMessage);
             }
-            data.AddInt32(m_vUnitDonation.Count); // Components Count
+            data.AddInt(m_vUnitDonation.Count); // Components Count
             foreach (DonationSlot i in m_vUnitDonation) // Components
             {
-                data.AddInt32(i.ID);
-                data.AddInt32(i.Count);
-                data.AddInt32(i.UnitLevel);
+                data.AddInt(i.ID);
+                data.AddInt(i.Count);
+                data.AddInt(i.UnitLevel);
             }
             return data.ToArray();
         }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands
@@ -9,17 +8,21 @@ namespace UCS.Packets.Commands
     // Packet 604
     internal class CastSpellCommand : Command
     {
-        public CastSpellCommand(PacketReader br)
+        public CastSpellCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            X        = br.ReadInt32WithEndian();
-            Y        = br.ReadInt32WithEndian();
-            Spell    = (SpellData) br.ReadDataReference();
-            Unknown1 = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            List<DataSlot> _PlayerSpells = level.GetPlayerAvatar().GetSpells();
+            this.X = this.Reader.ReadInt32();
+            this.Y = this.Reader.ReadInt32();
+            this.Spell = (SpellData) this.Reader.ReadDataReference();
+            this.Unknown1 = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            List<DataSlot> _PlayerSpells = this.Device.Player.Avatar.GetSpells();
 
             DataSlot _DataSlot = _PlayerSpells.Find(t => t.Data.GetGlobalID() == Spell.GetGlobalID());
             if (_DataSlot != null)
@@ -28,9 +31,9 @@ namespace UCS.Packets.Commands
             }
         }
 
-        public SpellData Spell { get; set; }
-        public uint Unknown1 { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public SpellData Spell;
+        public uint Unknown1;
+        public int X;
+        public int Y;
     }
 }

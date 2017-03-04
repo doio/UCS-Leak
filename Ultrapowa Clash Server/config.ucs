@@ -17,7 +17,7 @@
       <!-- Specify where to redirect if the CoC version is outdated -->
   <add key="useCustomPatch" value="false" />
       <!-- Specify if the server is using patches (.csv, .sc, ...) -->
-  <add key="patchingServer" value="" />
+  <add key="patchingServer" value="http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" />
       <!-- Don't forget the trailing slash -->
   <add key="maintenanceTimeleft" value="0" />
       <!-- Please set the time in seconds like 1200 seconds for 20 minutes -->
@@ -31,18 +31,28 @@
   <!-- (Max 2000) This Function is only available for Ultra Users -->
       
   <!-- ____________________________________ UCS SETTINGS ____________________________________ -->
-	
-  <add key="databaseConnectionName" value="sqlite" />
+  <add key="databaseConnectionName" value="mysql" />
       <!-- Choose mysql or sqlite-->
-    <add key="UseWebAPI" value="false" />
+  <add key="CacheServer" value="true" />
+      <!-- Use Redis as cache server-->
+  <add key="UseWebAPI" value="false" />
       <!-- Choose if you want to use the Web API-->
-    <add key="APIPort" value="88" />
+  <add key="APIPort" value="88" /> 
       <!-- The Port of the WebAPI-->
   <add key="UseRC4" value="false" />
       <!-- Default Crypto is Pepper-->
   <add key="ServerPort" value="9339"/>
       <!-- The Port of the Server (default is 9339)-->
-  <add key="LogLevel" value="0"/>
+  <add key="LogLevel" value="1"/>
       <!-- Default for no log = 0, for Full Log = 1, Log only = 2-->
+  <!-- _______________________________________________________________________________________ -->
+
+  <!-- ____________________________________ Redis SETTINGS ____________________________________ -->
+  <add key="IPAddress" value="192.168.0.5" />
+  <!-- Redis server IP address-->
+  <add key="Port" value="6379" />
+  <!--  Redis server port-->
+  <add key="Password" value="aididlwq0115" />
+  <!--  Redis server password-->
   <!-- _______________________________________________________________________________________ -->
 </appSettings>

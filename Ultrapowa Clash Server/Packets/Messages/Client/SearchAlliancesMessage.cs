@@ -5,6 +5,7 @@ using System.Linq;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -13,7 +14,7 @@ namespace UCS.Packets.Messages.Client
     // Packet 14324
     internal class SearchAlliancesMessage : Message
     {
-        public SearchAlliancesMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public SearchAlliancesMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -27,27 +28,24 @@ namespace UCS.Packets.Messages.Client
         byte m_vShowOnlyJoinableAlliances;
         int m_vWarFrequency;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                m_vSearchString = br.ReadScString();
-                m_vWarFrequency = br.ReadInt32WithEndian();
-                m_vAllianceOrigin = br.ReadInt32WithEndian();
-                m_vMinimumAllianceMembers = br.ReadInt32WithEndian();
-                m_vMaximumAllianceMembers = br.ReadInt32WithEndian();
-                m_vAllianceScore = br.ReadInt32WithEndian();
-                m_vShowOnlyJoinableAlliances = br.ReadByte();
-                br.ReadInt32WithEndian();
-                m_vMinimumAllianceLevel = br.ReadInt32WithEndian();
-            }
+            this.m_vWarFrequency = this.Reader.ReadInt32();
+            this.m_vAllianceOrigin = this.Reader.ReadInt32();
+            this.m_vMinimumAllianceMembers = this.Reader.ReadInt32();
+            this.m_vMaximumAllianceMembers = this.Reader.ReadInt32();
+            this.m_vAllianceScore = this.Reader.ReadInt32();
+            this.m_vShowOnlyJoinableAlliances = this.Reader.ReadByte();
+            this.Reader.ReadInt32();
+            this.m_vMinimumAllianceLevel = this.Reader.ReadInt32();
+
         }
 
-        public override void Process(Level level)
+        internal override void Process()
         {
             if (m_vSearchString.Length > 15)
             {
-                ResourcesManager.DisconnectClient(Client);
+                ResourcesManager.DisconnectClient(Device);
             }
             else
             {
@@ -70,10 +68,10 @@ namespace UCS.Packets.Messages.Client
                 }
                 joinableAlliances = joinableAlliances.ToList();
 
-                AllianceListMessage p = new AllianceListMessage(Client);
+                AllianceListMessage p = new AllianceListMessage(Device);
                 p.SetAlliances(joinableAlliances);
                 p.SetSearchString(m_vSearchString);
-                PacketProcessor.Send(p);
+                p.Send();
             }
         }
     }

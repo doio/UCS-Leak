@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.DataSlots
 {
@@ -23,19 +25,19 @@ namespace UCS.Logic.DataSlots
         public int Value;
         public int Value1;
 
-        public void Decode(PacketReader br)
+        public void Decode(Reader br)
         {
             Data   = br.ReadDataReference();
-            Value  = br.ReadInt32WithEndian();
-            Value1 = br.ReadInt32WithEndian();
+            Value  = br.ReadInt32();
+            Value1 = br.ReadInt32();
         }
 
         public byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            data.AddInt32(Data.GetGlobalID());
-            data.AddInt32(Value);
-            data.AddInt32(Value1);
+            data.AddInt(Data.GetGlobalID());
+            data.AddInt(Value);
+            data.AddInt(Value1);
             return data.ToArray();
         }
 

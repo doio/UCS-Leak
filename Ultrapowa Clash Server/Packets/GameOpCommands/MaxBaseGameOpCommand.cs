@@ -20,7 +20,7 @@ namespace UCS.Packets.GameOpCommands
 
         public override void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 string Home;
 
@@ -28,11 +28,11 @@ namespace UCS.Packets.GameOpCommands
                 {
                     Home = sr.ReadToEnd();
                     ResourcesManager.SetGameObject(level, Home);
-                    PacketProcessor.Send(new OutOfSyncMessage(level.GetClient()));
+                    Processor.Send(new OutOfSyncMessage(level.Client));
                 }
             }
             else
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
         }
     }
 }

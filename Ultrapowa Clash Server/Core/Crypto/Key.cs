@@ -1,28 +1,22 @@
 ﻿using System;
-using Sodium;
+using UCS.Utilities.Sodium;
 
 namespace UCS.Core.Crypto
 {
     public static class Key
     {
-        public static Keys Crypto
-        {
-            get { return new Keys((byte[])_standardPublicKey.Clone(), (byte[])_standardPrivateKey.Clone()); }
-        }
+       // public static KeyPairUCS Crypto
+         //   => new KeyPairUCS((byte[])_standardPublicKey.Clone(), (byte[])_standardPrivateKey.Clone());
 
-        static readonly byte[] _standardPrivateKey =
+        internal static readonly byte[] PrivateKey =
         {
-            0x18, 0x91, 0xD4, 0x01, 0xFA, 0xDB, 0x51, 0xD2, 0x5D, 0x3A, 0x91, 0x74,
-            0xD4, 0x72, 0xA9, 0xF6, 0x91, 0xA4, 0x5B, 0x97, 0x42, 0x85, 0xD4, 0x77,
-            0x29, 0xC4, 0x5C, 0x65, 0x38, 0x07, 0x0D, 0x85
-        };
+                0x18, 0x91, 0xD4, 0x01, 0xFA, 0xDB, 0x51, 0xD2, 0x5D, 0x3A, 0x91, 0x74, 0xD4, 0x72, 0xA9, 0xF6, 0x91, 0xA4, 0x5B, 0x97, 0x42, 0x85, 0xD4, 0x77, 0x29, 0xC4, 0x5C, 0x65, 0x38, 0x07, 0x0D, 0x85
+            };
 
-        static readonly byte[] _standardPublicKey =
+        internal static readonly byte[] PublicKey =
         {
-            0x72, 0xF1, 0xA4, 0xA4, 0xC4, 0x8E, 0x44, 0xDA, 0x0C, 0x42, 0x31, 0x0F,
-            0x80, 0x0E, 0x96, 0x62, 0x4E, 0x6D, 0xC6, 0xA6, 0x41, 0xA9, 0xD4, 0x1C,
-            0x3B, 0x50, 0x39, 0xD8, 0xDF, 0xAD, 0xC2, 0x7E
-        };
+                0x72, 0xF1, 0xA4, 0xA4, 0xC4, 0x8E, 0x44, 0xDA, 0x0C, 0x42, 0x31, 0x0F, 0x80, 0x0E, 0x96, 0x62, 0x4E, 0x6D, 0xC6, 0xA6, 0x41, 0xA9, 0xD4, 0x1C, 0x3B, 0x50, 0x39, 0xD8, 0xDF, 0xAD, 0xC2, 0x7E
+            };
 
         public static readonly byte[] _RC4_EndecryptKey =
         {
@@ -51,58 +45,11 @@ namespace UCS.Core.Crypto
             0x37, 0x38, 0x66, 0x77, 0x37, 0x38, 0x39, 0x77, 0x65, 0x37, 0x38, 0x72, 0x39, 0x37, 0x38, 0x39,
             0x77, 0x65, 0x72, 0x36, 0x72, 0x65
         };
-    }
 
-    public class Keys : IDisposable
-    {
-        public Keys(byte[] publicKey, byte[] privateKey)
+        public static readonly byte[] NonceKey =
         {
-            if (publicKey == null)
-                throw new ArgumentNullException(nameof(publicKey));
-            if (publicKey.Length != PublicKeyBox.PublicKeyBytes)
-                throw new ArgumentOutOfRangeException(nameof(publicKey), "publicKey must be 32 bytes in length.");
-
-            if (privateKey == null)
-                throw new ArgumentNullException(nameof(privateKey));
-            if (privateKey.Length != PublicKeyBox.SecretKeyBytes)
-                throw new ArgumentOutOfRangeException(nameof(privateKey), "publicKey must be 32 bytes in length.");
-
-            _keyPair = new KeyPair(publicKey, privateKey);
-        }
-
-        public void Dispose()
-        {
-            if (_disposed)
-                return;
-
-            _keyPair.Dispose();
-            _disposed = true;
-            GC.SuppressFinalize(this);
-        }
-
-        public const int KeyLength = 32;
-        public const int NonceLength = 24;
-        readonly KeyPair _keyPair;
-        bool _disposed;
-
-        public byte[] PrivateKey
-        {
-            get
-            {
-                if (_disposed)
-                    throw new ObjectDisposedException(null, "Cannot access Crypto object because it was disposed.");
-                return _keyPair.PrivateKey;
-            }
-        }
-
-        public byte[] PublicKey
-        {
-            get
-            {
-                if (_disposed)
-                    throw new ObjectDisposedException(null, "Cannot access Crypto object because it was disposed.");
-                return _keyPair.PublicKey;
-            }
-        }
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+        };
     }
 }

@@ -4,6 +4,8 @@ using Newtonsoft.Json.Linq;
 using UCS.Core;
 using UCS.Helpers;
 using System.Threading.Tasks;
+using UCS.Helpers.Binary;
+using UCS.Helpers.List;
 
 namespace UCS.Logic
 {
@@ -35,7 +37,7 @@ namespace UCS.Logic
 
         public static void Decode(byte[] avatarData)
         {
-            using (var br = new PacketReader(new MemoryStream(avatarData)))
+            using (var br = new Reader(avatarData))
             {
             }
         }
@@ -46,35 +48,35 @@ namespace UCS.Logic
         {
             List<byte> data = new List<byte>();
             Level avatar = await ResourcesManager.GetPlayer(m_vAvatarId);
-            data.AddInt64(m_vAvatarId);
-            if(avatar.GetPlayerAvatar().GetAvatarName() != null)
+            data.AddLong(m_vAvatarId);
+            if(avatar.Avatar.AvatarName != null)
             {
-                data.AddString(avatar.GetPlayerAvatar().GetAvatarName());
-                data.AddInt32(m_vRole);
-                data.AddInt32(avatar.GetPlayerAvatar().GetAvatarLevel());
-                data.AddInt32(avatar.GetPlayerAvatar().GetLeagueId());
-                data.AddInt32(avatar.GetPlayerAvatar().GetScore());
-                data.AddInt32(m_vDonatedTroops);
-                data.AddInt32(m_vReceivedTroops);
+                data.AddString(avatar.Avatar.AvatarName);
+                data.AddInt(m_vRole);
+                data.AddInt(avatar.Avatar.GetAvatarLevel());
+                data.AddInt(avatar.Avatar.GetLeagueId());
+                data.AddInt(avatar.Avatar.GetScore());
+                data.AddInt(m_vDonatedTroops);
+                data.AddInt(m_vReceivedTroops);
             }
             else
             {
                 data.AddString("Player can't be loaded");
-                data.AddInt32(m_vRole);
-                data.AddInt32(1);
-                data.AddInt32(1);
-                data.AddInt32(400);
-                data.AddInt32(0);
-                data.AddInt32(0);
-                avatar.GetPlayerAvatar().SetAllianceId(0);
+                data.AddInt(m_vRole);
+                data.AddInt(1);
+                data.AddInt(1);
+                data.AddInt(400);
+                data.AddInt(0);
+                data.AddInt(0);
+                avatar.Avatar.SetAllianceId(0);
             }          
-            data.AddInt32(m_vOrder);
-            data.AddInt32(m_vPreviousOrder);
-            data.AddInt32(m_vIsNewMember);
-            data.AddInt32(m_vWarCooldown);
-            data.AddInt32(m_vWarOptInStatus);
+            data.AddInt(m_vOrder);
+            data.AddInt(m_vPreviousOrder);
+            data.AddInt(m_vIsNewMember);
+            data.AddInt(m_vWarCooldown);
+            data.AddInt(m_vWarOptInStatus);
             data.Add(1);
-            data.AddInt64(m_vAvatarId);
+            data.AddLong(m_vAvatarId);
             return data.ToArray();
         }
 

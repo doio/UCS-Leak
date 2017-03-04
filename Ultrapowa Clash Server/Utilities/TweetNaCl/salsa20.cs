@@ -2,35 +2,13 @@
 {
     public class salsa20
     {
-        internal readonly int crypto_core_salsa20_ref_OUTPUTBYTES = 64;
+        internal const int ROUNDS = 20;
+        internal readonly int crypto_core_salsa20_ref_CONSTBYTES = 16;
         internal readonly int crypto_core_salsa20_ref_INPUTBYTES = 16;
         internal readonly int crypto_core_salsa20_ref_KEYBYTES = 32;
-        internal readonly int crypto_core_salsa20_ref_CONSTBYTES = 16;
+        internal readonly int crypto_core_salsa20_ref_OUTPUTBYTES = 64;
         internal readonly int crypto_stream_salsa20_ref_KEYBYTES = 32;
         internal readonly int crypto_stream_salsa20_ref_NONCEBYTES = 8;
-
-        internal const int ROUNDS = 20;
-
-        internal static long rotate(int u, int c)
-        {
-            return (u << c) | ((int) ((uint) u >> (32 - c)));
-        }
-
-        internal static int load_littleendian(byte[] x, int offset)
-        {
-            return ((int) (x[offset]) & 0xff) | ((((int) (x[offset + 1]) & 0xff)) << 8) | ((((int) (x[offset + 2]) & 0xff)) << 16) | ((((int) (x[offset + 3]) & 0xff)) << 24);
-        }
-
-        internal static void store_littleendian(byte[] x, int offset, int u)
-        {
-            x[offset] = (byte) u;
-            u = (int) ((uint) u >> 8);
-            x[offset + 1] = (byte) u;
-            u = (int) ((uint) u >> 8);
-            x[offset + 2] = (byte) u;
-            u = (int) ((uint) u >> 8);
-            x[offset + 3] = (byte) u;
-        }
 
         public static int crypto_core(byte[] outv, byte[] inv, byte[] k, byte[] c)
         {
@@ -38,57 +16,57 @@
             int j0, j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15;
             int i;
 
-            j0 = x0 = load_littleendian(c, 0);
-            j1 = x1 = load_littleendian(k, 0);
-            j2 = x2 = load_littleendian(k, 4);
-            j3 = x3 = load_littleendian(k, 8);
-            j4 = x4 = load_littleendian(k, 12);
-            j5 = x5 = load_littleendian(c, 4);
-            j6 = x6 = load_littleendian(inv, 0);
-            j7 = x7 = load_littleendian(inv, 4);
-            j8 = x8 = load_littleendian(inv, 8);
-            j9 = x9 = load_littleendian(inv, 12);
-            j10 = x10 = load_littleendian(c, 8);
-            j11 = x11 = load_littleendian(k, 16);
-            j12 = x12 = load_littleendian(k, 20);
-            j13 = x13 = load_littleendian(k, 24);
-            j14 = x14 = load_littleendian(k, 28);
-            j15 = x15 = load_littleendian(c, 12);
+            j0 = x0 = salsa20.load_littleendian(c, 0);
+            j1 = x1 = salsa20.load_littleendian(k, 0);
+            j2 = x2 = salsa20.load_littleendian(k, 4);
+            j3 = x3 = salsa20.load_littleendian(k, 8);
+            j4 = x4 = salsa20.load_littleendian(k, 12);
+            j5 = x5 = salsa20.load_littleendian(c, 4);
+            j6 = x6 = salsa20.load_littleendian(inv, 0);
+            j7 = x7 = salsa20.load_littleendian(inv, 4);
+            j8 = x8 = salsa20.load_littleendian(inv, 8);
+            j9 = x9 = salsa20.load_littleendian(inv, 12);
+            j10 = x10 = salsa20.load_littleendian(c, 8);
+            j11 = x11 = salsa20.load_littleendian(k, 16);
+            j12 = x12 = salsa20.load_littleendian(k, 20);
+            j13 = x13 = salsa20.load_littleendian(k, 24);
+            j14 = x14 = salsa20.load_littleendian(k, 28);
+            j15 = x15 = salsa20.load_littleendian(c, 12);
 
-            for (i = ROUNDS; i > 0; i -= 2)
+            for (i = salsa20.ROUNDS; i > 0; i -= 2)
             {
-                x4 ^= (int) rotate(x0 + x12, 7);
-                x8 ^= (int) rotate(x4 + x0, 9);
-                x12 ^= (int) rotate(x8 + x4, 13);
-                x0 ^= (int) rotate(x12 + x8, 18);
-                x9 ^= (int) rotate(x5 + x1, 7);
-                x13 ^= (int) rotate(x9 + x5, 9);
-                x1 ^= (int) rotate(x13 + x9, 13);
-                x5 ^= (int) rotate(x1 + x13, 18);
-                x14 ^= (int) rotate(x10 + x6, 7);
-                x2 ^= (int) rotate(x14 + x10, 9);
-                x6 ^= (int) rotate(x2 + x14, 13);
-                x10 ^= (int) rotate(x6 + x2, 18);
-                x3 ^= (int) rotate(x15 + x11, 7);
-                x7 ^= (int) rotate(x3 + x15, 9);
-                x11 ^= (int) rotate(x7 + x3, 13);
-                x15 ^= (int) rotate(x11 + x7, 18);
-                x1 ^= (int) rotate(x0 + x3, 7);
-                x2 ^= (int) rotate(x1 + x0, 9);
-                x3 ^= (int) rotate(x2 + x1, 13);
-                x0 ^= (int) rotate(x3 + x2, 18);
-                x6 ^= (int) rotate(x5 + x4, 7);
-                x7 ^= (int) rotate(x6 + x5, 9);
-                x4 ^= (int) rotate(x7 + x6, 13);
-                x5 ^= (int) rotate(x4 + x7, 18);
-                x11 ^= (int) rotate(x10 + x9, 7);
-                x8 ^= (int) rotate(x11 + x10, 9);
-                x9 ^= (int) rotate(x8 + x11, 13);
-                x10 ^= (int) rotate(x9 + x8, 18);
-                x12 ^= (int) rotate(x15 + x14, 7);
-                x13 ^= (int) rotate(x12 + x15, 9);
-                x14 ^= (int) rotate(x13 + x12, 13);
-                x15 ^= (int) rotate(x14 + x13, 18);
+                x4 ^= (int) salsa20.rotate(x0 + x12, 7);
+                x8 ^= (int) salsa20.rotate(x4 + x0, 9);
+                x12 ^= (int) salsa20.rotate(x8 + x4, 13);
+                x0 ^= (int) salsa20.rotate(x12 + x8, 18);
+                x9 ^= (int) salsa20.rotate(x5 + x1, 7);
+                x13 ^= (int) salsa20.rotate(x9 + x5, 9);
+                x1 ^= (int) salsa20.rotate(x13 + x9, 13);
+                x5 ^= (int) salsa20.rotate(x1 + x13, 18);
+                x14 ^= (int) salsa20.rotate(x10 + x6, 7);
+                x2 ^= (int) salsa20.rotate(x14 + x10, 9);
+                x6 ^= (int) salsa20.rotate(x2 + x14, 13);
+                x10 ^= (int) salsa20.rotate(x6 + x2, 18);
+                x3 ^= (int) salsa20.rotate(x15 + x11, 7);
+                x7 ^= (int) salsa20.rotate(x3 + x15, 9);
+                x11 ^= (int) salsa20.rotate(x7 + x3, 13);
+                x15 ^= (int) salsa20.rotate(x11 + x7, 18);
+                x1 ^= (int) salsa20.rotate(x0 + x3, 7);
+                x2 ^= (int) salsa20.rotate(x1 + x0, 9);
+                x3 ^= (int) salsa20.rotate(x2 + x1, 13);
+                x0 ^= (int) salsa20.rotate(x3 + x2, 18);
+                x6 ^= (int) salsa20.rotate(x5 + x4, 7);
+                x7 ^= (int) salsa20.rotate(x6 + x5, 9);
+                x4 ^= (int) salsa20.rotate(x7 + x6, 13);
+                x5 ^= (int) salsa20.rotate(x4 + x7, 18);
+                x11 ^= (int) salsa20.rotate(x10 + x9, 7);
+                x8 ^= (int) salsa20.rotate(x11 + x10, 9);
+                x9 ^= (int) salsa20.rotate(x8 + x11, 13);
+                x10 ^= (int) salsa20.rotate(x9 + x8, 18);
+                x12 ^= (int) salsa20.rotate(x15 + x14, 7);
+                x13 ^= (int) salsa20.rotate(x12 + x15, 9);
+                x14 ^= (int) salsa20.rotate(x13 + x12, 13);
+                x15 ^= (int) salsa20.rotate(x14 + x13, 18);
             }
 
             x0 += j0;
@@ -108,22 +86,22 @@
             x14 += j14;
             x15 += j15;
 
-            store_littleendian(outv, 0, x0);
-            store_littleendian(outv, 4, x1);
-            store_littleendian(outv, 8, x2);
-            store_littleendian(outv, 12, x3);
-            store_littleendian(outv, 16, x4);
-            store_littleendian(outv, 20, x5);
-            store_littleendian(outv, 24, x6);
-            store_littleendian(outv, 28, x7);
-            store_littleendian(outv, 32, x8);
-            store_littleendian(outv, 36, x9);
-            store_littleendian(outv, 40, x10);
-            store_littleendian(outv, 44, x11);
-            store_littleendian(outv, 48, x12);
-            store_littleendian(outv, 52, x13);
-            store_littleendian(outv, 56, x14);
-            store_littleendian(outv, 60, x15);
+            salsa20.store_littleendian(outv, 0, x0);
+            salsa20.store_littleendian(outv, 4, x1);
+            salsa20.store_littleendian(outv, 8, x2);
+            salsa20.store_littleendian(outv, 12, x3);
+            salsa20.store_littleendian(outv, 16, x4);
+            salsa20.store_littleendian(outv, 20, x5);
+            salsa20.store_littleendian(outv, 24, x6);
+            salsa20.store_littleendian(outv, 28, x7);
+            salsa20.store_littleendian(outv, 32, x8);
+            salsa20.store_littleendian(outv, 36, x9);
+            salsa20.store_littleendian(outv, 40, x10);
+            salsa20.store_littleendian(outv, 44, x11);
+            salsa20.store_littleendian(outv, 48, x12);
+            salsa20.store_littleendian(outv, 52, x13);
+            salsa20.store_littleendian(outv, 56, x14);
+            salsa20.store_littleendian(outv, 60, x15);
 
             return 0;
         }
@@ -237,6 +215,27 @@
             }
 
             return 0;
+        }
+
+        internal static int load_littleendian(byte[] x, int offset)
+        {
+            return (x[offset] & 0xff) | ((x[offset + 1] & 0xff) << 8) | ((x[offset + 2] & 0xff) << 16) | ((x[offset + 3] & 0xff) << 24);
+        }
+
+        internal static long rotate(int u, int c)
+        {
+            return (u << c) | (int) ((uint) u >> (32 - c));
+        }
+
+        internal static void store_littleendian(byte[] x, int offset, int u)
+        {
+            x[offset] = (byte) u;
+            u = (int) ((uint) u >> 8);
+            x[offset + 1] = (byte) u;
+            u = (int) ((uint) u >> 8);
+            x[offset + 2] = (byte) u;
+            u = (int) ((uint) u >> 8);
+            x[offset + 3] = (byte) u;
         }
     }
 }

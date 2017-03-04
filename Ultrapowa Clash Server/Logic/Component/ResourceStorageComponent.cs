@@ -34,7 +34,7 @@ namespace UCS.Logic
         public void SetMaxArray(List<int> resourceCaps)
         {
             m_vMaxResources = resourceCaps;
-            GetParent().GetLevel().GetComponentManager().RefreshResourcesCaps();
+            GetParent().Avatar.GetComponentManager().RefreshResourcesCaps();
         }
     }
 }

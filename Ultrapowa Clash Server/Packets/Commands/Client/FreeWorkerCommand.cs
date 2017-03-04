@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using UCS.Core;
 using UCS.Core.Checker;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -13,45 +11,57 @@ namespace UCS.Packets.Commands.Client
     {
         public int m_vTimeLeftSeconds;
 
-        public FreeWorkerCommand(PacketReader br)
+        public FreeWorkerCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vTimeLeftSeconds = br.ReadInt32WithEndian();
-            m_vIsCommandEmbedded = br.ReadBoolean();
+        }
+
+        internal override void Decode()
+        {
+            this.m_vTimeLeftSeconds = this.Reader.ReadInt32();
+            this.m_vIsCommandEmbedded = this.Reader.ReadBoolean();
+
             if (m_vIsCommandEmbedded)
             {
                 Depth++;
                 if (Depth >= MaxEmbeddedDepth)
                 {
-                    Console.WriteLine("Detected UCS.Exploit!");
+                    Console.WriteLine("Detected UCS.Exploit");
                     return;
                 }
-
                 Depth = Depth;
-                m_vCommand = CommandFactory.Read(br);
             }
+
         }
 
-        public override void Execute(Level level)
+        internal override void Process()
         {
             if (Depth >= MaxEmbeddedDepth)
             {
-                IPEndPoint r = level.GetClient().Socket.RemoteEndPoint as IPEndPoint;
+                IPEndPoint r = this.Device.Socket.RemoteEndPoint as IPEndPoint;
                 ConnectionBlocker.AddNewIpToBlackList(r.Address.ToString());
-                ResourcesManager.DropClient(level.GetClient().Socket.Handle);                
+                ResourcesManager.DropClient(this.Device.Socket.Handle);
             }
 
-            if (level.WorkerManager.GetFreeWorkers() == 0)
+            if (this.Device.Player.WorkerManager.GetFreeWorkers() == 0)
+
             {
                 Depth = 0;
-                level.WorkerManager.FinishTaskOfOneWorker();
-                if (m_vIsCommandEmbedded)
+                this.Device.Player.WorkerManager.FinishTaskOfOneWorker();
+                if (this.m_vIsCommandEmbedded)
                 {
-                    ((Command)m_vCommand).Execute(level);
+                    int CommandID = this.Reader.ReadInt32();
+                    Command _Command =  Activator.CreateInstance(CommandFactory.Commands[CommandID], this.Reader, this.Device, CommandID) as Command;
+                    if (_Command != null)
+                    {
+                        _Command.Decode();
+                        _Command.Process();
+                    }
                 }
+
             }
         }
 
-        readonly object m_vCommand;
-        readonly bool m_vIsCommandEmbedded;
+        internal object m_vCommand;
+        internal bool m_vIsCommandEmbedded;
     }
 }

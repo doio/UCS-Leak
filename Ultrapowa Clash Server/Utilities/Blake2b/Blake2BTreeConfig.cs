@@ -1,41 +1,43 @@
-﻿using System;
-
-namespace UCS.Utilities.Blake2b
+﻿namespace UCS.Utilities.Blake2B
 {
-    public sealed class Blake2BTreeConfig : ICloneable
+    public sealed class Blake2BTreeConfig
     {
-        public int IntermediateHashSize { get; set; }
-        public int MaxHeight { get; set; }
-        public long LeafSize { get; set; }
-        public int FanOut { get; set; }
-
         public Blake2BTreeConfig()
         {
-            IntermediateHashSize = 64;
+            this.IntermediateHashSize = 64;
         }
 
-        public Blake2BTreeConfig Clone()
+        public int FanOut
         {
-            var result = new Blake2BTreeConfig();
-            result.IntermediateHashSize = IntermediateHashSize;
-            result.MaxHeight = MaxHeight;
-            result.LeafSize = LeafSize;
-            result.FanOut = FanOut;
-            return result;
+            get;
+            set;
         }
 
-        public static Blake2BTreeConfig CreateInterleaved(int parallelism)
+        public int IntermediateHashSize
         {
-            var result = new Blake2BTreeConfig();
-            result.FanOut = parallelism;
-            result.MaxHeight = 2;
-            result.IntermediateHashSize = 64;
-            return result;
+            get;
+            set;
         }
 
-        object ICloneable.Clone()
+        public long LeafSize
         {
-            return Clone();
+            get;
+            set;
+        }
+
+        public int MaxHeight
+        {
+            get;
+            set;
+        }
+
+        public static Blake2BTreeConfig CreateInterleaved(int _Parallel)
+        {
+            Blake2BTreeConfig _Result = new Blake2BTreeConfig
+            {
+                FanOut = _Parallel, MaxHeight = 2, IntermediateHashSize = 64
+            };
+            return _Result;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using UCS.Helpers;
+using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
@@ -21,16 +22,16 @@ namespace UCS.Logic.StreamEntry
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddInt32(Unknown1);
-            data.AddInt32(Unknown2);
-            data.AddInt32(Unknown3);
+            data.AddInt(Unknown1);
+            data.AddInt(Unknown2);
+            data.AddInt(Unknown3);
             data.Add(Unknown4);
             data.AddString(Message);
             data.AddString(EnemyName);
             data.AddString(ReplayJson);
-            data.AddInt32(Unknown5);
-            data.AddInt32(Unknown6);
-            data.AddInt32(Unknown7);
+            data.AddInt(Unknown5);
+            data.AddInt(Unknown6);
+            data.AddInt(Unknown7);
             return data.ToArray();
         }
 

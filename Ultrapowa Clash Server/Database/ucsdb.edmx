@@ -8,7 +8,7 @@
       <Schema Namespace="ucsdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self"
               xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
               xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="clan">
+        <EntityType Name="Clan">
           <Key>
             <PropertyRef Name="ClanId" />
           </Key>
@@ -16,21 +16,17 @@
           <Property Name="LastUpdateTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Data" Type="text" Nullable="false" />
         </EntityType>
-        <EntityType Name="player">
+        <EntityType Name="Player">
           <Key>
             <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="PlayerId" Type="bigint" Nullable="false" />
-          <Property Name="AccountStatus" Type="utinyint" Nullable="false" />
-          <Property Name="AccountPrivileges" Type="utinyint" Nullable="false" />
-          <Property Name="LastUpdateTime" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="IPAddress" Type="varchar" Nullable="true" />
           <Property Name="Avatar" Type="text" Nullable="false" />
           <Property Name="GameObjects" Type="text" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ucsdbModelStoreContainer">
-          <EntitySet Name="clan" EntityType="Self.clan" Schema="ucsdb" store:Type="Tables" />
-          <EntitySet Name="player" EntityType="Self.player" Schema="ucsdb" store:Type="Tables" />
+          <EntitySet Name="Clan" EntityType="Self.Clan" Schema="ucsdb" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="ucsdb" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -39,7 +35,7 @@
       <Schema Namespace="ucsdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false"
               xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
               xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="clan">
+        <EntityType Name="Clan">
           <Key>
             <PropertyRef Name="ClanId" />
           </Key>
@@ -47,22 +43,18 @@
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" />
           <Property Name="Data" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="player">
+        <EntityType Name="Player">
           <Key>
             <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="PlayerId" Type="Int64" Nullable="false" />
-          <Property Name="AccountStatus" Type="Byte" Nullable="false" />
-          <Property Name="AccountPrivileges" Type="Byte" Nullable="false" />
-          <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" />
-          <Property Name="IPAddress" Type="String" Nullable="true" />
           <Property Name="Avatar" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="GameObjects" Type="String" Nullable="false" MaxLength="65535" FixedLength="false"
                     Unicode="false" />
         </EntityType>
         <EntityContainer Name="ucsdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="clan" EntityType="Self.clan" />
-          <EntitySet Name="player" EntityType="Self.player" />
+          <EntitySet Name="Clan" EntityType="Self.Clan" />
+          <EntitySet Name="Player" EntityType="Self.Player" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -70,23 +62,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ucsdbModelStoreContainer" CdmEntityContainer="ucsdbEntities">
-          <EntitySetMapping Name="clan">
-            <EntityTypeMapping TypeName="ucsdbModel.clan">
-              <MappingFragment StoreEntitySet="clan">
+          <EntitySetMapping Name="Clan">
+            <EntityTypeMapping TypeName="ucsdbModel.Clan">
+              <MappingFragment StoreEntitySet="Clan">
                 <ScalarProperty Name="ClanId" ColumnName="ClanId" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="player">
-            <EntityTypeMapping TypeName="ucsdbModel.player">
-              <MappingFragment StoreEntitySet="player">
+          <EntitySetMapping Name="Player">
+            <EntityTypeMapping TypeName="ucsdbModel.Player">
+              <MappingFragment StoreEntitySet="Player">
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-                <ScalarProperty Name="AccountStatus" ColumnName="AccountStatus" />
-                <ScalarProperty Name="AccountPrivileges" ColumnName="AccountPrivileges" />
-                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="GameObjects" ColumnName="GameObjects" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
               </MappingFragment>

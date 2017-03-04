@@ -1,17 +1,12 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 515
     internal class CancelUpgradeUnitCommand : Command
     {
-        public CancelUpgradeUnitCommand(PacketReader br)
+        public CancelUpgradeUnitCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            /*
-            BuildingId = br.ReadUInt32WithEndian(); //buildingId - 0x1DCD6500;
-            Unknown1 = br.ReadUInt32WithEndian();
-            */
         }
 
         public uint BuildingId { get; set; }

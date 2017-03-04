@@ -69,15 +69,15 @@ namespace UCS.Logic
 
         public Data GetData() => m_vData;
 
-        public Level GetLevel() => m_vLevel;
+        public Level Avatar => m_vLevel;
 
         public Vector GetPosition() => new Vector(X, Y);
 
         public virtual bool IsHero() => false;
 
-        public int TownHallLevel() => GetLevel().GetPlayerAvatar().GetTownHallLevel();
+        public int TownHallLevel() => Avatar.Avatar.GetTownHallLevel();
 
-        public int LayoutID() => GetLevel().GetPlayerAvatar().GetActiveLayout();
+        public int LayoutID() => Avatar.Avatar.GetActiveLayout();
 
         public void Load(JObject jsonObject)
         {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -9,17 +9,13 @@ namespace UCS.Packets.Messages.Client
     // Packet 10113
     internal class GetDeviceTokenMessage : Message
     {
-        public GetDeviceTokenMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public GetDeviceTokenMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public override void Decode()
+        internal override void Process()
         {
-        }
-
-        public override void Process(Level level)
-        {
-            PacketProcessor.Send(new SetDeviceTokenMessage(Client));
+            new SetDeviceTokenMessage(Device).Send();
         }
     }
 }

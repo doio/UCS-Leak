@@ -1,27 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Core;
-using UCS.Files.Logic;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     internal class BoostBarracksCommand : Command
     {
-        public BoostBarracksCommand(PacketReader br) 
+        public BoostBarracksCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Tick = br.ReadInt64();
         }
 
-        public long Tick { get; set; }
-
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-           /* var player = level.GetPlayerAvatar();
+            this.Tick = this.Reader.ReadInt64();
+        }
+
+        public long Tick;
+
+        internal override void Process()
+        {
+           /* var player = level.Avatar;
             var barracks = level.GameObjectManager.GetGameObjectByID(500000010);
             var boost = (Building)barracks;
 

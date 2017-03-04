@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -17,44 +17,41 @@ namespace UCS.Packets.Messages.Client
 {
     internal class ChallangeAttackMessage : Message
     {
-        public ChallangeAttackMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public ChallangeAttackMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
         public long ID { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                ID = br.ReadInt64WithEndian();
-            }
+            this.ID = this.Reader.ReadInt64();
         }
 
-        public override async void Process(Level level)
+        internal async void Process()
         {
             try
             {
-                if (level.GetPlayerAvatar().State == ClientAvatar.UserState.CHA)
+                if (this.Device.PlayerState == Logic.Enums.State.IN_BATTLE)
                 {
-                    ResourcesManager.DisconnectClient(Client);
+                    ResourcesManager.DisconnectClient(Device);
                 }
                 else
                 {
-                    level.GetPlayerAvatar().State = ClientAvatar.UserState.CHA;
-                    Alliance a = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
+                    Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
                     Level defender = await ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
                     if (defender != null)
                     {
                         defender.Tick();
-                        PacketProcessor.Send(new ChallangeAttackDataMessage(Client, defender));
+                        new ChallangeAttackDataMessage(Device, defender).Send();
                     }
                     else
                     {
-                        new OwnHomeDataMessage(Client, level);
+                        new OwnHomeDataMessage(Device, this.Device.Player).Send();
                     }
 
-                    Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
                     StreamEntry s = alliance.GetChatMessages().Find(c => c.GetStreamEntryType() == 12);
                     if (s != null)
                     {
@@ -63,11 +60,11 @@ namespace UCS.Packets.Messages.Client
                         foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                         {
                             Level playera = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                            if (playera.GetClient() != null)
+                            if (playera.Client != null)
                             {
-                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
+                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.Client);
                                 p.SetStreamEntry(s);
-                                PacketProcessor.Send(p);
+                                p.Send();
                             }
                         }
                     }

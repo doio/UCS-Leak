@@ -18,7 +18,7 @@ namespace UCS.Packets.GameOpCommands
 
         public override async void Execute(Level level)
         {
-            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 if (m_vArgs.Length >= 2)
                 {
@@ -29,7 +29,7 @@ namespace UCS.Packets.GameOpCommands
                         if (l != null)
                         {
                             l.Tick();
-                            PacketProcessor.Send(new EnemyHomeDataMessage(level.GetClient(), l, level));
+                            Processor.Send(new EnemyHomeDataMessage(level.Client, l, level));
                         }
                         else
                         {
@@ -42,7 +42,7 @@ namespace UCS.Packets.GameOpCommands
             }
             else
             {
-                SendCommandFailedMessage(level.GetClient());
+                SendCommandFailedMessage(level.Client);
             }
         }
     }

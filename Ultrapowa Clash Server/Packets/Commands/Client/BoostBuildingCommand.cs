@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using UCS.Files.Logic;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -11,23 +9,27 @@ namespace UCS.Packets.Commands.Client
     // Packet 526
     internal class BoostBuildingCommand : Command
     {
-        public BoostBuildingCommand(PacketReader br)
+        public BoostBuildingCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            BuildingIds = new List<int>();
-            BoostedBuildingsCount = br.ReadInt32WithEndian();
+            this.BuildingIds = new List<int>();
+        }
+
+        internal override void Decode()
+        {
+            this.BoostedBuildingsCount = this.Reader.ReadInt32();
             for (int i = 0; i < BoostedBuildingsCount; i++)
             {
-                BuildingIds.Add(br.ReadInt32WithEndian());
+                this.BuildingIds.Add(this.Reader.ReadInt32());
             }
         }
 
-        public override void Execute(Level level)
+        internal override void Process()
         {
-            ClientAvatar ca = level.GetPlayerAvatar();
+            ClientAvatar ca = this.Device.Player.Avatar;
 
             foreach(int buildingId in BuildingIds)
             {
-                GameObject go = level.GameObjectManager.GetGameObjectByID(buildingId);
+                GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(buildingId);
                 ConstructionItem b = (ConstructionItem)go;
                 int costs = ((BuildingData)b.GetConstructionItemData()).BoostCost[b.UpgradeLevel];
                 if (ca.HasEnoughDiamonds(costs))

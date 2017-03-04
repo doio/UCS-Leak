@@ -20,7 +20,7 @@ namespace UCS.Core.Network
         {
             _Message.Decrypt();
             _Message.Decode();
-            _Message.Process(_Message.Client.GetLevel());
+            _Message.Process(_Message.Device.Player);
         }               
 
         /// <summary>
@@ -35,15 +35,15 @@ namespace UCS.Core.Network
                 if (_Message.GetMessageType() == 20000)
                 {
                     byte[] sessionKey = ((RC4SessionKey)_Message).Key;
-                    _Message.Client.UpdateKey(sessionKey);
+                    _Message.Device.UpdateKey(sessionKey);
                 }
-                _Message.Process(_Message.Client.GetLevel());
-                _Message.Client.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, SocketFlags.None, SendCallback, (object)null);
+                _Message.Process(_Message.Device.Player);
+                _Message.Device.Socket.BeginSend(_Message.GetRawData(), 0, _Message.GetRawData().Length, SocketFlags.None, SendCallback, (object)null);
             }
             catch (Exception)
             {
-                Gateway.Disconnect(_Message.Client.Socket);
-                ResourcesManager.DropClient(_Message.Client.GetSocketHandle());
+                Gateway.Disconnect(_Message.Device.Socket);
+                ResourcesManager.DropClient(_Message.Device.SocketHandle);
             }
         }
 

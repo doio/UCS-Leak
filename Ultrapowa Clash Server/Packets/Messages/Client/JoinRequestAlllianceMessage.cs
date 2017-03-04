@@ -2,7 +2,7 @@
 using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -12,29 +12,26 @@ namespace UCS.Packets.Messages.Client
     // Packet 14317
     internal class JoinRequestAllianceMessage : Message
     {
-        public JoinRequestAllianceMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public JoinRequestAllianceMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public static string Message { get; set; }
+        public string Message;
 
-        public static long ID { get; set; }
+        public long ID;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                ID = br.ReadInt64();
-                Message = br.ReadScString();
-            }
+            this.ID      = this.Reader.ReadInt64();
+            this.Message = this.Reader.ReadString();
         }
 
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
-                ClientAvatar player = level.GetPlayerAvatar();
+                ClientAvatar player = this.Device.Player.Avatar;
                 Alliance all = await ObjectManager.GetAlliance(ID);
 
                 InvitationStreamEntry cm = new InvitationStreamEntry();
@@ -42,7 +39,7 @@ namespace UCS.Packets.Messages.Client
                 cm.SetSenderId(player.GetId());
                 cm.SetHomeId(player.GetId());
                 cm.SetSenderLeagueId(player.GetLeagueId());
-                cm.SetSenderName(player.GetAvatarName());
+                cm.SetSenderName(player.AvatarName);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetMessage(Message);
                 cm.SetState(1);
@@ -51,11 +48,11 @@ namespace UCS.Packets.Messages.Client
                 foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                 {
                     Level playera = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                    if (playera.GetClient() != null)
+                    if (playera.Client != null)
                     {
-                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.GetClient());
+                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.Client);
                         p.SetStreamEntry(cm);
-                        PacketProcessor.Send(p);
+                        p.Send();
                     }
                 }
             } catch (Exception) { }

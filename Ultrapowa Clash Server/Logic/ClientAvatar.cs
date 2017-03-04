@@ -11,19 +11,20 @@ using static System.Convert;
 using static System.Configuration.ConfigurationManager;
 using UCS.Logic.DataSlots;
 using System.Threading.Tasks;
+using UCS.Helpers.List;
 
 namespace UCS.Logic
 {
     internal class ClientAvatar : Avatar
     {
         // Long
-        private long m_vAllianceId;
-        private long m_vCurrentHomeId;
-        private long m_vId;
+        internal long AllianceId;
+        internal long CurrentHomeId;
+        internal long UserId;
 
         // Int
-        private int m_vHighInt;
-        private int m_vLowInt;
+        internal int HighID;
+        internal int LowID;
         private int m_vAvatarLevel;
         private int m_vCurrentGems;
         private int m_vExperience;
@@ -44,30 +45,24 @@ namespace UCS.Logic
         // Byte
         private byte m_vNameChangingLeft;
         private byte m_vnameChosenByUser;
-
+        internal byte AccountPrivileges;
         // String
-        private string m_vAvatarName;
-        private string m_vToken;
-        private string m_vRegion;
-        private string m_vFacebookID;
+        internal string AvatarName;
+        internal string UserToken;
+        internal string Region;
+        internal string FacebookId;
+        internal string FacebookToken;
+        internal string GoogleId;
+        internal string GoogleToken;
+        internal string IPAddress;
 
         // Boolean
         private bool m_vPremium;
         private bool m_vAndroid;
-        
+        internal bool AccountBanned;
         //Datetime
         private DateTime m_vAccountCreationDate;
-
-        public enum UserState : int
-        {
-            Home      = 0,
-            PVP       = 1,
-            PVE       = 2,
-            CHA       = 3,
-            Editmode  = 4,
-            Searching = 5,
-            Visiting  = 6,
-        }
+        internal DateTime LastTickSaved;
 
         public struct AttackInfo
         {
@@ -100,15 +95,17 @@ namespace UCS.Logic
             Random rnd             = new Random();
             LastUpdate             = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             Login                  = id.ToString() + (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            m_vId                  = id;
-            m_vHighInt             = (int)(id >> 32);
-            m_vLowInt              = (int)(id & 0xffffffffL);
-            m_vToken               = token;
-            m_vCurrentHomeId       = id;
+            this.UserId                  = id;
+            this.HighID            = (int)(id >> 32);
+            this.LowID             = (int)(id & 0xffffffffL);
+            this.UserToken         = token;
+            this.CurrentHomeId     = id;
+            this.AccountPrivileges = 0;
+            this.AccountBanned    = false;
             m_vnameChosenByUser    = 0x00;
             m_vNameChangingLeft    = 0x02;
             m_vAvatarLevel         = ToInt32(AppSettings["startingLevel"]);
-            m_vAllianceId          = 0;
+            this.AllianceId        = 0;
             m_vExperience          = 0;
             EndShieldTime          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             m_vCurrentGems         = ToInt32(AppSettings["startingGems"]);
@@ -118,7 +115,7 @@ namespace UCS.Logic
 
             TutorialStepsCount     = 0x0A;
             m_vPremium             = false;
-            m_vAvatarName          = "NoNameYet";
+            this.AvatarName        = "NoNameYet";
 
             SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), ToInt32(AppSettings["startingGold"]));
             SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), ToInt32(AppSettings["startingElixir"]));
@@ -131,7 +128,6 @@ namespace UCS.Logic
         public List<DonationSlot> AllianceUnits { get; set; }
         public int EndShieldTime { get; set; }
         public int LastUpdate { get; set; }
-        public UserState State { get; set; }
         public string Login { get; set; }
         public List<DataSlot> NpcLootedElixir { get; set; }
         public List<DataSlot> NpcLootedGold { get; set; }
@@ -141,9 +137,6 @@ namespace UCS.Logic
         public List<DataSlot> QuickTrain1 { get; set; }
         public List<DataSlot> QuickTrain2 { get; set; }
         public List<DataSlot> QuickTrain3 { get; set; }
-
-
-        public uint Region { get; set; }
 
         void updateLeague()
         {
@@ -192,96 +185,96 @@ namespace UCS.Logic
             {
                 Random rnd = new Random();
                 List<byte> data = new List<byte>();
-                data.AddInt64(m_vId);
-                data.AddInt64(m_vCurrentHomeId);
-                if (m_vAllianceId != 0)
+                data.AddLong(this.UserId);
+                data.AddLong(this.CurrentHomeId);
+                if (this.AllianceId != 0)
                 {
                     data.Add(1);
-                    data.AddInt64(m_vAllianceId);
-                    Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                    data.AddLong(this.AllianceId);
+                    Alliance alliance = await ObjectManager.GetAlliance(this.AllianceId);
                     data.AddString(alliance.GetAllianceName());
-                    data.AddInt32(alliance.GetAllianceBadgeData());
-                    data.AddInt32(alliance.GetAllianceMember(m_vId).GetRole());
-                    data.AddInt32(alliance.GetAllianceLevel());
+                    data.AddInt(alliance.GetAllianceBadgeData());
+                    data.AddInt(alliance.GetAllianceMember(this.UserId).GetRole());
+                    data.AddInt(alliance.GetAllianceLevel());
                 }
                 data.Add(0);
 
                 if (m_vLeagueId == 22)
                 {
-                    data.AddInt32(m_vScore / 12);
-                    data.AddInt32(1);
+                    data.AddInt(m_vScore / 12);
+                    data.AddInt(1);
                     int month = DateTime.Now.Month;
-                    data.AddInt32(month);
-                    data.AddInt32(DateTime.Now.Year);
-                    data.AddInt32(rnd.Next(1, 10));
-                    data.AddInt32(m_vScore);
-                    data.AddInt32(1);
+                    data.AddInt(month);
+                    data.AddInt(DateTime.Now.Year);
+                    data.AddInt(rnd.Next(1, 10));
+                    data.AddInt(m_vScore);
+                    data.AddInt(1);
                     if (month == 1)
                     {
-                        data.AddInt32(12);
-                        data.AddInt32(DateTime.Now.Year - 1);
+                        data.AddInt(12);
+                        data.AddInt(DateTime.Now.Year - 1);
                     }
                     else
                     {
                         int pmonth = month - 1;
-                        data.AddInt32(pmonth);
-                        data.AddInt32(DateTime.Now.Year);
+                        data.AddInt(pmonth);
+                        data.AddInt(DateTime.Now.Year);
                     }
-                    data.AddInt32(rnd.Next(1, 10));
-                    data.AddInt32(m_vScore / 2);
+                    data.AddInt(rnd.Next(1, 10));
+                    data.AddInt(m_vScore / 2);
                 }
                 else
                 {
-                    data.AddInt32(0); //1
-                    data.AddInt32(0); //2
-                    data.AddInt32(0); //3
-                    data.AddInt32(0); //4
-                    data.AddInt32(0); //5
-                    data.AddInt32(0); //6
-                    data.AddInt32(0); //7
-                    data.AddInt32(0); //8
-                    data.AddInt32(0); //9
-                    data.AddInt32(0); //10
-                    data.AddInt32(0); //11
+                    data.AddInt(0); //1
+                    data.AddInt(0); //2
+                    data.AddInt(0); //3
+                    data.AddInt(0); //4
+                    data.AddInt(0); //5
+                    data.AddInt(0); //6
+                    data.AddInt(0); //7
+                    data.AddInt(0); //8
+                    data.AddInt(0); //9
+                    data.AddInt(0); //10
+                    data.AddInt(0); //11
                 }
 
-                data.AddInt32(m_vLeagueId);
-                data.AddInt32(GetAllianceCastleLevel());
-                data.AddInt32(GetAllianceCastleTotalCapacity());
-                data.AddInt32(GetAllianceCastleUsedCapacity());
-                data.AddInt32(0);
-                data.AddInt32(-1);
-                data.AddInt32(GetTownHallLevel());
-                data.AddString(m_vAvatarName);
-                data.AddInt32(-1);
-                data.AddInt32(m_vAvatarLevel);
-                data.AddInt32(m_vExperience);
-                data.AddInt32(m_vCurrentGems);
-                data.AddInt32(m_vCurrentGems);
-                data.AddInt32(1200);
-                data.AddInt32(60);
-                data.AddInt32(m_vScore);
-                data.AddInt32(200); // Attack Wins
-                data.AddInt32(m_vDonated);
-                data.AddInt32(100); // Attack Loses
-                data.AddInt32(m_vReceived);
+                data.AddInt(m_vLeagueId);
+                data.AddInt(GetAllianceCastleLevel());
+                data.AddInt(GetAllianceCastleTotalCapacity());
+                data.AddInt(GetAllianceCastleUsedCapacity());
+                data.AddInt(0);
+                data.AddInt(-1);
+                data.AddInt(GetTownHallLevel());
+                data.AddString(this.AvatarName);
+                data.AddString(this.FacebookId);
+                data.AddInt(m_vAvatarLevel);
+                data.AddInt(m_vExperience);
+                data.AddInt(m_vCurrentGems);
+                data.AddInt(m_vCurrentGems);
+                data.AddInt(1200);
+                data.AddInt(60);
+                data.AddInt(m_vScore);
+                data.AddInt(200); // Attack Wins
+                data.AddInt(m_vDonated);
+                data.AddInt(100); // Attack Loses
+                data.AddInt(m_vReceived);
 
-                data.AddInt32(m_vAlliance_Gold);
-                data.AddInt32(m_vAlliance_Elixir);
-                data.AddInt32(m_vAlliance_DarkElixir);
-                data.AddInt32(0);
+                data.AddInt(m_vAlliance_Gold);
+                data.AddInt(m_vAlliance_Elixir);
+                data.AddInt(m_vAlliance_DarkElixir);
+                data.AddInt(0);
                 data.Add(1);
-                data.AddInt64(946720861000);
+                data.AddLong(946720861000);
 
                 data.Add(m_vnameChosenByUser);
 
-                data.AddInt32(0);
-                data.AddInt32(0);
-                data.AddInt32(0);
-                data.AddInt32(1);
+                data.AddInt(0);
+                data.AddInt(0);
+                data.AddInt(0);
+                data.AddInt(1);
 
-                data.AddInt32(0);
-                data.AddInt32(0);
+                data.AddInt(0);
+                data.AddInt(0);
                 data.Add(0);
                 data.AddDataSlots(GetResourceCaps());
                 data.AddDataSlots(GetResources());
@@ -296,9 +289,9 @@ namespace UCS.Logic
                 data.AddRange(BitConverter.GetBytes(AllianceUnits.Count).Reverse());
                 foreach (DonationSlot u in AllianceUnits)
                 {
-                    data.AddInt32(u.ID);
-                    data.AddInt32(u.Count);
-                    data.AddInt32(u.UnitLevel);
+                    data.AddInt(u.ID);
+                    data.AddInt(u.Count);
+                    data.AddInt(u.UnitLevel);
                 }
 
                 data.AddRange(BitConverter.GetBytes(TutorialStepsCount).Reverse());
@@ -332,46 +325,44 @@ namespace UCS.Logic
                 data.AddDataSlots(new List<DataSlot>());
                 data.AddDataSlots(new List<DataSlot>());
 
-                data.AddInt32(QuickTrain1.Count);
+                data.AddInt(QuickTrain1.Count);
                 foreach (var i in QuickTrain1)
                 {
-                    data.AddInt32(i.Data.GetGlobalID());
-                    data.AddInt32(i.Value);
+                    data.AddInt(i.Data.GetGlobalID());
+                    data.AddInt(i.Value);
                 }
 
-                data.AddInt32(QuickTrain2.Count);
+                data.AddInt(QuickTrain2.Count);
                 foreach (var i in QuickTrain2)
                 {
-                    data.AddInt32(i.Data.GetGlobalID());
-                    data.AddInt32(i.Value);
+                    data.AddInt(i.Data.GetGlobalID());
+                    data.AddInt(i.Value);
                 }
-                data.AddInt32(QuickTrain3.Count);
+                data.AddInt(QuickTrain3.Count);
                 foreach (var i in QuickTrain3)
                 {
-                    data.AddInt32(i.Data.GetGlobalID());
-                    data.AddInt32(i.Value);
+                    data.AddInt(i.Data.GetGlobalID());
+                    data.AddInt(i.Value);
                 }
-                data.AddInt32(QuickTrain1.Count);
+                data.AddInt(QuickTrain1.Count);
                 foreach (var i in QuickTrain1)
                 {
-                    data.AddInt32(i.Data.GetGlobalID());
-                    data.AddInt32(i.Value);
+                    data.AddInt(i.Data.GetGlobalID());
+                    data.AddInt(i.Value);
                 }
                 data.AddDataSlots(new List<DataSlot>());
                 return data.ToArray();
             } catch (Exception) { return null; }
         }
 
-        public long GetAllianceId() => m_vAllianceId;
+        public long GetAllianceId() => this.AllianceId;
 
         public async Task<AllianceMemberEntry> GetAllianceMemberEntry()
         {
             try
             {
-                var alliance = await ObjectManager.GetAlliance(m_vAllianceId);
-                if (alliance != null)
-                    return alliance.GetAllianceMember(m_vId);
-                return null;
+                var alliance = await ObjectManager.GetAlliance(this.AllianceId);
+                return alliance?.GetAllianceMember(this.UserId);
             } catch (Exception) { return null; }
         }
 
@@ -388,25 +379,17 @@ namespace UCS.Logic
             } catch (Exception) { return 1; }
         }
 
-        public int GetAvatarHighIdInt() => m_vHighInt;
-
         public int GetAlliance_Gold() => m_vAlliance_Gold;
 
         public int GetAlliance_Elixir() => m_vAlliance_Elixir;
 
         public int GetAlliance_DarkElixir() => m_vAlliance_DarkElixir;
 
-        public int GetAvataLowIdInt() => m_vLowInt;
-
         public int GetAvatarLevel() => m_vAvatarLevel;
 
         public int GetActiveLayout() =>  m_vActiveLayout;
 
-        public string GetFacebookID() => m_vFacebookID; 
-
-        public string GetAvatarName() => m_vAvatarName;
-
-        public long GetCurrentHomeId() => m_vCurrentHomeId;
+        public long GetCurrentHomeId() => CurrentHomeId;
 
         public int GetDiamonds() => m_vCurrentGems;
 
@@ -414,7 +397,7 @@ namespace UCS.Logic
 
         public bool GetPremium() => m_vPremium;
 
-        public long GetId() => m_vId;
+        public long GetId() => UserId;
 
         public int GetShieldTime => m_vShieldTime;
 
@@ -430,10 +413,6 @@ namespace UCS.Logic
 
         public int GetSecondsFromLastUpdate() => (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds - LastUpdate;
 
-        public string GetUserToken() => m_vToken;
-
-        public string GetUserRegion() => m_vRegion;
-
         public int GetDonated() => m_vDonated;
 
         public int GetReceived() => m_vReceived;
@@ -445,21 +424,25 @@ namespace UCS.Logic
         public void LoadFromJSON(string jsonString)
         {
             var jsonObject = JObject.Parse(jsonString);
-            m_vId = jsonObject["avatar_id"].ToObject<long>();
-            m_vHighInt = jsonObject["id_high_int"].ToObject<int>();
-            m_vLowInt = jsonObject["id_low_int"].ToObject<int>();
-            m_vToken = jsonObject["token"].ToObject<string>();
-            m_vRegion = jsonObject["region"].ToObject<string>();
+            this.UserId = jsonObject["avatar_id"].ToObject<long>();
+            this.HighID = jsonObject["id_high_int"].ToObject<int>();
+            this.LowID = jsonObject["id_low_int"].ToObject<int>();
+            this.UserToken = jsonObject["token"].ToObject<string>();
+            this.Region = jsonObject["region"].ToObject<string>();
+            this.IPAddress = jsonObject["IPAddress"].ToObject<string>();
             m_vAccountCreationDate = jsonObject["avatar_creation_date"].ToObject<DateTime>();
+            this.AccountPrivileges = jsonObject["avatar_privilages"].ToObject<byte>();
+            this.AccountBanned = jsonObject["avatar_banned"].ToObject<bool>();
             m_vActiveLayout = jsonObject["active_layout"].ToObject<int>();
+            this.LastTickSaved = jsonObject["last_tick_save"].ToObject<DateTime>();
             m_vAndroid = jsonObject["android"].ToObject<bool>();
-            m_vCurrentHomeId = jsonObject["current_home_id"].ToObject<long>();
-            m_vAllianceId = jsonObject["alliance_id"].ToObject<long>();
+            this.CurrentHomeId = jsonObject["current_home_id"].ToObject<long>();
+            this.AllianceId = jsonObject["alliance_id"].ToObject<long>();
             SetAllianceCastleLevel(jsonObject["alliance_castle_level"].ToObject<int>());
             SetAllianceCastleTotalCapacity(jsonObject["alliance_castle_total_capacity"].ToObject<int>());
             SetAllianceCastleUsedCapacity(jsonObject["alliance_castle_used_capacity"].ToObject<int>());
             SetTownHallLevel(jsonObject["townhall_level"].ToObject<int>());
-            m_vAvatarName = jsonObject["avatar_name"].ToObject<string>();
+            this.AvatarName = jsonObject["avatar_name"].ToObject<string>();
             m_vAvatarLevel = jsonObject["avatar_level"].ToObject<int>();
             m_vExperience = jsonObject["experience"].ToObject<int>();
             m_vCurrentGems = jsonObject["current_gems"].ToObject<int>();
@@ -468,8 +451,10 @@ namespace UCS.Logic
             m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
             m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
             m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
-            m_vFacebookID = jsonObject["facebookID"].ToObject<string>();
-
+            this.FacebookId = jsonObject["fb_id"].ToObject<string>();
+            this.FacebookToken = jsonObject["fb_token"].ToObject<string>();
+            this.GoogleId = jsonObject["gg_id"].ToObject<string>();
+            this.GoogleToken = jsonObject["gg_token"].ToObject<string>();
             var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
             foreach (JObject jobject in jsonBookmarkedClan)
             {
@@ -609,122 +594,132 @@ namespace UCS.Logic
 
         public string SaveToJSON()
         {
-            JObject jsonData = new JObject();
-            jsonData.Add("avatar_id", m_vId);
-            jsonData.Add("id_high_int", m_vHighInt);
-            jsonData.Add("id_low_int", m_vLowInt);
-            jsonData.Add("token", m_vToken);
-            jsonData.Add("region", m_vRegion);
-            jsonData.Add("avatar_creation_date", m_vAccountCreationDate);
-            jsonData.Add("active_layout", m_vActiveLayout);
-            jsonData.Add("android", m_vAndroid);
-            jsonData.Add("current_home_id", m_vCurrentHomeId);
-            jsonData.Add("alliance_id", m_vAllianceId);
-            jsonData.Add("alliance_castle_level", GetAllianceCastleLevel());
-            jsonData.Add("alliance_castle_total_capacity", GetAllianceCastleTotalCapacity());
-            jsonData.Add("alliance_castle_used_capacity", GetAllianceCastleUsedCapacity());
-            jsonData.Add("townhall_level", GetTownHallLevel());
-            jsonData.Add("avatar_name", m_vAvatarName);
-            jsonData.Add("avatar_level", m_vAvatarLevel);
-            jsonData.Add("experience", m_vExperience);
-            jsonData.Add("current_gems", m_vCurrentGems);
-            jsonData.Add("score", GetScore());
-            jsonData.Add("nameChangesLeft", m_vNameChangingLeft);
-            jsonData.Add("nameChosenByUser", (ushort) m_vnameChosenByUser);
-            jsonData.Add("shield_time", m_vShieldTime);
-            jsonData.Add("protection_time", m_vProtectionTime);
-            jsonData.Add("facebookID", m_vFacebookID);
-
+            #region Foreach Stuff
             JArray jsonBookmarkClan = new JArray();
             foreach (var clan in BookmarkedClan)
                 jsonBookmarkClan.Add(clan.Save(new JObject()));
-            jsonData.Add("bookmark", jsonBookmarkClan);
 
             JArray jsonResourcesArray = new JArray();
             foreach (var resource in GetResources())
                 jsonResourcesArray.Add(resource.Save(new JObject()));
-            jsonData.Add("resources", jsonResourcesArray);
 
             JArray jsonUnitsArray = new JArray();
             foreach (var unit in GetUnits())
                 jsonUnitsArray.Add(unit.Save(new JObject()));
-            jsonData.Add("units", jsonUnitsArray);
 
             JArray jsonSpellsArray = new JArray();
             foreach (var spell in GetSpells())
                 jsonSpellsArray.Add(spell.Save(new JObject()));
-            jsonData.Add("spells", jsonSpellsArray);
 
             JArray jsonUnitUpgradeLevelsArray = new JArray();
             foreach (var unitUpgradeLevel in m_vUnitUpgradeLevel)
                 jsonUnitUpgradeLevelsArray.Add(unitUpgradeLevel.Save(new JObject()));
-            jsonData.Add("unit_upgrade_levels", jsonUnitUpgradeLevelsArray);
+
 
             JArray jsonSpellUpgradeLevelsArray = new JArray();
             foreach (var spellUpgradeLevel in m_vSpellUpgradeLevel)
                 jsonSpellUpgradeLevelsArray.Add(spellUpgradeLevel.Save(new JObject()));
-            jsonData.Add("spell_upgrade_levels", jsonSpellUpgradeLevelsArray);
 
             JArray jsonHeroUpgradeLevelsArray = new JArray();
             foreach (var heroUpgradeLevel in m_vHeroUpgradeLevel)
                 jsonHeroUpgradeLevelsArray.Add(heroUpgradeLevel.Save(new JObject()));
-            jsonData.Add("hero_upgrade_levels", jsonHeroUpgradeLevelsArray);
 
             JArray jsonHeroHealthArray = new JArray();
             foreach (var heroHealth in m_vHeroHealth)
                 jsonHeroHealthArray.Add(heroHealth.Save(new JObject()));
-            jsonData.Add("hero_health", jsonHeroHealthArray);
 
             JArray jsonHeroStateArray = new JArray();
             foreach (var heroState in m_vHeroState)
                 jsonHeroStateArray.Add(heroState.Save(new JObject()));
-            jsonData.Add("hero_state", jsonHeroStateArray);
 
-            JArray jsonAllianceUnitsArray = new JArray();
+             JArray jsonAllianceUnitsArray = new JArray();
             foreach (var allianceUnit in AllianceUnits)
                 jsonAllianceUnitsArray.Add(allianceUnit.Save(new JObject()));
-            jsonData.Add("alliance_units", jsonAllianceUnitsArray);
-
-            jsonData.Add("tutorial_step", TutorialStepsCount);
 
             JArray jsonAchievementsProgressArray = new JArray();
             foreach (var achievement in Achievements)
                 jsonAchievementsProgressArray.Add(achievement.Save(new JObject()));
-            jsonData.Add("achievements_progress", jsonAchievementsProgressArray);
 
             JArray jsonNpcStarsArray = new JArray();
             foreach (var npcLevel in NpcStars)
                 jsonNpcStarsArray.Add(npcLevel.Save(new JObject()));
-            jsonData.Add("npc_stars", jsonNpcStarsArray);
 
             JArray jsonNpcLootedGoldArray = new JArray();
             foreach (var npcLevel in NpcLootedGold)
                 jsonNpcLootedGoldArray.Add(npcLevel.Save(new JObject()));
-            jsonData.Add("npc_looted_gold", jsonNpcLootedGoldArray);
-
+  
             JArray jsonNpcLootedElixirArray = new JArray();
             foreach (var npcLevel in NpcLootedElixir)
                 jsonNpcLootedElixirArray.Add(npcLevel.Save(new JObject()));
-            jsonData.Add("npc_looted_elixir", jsonNpcLootedElixirArray);
 
             JArray jsonQuickTrain1Array = new JArray();
             foreach (var quicktrain1 in QuickTrain1)
                 jsonQuickTrain1Array.Add(quicktrain1.Save(new JObject()));
-            jsonData.Add("quick_train_1", jsonQuickTrain1Array);
 
             JArray jsonQuickTrain2Array = new JArray();
             foreach (var quicktrain2 in QuickTrain2)
                 jsonQuickTrain1Array.Add(quicktrain2.Save(new JObject()));
-            jsonData.Add("quick_train_2", jsonQuickTrain2Array);
 
             JArray jsonQuickTrain3Array = new JArray();
             foreach (var quicktrain3 in QuickTrain3)
                 jsonQuickTrain3Array.Add(quicktrain3.Save(new JObject()));
-            jsonData.Add("quick_train_3", jsonQuickTrain3Array);
+        #endregion
 
-            jsonData.Add("Premium", m_vPremium);
+            JObject jsonData = new JObject
+            {
+                {"avatar_id", this.UserId},
+                {"id_high_int", this.HighID},
+                {"id_low_int", this.LowID},
+                {"token", this.UserToken},
+                {"region", this.Region},
+                {"IPAddress", this.IPAddress},
+                {"avatar_creation_date", m_vAccountCreationDate},
+                {"avatar_privilages", this.AccountPrivileges},
+                {"avatar_banned", this.AccountBanned},
+                {"active_layout", m_vActiveLayout},
+                {"last_tick_save", this.LastTickSaved},
+                {"android", m_vAndroid},
+                {"current_home_id", this.CurrentHomeId},
+                {"alliance_id", this.AllianceId},
+                {"alliance_castle_level", GetAllianceCastleLevel()},
+                {"alliance_castle_total_capacity", GetAllianceCastleTotalCapacity()},
+                {"alliance_castle_used_capacity", GetAllianceCastleUsedCapacity()},
+                {"townhall_level", GetTownHallLevel()},
+                {"avatar_name", this.AvatarName},
+                {"avatar_level", m_vAvatarLevel},
+                {"experience", m_vExperience},
+                {"current_gems", m_vCurrentGems},
+                {"score", GetScore()},
+                {"nameChangesLeft", m_vNameChangingLeft},
+                {"nameChosenByUser", (ushort) m_vnameChosenByUser},
+                {"shield_time", m_vShieldTime},
+                {"protection_time", m_vProtectionTime},
+                {"fb_id", this.FacebookId},
+                {"fb_token", this.FacebookToken},
+                {"gg_id", this.GoogleId},
+                {"gg_token", this.GoogleToken},
+                {"bookmark", jsonBookmarkClan},
+                {"resources", jsonResourcesArray},
+                {"units", jsonUnitsArray},
+                {"spells", jsonSpellsArray},
+                {"unit_upgrade_levels", jsonUnitUpgradeLevelsArray},
+                {"spell_upgrade_levels", jsonSpellUpgradeLevelsArray},
+                {"hero_upgrade_levels", jsonHeroUpgradeLevelsArray},
+                {"hero_health", jsonHeroHealthArray},
+                {"hero_state", jsonHeroStateArray},
+                {"alliance_units", jsonAllianceUnitsArray},
+                {"tutorial_step", TutorialStepsCount},
+                {"achievements_progress", jsonAchievementsProgressArray},
+                {"npc_stars", jsonNpcStarsArray},
+                {"npc_looted_gold", jsonNpcLootedGoldArray},
+                {"npc_looted_elixir", jsonNpcLootedElixirArray},
+                {"quick_train_1", jsonQuickTrain1Array},
+                {"quick_train_2", jsonQuickTrain2Array},
+                {"quick_train_3", jsonQuickTrain3Array},
+                {"Premium", m_vPremium}
+            };
 
-            return JsonConvert.SerializeObject(jsonData);
+            return JsonConvert.SerializeObject(jsonData, Formatting.Indented);
         }
 
         public void InitializeAccountCreationDate() => m_vAccountCreationDate = DateTime.Now;
@@ -796,11 +791,9 @@ namespace UCS.Logic
 
         public void SetShieldTime(int time) => m_vShieldTime = time;
 
-        public void SetFacebookID(string id) => m_vFacebookID = id;
-
         public void SetProtectionTime(int time) => m_vProtectionTime = time;
 
-        public void SetAllianceId(long id) => m_vAllianceId = id;
+        public void SetAllianceId(long id) => this.AllianceId = id;
 
         public void SetActiveLayout(int layout) => m_vActiveLayout = layout;
 
@@ -823,7 +816,7 @@ namespace UCS.Logic
 
         public void SetName(string name)
         {
-            m_vAvatarName = name;
+            this.AvatarName = name;
             if (m_vnameChosenByUser == 0x01)
             {
                 m_vNameChangingLeft = 0x01;
@@ -840,10 +833,6 @@ namespace UCS.Logic
             m_vScore = newScore;
             updateLeague();
         }
-
-        public void SetToken(string token) => m_vToken = token;
-
-        public void SetRegion(string region) => m_vRegion = region;
 
         public void SetAvatarLevel(int newlv) => m_vAvatarLevel = newlv;
 

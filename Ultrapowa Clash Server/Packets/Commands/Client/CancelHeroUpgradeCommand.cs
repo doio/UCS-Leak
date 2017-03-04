@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,28 +6,26 @@ namespace UCS.Packets.Commands.Client
     // Packet 531
     internal class CancelHeroUpgradeCommand : Command
     {
-        readonly int m_vBuildingId;
+        internal int m_vBuildingId;
 
-        public CancelHeroUpgradeCommand(PacketReader br)
+        public CancelHeroUpgradeCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingId = br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
-            if (go != null)
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            if (go?.ClassId == 0)
             {
-                if (go.ClassId == 0)
-                {
-                    var b = (Building) go;
-                    var hbc = b.GetHeroBaseComponent();
-                    if (hbc != null)
-                    {
-                        hbc.CancelUpgrade();
-                    }
-                }
+                var b = (Building) go;
+                var hbc = b.GetHeroBaseComponent();
+                hbc?.CancelUpgrade();
             }
         }
     }

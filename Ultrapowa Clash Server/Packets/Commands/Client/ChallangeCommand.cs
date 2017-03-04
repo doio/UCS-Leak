@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
-using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
@@ -14,25 +9,28 @@ namespace UCS.Packets.Commands
 {
     internal class ChallangeCommand : Command
     {
-        public string Message { get; set; }
+        public string Message;
 
-        public ChallangeCommand(PacketReader br)
+        public ChallangeCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            Message = br.ReadString();
         }
 
-        public override async void Execute(Level level)
+        internal override void Decode()
         {
-            try
-            {
-                ClientAvatar player = level.GetPlayerAvatar();
+            this.Message = this.Reader.ReadString();
+        }
+
+        internal override async void Process()
+        {
+
+                ClientAvatar player = this.Device.Player.Avatar;
                 long allianceID = player.GetAllianceId();
                 Alliance alliance = await ObjectManager.GetAlliance(allianceID);
 
                 ChallangeStreamEntry cm = new ChallangeStreamEntry();
                 cm.SetMessage(Message);
                 cm.SetSenderId(player.GetId());
-                cm.SetSenderName(player.GetAvatarName());
+                cm.SetSenderName(player.AvatarName);
                 cm.SetSenderLevel(player.GetAvatarLevel());
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetId(alliance.GetChatMessages().Count + 1);
@@ -46,26 +44,25 @@ namespace UCS.Packets.Commands
                     foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                     {
                         Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                        if (alliancemembers.GetClient() != null)
+                        if (alliancemembers.Client != null)
                         {
-                            PacketProcessor.Send(new AllianceStreamEntryRemovedMessage(alliancemembers.GetClient(), s.GetId()));
+                        new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
                         }
                     }
                 }
 
                 alliance.AddChatMessage(cm);
 
-                foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
+            foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
+            {
+                Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                if (alliancemembers.Client != null)
                 {
-                    Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                    if (alliancemembers.GetClient() != null)
-                    {
-                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.GetClient());
-                        p.SetStreamEntry(cm);
-                        PacketProcessor.Send(p);
-                    }
+                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
+                    p.SetStreamEntry(cm);
+                    p.Send();
                 }
-            } catch (Exception) { }
+            }
         }
     }
 }

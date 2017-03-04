@@ -1,53 +1,46 @@
 using System;
-using System.Collections.Generic;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
+using UCS.Logic.Enums;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 24101
     internal class OwnHomeDataMessage : Message
     {
-        public OwnHomeDataMessage(Packets.Client client, Level level) : base(client)
+        public OwnHomeDataMessage(Device client, Level level) : base(client)
         {
-            SetMessageType(24101);
-            Player = level;
+            this.Identifier = 24101;
+            this.Player = level;
         }
 
-        public Level Player { get; set; }
+        public Level Player;
 
-        public override async void Encode()
+        internal override async void Encode()
         {
             try
             {
-                ClientAvatar Avatar = Player.GetPlayerAvatar();
-                List<byte> data = new List<byte>();
-                ClientHome home = new ClientHome(Avatar.GetId());
+                ClientAvatar avatar = this.Player.Avatar;
+                ClientHome home = new ClientHome(avatar.GetId());
 
-                home.SetShieldTime(Avatar.GetShieldTime);
-                home.SetProtectionTime(Avatar.GetProtectionTime);
+                home.SetShieldTime(avatar.GetShieldTime);
+                home.SetProtectionTime(avatar.GetProtectionTime);
                 home.SetHomeJSON(Player.SaveToJSON());
 
-                data.AddInt32(0);
-                data.AddInt32(-1);
-                data.AddInt32((int)Player.GetTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                data.AddRange(home.Encode());
-                data.AddRange(await Avatar.Encode());
-                if (Avatar.State == ClientAvatar.UserState.Editmode)
-                {
-                    data.AddInt32(1);
-                }
-                else
-                {
-                    data.AddInt32(0);
-                }
-                data.AddInt32(0);
-                data.AddInt64(0);
-                data.AddInt64(0);
-                data.AddInt64(0);
-
-                Encrypt(data.ToArray());
-            } catch (Exception) { }
+                this.Data.AddInt(0);
+                this.Data.AddInt(-1);
+                this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddRange(home.Encode());
+                this.Data.AddRange(await avatar.Encode());
+                this.Data.AddInt(this.Device.PlayerState == State.WAR_EMODE ? 1 : 0);
+                this.Data.AddInt(0);
+                this.Data.AddLong(0);
+                this.Data.AddLong(0);
+                this.Data.AddLong(0);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

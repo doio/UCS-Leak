@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UCS.Helpers;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -7,18 +7,16 @@ namespace UCS.Packets.Messages.Server
     // Packet 20105
     internal class FriendListMessage : Message
     {
-        public FriendListMessage(Packets.Client client) : base(client)
+        public FriendListMessage(Device client) : base(client)
         {
-            SetMessageType(20105);
+            this.Identifier = 20105;
         }
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(0);
-            pack.AddInt32(0);
-            pack.AddDataSlots(new List<DataSlot>());
-            Encrypt(pack.ToArray());
+            this.Data.AddInt(0);
+            this.Data.AddInt(0);
+            this.Data.AddDataSlots(new List<DataSlot>());
         }
     }
 }

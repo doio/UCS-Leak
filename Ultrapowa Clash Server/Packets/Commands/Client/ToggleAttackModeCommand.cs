@@ -1,12 +1,11 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 524
     internal class ToggleAttackModeCommand : Command
     {
-        public ToggleAttackModeCommand(PacketReader br)
+        public ToggleAttackModeCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
             /*
             BuildingId = br.ReadUInt32WithEndian(); //buildingId - 0x1DCD6500;

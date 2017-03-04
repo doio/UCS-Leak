@@ -11,12 +11,13 @@ namespace UCS.Core.Settings
         public static string Build                   = "12";
         
         public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
-
-        public const string RedisAddr                = "127.0.0.1";
-        public const int RedisPort                   = 6379;
+        public static readonly bool UseCacheServer   = Utils.ParseConfigBoolean("CacheServer");
 
         public const int CleanInterval               = 5000;
         public static int MaxOnlinePlayers           = Utils.ParseConfigInt("MaxOnlinePlayers");
+
+        internal const int SendBuffer = 2048;
+        internal const int ReceiveBuffer = 2048;
         public static int LicensePlanID = /*1;*/ 3;
     }
 }

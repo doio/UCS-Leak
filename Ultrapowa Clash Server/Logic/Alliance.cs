@@ -4,9 +4,9 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UCS.Core;
-using UCS.Helpers;
 using UCS.Logic.StreamEntry;
 using System.Threading.Tasks;
+using UCS.Helpers.List;
 
 namespace UCS.Logic
 {
@@ -74,23 +74,23 @@ namespace UCS.Logic
         public byte[] EncodeFullEntry()
         {
             List<byte> data = new List<byte>();
-            data.AddInt64(m_vAllianceId);
+            data.AddLong(m_vAllianceId);
             data.AddString(m_vAllianceName);
-            data.AddInt32(m_vAllianceBadgeData);
-            data.AddInt32(m_vAllianceType);
-            data.AddInt32(m_vAllianceMembers.Count);
-            data.AddInt32(m_vScore);
-            data.AddInt32(m_vRequiredScore);
-            data.AddInt32(m_vWonWars);
-            data.AddInt32(m_vLostWars);
-            data.AddInt32(m_vDrawWars);
-            data.AddInt32(20000001);
-            data.AddInt32(m_vWarFrequency);
-            data.AddInt32(m_vAllianceOrigin);
-            data.AddInt32(m_vAllianceExperience);
-            data.AddInt32(m_vAllianceLevel);
-            data.AddInt32(0);
-            data.AddInt32(0);
+            data.AddInt(m_vAllianceBadgeData);
+            data.AddInt(m_vAllianceType);
+            data.AddInt(m_vAllianceMembers.Count);
+            data.AddInt(m_vScore);
+            data.AddInt(m_vRequiredScore);
+            data.AddInt(m_vWonWars);
+            data.AddInt(m_vLostWars);
+            data.AddInt(m_vDrawWars);
+            data.AddInt(20000001);
+            data.AddInt(m_vWarFrequency);
+            data.AddInt(m_vAllianceOrigin);
+            data.AddInt(m_vAllianceExperience);
+            data.AddInt(m_vAllianceLevel);
+            data.AddInt(0);
+            data.AddInt(0);
             data.Add(m_vWarLogPublic);
             data.Add(m_vFriendlyWar);
             return data.ToArray();
@@ -99,13 +99,13 @@ namespace UCS.Logic
         public byte[] EncodeHeader()
         {
             List<byte> data = new List<byte>();
-            data.AddInt64(m_vAllianceId);
+            data.AddLong(m_vAllianceId);
             data.AddString(m_vAllianceName);
-            data.AddInt32(m_vAllianceBadgeData);
+            data.AddInt(m_vAllianceBadgeData);
             data.Add(0);
-            data.AddInt32(m_vAllianceLevel);
-            data.AddInt32(1);
-            data.AddInt32(-1);
+            data.AddInt(m_vAllianceLevel);
+            data.AddInt(1);
+            data.AddInt(-1);
             return data.ToArray();
         }
 
@@ -184,7 +184,7 @@ namespace UCS.Logic
                     long id = jsonMember["avatar_id"].ToObject<long>();
                     Level pl = await ResourcesManager.GetPlayer(id);
                     AllianceMemberEntry member = new AllianceMemberEntry(id);
-                    m_vScore = m_vScore + pl.GetPlayerAvatar().GetScore();
+                    m_vScore = m_vScore + pl.Avatar.GetScore();
                     member.Load(jsonMember);
                     m_vAllianceMembers.Add(id, member);
                 }

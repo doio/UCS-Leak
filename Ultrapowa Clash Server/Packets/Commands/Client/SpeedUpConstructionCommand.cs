@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,17 +6,21 @@ namespace UCS.Packets.Commands.Client
     // Packet 504
     internal class SpeedUpConstructionCommand : Command
     {
-        readonly int m_vBuildingId;
+        internal int m_vBuildingId;
 
-        public SpeedUpConstructionCommand(PacketReader br)
+        public SpeedUpConstructionCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            m_vBuildingId = br.ReadInt32WithEndian();
-            br.ReadInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            var go = level.GameObjectManager.GetGameObjectByID(m_vBuildingId);
+            this.m_vBuildingId = this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        internal override void Process()
+        {
+            var go = this.Device.Player.GameObjectManager.GetGameObjectByID(this.m_vBuildingId);
             if (go != null)
             {
                 if (go.ClassId == 0 || go.ClassId == 4)

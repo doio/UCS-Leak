@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
+
 
 namespace UCS.Packets.Messages.Server
 {
-    class RequestConfirmChangeNameMessage : Message
+    internal class RequestConfirmChangeNameMessage : Message
     {
-        public RequestConfirmChangeNameMessage(Packets.Client client, string Name) : base(client)
+        public RequestConfirmChangeNameMessage(Device client, string name) : base(client)
         {
-            SetMessageType(20300);
-            m_vName = Name;
+            this.Identifier = 20300;
+            this.Name = name;
         }
 
-        public string m_vName { get; set; }
+        public string Name;
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> data = new List<byte>();
-            data.AddInt64(0);
-            data.AddString(m_vName);
-            Encrypt(data.ToArray());
+            this.Data.AddLong(0);
+            this.Data.AddString(this.Name);
         }
     }
 }

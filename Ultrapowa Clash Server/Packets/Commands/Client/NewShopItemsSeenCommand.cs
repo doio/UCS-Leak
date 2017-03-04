@@ -1,18 +1,25 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 532
     internal class NewShopItemsSeenCommand : Command
     {
-        public NewShopItemsSeenCommand(PacketReader br)
+        public NewShopItemsSeenCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
 
-        public uint NewShopItemNumber { get; set; }
-        public uint Unknown1 { get; set; }
-        public uint Unknown2 { get; set; }
-        public uint Unknown3 { get; set; }
+        internal override void Decode()
+        {
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+            this.Reader.ReadInt32();
+        }
+
+        public uint NewShopItemNumber;
+        public uint Unknown1;
+        public uint Unknown2;
+        public uint Unknown3;
     }
 }

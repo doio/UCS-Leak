@@ -1,41 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
-using UCS.Logic;
+﻿using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
-    class RenameQuickTrainCommand : Command
+    internal class RenameQuickTrainCommand : Command
     {
-        public RenameQuickTrainCommand(PacketReader br)
+        public RenameQuickTrainCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            SlotID = br.ReadInt32();
-            SlotName = br.ReadString();
-            Tick = br.ReadInt32();
         }
 
-        public int SlotID { get; set; }
-
-        public string SlotName { get; set; }
-
-        public int Tick { get; set; }
-
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            /*ClientAvatar pl = level.GetPlayerAvatar();
-
-            if (SlotID == 1)
-            {
-            }
-            else if (SlotID == 2)
-            {
-            }
-            else if (SlotID == 3)
-            {
-            } */
+            this.SlotID = this.Reader.ReadInt32();
+            this.SlotName = this.Reader.ReadString();
+            this.Tick = this.Reader.ReadInt32();
         }
+
+        public int SlotID;
+        public string SlotName;
+        public int Tick;
     }
 }

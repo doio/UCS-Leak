@@ -5,39 +5,44 @@ using UCS.Core.Network;
 using UCS.Helpers;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
-
+using UCS.Helpers.Binary;
 namespace UCS.Packets.Messages.Client
 {
     // Packet 14113
     internal class VisitHomeMessage : Message
     {
-        public VisitHomeMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public VisitHomeMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        public long AvatarId { get; set; }
+        internal long AvatarId;
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
-            {
-                AvatarId = br.ReadInt64WithEndian();
-            }
+            this.AvatarId = this.Reader.ReadInt64();
         }
 
-        public override async void Process(Level level)
+        internal override async void Process()
         {
             try
             {
                 Level targetLevel = await ResourcesManager.GetPlayer(AvatarId);
                 targetLevel.Tick();
-                Alliance alliance = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-                PacketProcessor.Send(new VisitedHomeDataMessage(Client, targetLevel, level));
-                if (alliance != null)
+                new VisitedHomeDataMessage(Device, targetLevel, this.Device.Player).Send();
+
+
+                if (this.Device.Player.Avatar.GetAllianceId() > 0)
                 {
-                    PacketProcessor.Send(new AllianceStreamMessage(Client, alliance));
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                    if (alliance != null)
+                    {
+                        new AllianceStreamMessage(Device, alliance).Send();
+                    }
                 }
-            } catch (Exception) { }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

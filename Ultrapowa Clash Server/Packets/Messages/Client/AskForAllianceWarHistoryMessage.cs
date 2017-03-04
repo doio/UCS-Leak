@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Packets.Messages.Server;
 
@@ -10,26 +12,29 @@ namespace UCS.Packets.Messages.Client
     // Packet 14336
     internal class AskForAllianceWarHistoryMessage : Message
     {
-        public AskForAllianceWarHistoryMessage(Packets.Client client, PacketReader br) : base(client, br)
+        public AskForAllianceWarHistoryMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        static long AllianceID { get; set; }
-        static long WarID { get; set; }
+        long AllianceID { get; set; }
+        long WarID { get; set; }
 
-        public override void Decode()
+        internal override void Decode()
         {
-            using (PacketReader br = new PacketReader(new MemoryStream(GetData())))
+            this.AllianceID = this.Reader.ReadInt64();
+            this.WarID      = this.Reader.ReadInt64();
+        }
+
+        internal override async void Process()
+        {
+            try
             {
-                AllianceID = br.ReadInt64();
-                WarID = br.ReadInt64();
+                Alliance all = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                new AllianceWarHistoryMessage(Device, all).Send();
             }
-        }
-
-        public override async void Process(Level level)
-        {
-            Alliance all = await ObjectManager.GetAlliance(level.GetPlayerAvatar().GetAllianceId());
-            PacketProcessor.Send(new AllianceWarHistoryMessage(Client, all));
+            catch (Exception)
+            {
+            }
         }
     }
 }

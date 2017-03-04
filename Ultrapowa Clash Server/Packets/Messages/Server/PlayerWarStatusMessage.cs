@@ -1,33 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UCS.Helpers;
+﻿using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
 {
     internal class PlayerWarStatusMessage : Message
     {
-        public PlayerWarStatusMessage(Packets.Client client) : base(client)
+        public PlayerWarStatusMessage(Device client) : base(client)
         {
-            SetMessageType(24111);
+            this.Identifier = 24111;
         }
 
-        private int Status;
+        internal int Status;
 
-        public override void Encode()
+        internal override void Encode()
         {
-            List<byte> _Data = new List<byte>();
-            _Data.AddInt32(14);
-            _Data.AddInt32(Status);
-            _Data.AddInt32(0);
-            Encrypt(_Data.ToArray());
-        }
-
-        public void SetStatus(int i)
-        {
-            Status = i;
+            this.Data.AddInt(14);
+            this.Data.AddInt(Status);
+            this.Data.AddInt(0);
         }
     }
 }

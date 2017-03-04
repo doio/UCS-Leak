@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UCS.Helpers;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
@@ -7,11 +6,7 @@ namespace UCS.Packets.Commands.Client
     // Packet 603
     internal class EndOfBattleCommand : Command
     {
-        public EndOfBattleCommand(PacketReader br)
-        {
-        }
-
-        public override void Execute(Level level)
+        public EndOfBattleCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
     }

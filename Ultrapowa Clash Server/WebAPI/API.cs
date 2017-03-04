@@ -11,7 +11,7 @@ using UCS.Helpers;
 
 namespace UCS.WebAPI
 {
-    class API
+    internal class API
     {
         private static IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         private static HttpListener Listener;

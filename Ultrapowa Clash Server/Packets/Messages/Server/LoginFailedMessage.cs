@@ -1,18 +1,24 @@
-using Ionic.Zlib;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using UCS.Helpers;
+using System.Linq;
+using System.Text;
+using UCS.Core.Crypto;
+using UCS.Helpers.List;
+using UCS.Logic.Enums;
+using UCS.Utilities.Blake2B;
+using UCS.Utilities.Sodium;
 
 namespace UCS.Packets.Messages.Server
 {
     // Packet 20103
     internal class LoginFailedMessage : Message
     {
-        public LoginFailedMessage(Packets.Client client) : base(client)
+        public LoginFailedMessage(Device client) : base(client)
         {
-            SetMessageType(20103);
-            SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
-            SetMessageVersion(2);
+            this.Identifier = 20103;
+            this.UpdateUrl = ConfigurationManager.AppSettings["UpdateUrl"];
+            this.Version = 9;
 
             // 8  : Update
             // 10 : Maintenance
@@ -21,48 +27,51 @@ namespace UCS.Packets.Messages.Server
             // 13 : Locked Account
         }
 
-        string m_vContentURL;
-        int m_vErrorCode;
-        string m_vReason;
-        string m_vRedirectDomain;
-        int m_vRemainingTime;
-        string m_vResourceFingerprintData;
-        string m_vUpdateURL;
+        internal string ContentUrl;
+        internal string Reason;
+        internal string RedirectDomain;
+        internal string ResourceFingerprintData;
+        internal string UpdateUrl;
 
-        public override void Encode()
+        internal int ErrorCode;
+        internal int RemainingTime;
+
+        internal override void Encrypt()
         {
-            List<byte> pack = new List<byte>();
-            pack.AddInt32(m_vErrorCode);
-            pack.AddString(m_vResourceFingerprintData);
-            pack.AddString(m_vRedirectDomain);
-            pack.AddString(m_vContentURL);
-            pack.AddString(m_vUpdateURL);
-            pack.AddString(m_vReason);
-            pack.AddInt32(m_vRemainingTime);
-            pack.AddInt32(-1);
-            pack.Add(0);
-            pack.AddInt32(-1);
-            pack.AddInt32(-1);
-            pack.AddInt32(-1);
-            pack.AddInt32(-1);
-            if (Client.State == Packets.Client.ClientState.Login)
-                Encrypt(pack.ToArray());
-            else
-                SetData(pack.ToArray());
-        } 
+            if (this.Device.PlayerState >= State.LOGIN)
+            {
+                Blake2BHasher blake = new Blake2BHasher();
 
-        public void RemainingTime(int code) => m_vRemainingTime = code;
+                blake.Update(this.Device.Keys.SNonce);
+                blake.Update(this.Device.Keys.PublicKey);
+                blake.Update(Key.PublicKey);
 
-        public void SetContentURL(string url) => m_vContentURL = url;
+                byte[] Nonce = blake.Finish();
+                byte[] encrypted =
+                    this.Device.Keys.RNonce.Concat(this.Device.Keys.PublicKey).Concat(this.Data).ToArray();
 
-        public void SetErrorCode(int code) => m_vErrorCode = code;
+                this.Data =
+                    new List<byte>(Sodium.Encrypt(encrypted, Nonce, Key.PrivateKey, this.Device.Keys.PublicKey));
+            }
 
-        public void SetReason(string reason) => m_vReason = reason;
+            this.Length = (ushort) this.Data.Count;
+        }
 
-        public void SetRedirectDomain(string domain) => m_vRedirectDomain = domain;
-
-        public void SetResourceFingerprintData(string data) => m_vResourceFingerprintData = data;
-
-        public void SetUpdateURL(string url) => m_vUpdateURL = url;
+        internal override void Encode()
+        {
+            this.Data.AddInt(this.ErrorCode);
+            this.Data.AddString(this.ResourceFingerprintData);
+            this.Data.AddString(this.RedirectDomain);
+            this.Data.AddString(this.ContentUrl);
+            this.Data.AddString(this.UpdateUrl);
+            this.Data.AddString(this.Reason);
+            this.Data.AddInt(this.RemainingTime);
+            this.Data.AddInt(-1);
+            this.Data.Add(0);
+            this.Data.AddInt(-1);
+            this.Data.AddInt(-1);
+            this.Data.AddInt(-1);
+            this.Data.AddInt(-1);
+        }
     }
 }

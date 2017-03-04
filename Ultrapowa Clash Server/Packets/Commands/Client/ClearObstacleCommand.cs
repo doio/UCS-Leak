@@ -1,23 +1,23 @@
-using System;
-using System.IO;
-using UCS.Files.Logic;
-using UCS.Helpers;
-using UCS.Logic;
+using UCS.Helpers.Binary;
 
 namespace UCS.Packets.Commands.Client
 {
     // Packet 507
     internal class ClearObstacleCommand : Command
     {
-        public ClearObstacleCommand(PacketReader br)
+        public ClearObstacleCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-            ObstacleId = br.ReadInt32WithEndian();
-            Tick = br.ReadUInt32WithEndian();
         }
 
-        public override void Execute(Level level)
+        internal override void Decode()
         {
-            /*ClientAvatar playerAvatar = level.GetPlayerAvatar();
+            this.ObstacleId = this.Reader.ReadInt32();
+            this.Tick = this.Reader.ReadUInt32();
+        }
+
+        internal override void Process()
+        {
+            /*ClientAvatar playerAvatar = level.Avatar;
             Obstacle gameObjectByID = (Obstacle)level.GameObjectManager.GetGameObjectByID(ObstacleId);
             ObstacleData obstacleData = gameObjectByID.GetObstacleData();
             if (playerAvatar.HasEnoughResources(obstacleData.GetClearingResource(), obstacleData.ClearCost) && level.HasFreeWorkers())
@@ -28,7 +28,7 @@ namespace UCS.Packets.Commands.Client
             }*/
         }
 
-        public int ObstacleId { get; set; }
-        public uint Tick { get; set; }
+        public int ObstacleId;
+        public uint Tick;
     }
 }
