@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddInt(0); //Unknown
 
             this.Data.Add(0); //0 if no war
-            //pack.AddLong(WarID);
+            //this.Data.AddLong(1);
             this.Data.Add(0);
             this.Data.AddInt(0);
             this.Data.AddRange(m_vAlliance.EncodeFullEntry());

@@ -65,6 +65,7 @@ namespace UCS.Packets
                 {14406, typeof(TopPreviousGlobalPlayersMessage)},
                 {14503, typeof(TopLeaguePlayersMessage)},
                 {14600, typeof(RequestAvatarNameChange)},
+                {15000, typeof(AllianceWarVisitMessage)},
                 {15001, typeof(AllianceWarAttackAvatarMessage)}
             };
 

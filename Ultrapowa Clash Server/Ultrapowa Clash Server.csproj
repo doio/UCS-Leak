@@ -274,9 +274,11 @@
     <Compile Include="Packets\Crypto.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
     <Compile Include="Packets\Messages\Client\AccountSwitchMessage.cs" />
+    <Compile Include="Packets\Messages\Client\AllianceWarVisitMessage.cs" />
     <Compile Include="Packets\Messages\Client\Api\Bind_Google_Message.cs" />
     <Compile Include="Packets\Messages\Client\RetributionAttackerMessage.cs" />
     <Compile Include="Packets\Messages\Server\Api\Facebook_Connect_OK.cs" />
+    <Compile Include="Packets\Messages\Server\ClashFriendRequestSentMessage.cs" />
     <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
     <Compile Include="UpdaterGUI.cs">
