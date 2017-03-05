@@ -5,7 +5,7 @@
 
     public class Mysql : DbContext
     {
-        public Mysql() : base("name=Mysql")
+        public Mysql() : base("name=mysql")
         {
         }
 
