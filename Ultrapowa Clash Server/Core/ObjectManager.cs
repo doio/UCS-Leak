@@ -46,8 +46,8 @@ namespace UCS.Core
             m_vRandomBases         = new Dictionary<int, string>();
             FingerPrint            = new FingerPrint();
 
-            MaxPlayerID            = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
-            MaxAllianceID          = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+            MaxPlayerID            = Convert.ToInt32(m_vDatabase.GetPlayerSeed() + 1);
+            MaxAllianceID          = Convert.ToInt32(m_vDatabase.GetClanSeed() + 1);
 
             m_vAvatarSeed          = MaxPlayerID;
             m_vAllianceSeed        = MaxAllianceID;

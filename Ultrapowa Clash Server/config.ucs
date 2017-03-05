@@ -31,9 +31,7 @@
   <!-- (Max 2000) This Function is only available for Ultra Users -->
       
   <!-- ____________________________________ UCS SETTINGS ____________________________________ -->
-  <add key="databaseConnectionName" value="mysql" />
-      <!-- Choose mysql or sqlite-->
-  <add key="CacheServer" value="true" />
+  <add key="CacheServer" value="false" />
       <!-- Use Redis as cache server-->
   <add key="UseWebAPI" value="false" />
       <!-- Choose if you want to use the Web API-->
@@ -47,12 +45,24 @@
       <!-- Default for no log = 0, for Full Log = 1, Log only = 2-->
   <!-- _______________________________________________________________________________________ -->
 
-  <!-- ____________________________________ Redis SETTINGS ____________________________________ -->
-  <add key="IPAddress" value="192.168.0.5" />
+  <!-- ____________________________________ DATABASE SETTINGS ____________________________________ -->
+  <add key="RedisIPAddress" value="192.168.0.5" />
   <!-- Redis server IP address-->
-  <add key="Port" value="6379" />
+  <add key="RedisPort" value="6379" />
   <!--  Redis server port-->
-  <add key="Password" value="aididlwq0115" />
+  <add key="RedisPassword" value="aididlwq0115" />
   <!--  Redis server password-->
+
+  <add key="MysqlIPAddress" value="127.0.0.1" />
+  <!--  Mysql server IP address-->
+  <add key="MysqlUsername" value="root" />
+  <!--  Mysql server username-->
+  <add key="MysqlPort" value="3306" />
+  <!--  Mysql server port-->
+  <add key="MysqlPassword" value="" />
+  <!--  Mysql server password-->
+  <add key="MysqlDatabase" value="ucsdb" />
+  <!--  Mysql server database-->
+  
   <!-- _______________________________________________________________________________________ -->
 </appSettings>

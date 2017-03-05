@@ -5,7 +5,7 @@
 
     public class Mysql : DbContext
     {
-        public Mysql(string connectionString) : base("name=" + connectionString)
+        public Mysql() : base("name=Mysql")
         {
         }
 

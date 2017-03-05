@@ -31,6 +31,20 @@ namespace UCS.Helpers
 
     internal static class Utils
     {
+        public static string GetBetween(string strSource, string strStart, string strEnd)
+        {
+            int Start, End;
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
+            else
+            {
+                return "";
+            }
+        }
         public static string Padding(string _String, int _Limit = 23)
         {
             if (_String.Length > _Limit)

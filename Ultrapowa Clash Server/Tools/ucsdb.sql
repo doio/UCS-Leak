@@ -18,10 +18,6 @@ CREATE TABLE IF NOT EXISTS `clan` (
 
 CREATE TABLE IF NOT EXISTS `player` (
   `PlayerId` bigint(20) NOT NULL,
-  `AccountStatus` tinyint(4) NOT NULL,
-  `AccountPrivileges` tinyint(4) NOT NULL,
-  `LastUpdateTime` datetime NOT NULL,
-  `IPAddress` varchar(255) DEFAULT NULL,
   `Avatar` text CHARACTER SET utf8mb4 NOT NULL,
   `GameObjects` text CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`PlayerId`)

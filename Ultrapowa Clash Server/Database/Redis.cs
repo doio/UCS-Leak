@@ -16,9 +16,9 @@
         {
             ConfigurationOptions Configuration = new ConfigurationOptions();
 
-            Configuration.EndPoints.Add(Utils.ParseConfigString("IPAddress"), Utils.ParseConfigInt("Port"));
+            Configuration.EndPoints.Add(Utils.ParseConfigString("RedisIPAddress"), Utils.ParseConfigInt("RedisPort"));
 
-            Configuration.Password = Utils.ParseConfigString("Password");
+            Configuration.Password = Utils.ParseConfigString("RedisPassword");
             Configuration.ClientName = this.GetType().Assembly.FullName;
 
             ConnectionMultiplexer Connection = ConnectionMultiplexer.Connect(Configuration);
