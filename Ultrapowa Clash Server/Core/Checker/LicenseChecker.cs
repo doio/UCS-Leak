@@ -38,7 +38,7 @@ namespace UCS.Core.Checker
             {
                 Program._Stopwatch.Stop();
 
-                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("210.195.148.38"), 8008);
+                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("94.23.23.117"), 8008);
                 Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
