@@ -11,16 +11,17 @@ using UCS.Core.Settings;
 using static UCS.Core.Logger;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
+using UCS.Helpers;
 
 namespace UCS.Core
 {
     internal class DatabaseManager
     {
-        private readonly string m_vConnectionString;
+        private string Mysql;
 
         public DatabaseManager()
         {
-            m_vConnectionString = ConfigurationManager.AppSettings["databaseConnectionName"];
+
         }
 
         public static DatabaseManager Single() => new DatabaseManager();
@@ -33,7 +34,7 @@ namespace UCS.Core
                     Redis.Players.StringSet(l.Avatar.GetId().ToString(), l.Avatar.SaveToJSON() + "#:#:#:#" + l.SaveToJSON(),
                         TimeSpan.FromHours(4));
 
-                using (Mysql db = new Mysql(m_vConnectionString))
+                using (Mysql db = new Mysql())
                 {
                     db.Player.Add(
                         new Player
@@ -58,7 +59,7 @@ namespace UCS.Core
                 if (Constants.UseCacheServer) //Redis As Cache Server
                     Redis.Clans.StringSet(a.GetAllianceId().ToString(), a.SaveToJSON(), TimeSpan.FromHours(4));
 
-                using (Mysql db = new Mysql(m_vConnectionString))
+                using (Mysql db = new Mysql())
                 {
                     db.Clan.Add(
                         new Clan()
@@ -98,7 +99,7 @@ namespace UCS.Core
                     }
                     else
                     {
-                        using (Mysql db = new Mysql(m_vConnectionString))
+                        using (Mysql db = new Mysql())
                         {
                             Player p = await db.Player.FindAsync(playerId);
 
@@ -116,7 +117,7 @@ namespace UCS.Core
                 }
                 else
                 {
-                    using (Mysql db = new Mysql(m_vConnectionString))
+                    using (Mysql db = new Mysql())
                     {
                         Player p = await db.Player.FindAsync(playerId);
 
@@ -141,7 +142,7 @@ namespace UCS.Core
             try
             {
                 Alliance alliance = null;
-                if (Constants.UseCacheServer) 
+                if (Constants.UseCacheServer)
                 {
                     string _Data = Redis.Clans.StringGet(allianceId.ToString()).ToString();
 
@@ -153,7 +154,7 @@ namespace UCS.Core
                     }
                     else
                     {
-                        using (Mysql db = new Mysql(m_vConnectionString))
+                        using (Mysql db = new Mysql())
                         {
                             Clan p = await db.Clan.FindAsync(allianceId);
                             if (p != null)
@@ -167,7 +168,7 @@ namespace UCS.Core
                 }
                 else
                 {
-                    using (Mysql db = new Mysql(m_vConnectionString))
+                    using (Mysql db = new Mysql())
                     {
                         Clan p = await db.Clan.FindAsync(allianceId);
                         if (p != null)
@@ -188,7 +189,7 @@ namespace UCS.Core
         public List<long> GetAllPlayerIds()
         {
             List<long> ids = new List<long>();
-            using (Mysql db = new Mysql(m_vConnectionString))
+            using (Mysql db = new Mysql())
                 ids.AddRange(db.Player.Select(p => p.PlayerId));
             return ids;
         }
@@ -196,60 +197,81 @@ namespace UCS.Core
         public List<long> GetAllClanIds()
         {
             List<long> ids = new List<long>();
-            using (Mysql db = new Mysql(m_vConnectionString))
+            using (Mysql db = new Mysql())
                 ids.AddRange(db.Clan.Select(p => p.ClanId));
             return ids;
         }
-
-        public long GetMaxAllianceId()
+        internal int GetClanSeed()
         {
-            try
+            const string SQL = "SELECT coalesce(MAX(ClanId), 0) FROM Clan";
+            int Seed = -1;
+
+            using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
             {
-                using (Mysql db = new Mysql(m_vConnectionString))
-                    return (from alliance in db.Clan select (long?) alliance.ClanId ?? 0).DefaultIfEmpty().Max();
+                Conn.Open();
+
+                using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
+                {
+                    CMD.Prepare();
+                    Seed = Convert.ToInt32(CMD.ExecuteScalar());
+                }
             }
-            catch
-            {
-                return 0;
-            }
+
+            return Seed;
         }
 
-        public long GetMaxPlayerId()
+        public int GetPlayerSeed()
         {
             try
             {
-                using (Mysql db = new Mysql(m_vConnectionString))
-                    return (from ep in db.Player select (long?) ep.PlayerId ?? 0).DefaultIfEmpty().Max();
+                const string SQL = "SELECT coalesce(MAX(PlayerId), 0) FROM Player";
+                int Seed = -1;
+
+                var builder = new MySqlConnectionStringBuilder();
+                builder.Server = Utils.ParseConfigString("MysqlIPAddress");
+                builder.UserID = Utils.ParseConfigString("MysqlUsername"); ;
+                if (!string.IsNullOrWhiteSpace(Utils.ParseConfigString("MysqlPassword")))
+                    builder.Password = Utils.ParseConfigString("MysqlPassword");
+                builder.Port = (uint)Utils.ParseConfigInt("MysqlPort");
+
+                builder.Pooling = false;
+                builder.Database = Utils.ParseConfigString("MysqlDatabase");
+                builder.MinimumPoolSize = 1;
+
+                Mysql = builder.ToString();
+
+                using (MySqlConnection Conn = new MySqlConnection(Mysql))
+                {
+                    Conn.Open();
+
+                    using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
+                    {
+                        CMD.Prepare();
+                        Seed = Convert.ToInt32(CMD.ExecuteScalar());
+                    }
+                }
+
+                return Seed;
             }
             catch (EntityException ex)
             {
-                if (ConfigurationManager.AppSettings["databaseConnectionName"] == "mysql")
-                {
-                    Error("An exception occured when connecting to the MySQL Server.");
-                    Error("Please check your database configuration !");
-                    Error(Convert.ToString(ex));
-                    Console.ReadKey();
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    Error("An exception occured when connecting to the SQLite database.");
-                    Error("Please check your database configuration !");
-                    Error(Convert.ToString(ex));
-                    Console.ReadKey();
-                    Environment.Exit(0);
-                }
+                Error("An exception occured when connecting to the MySQL Server.");
+                Error("Please check your database configuration !");
+                Error(Convert.ToString(ex));
+                Console.ReadKey();
+                Environment.Exit(0);
             }
-            catch (MySqlException)
+            catch (MySqlException ex)
             {
                 Say();
                 Error("An exception occured when reconnecting to the MySQL Server.");
                 Error("Please check your database configuration !");
+                Error(Convert.ToString(ex));
                 //Reason
                 //Username is wrong
                 //Password is wrong
                 //IP Address is unauthorized
-
+                Console.ReadKey();
                 UCSControl.UCSRestart();
             }
             catch (Exception ex)
@@ -263,12 +285,13 @@ namespace UCS.Core
             return 0;
         }
 
+
         public void RemoveAlliance(Alliance alliance)
         {
             try
             {
                 long id = alliance.GetAllianceId();
-                using (Mysql db = new Mysql(m_vConnectionString))
+                using (Mysql db = new Mysql())
                 {
                     db.Clan.Remove(db.Clan.Find((int)id));
                     db.SaveChanges();
@@ -286,7 +309,7 @@ namespace UCS.Core
             {
                 Level account = null;
                 Player Data = null;
-                using (Mysql Database = new Mysql(m_vConnectionString))
+                using (Mysql Database = new Mysql())
                 {
                     Parallel.ForEach(Database.Player.ToList(), (Query, state) =>
                     {
@@ -323,7 +346,7 @@ namespace UCS.Core
                 if (Constants.UseCacheServer)
                     Redis.Clans.StringSet(alliance.GetAllianceId().ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
 
-                using (Mysql context = new Mysql(m_vConnectionString))
+                using (Mysql context = new Mysql())
                 {
                     Clan c = await context.Clan.FindAsync((int)alliance.GetAllianceId());
                     if (c != null)
@@ -348,7 +371,7 @@ namespace UCS.Core
                     Redis.Players.StringSet(avatar.Avatar.GetId().ToString(),
                         avatar.Avatar.SaveToJSON() + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
 
-                using (Mysql context = new Mysql(m_vConnectionString))
+                using (Mysql context = new Mysql())
                 {
                     Player p = await context.Player.FindAsync(avatar.Avatar.GetId());
                     if (p != null)
@@ -382,7 +405,7 @@ namespace UCS.Core
 
                     case Save.Mysql:
                         {
-                            using (Mysql context = new Mysql(m_vConnectionString))
+                            using (Mysql context = new Mysql())
                             {
                                 foreach (Level pl in avatars)
                                 {
@@ -430,7 +453,8 @@ namespace UCS.Core
                         }
                     case Save.Mysql:
                         {
-                            using (Mysql context = new Mysql(m_vConnectionString))
+                            using (Mysql context = new Mysql())
+
                             {
                                 foreach (Alliance alliance in alliances)
                                 {
@@ -455,7 +479,7 @@ namespace UCS.Core
                 }
             }
             catch (Exception)
-            {           
+            {
             }
         }
     }

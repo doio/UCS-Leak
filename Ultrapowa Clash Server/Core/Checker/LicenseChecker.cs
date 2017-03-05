@@ -16,6 +16,19 @@ namespace UCS.Core.Checker
 {
     internal class LicenseChecker
     {
+        public class StateObject
+        {  
+            public Socket workSocket = null;
+            public const int BufferSize = 256;
+            public byte[] buffer = new byte[BufferSize];
+            public StringBuilder sb = new StringBuilder();
+        }
+ 
+        private static String response = String.Empty;
+        private static Boolean Connected = false;
+        private static ManualResetEvent connectDone = new ManualResetEvent(false);
+        private static ManualResetEvent sendDone = new ManualResetEvent(false);
+        private static ManualResetEvent receiveDone = new ManualResetEvent(false);
         public LicenseChecker()
         {
             try
@@ -27,89 +40,84 @@ namespace UCS.Core.Checker
                 if (Key.Length == 32)
                 {
                     CheckIfKeyIsSaved(Key);
-                }
+                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("210.195.148.38"), 8008);
 
-                if (Key.Length == 32)
-                {
-                    TcpClient client     = new TcpClient("94.23.23.117", 8008);
-                    byte[] data          = Encoding.ASCII.GetBytes(Key);
-                    NetworkStream stream = client.GetStream();
-                    stream.Write(data, 0, data.Length);
-                    data                 = new byte[256];
-                    string responseData  = string.Empty;
-                    int bytes            = stream.Read(data, 0, data.Length);
-                    responseData         = Encoding.ASCII.GetString(data, 0, bytes);
-
-                    if (Convert.ToInt32(responseData) > 0)
+                    Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    client.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), client);
+                    connectDone.WaitOne();
+                    if (Connected)
                     {
-                        if (Convert.ToInt32(responseData) < 4)
+                        Send(client, Key);
+
+                        sendDone.WaitOne();
+
+                        // Receive the response from the remote device.  
+                        Receive(client);
+                        receiveDone.WaitOne();
+
+                        int id = Convert.ToInt32(response);
+                        if (id > 0)
                         {
-                            Constants.LicensePlanID = Convert.ToInt32(responseData);
-                            Program.UpdateTitle();
-
-                            switch (Convert.ToInt32(responseData))
+                            if (id < 4)
                             {
+                                Constants.LicensePlanID = id;
+                                Program.UpdateTitle();
 
-                                case 1:
+                                switch (id)
                                 {
-                                    Say("UCS is running on Plan (Lite).");
-                                    break;
-                                }
 
-                                case 2:
-                                {
-                                    Say("UCS is running on Plan (Pro).");
-                                    break;
-                                }
+                                    case 1:
+                                        {
+                                            Say("UCS is running on Plan (Lite).");
+                                            break;
+                                        }
 
-                                case 3:
-                                {
-                                    Say("UCS is running on Plan (Ultra).");
-                                    break;
+                                    case 2:
+                                        {
+                                            Say("UCS is running on Plan (Pro).");
+                                            break;
+                                        }
+
+                                    case 3:
+                                        {
+                                            Say("UCS is running on Plan (Ultra).");
+                                            break;
+                                        }
                                 }
                             }
+                            else if (id == 100)
+                            {
+                                Say();
+                                Say("This Key has been disabled, please contact the Support at Ultrapowa.com.");
+                                Say("UCS will be closed now...");
+                                Thread.Sleep(4000);
+                                Environment.Exit(0);
+                            }
+                            else if (id == 200)
+                            {
+                                Say();
+                                Say("This Key is expired, please contact the Support at Ultrapowa.com.");
+                                Say("UCS will be closed now...");
+                                Thread.Sleep(4000);
+                                Environment.Exit(0);
+                            }
                         }
-                        else if (Convert.ToInt32(responseData) == 100)
+                        else
                         {
                             Say();
-                            Say("This Key has been disabled, please contact the Support at Ultrapowa.com.");
+                            Say("This Key is not valid.");
                             Say("UCS will be closed now...");
                             Thread.Sleep(4000);
                             Environment.Exit(0);
-                        }
-                        else if (Convert.ToInt32(responseData) == 200)
-                        {
-                            Say();
-                            Say("This Key is expired, please contact the Support at Ultrapowa.com.");
-                            Say("UCS will be closed now...");
-                            Thread.Sleep(4000);
-                            Environment.Exit(0);
-                        }
-                        else if (Convert.ToInt32(responseData) == 300)
-                        {
-                            Say();
-                            Say("The installed Key is invalid!");
-                            try
-                            {
-                                string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
-                                File.Delete(_FilePath);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                            goto back;
                         }
                     }
                     else
                     {
-                        Say();
-                        Say("This Key is not valid.");
-                        Say("UCS will be closed now...");
-                        Thread.Sleep(4000);
-                        Environment.Exit(0);
+                        Error("UCS License server is currently unavailable.");
+                        Error("UCS will  running on Plan (Lite).");
+                        Constants.LicensePlanID = 1;
+                        Program.UpdateTitle();
                     }
-                    stream.Close();
-                    client.Close();
                 }
                 else
                 {
@@ -143,6 +151,77 @@ namespace UCS.Core.Checker
             }
         }
 
+        private static void Send(Socket client, String data)
+        {
+            byte[] byteData = Encoding.ASCII.GetBytes(data);
+ 
+            client.BeginSend(byteData, 0, byteData.Length, 0,  new AsyncCallback(SendCallback), client);
+        }
+
+        private static void SendCallback(IAsyncResult ar)
+        {
+            try
+            {
+                Socket client = (Socket)ar.AsyncState;
+                int bytesSent = client.EndSend(ar);
+                sendDone.Set();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        private static void Receive(Socket client)
+        {
+            try
+            { 
+                StateObject state = new StateObject();
+                state.workSocket = client;
+
+                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                StateObject state = (StateObject)ar.AsyncState;
+                Socket client = state.workSocket;
+
+                int bytesRead = client.EndReceive(ar);
+
+                if (bytesRead > 0)
+                {
+                    response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+                    receiveDone.Set();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void ConnectCallback(IAsyncResult ar)
+        {
+            try
+            {
+                Socket client = (Socket)ar.AsyncState;  
+                client.EndConnect(ar);
+                Connected = true;
+                connectDone.Set();
+            }
+            catch (Exception e)
+            {
+                connectDone.Set();
+            }
+        }
+
         private static string GetKey()
         {
             back:
@@ -161,7 +240,7 @@ namespace UCS.Core.Checker
                 }
             }
             else
-            {
+            {   
                 Say("Enter now your License Key:");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write("[UCS]    ");
