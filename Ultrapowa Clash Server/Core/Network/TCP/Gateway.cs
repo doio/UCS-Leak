@@ -66,79 +66,79 @@ namespace UCS.Core.Network
                 this.WritePool.Enqueue(WriterEvent);
             }
         }
-        /// <summary>
-        /// Accepts a TCP Request.
-        /// </summary>
-        /// <param name="AcceptEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
-        internal void StartAccept(SocketAsyncEventArgs AcceptEvent)
-        {
-            AcceptEvent.AcceptSocket = null;
-
-            if (!this.Listener.AcceptAsync(AcceptEvent))
+            /// <summary>
+            /// Accepts a TCP Request.
+            /// </summary>
+            /// <param name="AcceptEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+            internal void StartAccept(SocketAsyncEventArgs AcceptEvent)
             {
-                this.ProcessAccept(AcceptEvent);
-            }
-        }
+                AcceptEvent.AcceptSocket = null;
 
-        /// <summary>
-        /// Accept the new client and store it in memory.
-        /// </summary>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
-        internal void ProcessAccept(SocketAsyncEventArgs AsyncEvent)
-        {
-            Socket Socket = AsyncEvent.AcceptSocket;
-
-            if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
-            {
-                /*
-                if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
+                if (!this.Listener.AcceptAsync(AcceptEvent))
                 {
-                    Socket.Close(5);
-                    this.StartAccept(AsyncEvent);
-                    return; 
+                    this.ProcessAccept(AcceptEvent);
                 }
-                */
-                Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
+            }
 
+            /// <summary>
+            /// Accept the new client and store it in memory.
+            /// </summary>
+            /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+            internal void ProcessAccept(SocketAsyncEventArgs AsyncEvent)
+            {
+                Socket Socket = AsyncEvent.AcceptSocket;
 
-                SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
-
-                if (ReadEvent != null)
+                if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
                 {
-                    Device device = new Device(Socket)
+                    /*
+                    if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
                     {
-                        IPAddress = ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()
+                        Socket.Close(5);
+                        this.StartAccept(AsyncEvent);
+                        return; 
+                    }
+                    */
+                    Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
 
-                    };
 
-                    Token Token = new Token(ReadEvent, device);
-                    Interlocked.Increment(ref this.ConnectedSockets);
-                    ResourcesManager.AddClient(device);
+                    SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
 
-                    Task.Run(() =>
+                    if (ReadEvent != null)
                     {
-                        try
+                        Device device = new Device(Socket)
                         {
-                            if (!Socket.ReceiveAsync(ReadEvent))
+                            IPAddress = ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()
+
+                        };
+
+                        Token Token = new Token(ReadEvent, device);
+                        Interlocked.Increment(ref this.ConnectedSockets);
+                        ResourcesManager.AddClient(device);
+
+                        Task.Run(() =>
+                        {
+                            try
                             {
-                                this.ProcessReceive(ReadEvent);
+                                if (!Socket.ReceiveAsync(ReadEvent))
+                                {
+                                    this.ProcessReceive(ReadEvent);
+                                }
                             }
-                        }
-                        catch (Exception)
-                        {
-                            this.Disconnect(ReadEvent);
-                        }
-                    });
+                            catch (Exception)
+                            {
+                                this.Disconnect(ReadEvent);
+                            }
+                        });
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine("Not connected or error at ProcessAccept.");
-                Socket.Close(5);
-            }
+                else
+                {
+                    Console.WriteLine("Not connected or error at ProcessAccept.");
+                    Socket.Close(5);
+                }
 
-            this.StartAccept(AsyncEvent);
-        }
+                this.StartAccept(AsyncEvent);
+            }
 
         /// <summary>
         /// Receives data from the specified client.
