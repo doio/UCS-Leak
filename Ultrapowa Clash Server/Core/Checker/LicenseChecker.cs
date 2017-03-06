@@ -326,7 +326,7 @@ namespace UCS.Core.Checker
                 }
                 else
                 {
-                    Say("Enter now your License Key:");
+                    Say("Enter your License Key: ");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write("[UCS]    ");
                     string Key = Console.ReadLine();
