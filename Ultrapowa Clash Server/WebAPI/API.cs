@@ -78,6 +78,7 @@ namespace UCS.WebAPI
                                 }
                                 catch (Exception)
                                 {
+                                    Logger.Write("Failed to Process API request.");
                                 }
 
                             }, Listener.GetContext());
