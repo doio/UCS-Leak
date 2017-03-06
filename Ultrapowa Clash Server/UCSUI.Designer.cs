@@ -153,7 +153,7 @@ namespace UCS
             this.materialTabControl3 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.materialRaisedButton21 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.listView2 = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1965,7 +1965,7 @@ namespace UCS
             this.materialRaisedButton21.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton21.Depth = 0;
             this.materialRaisedButton21.Icon = null;
-            this.materialRaisedButton21.Location = new System.Drawing.Point(617, 43);
+            this.materialRaisedButton21.Location = new System.Drawing.Point(621, 15);
             this.materialRaisedButton21.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton21.Name = "materialRaisedButton21";
             this.materialRaisedButton21.Primary = true;
@@ -1977,20 +1977,27 @@ namespace UCS
             // 
             // listView2
             // 
+            this.listView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
-            this.listView2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView2.Depth = 0;
+            this.listView2.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.listView2.FullRowSelect = true;
+            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewItem3.StateImageIndex = 0;
             listViewItem4.StateImageIndex = 0;
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem3,
             listViewItem4});
             this.listView2.Location = new System.Drawing.Point(-4, 6);
+            this.listView2.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.listView2.MouseState = MaterialSkin.MouseState.OUT;
             this.listView2.Name = "listView2";
+            this.listView2.OwnerDraw = true;
             this.listView2.Size = new System.Drawing.Size(714, 326);
             this.listView2.TabIndex = 2;
             this.listView2.UseCompatibleStateImageBehavior = false;
@@ -2004,22 +2011,22 @@ namespace UCS
             // columnHeader7
             // 
             this.columnHeader7.Text = "Alliance ID";
-            this.columnHeader7.Width = 78;
+            this.columnHeader7.Width = 105;
             // 
             // columnHeader8
             // 
             this.columnHeader8.Text = "Alliance Level";
-            this.columnHeader8.Width = 100;
+            this.columnHeader8.Width = 114;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "Alliance Members";
-            this.columnHeader9.Width = 110;
+            this.columnHeader9.Width = 155;
             // 
             // columnHeader10
             // 
             this.columnHeader10.Text = "Trophies";
-            this.columnHeader10.Width = 101;
+            this.columnHeader10.Width = 418;
             // 
             // tabPage10
             // 
@@ -2447,7 +2454,7 @@ namespace UCS
         private MaterialSkin.Controls.MaterialTabControl materialTabControl3;
         private System.Windows.Forms.TabPage tabPage9;
         private MaterialSkin.Controls.MaterialTabSelector materialTabSelector3;
-        private System.Windows.Forms.ListView listView2;
+        private MaterialSkin.Controls.MaterialListView listView2;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
