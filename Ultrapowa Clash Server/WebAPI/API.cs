@@ -15,7 +15,7 @@ namespace UCS.WebAPI
     {
         private static IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         private static HttpListener Listener;
-        private static int Port = Utils.ParseConfigInt("APIPort"); // TODO: Add it to the config File
+        private static int Port = Utils.ParseConfigInt("APIPort"); 
         private static string IP = ipHostInfo.AddressList[0].ToString();
         private static string URL = "http://" + IP + ":" + Port + "/";
 
@@ -28,10 +28,10 @@ namespace UCS.WebAPI
                     return sr.ReadToEnd();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine();
-                return "File not Found";
+                Console.WriteLine(e.Message);
+                return "Error when reading the HTML File.";
             }
         }
 
@@ -69,6 +69,7 @@ namespace UCS.WebAPI
                             {
                                 try
                                 {
+                                    Logger.Write("New Api Request.");
                                     HttpListenerContext ctx = (HttpListenerContext)c;
                                     byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
                                     ctx.Response.ContentLength64 = responseBuf.Length;

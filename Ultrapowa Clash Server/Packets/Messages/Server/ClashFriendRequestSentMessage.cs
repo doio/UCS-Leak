@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UCS.Helpers;
+using UCS.Helpers.Binary;
 using UCS.Helpers.List;
 
 namespace UCS.Packets.Messages.Server
@@ -17,7 +18,7 @@ namespace UCS.Packets.Messages.Server
 
         internal override  void Encode()
         {
-            // Todo...
+            this.Data.AddLong(1);
         }
     }
 }

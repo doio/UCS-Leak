@@ -33,10 +33,7 @@ namespace UCS.Core
 
         public static void AddClient(Socket _Socket)
         {
-            Device c = new Device(_Socket)
-            {
-                IPAddress = ((System.Net.IPEndPoint) _Socket.RemoteEndPoint).Address.ToString()
-            };
+            Device c = new Device(_Socket){IPAddress = ((System.Net.IPEndPoint) _Socket.RemoteEndPoint).Address.ToString()};
             m_vClients.TryAdd(c.Socket.Handle, c);
         }
         public static void AddClient(Device Client)

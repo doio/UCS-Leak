@@ -91,7 +91,7 @@ namespace UCS.Core.Events
             }
             catch (Exception)
             {
-                Console.WriteLine("Mmh, something happen when we tried to save everything.");
+                Logger.Error("Failed to save all Players and Alliances!");
             }
         }
 
