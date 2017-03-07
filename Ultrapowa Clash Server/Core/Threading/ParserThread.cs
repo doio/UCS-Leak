@@ -51,6 +51,7 @@ namespace UCS.Helpers
                             Say("/maintenance       - Begin Server Maintenance.");
                             Say("/saveall           - Saves everything to the Database");
                             Say("/dl csv            - Downloads latest CSV Files (if Fingerprint is up to Date).");
+                            Say("/del key           - Delete the installed Key.");
                             Say("/info              - Shows the UCS Informations.");
                             Say("/info 'command'    - More Info On a Command. Ex: /info gui");
                             Print("------------------------------------------------------------------------------>");
@@ -65,6 +66,17 @@ namespace UCS.Helpers
                             Say("");
                             Say("©Ultrapowa 2014 - " + DateTime.Now.Year);
                             Console.WriteLine("------------------------------------->");
+                            break;
+
+                        case "/del key":
+
+                            Say("Deleting Key...");
+                            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+
+                            LicenseChecker.DeleteKey();
+                            Say("Key has been successfully deleted!");
+                            Thread.Sleep(4000);
+                            UCSControl.UCSRestart();
                             break;
 
                         case "/dl csv":

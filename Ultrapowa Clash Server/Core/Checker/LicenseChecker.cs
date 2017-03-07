@@ -37,7 +37,7 @@ namespace UCS.Core.Checker
             try
             {
                 Program._Stopwatch.Stop();
-
+                
                 IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("94.23.23.117"), 8008);
                 Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), client);
@@ -135,7 +135,10 @@ namespace UCS.Core.Checker
                                 Say();
                                 Say("Server responded the key no longer exist.");
                                 Keep = false;
-                                goto back;
+                                Say("UCS will be closed now...");
+                                DeleteKey();
+                                Thread.Sleep(4000);
+                                Environment.Exit(0);
                             }
                         }
                         else
@@ -194,6 +197,22 @@ namespace UCS.Core.Checker
                     {
                         _SW.Write(ToHexString(_Key));
                     }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public static void DeleteKey()
+        {
+            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+
+            try
+            {
+                if (File.Exists(_FilePath))
+                {
+                    File.Delete(_FilePath);
                 }
             }
             catch (Exception)
