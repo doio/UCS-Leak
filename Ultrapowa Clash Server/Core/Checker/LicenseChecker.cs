@@ -173,14 +173,22 @@ namespace UCS.Core.Checker
             }
         }
 
-
-
-        private static void CheckIfKeyIsSaved(string _Key)
+        private static void SaveKey(string _Key)
         {
-            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
-            if (!File.Exists(_FilePath))
+            try
             {
-                if (_Key.Length == 32)
+                string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+
+                if (File.Exists(_FilePath))
+                {
+                    File.Delete(_FilePath);
+
+                    using (StreamWriter _SW = new StreamWriter(_FilePath))
+                    {
+                        _SW.Write(ToHexString(_Key));
+                    }
+                }
+                else
                 {
                     using (StreamWriter _SW = new StreamWriter(_FilePath))
                     {
@@ -188,15 +196,20 @@ namespace UCS.Core.Checker
                     }
                 }
             }
-            else
+            catch (Exception)
             {
-                File.Delete(_FilePath);
+            }
+        }
+
+        private static void CheckIfKeyIsSaved(string _Key)
+        {
+            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
+
+            if (!File.Exists(_FilePath))
+            {
                 if (_Key.Length == 32)
                 {
-                    using (StreamWriter _SW = new StreamWriter(_FilePath))
-                    {
-                        _SW.Write(ToHexString(_Key));
-                    }
+                    SaveKey(_Key);
                 }
             }
         }
@@ -297,18 +310,10 @@ namespace UCS.Core.Checker
             string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
             if (File.Exists(_FilePath))
             {
-                if (Keep)
+                string Data = FromHexString(File.ReadAllText(_FilePath));
+                if (Data.Length == 32)
                 {
-                    string Data = FromHexString(File.ReadAllText(_FilePath));
-                    if (Data.Length == 32)
-                    {
-                        return Data;
-                    }
-                    else
-                    {
-                        File.Delete(_FilePath);
-                        goto back;
-                    }
+                    return Data;
                 }
                 else
                 {
@@ -330,6 +335,7 @@ namespace UCS.Core.Checker
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write("[UCS]    ");
                     string Key = Console.ReadLine();
+                    SaveKey(Key);
                     return Key;
                 }
             }
