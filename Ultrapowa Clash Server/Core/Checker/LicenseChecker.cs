@@ -127,6 +127,7 @@ namespace UCS.Core.Checker
                                 Say();
                                 Say("This Key is expired, please contact the Support at Ultrapowa.com.");
                                 Say("UCS will be closed now...");
+                                DeleteKey(); 
                                 Thread.Sleep(4000);
                                 Environment.Exit(0);
                             }
@@ -155,7 +156,6 @@ namespace UCS.Core.Checker
                         Error("Invalid key. Please make sure key is entered right and 32 in length");
                         goto back;
                     }
-
                 }
                 else
                 {
