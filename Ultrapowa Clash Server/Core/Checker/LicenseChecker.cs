@@ -134,7 +134,7 @@ namespace UCS.Core.Checker
                             else if (id == 300)
                             {
                                 Say();
-                                Say("Server responded the key no longer exist.");
+                                Say("Reply From Server: Key does not exist.");
                                 Keep = false;
                                 Say("UCS will be closed now...");
                                 DeleteKey();
