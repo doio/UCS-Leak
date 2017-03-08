@@ -31,11 +31,11 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddString(StreamTest);
             this.Data.AddInt(0);
             this.Data.Add(1);
-            this.Data.AddInt(8);
-            this.Data.AddInt(709);
+            this.Data.AddInt(8); // Version
+            this.Data.AddInt(709); // Version
             this.Data.AddInt(0);
             this.Data.Add(1);
-            this.Data.AddLong(1);
+            this.Data.AddLong(1); // Stream ID?
             this.Data.AddInt(int.MaxValue);
         }
     }

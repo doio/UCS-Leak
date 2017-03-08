@@ -22,39 +22,42 @@ namespace UCS.Packets.Messages.Server
 
             foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetScore()))
             {
-                /*if (player.Avatar.GetAvatarLevel() >= 70)
-                {*/
-                ClientAvatar pl = player.Avatar;
-                long id = pl.GetAllianceId();
-                if (i >= 100)
-                    break;
-                data.AddLong(pl.GetId());
-                data.AddString(pl.AvatarName);
-                data.AddInt(i + 1);
-                data.AddInt(pl.GetScore());
-                data.AddInt(i + 1);
-                data.AddInt(pl.GetAvatarLevel());
-                data.AddInt(100);
-                data.AddInt(1);
-                data.AddInt(100);
-                data.AddInt(1);
-                data.AddInt(pl.GetLeagueId());
-                data.AddString(pl.Region.ToUpper());
-                data.AddLong(pl.GetAllianceId());
-                data.AddInt(1);
-                data.AddInt(1);
-                if (pl.GetAllianceId() > 0)
+                try
                 {
-                    data.Add(1); // 1 = Have an alliance | 0 = No alliance
+                    ClientAvatar pl = player.Avatar;
+                    long id = pl.GetAllianceId();
+                    if (i >= 100)
+                        break;
+                    data.AddLong(pl.GetId());
+                    data.AddString(pl.AvatarName);
+                    data.AddInt(i + 1);
+                    data.AddInt(pl.GetScore());
+                    data.AddInt(i + 1);
+                    data.AddInt(pl.GetAvatarLevel());
+                    data.AddInt(100);
+                    data.AddInt(1);
+                    data.AddInt(100);
+                    data.AddInt(1);
+                    data.AddInt(pl.GetLeagueId());
+                    data.AddString(pl.Region.ToUpper());
                     data.AddLong(pl.GetAllianceId());
-                    Alliance _Alliance = await ObjectManager.GetAlliance(id);
-                    data.AddString(_Alliance.GetAllianceName());
-                    data.AddInt(_Alliance.GetAllianceBadgeData());
+                    data.AddInt(1);
+                    data.AddInt(1);
+                    if (pl.GetAllianceId() > 0)
+                    {
+                        data.Add(1); // 1 = Have an alliance | 0 = No alliance
+                        data.AddLong(pl.GetAllianceId());
+                        Alliance _Alliance = await ObjectManager.GetAlliance(id);
+                        data.AddString(_Alliance.GetAllianceName());
+                        data.AddInt(_Alliance.GetAllianceBadgeData());
+                    }
+                    else
+                        data.Add(0);
+                    i++;
                 }
-                else
-                    data.Add(0);
-                i++;
-                //}
+                catch (Exception)
+                {
+                }
             }
 
             this.Data.AddInt(i);

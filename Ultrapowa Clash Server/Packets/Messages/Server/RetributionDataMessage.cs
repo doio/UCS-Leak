@@ -19,17 +19,22 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-            ClientHome ownerHome = new ClientHome(Player.Avatar.GetId());
-            ownerHome.SetShieldTime(Player.Avatar.GetShieldTime);
-            ownerHome.SetProtectionTime(Player.Avatar.GetProtectionTime);
-            ownerHome.SetHomeJSON(JsonBase);
+            try
+            {
+                ClientHome ownerHome = new ClientHome(Player.Avatar.GetId());
+                ownerHome.SetShieldTime(Player.Avatar.GetShieldTime);
+                ownerHome.SetProtectionTime(Player.Avatar.GetProtectionTime);
+                ownerHome.SetHomeJSON(JsonBase);
 
-            this.Data.AddInt(0);
-            this.Data.AddInt((int) Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-            this.Data.AddRange(ownerHome.Encode());
-            this.Data.AddRange(await Player.Avatar.Encode());
-            this.Data.AddInt(LevelId);
-
+                this.Data.AddInt(0);
+                this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddRange(ownerHome.Encode());
+                this.Data.AddRange(await Player.Avatar.Encode());
+                this.Data.AddInt(LevelId);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         public string JsonBase;

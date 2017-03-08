@@ -1,4 +1,5 @@
-﻿using UCS.Helpers.List;
+﻿using System;
+using UCS.Helpers.List;
 using UCS.Logic;
 
 namespace UCS.Packets.Messages.Server
@@ -15,16 +16,21 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
+            try
+            {
+                ClientAvatar clientAvatar = this.Player.Avatar;
 
-            ClientAvatar clientAvatar = this.Player.Avatar;
+                this.Data.AddString(null);
+                this.Data.Add(1);
 
-            this.Data.AddString(null);
-            this.Data.Add(1);
+                this.Data.AddLong(clientAvatar.GetId());
 
-            this.Data.AddLong(clientAvatar.GetId());
-
-            this.Data.AddString(clientAvatar.UserToken);
-            this.Data.AddRange(await clientAvatar.Encode());
+                this.Data.AddString(clientAvatar.UserToken);
+                this.Data.AddRange(await clientAvatar.Encode());
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UCS.Core;
 using UCS.Helpers.List;
@@ -27,31 +28,37 @@ namespace UCS.Packets.Messages.Server
                 ClientAvatar pl = player.Avatar;
                 if (pl.AvatarName != null)
                 {
-                    packet1.AddLong(pl.GetId());
-                    packet1.AddString(pl.AvatarName);
-                    packet1.AddInt(i);
-                    packet1.AddInt(pl.GetScore());
-                    packet1.AddInt(i);
-                    packet1.AddInt(pl.GetAvatarLevel());
-                    packet1.AddInt(200);
-                    packet1.AddInt(i);
-                    packet1.AddInt(100);
-                    packet1.AddInt(1);
-                    packet1.AddLong(pl.GetAllianceId());
-                    packet1.AddInt(1);
-                    packet1.AddInt(1);
-                    if (pl.GetAllianceId() > 0)
+                    try
                     {
-                        packet1.Add(1);
+                        packet1.AddLong(pl.GetId());
+                        packet1.AddString(pl.AvatarName);
+                        packet1.AddInt(i);
+                        packet1.AddInt(pl.GetScore());
+                        packet1.AddInt(i);
+                        packet1.AddInt(pl.GetAvatarLevel());
+                        packet1.AddInt(200);
+                        packet1.AddInt(i);
+                        packet1.AddInt(100);
+                        packet1.AddInt(1);
                         packet1.AddLong(pl.GetAllianceId());
-                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
-                        packet1.AddString(_Alliance.GetAllianceName());
-                        packet1.AddInt(_Alliance.GetAllianceBadgeData());
-                        packet1.AddLong(i);
+                        packet1.AddInt(1);
+                        packet1.AddInt(1);
+                        if (pl.GetAllianceId() > 0)
+                        {
+                            packet1.Add(1);
+                            packet1.AddLong(pl.GetAllianceId());
+                            Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
+                            packet1.AddString(_Alliance.GetAllianceName());
+                            packet1.AddInt(_Alliance.GetAllianceBadgeData());
+                            packet1.AddLong(i);
+                        }
+                        else
+                            packet1.Add(0);
+                        i++;
                     }
-                    else
-                        packet1.Add(0);
-                    i++;
+                    catch (Exception)
+                    {
+                    }
                 }
             }
             this.Data.AddInt(9000); //Season End

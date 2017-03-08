@@ -23,29 +23,34 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-
-            List<byte> list = new List<byte>();
-            List<BookmarkSlot> rem = new List<BookmarkSlot>();
-            foreach (var p in Player.BookmarkedClan)
+            try
             {
-                Alliance a = await ObjectManager.GetAlliance(p.Value);
-                if (a != null)
+                List<byte> list = new List<byte>();
+                List<BookmarkSlot> rem = new List<BookmarkSlot>();
+                foreach (var p in Player.BookmarkedClan)
                 {
-                    list.AddLong(p.Value);
-                    i++;
+                    Alliance a = await ObjectManager.GetAlliance(p.Value);
+                    if (a != null)
+                    {
+                        list.AddLong(p.Value);
+                        i++;
+                    }
+                    else
+                    {
+                        rem.Add(p);
+                        if (i > 0)
+                            i--;
+                    }
                 }
-                else
+                this.Data.AddInt(i);
+                this.Data.AddRange(list);
+                foreach (BookmarkSlot im in rem)
                 {
-                    rem.Add(p);
-                    if (i > 0)
-                        i--;
+                    Player.BookmarkedClan.RemoveAll(t => t == im);
                 }
             }
-            this.Data.AddInt(i);
-            this.Data.AddRange(list);
-            foreach (BookmarkSlot im in rem)
+            catch (Exception)
             {
-                Player.BookmarkedClan.RemoveAll(t => t == im);
             }
         }
     }

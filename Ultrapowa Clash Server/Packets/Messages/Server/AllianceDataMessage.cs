@@ -17,24 +17,30 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-            var allianceMembers = m_vAlliance.GetAllianceMembers();
-
-            this.Data.AddRange(m_vAlliance.EncodeFullEntry());
-            this.Data.AddString(m_vAlliance.GetAllianceDescription());
-            this.Data.AddInt(0);
-            this.Data.Add(0);
-            this.Data.AddInt(0);
-            this.Data.Add(0);
-
-            this.Data.AddInt(allianceMembers.Count);
-
-            foreach (AllianceMemberEntry m in allianceMembers)
+            try
             {
-                this.Data.AddRange(await m.Encode());
-            }
+                var allianceMembers = m_vAlliance.GetAllianceMembers();
 
-            this.Data.AddInt(0);
-            this.Data.AddInt(32);
+                this.Data.AddRange(m_vAlliance.EncodeFullEntry());
+                this.Data.AddString(m_vAlliance.GetAllianceDescription());
+                this.Data.AddInt(0);
+                this.Data.Add(0);
+                this.Data.AddInt(0);
+                this.Data.Add(0);
+
+                this.Data.AddInt(allianceMembers.Count);
+
+                foreach (AllianceMemberEntry m in allianceMembers)
+                {
+                    this.Data.AddRange(await m.Encode());
+                }
+
+                this.Data.AddInt(0);
+                this.Data.AddInt(32);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
