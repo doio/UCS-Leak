@@ -53,7 +53,7 @@ namespace UCS
 
             if (Core.Settings.Constants.LicensePlanID < 2)
             {
-                var message = MessageBox.Show("The User Interface is not available for unpaid Users. Please upgrade to Premium on https://ultrapowa.com/forum", "Not available for unpaid Users.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var message = MessageBox.Show("The User Interface is not available for the Lite Plan.\n\nPlease upgrade on https://ultrapowa.com/", "Not available for Lite Plan.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (message == DialogResult.OK)
                 {
