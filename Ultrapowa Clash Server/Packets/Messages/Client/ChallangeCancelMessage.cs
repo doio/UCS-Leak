@@ -33,7 +33,7 @@ namespace UCS.Packets.Messages.Client
                         Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
                         if (player.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(Device, s.GetId()).Send();
+                            new AllianceStreamEntryRemovedMessage(player.Client, s.GetId()).Send();
                         }
                     }
                 }
