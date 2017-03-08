@@ -29,17 +29,11 @@ namespace UCS.Packets.Messages.Server
             int count = 0;
             foreach(StreamEntry chatMessage in chatMessages)
             {
-                if (chatMessage.GetStreamEntryType() != 12)
+                this.Data.AddRange(chatMessage.Encode());
+                count++;
+                if (count >= 150)
                 {
-                    if (chatMessage.GetStreamEntryType() != 1)
-                    {
-                        this.Data.AddRange(chatMessage.Encode());
-                        count++;
-                        if (count >= 150)
-                        {
-                            break;
-                        }
-                    }
+                    break;
                 }
             }
         }

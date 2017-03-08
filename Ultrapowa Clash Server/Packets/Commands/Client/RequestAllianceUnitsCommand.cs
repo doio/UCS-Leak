@@ -37,6 +37,8 @@ namespace UCS.Packets.Commands.Client
             cm.SetMessage(Message);
             cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
 
+            all.AddChatMessage((TroopRequestStreamEntry)cm);
+
             StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
             if (s == null)
             {

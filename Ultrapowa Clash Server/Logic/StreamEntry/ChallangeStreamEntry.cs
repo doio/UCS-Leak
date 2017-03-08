@@ -9,38 +9,46 @@ using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
-    internal class ChallangeStreamEntry : StreamEntry
+    internal class ChallengeStreamEntry : StreamEntry
     {
-        long m_vAvatarId;
-        string m_vAvatarName;
-        string Message;
+        private long m_vAvatarId;
+        private string m_vAvatarName;
 
         public override byte[] Encode()
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddString(Message);
+            data.AddString(m_vMessage);
             data.AddInt(0);
             return data.ToArray();
         }
 
-        public override int GetStreamEntryType() => 12;
+        public override int GetStreamEntryType()
+        {
+            return 12;
+        }
 
         public override void Load(JObject jsonObject)
         {
-            Message = jsonObject["Message"].ToObject<string>();
+            base.Load(jsonObject);
+            m_vMessage = jsonObject["message"].ToObject<string>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject.Add("Message", Message);
+            jsonObject = base.Save(jsonObject);
+            jsonObject.Add("message", m_vMessage);
             return jsonObject;
         }
 
-        public void SetAvatarId(long id) => m_vAvatarId = id;
+        public void SetAvatarId(long id)
+        {
+            m_vAvatarId = id;
+        }
 
-        public void SetAvatarName(string name) => m_vAvatarName = name;
-
-        public void SetMessage(string message) => Message = message;
+        public void SetAvatarName(string name)
+        {
+            m_vAvatarName = name;
+        }
     }
 }

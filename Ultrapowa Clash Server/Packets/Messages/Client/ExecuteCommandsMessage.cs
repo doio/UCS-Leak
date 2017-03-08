@@ -41,7 +41,7 @@ namespace UCS.Packets.Messages.Client
 
             this.Device.Player.Tick();
 
-            if (this.Count > -1 && this.Count <= 50)
+            if (this.Count > -1 && this.Count <= 135) // Min 135 
             {
                 using (Reader Reader = new Reader(this.Commands))
                 {
