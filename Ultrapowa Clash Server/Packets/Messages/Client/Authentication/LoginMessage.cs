@@ -213,7 +213,7 @@ namespace UCS.Packets.Messages.Client
                         return;
                     }
 
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha && Constants.LicensePlanID != 1)
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Device)
                         {
