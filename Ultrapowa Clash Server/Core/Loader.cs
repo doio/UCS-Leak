@@ -40,7 +40,7 @@
             this.ChatProcessor = new ChatProcessor();
 
             this.ConnectionBlocker = new ConnectionBlocker();
-            if (Utils.ParseConfigBoolean("UseWebAPI"))
+            if (Utils.ParseConfigBoolean("UseWebAPI") && Constants.LicensePlanID == 3)
                 this.API = new API();
 
 
