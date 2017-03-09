@@ -62,7 +62,7 @@ namespace UCS.Core.Checker
 
                 Banned_IPs.Add(s);
 
-                Say("The IP '" + s + "' has been added to the Blacklist.");
+                Say("The IP '" + s + "' has been blacklisted.");
             }
         }
 

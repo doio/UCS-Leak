@@ -65,7 +65,7 @@ namespace UCS.Core.Checker
                         }
                         else
                         {
-                            Error("Server responded with invalid key.\nPlease Retry");
+                            Error("Server responded with an invalid key.\nPlease try again.");
                             goto back;
                         }
 
@@ -117,16 +117,16 @@ namespace UCS.Core.Checker
                             else if (id == 100)
                             {
                                 Say();
-                                Say("This Key has been disabled, please contact the Support at Ultrapowa.com.");
-                                Say("UCS will be closed now...");
+                                Say("This Key has been disabled, please contact us at ultrapowa.com/forum.");
+                                Say("UCS will be closed ...");
                                 Thread.Sleep(4000);
                                 Environment.Exit(0);
                             }
                             else if (id == 200)
                             {
                                 Say();
-                                Say("This Key is expired, please contact the Support at Ultrapowa.com.");
-                                Say("UCS will be closed now...");
+                                Say("This Key is expired, please contact us at ultrapowa.com/forum.");
+                                Say("UCS will be closed ...");
                                 DeleteKey(); 
                                 Thread.Sleep(4000);
                                 Environment.Exit(0);
@@ -134,9 +134,9 @@ namespace UCS.Core.Checker
                             else if (id == 300)
                             {
                                 Say();
-                                Say("Reply From Server: Key does not exist.");
+                                Say("This Key does not exist.");
                                 Keep = false;
-                                Say("UCS will be closed now...");
+                                Say("UCS will be closed ...");
                                 DeleteKey();
                                 Thread.Sleep(4000);
                                 Environment.Exit(0);
@@ -145,22 +145,22 @@ namespace UCS.Core.Checker
                         else
                         {
                             Say();
-                            Error("Invalid response");
-                            Error("UCS will be running on Plan (Lite).");
+                            Error("Invalid response from server.");
+                            Say("UCS will proceed to run on Plan (Lite).");
                             Constants.LicensePlanID = 1;
                             Program.UpdateTitle();
                         }
                     }
                     else
                     {
-                        Error("Invalid key. Please make sure key is entered right and 32 in length");
+                        Error("Invalid key length. Please make sure key is entered correctly and 32 in length.");
                         goto back;
                     }
                 }
                 else
                 {
-                    Error("UCS License server is currently unavailable.");
-                    Error("UCS will running on Plan (Lite).");
+                    Error("The UCS License server is currently unavailable.");
+                    Say("UCS will proceed to run on Plan (Lite).");
                     Constants.LicensePlanID = 1;
                     Program.UpdateTitle();
                 }
@@ -170,7 +170,7 @@ namespace UCS.Core.Checker
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Say("UCS will be closed now...");
+                Say("UCS will be closed ...");
                 Console.ReadKey(true);
                 Environment.Exit(0);
             }
@@ -342,7 +342,7 @@ namespace UCS.Core.Checker
             }
             else
             {
-                Say("Type in 'y' to use UCS in Lite mode or 'n' to enter user key");
+                Say("Type in 'y' to use UCS in Lite mode or 'n' to enter a license key.");
                 var a = Console.ReadKey(true);
                 if (a.Key == ConsoleKey.Y)
                 {

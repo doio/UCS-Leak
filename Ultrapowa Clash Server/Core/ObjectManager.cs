@@ -62,7 +62,7 @@ namespace UCS.Core
 
             TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
             TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
-            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
+            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + " Tables)");
         }
 
         private static void SaveRedis(object state)

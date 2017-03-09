@@ -42,7 +42,7 @@ namespace UCS.Core.Network
             this.Listener.Listen(200);
 
             Logger.Say();
-            Logger.Say("UCS has been started on " + this.Listener.LocalEndPoint + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds!");
+            Logger.Say("UCS has been started on " + this.Listener.LocalEndPoint + " in " + Program._Stopwatch.ElapsedMilliseconds + " milliseconds!");
             Program._Stopwatch.Stop();
 
             SocketAsyncEventArgs AcceptEvent = new SocketAsyncEventArgs();
@@ -134,7 +134,7 @@ namespace UCS.Core.Network
             }
             else
             {
-                Logger.Write("Failed to Receive the Data and Process it.");
+                Logger.Write("Failed to Receive and Process the Data.");
                 Socket.Close(5);
             }
 

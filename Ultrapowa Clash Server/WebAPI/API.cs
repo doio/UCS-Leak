@@ -43,13 +43,13 @@ namespace UCS.WebAPI
                 {
                     if (!HttpListener.IsSupported)
                     {
-                        Logger.Say("The current System doesn't support the WebAPI.");
+                        Logger.Say("The current System doesn't support WebAPI.");
                         return;
                     }
 
                     if (Port == 80)
                     {
-                        Logger.Say("Can't start the API on Port 80 using now default Port(88)");
+                        Logger.Say("Can't start the API on Port 80, using default Port(88)");
                         Port = 88;
                         URL = "http://" + IP + ":" + Port + "/";
                     }

@@ -88,12 +88,12 @@ namespace UCS
             if (Constants.IsRc4)
             {
                 Say();
-                Logger.WriteCenter("UCS is running under RC4 mode. Please make sure CSV is modded to allow RC4.");
+                Logger.WriteCenter("UCS is running under RC4 mode. Please make sure the CSV files are modded to allow RC4.");
             }
             else
             {
                 Say();
-                Logger.WriteCenter("UCS is running under Pepper mode. Please make sure client key is modded.");
+                Logger.WriteCenter("UCS is running under Pepper mode. Please make sure the client key is modded.");
             }
 
             Say();
@@ -118,7 +118,7 @@ namespace UCS
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("> An Error occured when requesting the Version number.");
                 Console.WriteLine();
-                Logger.Say("Please contact the Support at https://ultrapowa.com/forum!");
+                Logger.Say("Please contact us for support at https://ultrapowa.com/forum!");
                 Console.WriteLine();
                 Logger.Say("Aborting...");
                 Thread.Sleep(5000);
