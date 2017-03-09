@@ -160,7 +160,10 @@ namespace UCS.Helpers
                             break;
 
                         case "/maintenance":
-                            StartMaintenance();
+                            if (Constants.LicensePlanID != 1)
+                            {
+                                StartMaintenance();
+                            }
                             break;
 
                         case "/info maintenance":
