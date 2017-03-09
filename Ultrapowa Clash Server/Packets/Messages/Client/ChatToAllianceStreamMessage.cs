@@ -7,6 +7,7 @@ using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
 using System.Threading.Tasks;
+using UCS.Core.Settings;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -31,7 +32,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (m_vChatMessage.Length < 101)
                     {
-                        if (m_vChatMessage[0] == '/')
+                        if (m_vChatMessage[0] == '/' && Constants.LicensePlanID == 3)
                         {
                             Object obj = GameOpCommandFactory.Parse(m_vChatMessage);
                             if (obj != null)

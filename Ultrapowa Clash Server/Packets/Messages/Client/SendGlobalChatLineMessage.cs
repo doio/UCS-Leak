@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Checker;
 using UCS.Core.Network;
+using UCS.Core.Settings;
 using UCS.Core.Threading;
 using UCS.Helpers.Binary;
 using UCS.Logic;
@@ -33,7 +34,7 @@ namespace UCS.Packets.Messages.Client
 
             if (Message.Length > 0 && Message.Length < 200)
             {
-                if (Message[0] == '/')
+                if (Message[0] == '/' && Constants.LicensePlanID == 3)
                 {
                     object obj = GameOpCommandFactory.Parse(Message);
                     if (obj != null)
