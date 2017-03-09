@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using UCS.Core.Crypto;
+using UCS.Core.Settings;
 using UCS.Helpers.List;
 using UCS.Logic.Enums;
 using UCS.Utilities.Blake2B;
@@ -17,7 +18,14 @@ namespace UCS.Packets.Messages.Server
         public LoginFailedMessage(Device client) : base(client)
         {
             this.Identifier = 20103;
-            this.UpdateUrl = ConfigurationManager.AppSettings["UpdateUrl"];
+            if (Constants.LicensePlanID != 1)
+            {
+                this.UpdateUrl = ConfigurationManager.AppSettings["UpdateUrl"];
+            }
+            else
+            {
+                this.UpdateUrl = "https://ultrapowa.com/";
+            }
             this.Version = 9;
 
             // 8  : Update
