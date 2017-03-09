@@ -237,7 +237,6 @@
     <Compile Include="Core\Resources.cs" />
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
-    <Compile Include="Core\Threading\ChatProcessor.cs" />
     <Compile Include="Database\Player.cs">
       <DependentUpon>ucsdb.tt</DependentUpon>
     </Compile>
@@ -264,12 +263,6 @@
     <Compile Include="Packets\Messages\Server\ClashFriendRequestSentMessage.cs" />
     <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
-    <Compile Include="UpdaterGUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UpdaterGUI.Designer.cs">
-      <DependentUpon>UpdaterGUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Blake2B\Blake2BBase.cs" />
     <Compile Include="Utilities\Blake2B\Blake2BBuilder.cs" />
     <Compile Include="Utilities\Blake2B\Blake2BConfig.cs" />
@@ -1068,7 +1061,6 @@
     <Compile Include="Core\ResourcesManager.cs" />
     <Compile Include="Core\DatabaseManager.cs" />
     <Compile Include="Core\Threading\MemoryThread.cs" />
-    <Compile Include="Core\Threading\NetworkThread.cs" />
     <Compile Include="Database\ucsdb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1349,9 +1341,6 @@
   <ItemGroup>
     <EmbeddedResource Include="UCSUI.resx">
       <DependentUpon>UCSUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdaterGUI.resx">
-      <DependentUpon>UpdaterGUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

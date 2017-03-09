@@ -253,34 +253,14 @@ namespace UCS.Core
 
                 return Seed;
             }
-            catch (EntityException ex)
-            {
-                Error("An exception occured when connecting to the MySQL Server.");
-                Error("Please check your database configuration !");
-                Error(Convert.ToString(ex));
-                Console.ReadKey();
-                Environment.Exit(0);
-            }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
                 Say();
                 Error("An exception occured when reconnecting to the MySQL Server.");
-                Error("Please check your database configuration !");
-                Error(Convert.ToString(ex));
-                //Reason
-                //Username is wrong
-                //Password is wrong
-                //IP Address is unauthorized
+                Error("Please check your database configuration!");
+                Error(ex.Message);
                 Console.ReadKey();
                 UCSControl.UCSRestart();
-            }
-            catch (Exception ex)
-            {
-                Error("An unknown exception occured when trying to connect to the sql server.");
-                Error("Please check your database configuration !");
-                Error(Convert.ToString(ex));
-                Console.ReadKey();
-                Environment.Exit(0);
             }
             return 0;
         }

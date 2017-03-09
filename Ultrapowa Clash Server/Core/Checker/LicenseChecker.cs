@@ -32,6 +32,7 @@ namespace UCS.Core.Checker
         private static ManualResetEvent connectDone = new ManualResetEvent(false);
         private static ManualResetEvent sendDone = new ManualResetEvent(false);
         private static ManualResetEvent receiveDone = new ManualResetEvent(false);
+
         public LicenseChecker()
         {
             try

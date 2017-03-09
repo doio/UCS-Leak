@@ -43,11 +43,11 @@ namespace UCS.Packets.Messages.Client
                 if (upcomingspace <= stream.m_vMaxTroop)
                 {
 
-                    DonatedAllianceUnitCommand _Donated = new DonatedAllianceUnitCommand(this.Device);
+                    /*DonatedAllianceUnitCommand _Donated = new DonatedAllianceUnitCommand(this.Device);
                     _Donated.Tick(_Sender);
                     _Donated.SetDonator(this.Device.Player.Avatar.AvatarName);
                     _Donated.SetUnitID(Troop.GetGlobalID());
-                    _Donated.SetUnitLevel(this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    _Donated.SetUnitLevel(this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));*/
 
                     //new AvailableServerCommandMessage(this.Device, _Donated.Handle()).Send();
 
@@ -62,8 +62,6 @@ namespace UCS.Packets.Messages.Client
                         _PreviousPlayerAvatar.GetAllianceCastleUsedCapacity() + _Capicity);
                     _PreviousPlayerAvatar.AddAllianceTroop(this.Device.Player.Avatar.GetId(), Troop.GetGlobalID(), 1,
                         this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
-
-
 
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {

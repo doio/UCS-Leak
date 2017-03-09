@@ -134,7 +134,7 @@ namespace UCS.Core
                 if (!File.Exists("Logs/log_" + timestamp + "_.txt"))
                     using (StreamWriter sw = new StreamWriter("Logs/log_" + timestamp + "_.txt"))
                     {
-                        sw.WriteLineAsync("Log file created at " + DateTime.Now);
+                        sw.WriteLineAsync("Log file created at " + DateTime.UtcNow);
                         sw.WriteLineAsync();
                     }
             }

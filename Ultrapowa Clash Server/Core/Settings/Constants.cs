@@ -8,7 +8,7 @@ namespace UCS.Core.Settings
     internal class Constants
     {
         public static string Version                 = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        public static string Build                   = "29";
+        public static string Build                   = "32";
         
         public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
         public static readonly bool UseCacheServer   = Utils.ParseConfigBoolean("CacheServer");
@@ -18,6 +18,6 @@ namespace UCS.Core.Settings
 
         internal const int SendBuffer                = 2048;
         internal const int ReceiveBuffer             = 2048;
-        public static int LicensePlanID              = /*1;*/ 3;
+        public static int LicensePlanID              = 1;
     }
 }

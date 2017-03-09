@@ -19,8 +19,6 @@ namespace UCS.Core
 
         public CSVManager()
         {
-            //DownloadLatestCSVFiles();
-
             try
             {
                 _gameFiles.Add(new Tuple<string, string, int>("Buildings", @"Gamefiles/logic/buildings.csv", 0));

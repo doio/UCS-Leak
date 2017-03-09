@@ -1,5 +1,4 @@
-﻿
-namespace UCS.Core
+﻿namespace UCS.Core
 {
     using System;
     using UCS.Core.Network;

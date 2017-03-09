@@ -174,7 +174,6 @@ namespace UCS
             this.txtAllianceName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel48 = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.materialRaisedButton25 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl1.SuspendLayout();
@@ -635,7 +634,7 @@ namespace UCS
             this.columnHeader4,
             this.columnHeader5});
             this.listView1.Depth = 0;
-            this.listView1.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
@@ -1985,7 +1984,7 @@ namespace UCS
             this.columnHeader9,
             this.columnHeader10});
             this.listView2.Depth = 0;
-            this.listView2.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.listView2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.listView2.FullRowSelect = true;
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewItem3.StateImageIndex = 0;
@@ -2238,7 +2237,6 @@ namespace UCS
             // 
             // tabPage8
             // 
-            this.tabPage8.Controls.Add(this.materialRaisedButton25);
             this.tabPage8.Controls.Add(this.materialLabel40);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
@@ -2247,22 +2245,6 @@ namespace UCS
             this.tabPage8.TabIndex = 5;
             this.tabPage8.Text = "About";
             this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // materialRaisedButton25
-            // 
-            this.materialRaisedButton25.AutoSize = true;
-            this.materialRaisedButton25.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton25.Depth = 0;
-            this.materialRaisedButton25.Icon = null;
-            this.materialRaisedButton25.Location = new System.Drawing.Point(285, 285);
-            this.materialRaisedButton25.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton25.Name = "materialRaisedButton25";
-            this.materialRaisedButton25.Primary = true;
-            this.materialRaisedButton25.Size = new System.Drawing.Size(121, 36);
-            this.materialRaisedButton25.TabIndex = 3;
-            this.materialRaisedButton25.Text = "Open Updater";
-            this.materialRaisedButton25.UseVisualStyleBackColor = true;
-            this.materialRaisedButton25.Click += new System.EventHandler(this.materialRaisedButton25_Click);
             // 
             // materialLabel40
             // 
@@ -2475,7 +2457,6 @@ namespace UCS
         private MaterialSkin.Controls.MaterialSingleLineTextField txtAllianceName;
         private MaterialSkin.Controls.MaterialLabel materialLabel48;
         private MaterialSkin.Controls.MaterialLabel txtAllianceScore;
-        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton25;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton16;
         private MaterialSkin.Controls.MaterialLabel label1;
         private MaterialSkin.Controls.MaterialLabel label2;

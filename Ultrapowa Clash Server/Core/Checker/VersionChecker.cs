@@ -30,7 +30,7 @@ namespace UCS.Core.Web
             try
             {
                 WebClient wc = new WebClient();
-                return wc.DownloadString("https://clashoflights.xyz/UCS/versionUCS.txt");
+                return wc.DownloadString("https://clashoflights.xyz/UCS/version.txt");
             }
             catch (Exception)
             {

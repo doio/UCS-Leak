@@ -28,8 +28,6 @@ namespace UCS.Packets.Messages.Client
         internal override void Process()
         {
             new OwnHomeDataMessage(Device, this.Device.Player).Send();
-            //var defender = ResourcesManager.GetPlayer(AvatarID); // TODO: FIX BUGS		
-            //PacketManager.ProcessOutgoingPacket(new VisitedHomeDataMessage(Client, defender, level)); 
         }
     }
 }

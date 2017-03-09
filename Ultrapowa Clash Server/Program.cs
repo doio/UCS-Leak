@@ -80,7 +80,7 @@ namespace UCS
                     else
                     {
                         SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                        Thread.Sleep(15);
+                        Thread.Sleep(10);
                     }
                 }
             }).Start();
@@ -108,6 +108,7 @@ namespace UCS
             {
                 Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
                 Console.ResetColor();
+                Say("By downloading or using this software, you accept the terms of the software license agreement.");
                 Say();
                 Say("Preparing Server...\n");
 

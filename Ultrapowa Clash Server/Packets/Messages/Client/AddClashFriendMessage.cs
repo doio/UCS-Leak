@@ -27,7 +27,7 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            new ClashFriendRequestSentMessage(this.Device).Send();
+            //new ClashFriendRequestSentMessage(this.Device).Send();
         }
     }
 }

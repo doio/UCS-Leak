@@ -620,8 +620,6 @@ namespace UCS
 
         private void materialRaisedButton25_Click(object sender, EventArgs e)
         {
-            UpdaterGUI ug = new UpdaterGUI();
-            ug.Show();
         }
         private void materialRaisedButton19_Click_1(object sender, EventArgs e)
         {

@@ -18,7 +18,7 @@ namespace UCS.Core
     {
         public static ConcurrentDictionary<IntPtr, Device> m_vClients            = null;
         private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
-        public static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
+        public static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances  = null;
         private static List<Level> m_vOnlinePlayers                              = null;
         private static DatabaseManager m_vDatabase                               = null;
 

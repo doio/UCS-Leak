@@ -58,7 +58,7 @@ namespace UCS.Core
             }
 
             LoadNpcLevels();
-            //LoadRandomBase(); // Useless atm
+            //LoadRandomBase(); // Useless 
 
             TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
             TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
