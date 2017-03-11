@@ -9,6 +9,7 @@ using UCS.Core.Settings;
 using UCS.Packets;
 using System.Configuration;
 using UCS.Helpers;
+using UCS.Core.Checker;
 
 namespace UCS.Core.Network
 {
@@ -67,19 +68,19 @@ namespace UCS.Core.Network
                 this.WritePool.Enqueue(WriterEvent);
             }
         }
-            /// <summary>
-            /// Accepts a TCP Request.
-            /// </summary>
-            /// <param name="AcceptEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
-            internal void StartAccept(SocketAsyncEventArgs AcceptEvent)
-            {
-                AcceptEvent.AcceptSocket = null;
+        /// <summary>
+        /// Accepts a TCP Request.
+        /// </summary>
+        /// <param name="AcceptEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+        internal void StartAccept(SocketAsyncEventArgs AcceptEvent)
+        {
+            AcceptEvent.AcceptSocket = null;
 
-                if (!this.Listener.AcceptAsync(AcceptEvent))
-                {
-                    this.ProcessAccept(AcceptEvent);
-                }
+            if (!this.Listener.AcceptAsync(AcceptEvent))
+            {
+                this.ProcessAccept(AcceptEvent);
             }
+        }
 
         /// <summary>
         /// Accept the new client and store it in memory.
@@ -91,15 +92,15 @@ namespace UCS.Core.Network
 
             if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
             {
-                /*
-                if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
+
+                if (ConnectionBlocker.IsAddressBanned(Socket.RemoteEndPoint.ToString().Split(':')[0]))
                 {
                     Socket.Close(5);
                     this.StartAccept(AsyncEvent);
-                    return; 
+                    return;
                 }
-                */
-                Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
+
+                Logger.Write("New client connected -> " + Socket.RemoteEndPoint.ToString().Split(':')[0]);
 
 
                 SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();

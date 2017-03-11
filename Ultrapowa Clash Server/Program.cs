@@ -24,12 +24,32 @@ namespace UCS
 
         static void Main()
         {
-            int GWL_EXSTYLE = -20;
-            int WS_EX_LAYERED = 0x80000;
-            uint LWA_ALPHA = 0x2;
-            IntPtr Handle = GetConsoleWindow();
-            SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
-            SetLayeredWindowAttributes(Handle, 0, 20, LWA_ALPHA);
+            if (Utils.ParseConfigBoolean("Animation"))
+            {
+                int GWL_EXSTYLE = -20;
+                int WS_EX_LAYERED = 0x80000;
+                uint LWA_ALPHA = 0x2;
+                IntPtr Handle = GetConsoleWindow();
+                SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
+                SetLayeredWindowAttributes(Handle, 0, 20, LWA_ALPHA);
+
+                new Thread(() =>
+                {
+                    for (int i = 20; i < 227; i++)
+                    {
+                        if (i < 100)
+                        {
+                            SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                            Thread.Sleep(5);
+                        }
+                        else
+                        {
+                            SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                            Thread.Sleep(10);
+                        }
+                    }
+                }).Start();
+            }
 
             if (Constants.LicensePlanID == 3)
             {
@@ -67,23 +87,6 @@ namespace UCS
             Console.ForegroundColor = ConsoleColor.Blue;
             Logger.WriteCenter("+-------------------------------------------------------+");
             Console.ResetColor();
-
-            new Thread(() =>
-            {
-                for (int i = 20; i < 227; i++)
-                {
-                    if (i < 100)
-                    {
-                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                        Thread.Sleep(5);
-                    }
-                    else
-                    {
-                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                        Thread.Sleep(10);
-                    }
-                }
-            }).Start();
 
             if (Constants.IsRc4)
             {

@@ -24,6 +24,7 @@ namespace UCS.Core
         private static long m_vAllianceSeed;
         private static long m_vAvatarSeed;
         public static int m_vDonationSeed;
+        internal static long BattleSeed;
         private static int m_vRandomBaseAmount;
         private static DatabaseManager m_vDatabase;
         private static string m_vHomeDefault;

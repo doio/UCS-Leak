@@ -38,10 +38,9 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-
             this.Device.Player.Tick();
 
-            if (this.Count > -1 && this.Count <= 135) // Min 135 
+            if (this.Count > -1 && this.Count <= 400)  
             {
                 using (Reader Reader = new Reader(this.Commands))
                 {

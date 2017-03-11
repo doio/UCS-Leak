@@ -30,25 +30,26 @@ namespace UCS.Core
         {
             try
             {
-                if (Constants.UseCacheServer) //Redis As Cache Server
-                    Redis.Players.StringSet(l.Avatar.GetId().ToString(), l.Avatar.SaveToJSON() + "#:#:#:#" + l.SaveToJSON(),
-                        TimeSpan.FromHours(4));
+                if (Constants.UseCacheServer)
+                {
+                    Redis.Players.StringSet(l.Avatar.GetId().ToString(), l.Avatar.SaveToJSON() + "#:#:#:#" + l.SaveToJSON(), TimeSpan.FromHours(4));
+                }
 
                 using (Mysql db = new Mysql())
                 {
-                    db.Player.Add(
-                        new Player
-                        {
-                            PlayerId = l.Avatar.GetId(),
-                            Avatar = l.Avatar.SaveToJSON(),
-                            GameObjects = l.SaveToJSON()
-                        }
+                    db.Player.Add(new Player
+                    {
+                        PlayerId = l.Avatar.GetId(),
+                        Avatar = l.Avatar.SaveToJSON(),
+                        GameObjects = l.SaveToJSON()
+                    }
                     );
                     db.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
             }
         }
 
@@ -111,8 +112,7 @@ namespace UCS.Core
                                 Redis.Players.StringSet(playerId.ToString(), p.Avatar + "#:#:#:#" + p.GameObjects,
                                     TimeSpan.FromHours(4));
                             }
-                        }
-                        ;
+                        };
                     }
                 }
                 else
@@ -227,17 +227,17 @@ namespace UCS.Core
                 const string SQL = "SELECT coalesce(MAX(PlayerId), 0) FROM Player";
                 int Seed = -1;
 
-                var builder = new MySqlConnectionStringBuilder();
-                builder.Server = Utils.ParseConfigString("MysqlIPAddress");
-                builder.UserID = Utils.ParseConfigString("MysqlUsername"); ;
+                var builder = new MySqlConnectionStringBuilder()
+                {
+                    Server = Utils.ParseConfigString("MysqlIPAddress"),
+                    UserID = Utils.ParseConfigString("MysqlUsername"),
+                    Port = (uint)Utils.ParseConfigInt("MysqlPort"),
+                    Pooling = false,
+                    Database = Utils.ParseConfigString("MysqlDatabase"),
+                    MinimumPoolSize = 1
+                };
                 if (!string.IsNullOrWhiteSpace(Utils.ParseConfigString("MysqlPassword")))
                     builder.Password = Utils.ParseConfigString("MysqlPassword");
-                builder.Port = (uint)Utils.ParseConfigInt("MysqlPort");
-
-                builder.Pooling = false;
-                builder.Database = Utils.ParseConfigString("MysqlDatabase");
-                builder.MinimumPoolSize = 1;
-
                 Mysql = builder.ToString();
 
                 using (MySqlConnection Conn = new MySqlConnection(Mysql))
