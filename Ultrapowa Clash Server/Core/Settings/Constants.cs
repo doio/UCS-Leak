@@ -8,7 +8,7 @@ namespace UCS.Core.Settings
     internal class Constants
     {
         public static string Version                 = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        public static string Build                   = "32";
+        public static string Build                   = "37";
         
         public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
         public static readonly bool UseCacheServer   = Utils.ParseConfigBoolean("CacheServer");

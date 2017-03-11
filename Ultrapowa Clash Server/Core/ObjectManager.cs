@@ -16,6 +16,7 @@ using static UCS.Core.Logger;
 using UCS.Core.Threading;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
+using UCS.Core.Settings;
 
 namespace UCS.Core
 {
@@ -47,8 +48,8 @@ namespace UCS.Core
             m_vRandomBases         = new Dictionary<int, string>();
             FingerPrint            = new FingerPrint();
 
-            MaxPlayerID            = Convert.ToInt32(m_vDatabase.GetPlayerSeed() + 1);
-            MaxAllianceID          = Convert.ToInt32(m_vDatabase.GetClanSeed() + 1);
+            MaxPlayerID            = m_vDatabase.GetPlayerSeed() + 1;
+            MaxAllianceID          = m_vDatabase.GetClanSeed() + 1;
 
             m_vAvatarSeed          = MaxPlayerID;
             m_vAllianceSeed        = MaxAllianceID;
@@ -61,8 +62,15 @@ namespace UCS.Core
             LoadNpcLevels();
             //LoadRandomBase(); // Useless 
 
-            TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
-            TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
+            if (Constants.UseCacheServer)
+            {
+                TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
+                TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(1.8e+6));
+            }
+            else
+            {
+                TimerReferenceMysql = new Timer(SaveMysql, null, 10000, 60000);
+            }
             Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + " Tables)");
         }
 
