@@ -18,6 +18,6 @@ namespace UCS.Core.Settings
 
         internal const int SendBuffer                = 2048;
         internal const int ReceiveBuffer             = 2048;
-        public static int LicensePlanID              = 3;
+        public static int LicensePlanID              = 1;
     }
 }

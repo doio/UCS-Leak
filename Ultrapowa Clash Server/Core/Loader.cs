@@ -27,7 +27,7 @@
 
         public Loader()
         {
-            //LicenseChecker = new LicenseChecker();
+            LicenseChecker = new LicenseChecker();
 
             // CSV Files and Logger
             this.Logger = new Logger();
