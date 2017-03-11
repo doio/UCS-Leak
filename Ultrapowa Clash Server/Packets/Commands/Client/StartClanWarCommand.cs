@@ -1,4 +1,9 @@
-﻿using UCS.Helpers.Binary;
+﻿using System;
+using UCS.Core;
+using UCS.Core.Network;
+using UCS.Helpers.Binary;
+using UCS.Logic;
+using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -15,20 +20,26 @@ namespace UCS.Packets.Commands.Client
 
         public int Tick;
 
-        internal override void Process()
+        internal override async void Process()
         {
-            /*Alliance an = ObjectManager.GetAlliance(level.Avatar.GetAllianceId());
-            if (an != null)
+            try
             {
-                if(an.GetAllianceMembers().Count >= 10)
+                Alliance an = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                if (an != null)
                 {
-                    foreach(AllianceMemberEntry a in an.GetAllianceMembers())
+                    if (an.GetAllianceMembers().Count >= 10)
                     {
-                        Level l = ResourcesManager.GetPlayer(a.GetAvatarId());
-                        new AllianceWarMapDataMessage(l.Client).Send();
+                        foreach (AllianceMemberEntry a in an.GetAllianceMembers())
+                        {
+                            Level l = await ResourcesManager.GetPlayer(a.GetAvatarId());
+                            new AllianceWarMapDataMessage(this.Device).Send();
+                        }
                     }
                 }
-            }*/
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

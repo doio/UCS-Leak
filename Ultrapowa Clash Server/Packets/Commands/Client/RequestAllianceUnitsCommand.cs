@@ -1,3 +1,4 @@
+using System;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
@@ -24,40 +25,46 @@ namespace UCS.Packets.Commands.Client
 
         internal override async void Process()
         {
-            ClientAvatar player = this.Device.Player.Avatar;
-            TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
-            Alliance all = await ObjectManager.GetAlliance(player.GetAllianceId());
-
-            cm.SetId(all.GetChatMessages().Count + 1);
-            cm.SetSenderId(player.GetId());
-            cm.SetHomeId(player.GetId());
-            cm.SetSenderLeagueId(player.GetLeagueId());
-            cm.SetSenderName(player.AvatarName);
-            cm.SetSenderRole(await player.GetAllianceRole());
-            cm.SetMessage(Message);
-            cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
-
-            all.AddChatMessage((TroopRequestStreamEntry)cm);
-
-            StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
-            if (s == null)
+            try
             {
-                all.GetChatMessages().RemoveAll(t => t == s);
-            }
+                ClientAvatar player = this.Device.Player.Avatar;
+                TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
+                Alliance all = await ObjectManager.GetAlliance(player.GetAllianceId());
 
-            foreach (AllianceMemberEntry op in all.GetAllianceMembers())
-            {
-                Level aplayer = await ResourcesManager.GetPlayer(op.GetAvatarId());
-                if (aplayer.Client != null)
+                cm.SetId(all.GetChatMessages().Count + 1);
+                cm.SetSenderId(player.GetId());
+                cm.SetHomeId(player.GetId());
+                cm.SetSenderLeagueId(player.GetLeagueId());
+                cm.SetSenderName(player.AvatarName);
+                cm.SetSenderRole(await player.GetAllianceRole());
+                cm.SetMessage(Message);
+                cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
+
+                all.AddChatMessage((TroopRequestStreamEntry)cm);
+
+                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
+                if (s == null)
                 {
-                    if (s != null)
-                    {
-                        new AllianceStreamEntryRemovedMessage(aplayer.Client, s.GetId()).Send();
-                    }
-                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(aplayer.Client);
-                    p.SetStreamEntry(cm);
-                    p.Send();
+                    all.GetChatMessages().RemoveAll(t => t == s);
                 }
+
+                foreach (AllianceMemberEntry op in all.GetAllianceMembers())
+                {
+                    Level aplayer = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                    if (aplayer.Client != null)
+                    {
+                        if (s != null)
+                        {
+                            new AllianceStreamEntryRemovedMessage(aplayer.Client, s.GetId()).Send();
+                        }
+                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(aplayer.Client);
+                        p.SetStreamEntry(cm);
+                        p.Send();
+                    }
+                }
+            }
+            catch (Exception)
+            {
             }
         }
 

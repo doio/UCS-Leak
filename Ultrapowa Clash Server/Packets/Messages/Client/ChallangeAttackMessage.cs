@@ -41,7 +41,7 @@ namespace UCS.Packets.Messages.Client
                     this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
                     Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
                     Level defender = await ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
-                    if (defender != null)
+                    if (defender.Avatar.GetId() > 0)
                     {
                         defender.Tick();
                         new ChallangeAttackDataMessage(Device, defender).Send();

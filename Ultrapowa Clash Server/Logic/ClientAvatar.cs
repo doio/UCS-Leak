@@ -38,7 +38,8 @@ namespace UCS.Logic
         private int m_vAlliance_DarkElixir = 14400;
         private int m_vShieldTime;
         private int m_vProtectionTime;
-        public int ReportedTimes           = 0;
+        public int GotReported             = 0;
+        public int Reported                = 0;
         private int m_vDonated;
         private int m_vReceived;
 
@@ -238,7 +239,7 @@ namespace UCS.Logic
                     data.AddInt(0); //11
                 }
 
-                data.AddInt(m_vLeagueId);
+                data.AddInt(m_vLeagueId); 
                 data.AddInt(GetAllianceCastleLevel());
                 data.AddInt(GetAllianceCastleTotalCapacity());
                 data.AddInt(GetAllianceCastleUsedCapacity());

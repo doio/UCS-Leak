@@ -252,6 +252,7 @@
     <Compile Include="Packets\Commands\Client\PlayerWarStatusCommand.cs" />
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
+    <Compile Include="Packets\Commands\Client\ShareReplayCommand.cs" />
     <Compile Include="Packets\Commands\Client\SpeedUpRequestUnitsCommand.cs" />
     <Compile Include="Packets\Crypto.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Packets\Messages\Server\Api\Facebook_Connect_OK.cs" />
     <Compile Include="Packets\Messages\Server\ClashFriendRequestSentMessage.cs" />
     <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
+    <Compile Include="Packets\Messages\Server\ReportedPlayerMessage.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
     <Compile Include="Utilities\Blake2B\Blake2BBase.cs" />
     <Compile Include="Utilities\Blake2B\Blake2BBuilder.cs" />
@@ -340,7 +342,7 @@
     <Compile Include="Core\Checker\VersionChecker.cs" />
     <Compile Include="Core\Performances.cs" />
     <Compile Include="Logic\StreamEntry\InvitationStreamEntry.cs" />
-    <Compile Include="Logic\StreamEntry\ShareSteamEntry.cs" />
+    <Compile Include="Logic\StreamEntry\ShareStreamEntry.cs" />
     <Compile Include="Logic\StreamEntry\TroopRequestStreamEntry.cs" />
     <Compile Include="Packets\Commands\Client\ClientServerTickCommand.cs" />
     <Compile Include="Packets\Commands\Client\PlaceHeroCommand.cs" />

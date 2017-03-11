@@ -261,7 +261,7 @@ namespace UCS.Packets.Messages.Client
             new AvatarStreamMessage(this.Device).Send();
             new OwnHomeDataMessage(this.Device, level).Send();
             new BookmarkMessage(this.Device).Send();
-            new AllianceWarMapDataMessage(this.Device).Send();
+            new LeaguePlayersMessage(this.Device).Send();
 
             if (ResourcesManager.IsPlayerOnline(level))
             {

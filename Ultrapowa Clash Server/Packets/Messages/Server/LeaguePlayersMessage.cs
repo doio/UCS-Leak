@@ -17,12 +17,14 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-            List<byte> packet1 = new List<byte>();
+            int i = 0;
 
-            int i = 1;
-            foreach (Level player in  ResourcesManager.GetOnlinePlayers() .Where(t => t.Avatar.GetLeagueId() == this.Device.Player.Avatar.GetLeagueId()) .OrderByDescending(t => t.Avatar.GetScore()))
+            this.Data.AddInt(9000); //Season End
+            this.Data.AddInt(i);
+
+            foreach (Level player in ResourcesManager.GetOnlinePlayers().Where(t => t.Avatar.GetLeagueId() == this.Device.Player.Avatar.GetLeagueId()).OrderByDescending(t => t.Avatar.GetScore()))
             {
-                if (i >= 51)
+                if (i >= 50)
                     break;
 
                 ClientAvatar pl = player.Avatar;
@@ -30,30 +32,32 @@ namespace UCS.Packets.Messages.Server
                 {
                     try
                     {
-                        packet1.AddLong(pl.GetId());
-                        packet1.AddString(pl.AvatarName);
-                        packet1.AddInt(i);
-                        packet1.AddInt(pl.GetScore());
-                        packet1.AddInt(i);
-                        packet1.AddInt(pl.GetAvatarLevel());
-                        packet1.AddInt(200);
-                        packet1.AddInt(i);
-                        packet1.AddInt(100);
-                        packet1.AddInt(1);
-                        packet1.AddLong(pl.GetAllianceId());
-                        packet1.AddInt(1);
-                        packet1.AddInt(1);
+                        this.Data.AddLong(pl.GetId());
+                        this.Data.AddString(pl.AvatarName);
+                        this.Data.AddInt(i + 1);
+                        this.Data.AddInt(pl.GetScore());
+                        this.Data.AddInt(i + 1);
+                        this.Data.AddInt(pl.GetAvatarLevel());
+                        this.Data.AddInt(pl.GetDonated());
+                        this.Data.AddInt(i + 1);
+                        this.Data.AddInt(pl.GetReceived());
+                        this.Data.AddInt(1);
+                        this.Data.AddLong(pl.GetAllianceId());
+                        this.Data.AddInt(1);
+                        this.Data.AddInt(1);
                         if (pl.GetAllianceId() > 0)
                         {
-                            packet1.Add(1);
-                            packet1.AddLong(pl.GetAllianceId());
+                            this.Data.Add(1);
+                            this.Data.AddLong(pl.GetAllianceId());
                             Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
-                            packet1.AddString(_Alliance.GetAllianceName());
-                            packet1.AddInt(_Alliance.GetAllianceBadgeData());
-                            packet1.AddLong(i);
+                            this.Data.AddString(_Alliance.GetAllianceName());
+                            this.Data.AddInt(_Alliance.GetAllianceBadgeData());
+                            this.Data.AddLong(i + 1);
                         }
                         else
-                            packet1.Add(0);
+                        {
+                            this.Data.Add(0);
+                        }
                         i++;
                     }
                     catch (Exception)
@@ -61,10 +65,6 @@ namespace UCS.Packets.Messages.Server
                     }
                 }
             }
-            this.Data.AddInt(9000); //Season End
-            this.Data.AddInt(i - 1);
-            this.Data.AddRange(packet1);
-
         }
     }
 }

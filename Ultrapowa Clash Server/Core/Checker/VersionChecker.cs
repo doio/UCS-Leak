@@ -29,8 +29,8 @@ namespace UCS.Core.Web
         {
             try
             {
-                WebClient wc = new WebClient();
-                return wc.DownloadString("https://clashoflights.xyz/UCS/version.txt");
+                JObject obj = JObject.Parse(new WebClient().DownloadString("http://clashoflights.xyz/UCS/version.json"));
+                return (string)obj["version"];
             }
             catch (Exception)
             {
