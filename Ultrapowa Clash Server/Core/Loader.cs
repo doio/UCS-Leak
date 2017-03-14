@@ -27,8 +27,6 @@
 
         public Loader()
         {
-            LicenseChecker = new LicenseChecker();
-
             // CSV Files and Logger
             this.Logger = new Logger();
             this.DirectoryChecker = new DirectoryChecker();
@@ -42,7 +40,7 @@
 
 
             // Core
-            //this.LicenseChecker = new LicenseChecker();
+            this.LicenseChecker = new LicenseChecker();
             this.ResourcesManager = new ResourcesManager();
             this.ObjectManager = new ObjectManager();
             this.Events = new EventsHandler();
