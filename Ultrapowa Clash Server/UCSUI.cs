@@ -101,7 +101,7 @@ namespace UCS
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
-                if(count >= 100)
+                if(count >= 200)
                 {
                     break;
                 }
@@ -181,7 +181,7 @@ namespace UCS
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
-                if(count >= 100)
+                if(count >= 200)
                 {
                     break;
                 }
@@ -470,7 +470,22 @@ namespace UCS
             listView1.Items.Clear();
             if (string.IsNullOrEmpty(txtSearchPlayer.Text))
             {
-                MessageBox.Show("The Player-Name can't be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                listView1.Items.Clear();
+                int count = 0;
+                foreach (var acc in ResourcesManager.GetOnlinePlayers())
+                {
+                    ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
+                    listView1.Items.Add(item);
+                    count++;
+                    if (count >= 200)
+                    {
+                        break;
+                    }
+                }
             }
             else
             {
@@ -611,6 +626,8 @@ namespace UCS
                 alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
                 alliance.SetAllianceDescription(txtAllianceDescription.Text);
                 DatabaseManager.Single().Save(alliance);
+
+                MessageBox.Show("Changes has been saved.", "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -626,6 +643,33 @@ namespace UCS
             T.Stop();
             Count = 0;
             materialLabel13.Text = Convert.ToString(Count);
+        }
+
+        private void txtSearchPlayer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialRadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (materialRadioButton1.Checked)
+            {
+                var sm = MaterialSkinManager.Instance;
+                sm.AddFormToManage(this);
+                sm.Theme = MaterialSkinManager.Themes.DARK;
+                sm.ColorScheme = new ColorScheme(Primary.Blue800, Primary.Blue900, Primary.Grey500, Accent.Blue200, TextShade.WHITE);
+            }
+        }
+
+        private void materialRadioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (materialRadioButton2.Checked)
+            {
+                var sm = MaterialSkinManager.Instance;
+                sm.AddFormToManage(this);
+                sm.Theme = MaterialSkinManager.Themes.DARK;
+                sm.ColorScheme = new ColorScheme(Primary.Teal800, Primary.Teal900, Primary.Grey500, Accent.Teal200, TextShade.WHITE);
+            }
         }
     }
 }
