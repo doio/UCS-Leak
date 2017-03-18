@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UCS.Helpers;
 using UCS.Helpers.List;
+using System;
+using UCS.Core.Checker;
 
 namespace UCS.Logic
 {
@@ -28,9 +30,9 @@ namespace UCS.Logic
             data.AddInt(m_vShieldTime); // Shield
             data.AddInt(m_vProtectionTime); // Protection
 
-            data.AddInt(0);
+            data.AddInt(1);
             data.AddCompressed(village);
-            data.AddCompressed("{\"event\":[]}");
+            data.AddCompressed(DirectoryChecker._Events);
             return data.ToArray();
         }
 

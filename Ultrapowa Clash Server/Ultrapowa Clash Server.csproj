@@ -289,8 +289,6 @@
     <Compile Include="Logic\DataSlots\DonationSlot.cs" />
     <Compile Include="Logic\DataSlots\UnitSlot.cs" />
     <Compile Include="Logic\Enums\Layouts.cs" />
-    <Compile Include="Logic\Manager\ObstacleManager.cs" />
-    <Compile Include="Logic\Obstacle.cs" />
     <Compile Include="Logic\StreamEntry\ChallangeStreamEntry.cs" />
     <Compile Include="Packets\Commands\Client\AddQuickTrainingTroopCommand.cs" />
     <Compile Include="Packets\Commands\Client\BoostBarracksCommand.cs" />
@@ -1007,9 +1005,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="start.sh">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ucsdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ultrapowa Clash Server.psproj" />

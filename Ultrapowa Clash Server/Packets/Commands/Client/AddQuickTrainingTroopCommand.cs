@@ -30,7 +30,7 @@ namespace UCS.Packets.Commands.Client
         }
         internal override void Process()
         {
-            var defaultdatbase = this.Device.Player.Avatar.QuickTrain1;
+            List<DataSlot> defaultdatbase = this.Device.Player.Avatar.QuickTrain1;
             switch (Database)
             {
                 case 1:
