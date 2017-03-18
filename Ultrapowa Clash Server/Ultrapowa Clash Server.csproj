@@ -404,6 +404,9 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="app.manifest" />
+    <None Include="calendar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Gamefiles\csv\animations.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
