@@ -108,12 +108,14 @@ namespace UCS.Logic.Manager
         public JObject Save()
         {
             ClientAvatar pl = m_vLevel.Avatar;
-            var jsonData = new JObject();
-            jsonData.Add("exp_ver", 1);
-            jsonData.Add("android_client", pl.GetAndroid());
-            jsonData.Add("active_layout", pl.GetActiveLayout());
-            jsonData.Add("war_layout", pl.GetActiveLayout());
-            jsonData.Add("layout_state", new JArray { 0, 0, 0, 0, 0, 0 });
+            var jsonData = new JObject
+            {
+                {"exp_ver", 1},
+                {"android_client", true},
+                {"active_layout", pl.ActiveLayout},
+                {"war_layout", pl.ActiveLayout},
+                {"layout_state", new JArray {0, 0, 0, 0, 0, 0}}
+            };
 
             JArray JBuildings = new JArray();
             int c = 0;
@@ -239,9 +241,9 @@ namespace UCS.Logic.Manager
             };
             jsonData.Add("newShopDecos", newShopDecos);
             jsonData.Add("troop_req_msg", "Ultrapowa Developement");
-            jsonData.Add("last_league_rank", m_vLevel.Avatar.GetLeagueId());
+            jsonData.Add("last_league_rank", m_vLevel.Avatar.League);
             jsonData.Add("last_league_shuffle", 1);
-            jsonData.Add("last_season_seen", m_vLevel.Avatar.GetLeagueId());
+            jsonData.Add("last_season_seen", m_vLevel.Avatar.League);
             jsonData.Add("last_news_seen", 999);
             jsonData.Add("edit_mode_shown", true);
             jsonData.Add("war_tutorials_seen", 2);

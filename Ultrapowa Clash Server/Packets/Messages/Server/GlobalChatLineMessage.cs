@@ -56,10 +56,10 @@ namespace UCS.Packets.Messages.Server
 
         public void SetAlliance(Alliance alliance)
         {
-            if(alliance?.GetAllianceId() > 0)
+            if(alliance?.AllianceID > 0)
             {
                 this.HasAlliance = true;
-                this.AllianceId = alliance.GetAllianceId();
+                this.AllianceId = alliance.AllianceID;
                 this.AllianceName = alliance.GetAllianceName();
                 this.AllianceIcon = alliance.GetAllianceBadgeData();
             }

@@ -19,10 +19,10 @@ namespace UCS.Packets.GameOpCommands
         {
             if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
-                var clanid = level.Avatar.GetAllianceId();
+                var clanid = level.Avatar.AllianceID;
                 if (clanid != 0)
                 {
-                    Alliance _Alliance = await ObjectManager.GetAlliance(level.Avatar.GetAllianceId());
+                    Alliance _Alliance = await ObjectManager.GetAlliance(level.Avatar.AllianceID);
 
                     foreach (var pl in _Alliance.GetAllianceMembers())
                     {

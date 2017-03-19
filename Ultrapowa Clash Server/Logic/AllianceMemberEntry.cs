@@ -49,13 +49,13 @@ namespace UCS.Logic
             List<byte> data = new List<byte>();
             Level avatar = await ResourcesManager.GetPlayer(m_vAvatarId);
             data.AddLong(m_vAvatarId);
-            if(avatar.Avatar.AvatarName != null)
+            if(avatar.Avatar.Username != null)
             {
-                data.AddString(avatar.Avatar.AvatarName);
+                data.AddString(avatar.Avatar.Username);
                 data.AddInt(m_vRole);
-                data.AddInt(avatar.Avatar.GetAvatarLevel());
-                data.AddInt(avatar.Avatar.GetLeagueId());
-                data.AddInt(avatar.Avatar.GetScore());
+                data.AddInt(avatar.Avatar.Level);
+                data.AddInt(avatar.Avatar.League);
+                data.AddInt(avatar.Avatar.GetTrophies());
                 data.AddInt(m_vDonatedTroops);
                 data.AddInt(m_vReceivedTroops);
             }
@@ -68,7 +68,7 @@ namespace UCS.Logic
                 data.AddInt(400);
                 data.AddInt(0);
                 data.AddInt(0);
-                avatar.Avatar.SetAllianceId(0);
+                avatar.Avatar.AllianceID = 0;
             }          
             data.AddInt(m_vOrder);
             data.AddInt(m_vPreviousOrder);

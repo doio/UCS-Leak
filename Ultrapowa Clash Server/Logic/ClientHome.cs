@@ -42,10 +42,10 @@ namespace UCS.Logic
 
         public void SetShieldTime(int seconds) => m_vShieldTime = seconds;
 
-        public int GetShieldTime() => m_vShieldTime;
+        public int Shield() => m_vShieldTime;
 
         public void SetProtectionTime(int time) => m_vProtectionTime = time;
 
-        public int GetProtectionTime() => m_vProtectionTime;
+        public int Guard() => m_vProtectionTime;
     }
 }

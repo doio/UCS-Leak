@@ -1,214 +1,227 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using UCS.Core;
-using UCS.Files.Logic;
-using UCS.Helpers;
-using static System.Convert;
-using static System.Configuration.ConfigurationManager;
-using UCS.Logic.DataSlots;
-using System.Threading.Tasks;
-using UCS.Helpers.List;
-
 namespace UCS.Logic
 {
-    internal class ClientAvatar : Avatar
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using UCS.Files.Logic;
+    using UCS.Helpers;
+    using UCS.Core;
+    using UCS.Helpers.List;
+    using UCS.Logic.JSONProperty;
+    using DonationSlot = UCS.Logic.JSONProperty.DonationSlot;
+    using Resources = UCS.Logic.JSONProperty.Resources;
+    using UCS.Logic.API;
+    using UCS.Logic.Enums;
+
+    internal class ClientAvatar
     {
-        // Long
-        internal long AllianceId;
-        internal long CurrentHomeId;
-        internal long UserId;
+        #region JSONProperty
+     
+        [JsonProperty("acc_hi")] internal long HighID;
+        [JsonProperty("acc_lo")] internal long LowID;
 
-        // Int
-        internal int HighID;
-        internal int LowID;
-        private int m_vAvatarLevel;
-        private int m_vCurrentGems;
-        private int m_vExperience;
-        private int m_vLeagueId;
-        private int m_vScore;          
-        private int m_vDonatedUnits;
-        private int m_vRecievedUnits;
-        private int m_vActiveLayout;
-        private int m_vAlliance_Gold       = 2800000;
-        private int m_vAlliance_Elixir     = 2800000;
-        private int m_vAlliance_DarkElixir = 14400;
-        private int m_vShieldTime;
-        private int m_vProtectionTime;
-        public int GotReported             = 0;
-        public int Reported                = 0;
-        private int m_vDonated;
-        private int m_vReceived;
-
-        // Byte
-        private byte m_vNameChangingLeft;
-        private byte m_vnameChosenByUser;
-        internal byte AccountPrivileges;
-        // String
-        internal string AvatarName;
-        internal string UserToken;
-        internal string Region;
-        internal string FacebookId;
-        internal string FacebookToken;
-        internal string GoogleId;
-        internal string GoogleToken;
-        internal string IPAddress;
-
-        // Boolean
-        private bool m_vPremium;
-        private bool m_vAndroid;
-        internal bool AccountBanned;
-        //Datetime
-        private DateTime m_vAccountCreationDate;
-        internal DateTime LastTickSaved;
-
-        public struct AttackInfo
+        internal long UserID
         {
-            public Level Defender;
-            public Level Attacker;
-
-            public int Lost;
-            public int Reward;
-
-            public List<DataSlot> UsedTroop;
-        }
-
-        public ClientAvatar()
-        {
-            Achievements         = new List<DataSlot>();
-            AchievementsUnlocked = new List<DataSlot>();
-            AllianceUnits        = new List<DonationSlot>();
-            NpcStars             = new List<DataSlot>();
-            NpcLootedGold        = new List<DataSlot>();
-            NpcLootedElixir      = new List<DataSlot>();
-            BookmarkedClan       = new List<BookmarkSlot>();
-            QuickTrain1          = new List<DataSlot>();
-            QuickTrain2          = new List<DataSlot>();
-            QuickTrain3          = new List<DataSlot>();
-            AttackingInfo        = new Dictionary<long, AttackInfo>();
-        }
-
-        public ClientAvatar(long id, string token) : this()
-        {
-            Random rnd             = new Random();
-            LastUpdate             = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            Login                  = id.ToString() + (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            this.UserId                  = id;
-            this.HighID            = (int)(id >> 32);
-            this.LowID             = (int)(id & 0xffffffffL);
-            this.UserToken         = token;
-            this.CurrentHomeId     = id;
-            this.AccountPrivileges = 0;
-            this.AccountBanned    = false;
-            m_vnameChosenByUser    = 0x00;
-            m_vNameChangingLeft    = 0x02;
-            m_vAvatarLevel         = ToInt32(AppSettings["startingLevel"]);
-            this.AllianceId        = 0;
-            m_vExperience          = 0;
-            EndShieldTime          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            m_vCurrentGems         = ToInt32(AppSettings["startingGems"]);
-            m_vScore               = AppSettings["startingTrophies"] == "random"
-                ? rnd.Next(1500, 4999)
-                : ToInt32(AppSettings["startingTrophies"]);
-
-            TutorialStepsCount     = 0x0A;
-            m_vPremium             = false;
-            this.AvatarName        = "NoNameYet";
-
-            SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), ToInt32(AppSettings["startingGold"]));
-            SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), ToInt32(AppSettings["startingElixir"]));
-            SetResourceCount(CSVManager.DataTables.GetResourceByName("DarkElixir"), ToInt32(AppSettings["startingDarkElixir"]));
-            SetResourceCount(CSVManager.DataTables.GetResourceByName("Diamonds"), ToInt32(AppSettings["startingGems"]));
-        }
-
-        public List<DataSlot> Achievements { get; set; }
-        public List<DataSlot> AchievementsUnlocked { get; set; }
-        public List<DonationSlot> AllianceUnits { get; set; }
-        public int EndShieldTime { get; set; }
-        public int LastUpdate { get; set; }
-        public string Login { get; set; }
-        public List<DataSlot> NpcLootedElixir { get; set; }
-        public List<DataSlot> NpcLootedGold { get; set; }
-        public List<DataSlot> NpcStars { get; set; }
-        public List<BookmarkSlot> BookmarkedClan { get; set; }
-        public Dictionary<long, AttackInfo> AttackingInfo { get; set; }
-        public List<DataSlot> QuickTrain1 { get; set; }
-        public List<DataSlot> QuickTrain2 { get; set; }
-        public List<DataSlot> QuickTrain3 { get; set; }
-
-        void updateLeague()
-        {
-            var table = CSVManager.DataTables.GetTable(12);
-            int i = 0;
-            bool found = false;
-            while (!found)
+            get { return (((long) this.HighID << 32) | (this.LowID & 0xFFFFFFFFL)); }
+            set
             {
-                var league = (LeagueData)table.GetItemAt(i);
-                if (m_vScore <= league.BucketPlacementRangeHigh[league.BucketPlacementRangeHigh.Count - 1] &&
-                    m_vScore >= league.BucketPlacementRangeLow[0])
-                {
-                    found = true;
-                    SetLeagueId(i);
-                }
-                i++;
+                this.HighID = value >> 32;
+                this.LowID = (int) value;
             }
         }
 
-        public uint TutorialStepsCount { get; set; }
+        [JsonProperty("alli_hi")] internal long ClanHighID;
+        [JsonProperty("alli_lo")] internal long ClanLowID;
 
-        public void AddDiamonds(int diamondCount)
+        internal long AllianceID
         {
-            m_vCurrentGems += diamondCount;
+            get { return (((long) this.ClanHighID << 32) | (this.ClanLowID & 0xFFFFFFFFL)); }
+            set
+            {
+                this.ClanHighID = value >> 32;
+                this.ClanLowID = (int) value;
+            }
         }
 
-        public void AddExperience(int exp)
+        [JsonProperty("token")] internal string Token;
+        [JsonProperty("password")] internal string Password;
+
+        [JsonProperty("name")] internal string Username = s_names[Core.Resources.Random.Next(s_names.Length)];
+        [JsonProperty("IPAddress")] internal string IPAddress;
+        [JsonProperty("region")] internal string Region;
+
+        /* INFORMATIONS */
+
+        [JsonProperty("lvl")] internal int Level = 1;
+        [JsonProperty("xp")] internal int Experience;
+
+        [JsonProperty("wins")] internal int Wins;
+        [JsonProperty("loses")] internal int Loses;
+        [JsonProperty("games")] internal int Games;
+        [JsonProperty("win_streak")] internal int Streak;
+        [JsonProperty("donations")] internal int Donations;
+        [JsonProperty("received")] internal int Received;
+
+        [JsonProperty("shield")] internal int Shield;
+        [JsonProperty("guard")] internal int Guard;
+        [JsonProperty("legend_troph")] internal int Legendary_Trophies = 0;
+
+        [JsonProperty("tutorial")] internal int Tutorial = 10;
+        [JsonProperty("name_state")]   internal byte NameState = 0;
+
+        [JsonProperty("reported")] internal int ReportedCount;
+        [JsonProperty("got_reported")] internal int GotReported;
+
+        [JsonProperty("layout")] internal int ActiveLayout = 0;
+        //[JsonProperty("rank")] internal Rank Rank = Rank.Player;
+        [JsonProperty("trophies")] internal int Trophies = Utils.ParseConfigString("startingTrophies") == "random" ? Core.Resources.Random.Next(1500, 4999) : Utils.ParseConfigInt("startingTrophies");
+        [JsonProperty("league_type")]
+        internal int League = 0;
+
+        [JsonProperty("war_state")]
+        internal bool WarState = true;
+        [JsonProperty("premium")]
+        internal bool Premium = false;
+        [JsonProperty("account_priv")] internal byte AccountPrivileges = 0;
+
+        [JsonProperty("castle_lvl")] internal int Castle_Level = -1;
+        [JsonProperty("castle_total")] internal int Castle_Total = 0;
+        [JsonProperty("castle_used")] internal int Castle_Used = 0;
+        [JsonProperty("castle_total_sp")] internal int Castle_Total_SP = 0;
+        [JsonProperty("castle_used_sp")] internal int Castle_Used_SP = 0;
+        [JsonProperty("castle_gold")] internal int Castle_Gold = 0;
+        [JsonProperty("castle_elixir")] internal int Castle_Elixir = 0;
+        [JsonProperty("castle_dark_elixir")] internal int Castle_Dark_Elixir = 0;
+        [JsonProperty("town_hall_lvl")]  internal int TownHall_Level = 0;
+
+        [JsonProperty("resources")]  internal Resources Resources;
+        [JsonProperty("resources_cap")] internal Resources Resources_Cap;
+
+        [JsonProperty("units")] internal Units Units;
+        [JsonProperty("spells")] internal Units Spells;
+        [JsonProperty("alliance_units")] internal List<DonationSlot> Castle_Units;
+        [JsonProperty("alliance_spells")] internal List<DonationSlot> Castle_Spells;
+
+
+        [JsonProperty("units_level")] internal Upgrades UnitUpgradeLevel;
+        [JsonProperty("spells_level")] internal Upgrades SpellsUpgradeLevel;
+
+        [JsonProperty("hero_health")] internal List<Slot> HeroHealth;
+        [JsonProperty("hero_level")] internal Upgrades HeroUpgradeLevel;
+        [JsonProperty("hero_state")] internal List<Slot> HeroState;
+
+        [JsonProperty("npcs")] internal Npcs Npcs;
+        [JsonProperty("variable")] internal List<Slot> Variables;
+        [JsonProperty("last_search_enemy_id")] internal List<long> LastAttackEnemyId = new List<long>();
+        [JsonProperty("stream")] internal List<long[]> Stream = new List<long[]>();
+        [JsonProperty("bookmark")] internal List<long> Bookmark = new List<long>();
+
+        [JsonProperty("update_date")] internal DateTime Update = DateTime.UtcNow;
+        [JsonProperty("creation_date")] internal DateTime Created = DateTime.UtcNow;
+        [JsonProperty("ban_date")] internal DateTime BanTime = DateTime.UtcNow;
+
+        [JsonProperty("achievements")] internal Achievements Achievements;
+        [JsonProperty("facebook")] internal API.Facebook Facebook;
+        [JsonProperty("google")] internal API.Google Google;
+        [JsonProperty("gamecenter")] internal Gamecenter Gamecenter;
+        [JsonProperty("inbox")] internal Inbox Inbox;
+
+        [JsonProperty("qtrain1")] internal List<Slot> QuickTrain1;
+        [JsonProperty("qtrain2")] internal List<Slot> QuickTrain2;
+        [JsonProperty("qtrain3")] internal List<Slot> QuickTrain3;
+
+
+        internal bool Banned => this.BanTime > DateTime.UtcNow;
+        internal long BattleId = 0;
+        #endregion
+
+        public ClientAvatar()
         {
-            m_vExperience += exp;
-            var experienceCap =
-                ((ExperienceLevelData)CSVManager.DataTables.GetTable(10).GetDataByName(m_vAvatarLevel.ToString()))
-                    .ExpPoints;
-            if (m_vExperience >= experienceCap)
-                if (CSVManager.DataTables.GetTable(10).GetItemCount() > m_vAvatarLevel + 1)
-                {
-                    m_vAvatarLevel += 1;
-                    m_vExperience = m_vExperience - experienceCap;
-                }
-                else
-                    m_vExperience = 0;
+            this.Achievements = new Achievements();
+            this.Facebook = new Facebook(this);
+            this.Google = new Google(this);
+            this.Gamecenter = new Gamecenter(this);
+            this.Inbox = new Inbox(this);
+            this.Resources = new Resources(this);
+
+            this.Npcs = new Npcs();
+            this.Variables = new List<Slot>();
+            this.Castle_Units = new List<DonationSlot>();
+            this.Castle_Spells = new List<DonationSlot>();
+            this.Units = new Units(this);
+            this.Spells = new Units(this);
+
+            this.UnitUpgradeLevel = new Upgrades(this);
+            this.SpellsUpgradeLevel = new Upgrades(this);
+            this.HeroUpgradeLevel = new Upgrades(this);
+
+
+            this.HeroState = new List<Slot>();
+            this.HeroHealth = new List<Slot>();
+            this.QuickTrain1 = new List<Slot>();
+            this.QuickTrain2 = new List<Slot>();
+            this.QuickTrain3 = new List<Slot>();
+        }
+
+        public ClientAvatar(long id)
+        {
+            this.UserID = id;
+
+            this.Achievements = new Achievements();
+            this.Facebook = new Facebook(this);
+            this.Google = new Google(this);
+            this.Gamecenter = new Gamecenter(this);
+            this.Inbox = new Inbox(this);
+            this.Resources = new Resources(this, true);       
+            this.Resources_Cap = new Resources(this, true);
+
+            this.Npcs = new Npcs();
+            this.Variables = new List<Slot>();
+            this.Castle_Units = new List<DonationSlot>();
+            this.Castle_Spells = new List<DonationSlot>();
+            this.Units = new Units(this);
+            this.Spells = new Units(this);
+
+            this.SpellsUpgradeLevel = new Upgrades(this);
+            this.HeroUpgradeLevel = new Upgrades(this);
+            this.UnitUpgradeLevel = new Upgrades(this);
+
+            this.HeroState = new List<Slot>();
+            this.HeroHealth = new List<Slot>();
+            this.QuickTrain1 = new List<Slot>();
+            this.QuickTrain2 = new List<Slot>();
+            this.QuickTrain3 = new List<Slot>();
         }
 
         public async Task<byte[]> Encode()
         {
             try
             {
-                Random rnd = new Random();
                 List<byte> data = new List<byte>();
-                data.AddLong(this.UserId);
-                data.AddLong(this.CurrentHomeId);
-                if (this.AllianceId != 0)
+                data.AddLong(this.UserID);
+                data.AddLong(this.UserID);
+                if (this.AllianceID != 0)
                 {
                     data.Add(1);
-                    data.AddLong(this.AllianceId);
-                    Alliance alliance = await ObjectManager.GetAlliance(this.AllianceId);
+                    data.AddLong(this.AllianceID);
+                    Alliance alliance = await ObjectManager.GetAlliance(this.AllianceID);
                     data.AddString(alliance.GetAllianceName());
                     data.AddInt(alliance.GetAllianceBadgeData());
-                    data.AddInt(alliance.GetAllianceMember(this.UserId).GetRole());
+                    data.AddInt(alliance.GetAllianceMember(this.UserID).GetRole());
                     data.AddInt(alliance.GetAllianceLevel());
                 }
                 data.Add(0);
 
-                if (m_vLeagueId == 22)
+                if (this.League == 22)
                 {
-                    data.AddInt(m_vScore / 12);
+                    data.AddInt(this.Trophies / 12);
                     data.AddInt(1);
                     int month = DateTime.Now.Month;
                     data.AddInt(month);
                     data.AddInt(DateTime.Now.Year);
-                    data.AddInt(rnd.Next(1, 10));
-                    data.AddInt(m_vScore);
+                    data.AddInt(Core.Resources.Random.Next(1, 10));
+                    data.AddInt(this.Trophies);
                     data.AddInt(1);
                     if (month == 1)
                     {
@@ -221,8 +234,8 @@ namespace UCS.Logic
                         data.AddInt(pmonth);
                         data.AddInt(DateTime.Now.Year);
                     }
-                    data.AddInt(rnd.Next(1, 10));
-                    data.AddInt(m_vScore / 2);
+                    data.AddInt(Core.Resources.Random.Next(1, 10));
+                    data.AddInt(this.Trophies / 2);
                 }
                 else
                 {
@@ -239,135 +252,190 @@ namespace UCS.Logic
                     data.AddInt(0); //11
                 }
 
-                data.AddInt(m_vLeagueId); 
-                data.AddInt(GetAllianceCastleLevel());
-                data.AddInt(GetAllianceCastleTotalCapacity());
-                data.AddInt(GetAllianceCastleUsedCapacity());
+                data.AddInt(this.League);
+                data.AddInt(this.Castle_Level);
+                data.AddInt(this.Castle_Total);
+                data.AddInt(this.Castle_Used);
                 data.AddInt(0);
                 data.AddInt(-1);
-                data.AddInt(GetTownHallLevel());
-                data.AddString(this.AvatarName);
-                data.AddString(this.FacebookId);
-                data.AddInt(m_vAvatarLevel);
-                data.AddInt(m_vExperience);
-                data.AddInt(m_vCurrentGems);
-                data.AddInt(m_vCurrentGems);
+                data.AddInt(this.TownHall_Level);
+                data.AddString(this.Username);
+                data.AddString(this.Facebook.Identifier);
+                data.AddInt(this.Level);
+                data.AddInt(this.Experience);
+                data.AddInt(this.Resources.Gems);
+                data.AddInt(this.Resources.Gems);
                 data.AddInt(1200);
                 data.AddInt(60);
-                data.AddInt(m_vScore);
-                data.AddInt(200); // Attack Wins
-                data.AddInt(m_vDonated);
-                data.AddInt(100); // Attack Loses
-                data.AddInt(m_vReceived);
+                data.AddInt(this.Trophies);
+                data.AddInt(this.Wins);
+                data.AddInt(this.Loses);
+                data.AddInt(0); // Attack Loses
+                data.AddInt(0);
 
-                data.AddInt(m_vAlliance_Gold);
-                data.AddInt(m_vAlliance_Elixir);
-                data.AddInt(m_vAlliance_DarkElixir);
+                data.AddInt(this.Castle_Gold);
+                data.AddInt(this.Castle_Elixir);
+                data.AddInt(this.Castle_Dark_Elixir);
                 data.AddInt(0);
                 data.Add(1);
                 data.AddLong(946720861000);
 
-                data.Add(m_vnameChosenByUser);
+                data.AddBool(this.NameState > 0);
 
                 data.AddInt(0);
                 data.AddInt(0);
                 data.AddInt(0);
-                data.AddInt(1);
+                data.AddInt(this.WarState ? 1 : 0);
 
                 data.AddInt(0);
                 data.AddInt(0);
-                data.Add(0);
-                data.AddDataSlots(GetResourceCaps());
-                data.AddDataSlots(GetResources());
-                data.AddDataSlots(GetUnits());
-                data.AddDataSlots(GetSpells());
-                data.AddDataSlots(m_vUnitUpgradeLevel);
-                data.AddDataSlots(m_vSpellUpgradeLevel);
-                data.AddDataSlots(m_vHeroUpgradeLevel);
-                data.AddDataSlots(m_vHeroHealth);
-                data.AddDataSlots(m_vHeroState);
+                data.AddBool(this.NameState > 1);
+                data.AddRange(this.Resources_Cap.ToBytes);
+                data.AddRange(this.Resources.ToBytes);
 
-                data.AddRange(BitConverter.GetBytes(AllianceUnits.Count).Reverse());
-                foreach (DonationSlot u in AllianceUnits)
+                data.AddDataSlots(this.Units);
+                data.AddDataSlots(this.Spells);
+                data.AddDataSlots(this.UnitUpgradeLevel);
+                data.AddDataSlots(this.SpellsUpgradeLevel);
+                data.AddDataSlots(this.HeroUpgradeLevel);
+                data.AddDataSlots(this.HeroHealth);
+                data.AddDataSlots(this.HeroState);
+
+                data.AddInt(this.Castle_Units.Count + this.Castle_Spells.Count);
+
+                foreach (DonationSlot u in this.Castle_Units)
                 {
-                    data.AddInt(u.ID);
+                    data.AddInt(u.Data);
                     data.AddInt(u.Count);
-                    data.AddInt(u.UnitLevel);
+                    data.AddInt(u.Level);
                 }
 
-                data.AddRange(BitConverter.GetBytes(TutorialStepsCount).Reverse());
-                for (uint i = 0; i < TutorialStepsCount; i++)
-                    data.AddRange(BitConverter.GetBytes(0x01406F40 + i).Reverse());
-
-                data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
-                foreach (var a in Achievements)
-                    data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
-
-                data.AddRange(BitConverter.GetBytes(Achievements.Count).Reverse());
-                foreach (var a in Achievements)
+                foreach (DonationSlot u in this.Castle_Spells)
                 {
-                    data.AddRange(BitConverter.GetBytes(a.Data.GetGlobalID()).Reverse());
-                    data.AddRange(BitConverter.GetBytes(0).Reverse());
+                    data.AddInt(u.Data);
+                    data.AddInt(u.Count);
+                    data.AddInt(u.Level);
                 }
 
-                data.AddRange(BitConverter.GetBytes(ObjectManager.NpcLevels.Count).Reverse());
+                data.AddInt(this.Tutorial);
+                for (int i = 0; i < this.Tutorial; i++)
+                    data.AddInt(21000000 + i);
+
+                data.AddInt(this.Achievements.Count);
+                foreach (Slot Achievement in this.Achievements.Completed)
                 {
-                    for (var i = 17000000; i < 17000050; i++)
-                    {
-                        data.AddRange(BitConverter.GetBytes(i).Reverse());
-                        data.AddRange(BitConverter.GetBytes(rnd.Next(3, 3)).Reverse());
-                    }
+                    data.AddInt(Achievement.Data);
                 }
 
-                data.AddDataSlots(NpcLootedGold);
-                data.AddDataSlots(NpcLootedElixir);
-                data.AddDataSlots(new List<DataSlot>());
-                data.AddDataSlots(new List<DataSlot>());
-                data.AddDataSlots(new List<DataSlot>());
-                data.AddDataSlots(new List<DataSlot>());
-
-                data.AddInt(QuickTrain1.Count);
-                foreach (var i in QuickTrain1)
+                data.AddInt(this.Achievements.Count);
+                foreach (Slot Achievement in this.Achievements.Completed)
                 {
-                    data.AddInt(i.Data.GetGlobalID());
-                    data.AddInt(i.Value);
+                    data.AddInt(Achievement.Data);
+                    data.AddInt(0);
                 }
 
-                data.AddInt(QuickTrain2.Count);
-                foreach (var i in QuickTrain2)
+
+                data.AddRange(this.Npcs.ToBytes);
+
+                data.AddInt(this.Variables.Count);
+                foreach (Slot Variable in this.Variables)
                 {
-                    data.AddInt(i.Data.GetGlobalID());
-                    data.AddInt(i.Value);
+                    data.AddInt(Variable.Data);
+                    data.AddInt(Variable.Count);
                 }
-                data.AddInt(QuickTrain3.Count);
-                foreach (var i in QuickTrain3)
-                {
-                    data.AddInt(i.Data.GetGlobalID());
-                    data.AddInt(i.Value);
-                }
-                data.AddInt(QuickTrain1.Count);
-                foreach (var i in QuickTrain1)
-                {
-                    data.AddInt(i.Data.GetGlobalID());
-                    data.AddInt(i.Value);
-                }
-                data.AddDataSlots(new List<DataSlot>());
+                data.AddDataSlots(new List<Slot>());
+                data.AddDataSlots(new List<Slot>());
+                data.AddDataSlots(new List<Slot>());
+
+                data.AddDataSlots(QuickTrain1);
+                data.AddDataSlots(QuickTrain2);
+                data.AddDataSlots(QuickTrain3);
+                data.AddDataSlots(QuickTrain1);
                 return data.ToArray();
-            } catch (Exception) { return null; }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
-        public long GetAllianceId() => this.AllianceId;
+        private static readonly string[] s_names =
+        {
+            "Patrik",
+            "Jean",
+            "Kenny",
+            "Levi",
+            "Edward",
+            "Dan",
+            "Vincent",
+            "Luke",
+            "Vulcan",
+            "Kukli",
+            "Davi",
+            "Osie",
+            "Keem",
+            "Alfred",
+            "Dimitri",
+            "Valdimir",
+            "Kim Jong Un",
+            "New User",
+            "Mega Pumba"
+        };
+
+        #region Set
+
+        void updateLeague()
+        {
+            var table = CSVManager.DataTables.GetTable(12);
+            int i = 0;
+            bool found = false;
+            while (!found)
+            {
+                var league = (LeagueData) table.GetItemAt(i);
+                if (Trophies <= league.BucketPlacementRangeHigh[league.BucketPlacementRangeHigh.Count - 1] &&
+                    Trophies >= league.BucketPlacementRangeLow[0])
+                {
+                    found = true;
+                    SetLeagueId(i);
+                }
+                i++;
+            }
+        }
+
+
+        public void AddDiamonds(int diamondCount) => this.Resources.Plus(Resource.Diamonds, diamondCount);
+
+        public void AddExperience(int exp)
+        {
+            this.Experience += exp;
+            var experienceCap = ((ExperienceLevelData) CSVManager.DataTables.GetTable(10).GetDataByName(this.Level.ToString())).ExpPoints;
+            if (this.Experience >= experienceCap)
+                if (CSVManager.DataTables.GetTable(10).GetItemCount() > this.Level + 1)
+                {
+                    this.Level += 1;
+                    this.Experience = this.Experience - experienceCap;
+                }
+                else
+                    this.Experience = 0;
+        }
+
+        #endregion
+
+        #region  Get 
 
         public async Task<AllianceMemberEntry> GetAllianceMemberEntry()
         {
             try
             {
-                var alliance = await ObjectManager.GetAlliance(this.AllianceId);
-                return alliance?.GetAllianceMember(this.UserId);
-            } catch (Exception) { return null; }
+                var alliance = await ObjectManager.GetAlliance(this.AllianceID);
+                return alliance?.GetAllianceMember(this.UserID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
-
-        public DateTime GetAccountCreationDate() => m_vAccountCreationDate;
 
         public async Task<int> GetAllianceRole()
         {
@@ -377,466 +445,307 @@ namespace UCS.Logic
                 if (ame != null)
                     return ame.GetRole();
                 return -1;
-            } catch (Exception) { return 1; }
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
         }
 
-        public int GetAlliance_Gold() => m_vAlliance_Gold;
-
-        public int GetAlliance_Elixir() => m_vAlliance_Elixir;
-
-        public int GetAlliance_DarkElixir() => m_vAlliance_DarkElixir;
-
-        public int GetAvatarLevel() => m_vAvatarLevel;
-
-        public int GetActiveLayout() =>  m_vActiveLayout;
-
-        public long GetCurrentHomeId() => CurrentHomeId;
-
-        public int GetDiamonds() => m_vCurrentGems;
-
-        public bool GetAndroid() => m_vAndroid;
-
-        public bool GetPremium() => m_vPremium;
-
-        public long GetId() => UserId;
-
-        public int GetShieldTime => m_vShieldTime;
-
-        public int GetProtectionTime => m_vProtectionTime;
-
-        public int GetLeagueId() => m_vLeagueId;
-
-        public int GetScore()
+        public int GetTrophies()
         {
             updateLeague();
-            return m_vScore;
+            return this.Trophies;
         }
 
-        public int GetSecondsFromLastUpdate() => (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds - LastUpdate;
 
-        public int GetDonated() => m_vDonated;
-
-        public int GetReceived() => m_vReceived;
-
-        public bool HasEnoughDiamonds(int diamondCount) => m_vCurrentGems >= diamondCount;
+        public bool HasEnoughDiamonds(int diamondCount) => this.Resources.Gems  >= diamondCount;
 
         public bool HasEnoughResources(ResourceData rd, int buildCost) => GetResourceCount(rd) >= buildCost;
 
-        public void LoadFromJSON(string jsonString)
-        {
-            var jsonObject = JObject.Parse(jsonString);
-            this.UserId = jsonObject["avatar_id"].ToObject<long>();
-            this.HighID = jsonObject["id_high_int"].ToObject<int>();
-            this.LowID = jsonObject["id_low_int"].ToObject<int>();
-            this.UserToken = jsonObject["token"].ToObject<string>();
-            this.Region = jsonObject["region"].ToObject<string>();
-            this.IPAddress = jsonObject["IPAddress"].ToObject<string>();
-            m_vAccountCreationDate = jsonObject["avatar_creation_date"].ToObject<DateTime>();
-            this.AccountPrivileges = jsonObject["avatar_privilages"].ToObject<byte>();
-            this.AccountBanned = jsonObject["avatar_banned"].ToObject<bool>();
-            m_vActiveLayout = jsonObject["active_layout"].ToObject<int>();
-            this.LastTickSaved = jsonObject["last_tick_save"].ToObject<DateTime>();
-            m_vAndroid = jsonObject["android"].ToObject<bool>();
-            this.CurrentHomeId = jsonObject["current_home_id"].ToObject<long>();
-            this.AllianceId = jsonObject["alliance_id"].ToObject<long>();
-            SetAllianceCastleLevel(jsonObject["alliance_castle_level"].ToObject<int>());
-            SetAllianceCastleTotalCapacity(jsonObject["alliance_castle_total_capacity"].ToObject<int>());
-            SetAllianceCastleUsedCapacity(jsonObject["alliance_castle_used_capacity"].ToObject<int>());
-            SetTownHallLevel(jsonObject["townhall_level"].ToObject<int>());
-            this.AvatarName = jsonObject["avatar_name"].ToObject<string>();
-            m_vAvatarLevel = jsonObject["avatar_level"].ToObject<int>();
-            m_vExperience = jsonObject["experience"].ToObject<int>();
-            m_vCurrentGems = jsonObject["current_gems"].ToObject<int>();
-            SetScore(jsonObject["score"].ToObject<int>());
-            m_vNameChangingLeft = jsonObject["nameChangesLeft"].ToObject<byte>();
-            m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
-            m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
-            m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
-            this.FacebookId = jsonObject["fb_id"].ToObject<string>();
-            this.FacebookToken = jsonObject["fb_token"].ToObject<string>();
-            this.GoogleId = jsonObject["gg_id"].ToObject<string>();
-            this.GoogleToken = jsonObject["gg_token"].ToObject<string>();
-            var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
-            foreach (JObject jobject in jsonBookmarkedClan)
-            {
-                JObject data = (JObject)jobject;
-                BookmarkSlot ds = new BookmarkSlot(0);
-                ds.Load(data);
-                BookmarkedClan.Add(ds);
-            }
-
-            var jsonResources = (JArray) jsonObject["resources"];
-            foreach (JObject resource in jsonResources)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(resource);
-                GetResources().Add(ds);
-            }
-
-            var jsonUnits = (JArray) jsonObject["units"];
-            foreach (JObject unit in jsonUnits)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(unit);
-                m_vUnitCount.Add(ds);
-            }
-
-            var jsonSpells = (JArray) jsonObject["spells"];
-            foreach (JObject spell in jsonSpells)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(spell);
-                m_vSpellCount.Add(ds);
-            }
-
-            var jsonUnitLevels = (JArray) jsonObject["unit_upgrade_levels"];
-            foreach (JObject unitLevel in jsonUnitLevels)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(unitLevel);
-                m_vUnitUpgradeLevel.Add(ds);
-            }
-
-            var jsonSpellLevels = (JArray) jsonObject["spell_upgrade_levels"];
-            foreach (JObject data in jsonSpellLevels)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                m_vSpellUpgradeLevel.Add(ds);
-            }
-
-            var jsonHeroLevels = (JArray) jsonObject["hero_upgrade_levels"];
-            foreach (JObject data in jsonHeroLevels)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                m_vHeroUpgradeLevel.Add(ds);
-            }
-
-            var jsonHeroHealth = (JArray) jsonObject["hero_health"];
-            foreach (JObject data in jsonHeroHealth)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                m_vHeroHealth.Add(ds);
-            }
-
-            var jsonHeroState = (JArray) jsonObject["hero_state"];
-            foreach (JObject data in jsonHeroState)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                m_vHeroState.Add(ds);
-            }
-
-            var jsonAllianceUnits = (JArray) jsonObject["alliance_units"];
-            foreach (JObject data in jsonAllianceUnits)
-            {
-                DonationSlot ds = new DonationSlot(0, 0, 0, 0);
-                ds.Load(data);
-                AllianceUnits.Add(ds);
-            }
-            TutorialStepsCount = jsonObject["tutorial_step"].ToObject<uint>();
-
-            var jsonAchievementsProgress = (JArray) jsonObject["achievements_progress"];
-            foreach (JObject data in jsonAchievementsProgress)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                Achievements.Add(ds);
-            }
-
-            var jsonNpcStars = (JArray) jsonObject["npc_stars"];
-            foreach (JObject data in jsonNpcStars)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                NpcStars.Add(ds);
-            }
-
-            var jsonNpcLootedGold = (JArray) jsonObject["npc_looted_gold"];
-            foreach (JObject data in jsonNpcLootedGold)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                NpcLootedGold.Add(ds);
-            }
-
-            var jsonNpcLootedElixir = (JArray) jsonObject["npc_looted_elixir"];
-            foreach (JObject data in jsonNpcLootedElixir)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                NpcLootedElixir.Add(ds);
-            }
-            var jsonQuickTrain1 = (JArray)jsonObject["quick_train_1"];
-            foreach (JObject data in jsonQuickTrain1)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                QuickTrain1.Add(ds);
-            }
-            var jsonQuickTrain2 = (JArray)jsonObject["quick_train_2"];
-            foreach (JObject data in jsonQuickTrain2)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                QuickTrain2.Add(ds);
-            }
-            var jsonQuickTrain3 = (JArray)jsonObject["quick_train_3"];
-            foreach (JObject data in jsonQuickTrain3)
-            {
-                DataSlot ds = new DataSlot(null, 0);
-                ds.Load(data);
-                QuickTrain3.Add(ds);
-            }
-            m_vPremium = jsonObject["Premium"].ToObject<bool>();
-        }
-
-        public string SaveToJSON()
-        {
-            #region Foreach Stuff
-            JArray jsonBookmarkClan = new JArray();
-            foreach (var clan in BookmarkedClan)
-                jsonBookmarkClan.Add(clan.Save(new JObject()));
-
-            JArray jsonResourcesArray = new JArray();
-            foreach (var resource in GetResources())
-                jsonResourcesArray.Add(resource.Save(new JObject()));
-
-            JArray jsonUnitsArray = new JArray();
-            foreach (var unit in GetUnits())
-                jsonUnitsArray.Add(unit.Save(new JObject()));
-
-            JArray jsonSpellsArray = new JArray();
-            foreach (var spell in GetSpells())
-                jsonSpellsArray.Add(spell.Save(new JObject()));
-
-            JArray jsonUnitUpgradeLevelsArray = new JArray();
-            foreach (var unitUpgradeLevel in m_vUnitUpgradeLevel)
-                jsonUnitUpgradeLevelsArray.Add(unitUpgradeLevel.Save(new JObject()));
-
-
-            JArray jsonSpellUpgradeLevelsArray = new JArray();
-            foreach (var spellUpgradeLevel in m_vSpellUpgradeLevel)
-                jsonSpellUpgradeLevelsArray.Add(spellUpgradeLevel.Save(new JObject()));
-
-            JArray jsonHeroUpgradeLevelsArray = new JArray();
-            foreach (var heroUpgradeLevel in m_vHeroUpgradeLevel)
-                jsonHeroUpgradeLevelsArray.Add(heroUpgradeLevel.Save(new JObject()));
-
-            JArray jsonHeroHealthArray = new JArray();
-            foreach (var heroHealth in m_vHeroHealth)
-                jsonHeroHealthArray.Add(heroHealth.Save(new JObject()));
-
-            JArray jsonHeroStateArray = new JArray();
-            foreach (var heroState in m_vHeroState)
-                jsonHeroStateArray.Add(heroState.Save(new JObject()));
-
-             JArray jsonAllianceUnitsArray = new JArray();
-            foreach (var allianceUnit in AllianceUnits)
-                jsonAllianceUnitsArray.Add(allianceUnit.Save(new JObject()));
-
-            JArray jsonAchievementsProgressArray = new JArray();
-            foreach (var achievement in Achievements)
-                jsonAchievementsProgressArray.Add(achievement.Save(new JObject()));
-
-            JArray jsonNpcStarsArray = new JArray();
-            foreach (var npcLevel in NpcStars)
-                jsonNpcStarsArray.Add(npcLevel.Save(new JObject()));
-
-            JArray jsonNpcLootedGoldArray = new JArray();
-            foreach (var npcLevel in NpcLootedGold)
-                jsonNpcLootedGoldArray.Add(npcLevel.Save(new JObject()));
-  
-            JArray jsonNpcLootedElixirArray = new JArray();
-            foreach (var npcLevel in NpcLootedElixir)
-                jsonNpcLootedElixirArray.Add(npcLevel.Save(new JObject()));
-
-            JArray jsonQuickTrain1Array = new JArray();
-            foreach (var quicktrain1 in QuickTrain1)
-                jsonQuickTrain1Array.Add(quicktrain1.Save(new JObject()));
-
-            JArray jsonQuickTrain2Array = new JArray();
-            foreach (var quicktrain2 in QuickTrain2)
-                jsonQuickTrain1Array.Add(quicktrain2.Save(new JObject()));
-
-            JArray jsonQuickTrain3Array = new JArray();
-            foreach (var quicktrain3 in QuickTrain3)
-                jsonQuickTrain3Array.Add(quicktrain3.Save(new JObject()));
         #endregion
 
-            JObject jsonData = new JObject
-            {
-                {"avatar_id", this.UserId},
-                {"id_high_int", this.HighID},
-                {"id_low_int", this.LowID},
-                {"token", this.UserToken},
-                {"region", this.Region},
-                {"IPAddress", this.IPAddress},
-                {"avatar_creation_date", m_vAccountCreationDate},
-                {"avatar_privilages", this.AccountPrivileges},
-                {"avatar_banned", this.AccountBanned},
-                {"active_layout", m_vActiveLayout},
-                {"last_tick_save", this.LastTickSaved},
-                {"android", m_vAndroid},
-                {"current_home_id", this.CurrentHomeId},
-                {"alliance_id", this.AllianceId},
-                {"alliance_castle_level", GetAllianceCastleLevel()},
-                {"alliance_castle_total_capacity", GetAllianceCastleTotalCapacity()},
-                {"alliance_castle_used_capacity", GetAllianceCastleUsedCapacity()},
-                {"townhall_level", GetTownHallLevel()},
-                {"avatar_name", this.AvatarName},
-                {"avatar_level", m_vAvatarLevel},
-                {"experience", m_vExperience},
-                {"current_gems", m_vCurrentGems},
-                {"score", GetScore()},
-                {"nameChangesLeft", m_vNameChangingLeft},
-                {"nameChosenByUser", (ushort) m_vnameChosenByUser},
-                {"shield_time", m_vShieldTime},
-                {"protection_time", m_vProtectionTime},
-                {"fb_id", this.FacebookId},
-                {"fb_token", this.FacebookToken},
-                {"gg_id", this.GoogleId},
-                {"gg_token", this.GoogleToken},
-                {"bookmark", jsonBookmarkClan},
-                {"resources", jsonResourcesArray},
-                {"units", jsonUnitsArray},
-                {"spells", jsonSpellsArray},
-                {"unit_upgrade_levels", jsonUnitUpgradeLevelsArray},
-                {"spell_upgrade_levels", jsonSpellUpgradeLevelsArray},
-                {"hero_upgrade_levels", jsonHeroUpgradeLevelsArray},
-                {"hero_health", jsonHeroHealthArray},
-                {"hero_state", jsonHeroStateArray},
-                {"alliance_units", jsonAllianceUnitsArray},
-                {"tutorial_step", TutorialStepsCount},
-                {"achievements_progress", jsonAchievementsProgressArray},
-                {"npc_stars", jsonNpcStarsArray},
-                {"npc_looted_gold", jsonNpcLootedGoldArray},
-                {"npc_looted_elixir", jsonNpcLootedElixirArray},
-                {"quick_train_1", jsonQuickTrain1Array},
-                {"quick_train_2", jsonQuickTrain2Array},
-                {"quick_train_3", jsonQuickTrain3Array},
-                {"Premium", m_vPremium}
-            };
+        #region Meth
+        public static int GetDataIndex(Upgrades dsl, Data d) => dsl.FindIndex(ds => ds.Data == d.GetGlobalID());
+        public static int GetDataIndex(List<Slot> dsl, Data d) => dsl.FindIndex(ds => ds.Data == d.GetGlobalID());
+        public static int GetDataIndex(Units dsl, Data d) => dsl.FindIndex(ds => ds.Data == d.GetGlobalID());
+        public static int GetDataIndex(Resources dsl, Data d) => dsl.FindIndex(ds => ds.Data == d.GetGlobalID());
 
-            return JsonConvert.SerializeObject(jsonData, Formatting.Indented);
-        }
-
-        public void InitializeAccountCreationDate() => m_vAccountCreationDate = DateTime.Now;
-
-        public void AddUsedTroop(CombatItemData cid, int value)
+        public int GetResourceCount(ResourceData rd)
         {
-            /*if (State == UserState.PVP)
-            { 
-            var info = default(AttackInfo);
-            if (!AttackingInfo.TryGetValue(GetId(), out info))
-            {
-                Logger.Write("Unable to obtain attack info.");
-            }
-            
-            DataSlot e = info.UsedTroop.Find(t => t.Data.GetGlobalID() == cid.GetGlobalID());
-                if (e != null)
-                {
-                    // Troops already exist.
-                    int i = info.UsedTroop.IndexOf(e);
-                    e.Value = e.Value + value;
-                    info.UsedTroop[i] = e;
-                }
-                else
-                {
-                    DataSlot ds = new DataSlot(cid, value);
-                    info.UsedTroop.Add(ds);
-                }
-            }*/
-            //else
-              //  Logger.Write("Unsuppored state! AddUsedTroop only for PVP for now.PVE Comming Soon");
-        }
-
-        public void AddAllianceTroop(long did, int id, int value, int level)
-        {
-            DonationSlot e = AllianceUnits.Find(t => t.ID == id && t.DonatorID == did && t.UnitLevel == level);
-            if (e != null)
-            {
-                int i = AllianceUnits.IndexOf(e);
-                e.Count = e.Count + value;
-                AllianceUnits[i] = e;
-            }
-            else
-            {
-                DonationSlot ds = new DonationSlot(did, id, value, level);
-                AllianceUnits.Add(ds);
-            }
-        }
-
-        public void SetAchievment(AchievementData ad, bool finished)
-        {
-            var index = GetDataIndex(Achievements, ad);
-            int value = finished ? 1 : 0;
+            int index = GetDataIndex(this.Resources, rd);
+            int count = 0;
             if (index != -1)
-                Achievements[index].Value = value;
+            {
+                count = this.Resources[index].Count;
+            }
+            return count;
+        }
+
+        public int GetResourceCap(ResourceData rd)
+        {
+            int index = GetDataIndex(this.Resources_Cap, rd);
+            int count = 0;
+            if (index != -1)
+            {
+                count = this.Resources_Cap[index].Count;
+            }
+            return count;
+        }
+
+        public int GetUnitCount(CombatItemData cd)
+        {
+            int result = 0;
+            if (cd.GetCombatItemType() == 1)
+            {
+                int index = GetDataIndex(this.Spells, cd);
+                if (index != -1)
+                {
+                    result = this.Spells[index].Count;
+                }
+            }
             else
             {
-                DataSlot ds = new DataSlot(ad, value);
-                Achievements.Add(ds);
+                int index = GetDataIndex(this.Units, cd);
+                if (index != -1)
+                {
+                    result = this.Units[index].Count;
+                }
+            }
+            return result;
+        }
+        public int GetUnusedResourceCap(ResourceData rd)
+        {
+            int resourceCount = GetResourceCount(rd);
+            int resourceCap = GetResourceCap(rd);
+            return Math.Max(resourceCap - resourceCount, 0);
+        }
+
+        public void SetUnitUpgradeLevel(CombatItemData cd, int level)
+        {
+            switch (cd.GetCombatItemType())
+            {
+                case 2:
+                    {
+                        int index = GetDataIndex(this.HeroUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            this.HeroUpgradeLevel[index].Data = level;
+                        }
+                        else
+                        {
+                            Slot ds = new Slot(cd.GetGlobalID(), level);
+                            this.HeroUpgradeLevel.Add(ds);
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        int index = GetDataIndex(this.SpellsUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            this.SpellsUpgradeLevel[index].Data = level;
+                        }
+                        else
+                        {
+                            Slot ds = new Slot(cd.GetGlobalID(), level);
+                            this.SpellsUpgradeLevel.Add(ds);
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        int index = GetDataIndex(this.UnitUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            this.UnitUpgradeLevel[index].Data = level;
+                        }
+                        else
+                        {
+                            Slot ds = new Slot(cd.GetGlobalID(), level);
+                            this.UnitUpgradeLevel.Add(ds);
+                        }
+                        break;
+                    }
+            }
+        }
+        public int GetUnitUpgradeLevel(CombatItemData cd)
+        {
+            int result = 0;
+            switch (cd.GetCombatItemType())
+            {
+                case 2:
+                    {
+                        int index = GetDataIndex(this.HeroUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            result = this.HeroUpgradeLevel[index].Data;
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        int index = GetDataIndex(this.SpellsUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            result = this.SpellsUpgradeLevel[index].Data;
+                        }
+                        break;
+                    }
+
+                default:
+                    {
+                        int index = GetDataIndex(this.UnitUpgradeLevel, cd);
+                        if (index != -1)
+                        {
+                            result = this.UnitUpgradeLevel[index].Data;
+                        }
+                        break;
+                    }
+            }
+            return result;
+        }
+        public void SetUnitCount(CombatItemData cd, int count)
+        {
+            switch (cd.GetCombatItemType())
+            {
+                case 1:
+                    {
+                        int index = GetDataIndex(this.Spells, cd);
+                        if (index != -1)
+                        {
+                            this.Spells[index].Data = count;
+                        }
+                        else
+                        {
+                            Slot ds = new Slot(cd.GetGlobalID(), count);
+                            this.Spells.Add(ds);
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        int index = GetDataIndex(this.Units, cd);
+                        if (index != -1)
+                        {
+                            this.Units[index].Data = count;
+                        }
+                        else
+                        {
+                            Slot ds = new Slot(cd.GetGlobalID(), count);
+                            this.Units.Add(ds);
+                        }
+                        break;
+                    }
+
+            }
+
+        }
+        public void CommodityCountChangeHelper(int commodityType, Data data, int count)
+        {
+            if (data.GetDataType() == 2)
+            {
+                if (commodityType == 0)
+                {
+                    int resourceCount = this.Resources.Get(data.GetGlobalID());
+                    int newResourceValue = Math.Max(resourceCount + count, 0);
+                    if (count >= 1)
+                    {
+                        int resourceCap = GetResourceCap((ResourceData)data);
+                        if (resourceCount < resourceCap)
+                        {
+                            if (newResourceValue > resourceCap)
+                            {
+                                newResourceValue = resourceCap;
+                            }
+                        }
+                    }
+                    this.Resources.Set(data.GetGlobalID(), newResourceValue);
+                }
             }
         }
 
-        public void SetPremium(bool count) => m_vPremium = count;
+        public void SetHeroHealth(HeroData hd, int health)
+        {
+            int index = GetDataIndex(this.HeroHealth, hd);
+            if (index == -1)
+            {
+                Slot ds = new Slot(hd.GetGlobalID(), health);
+                this.HeroHealth.Add(ds);
+            }
+            else
+            {
+                this.HeroHealth[index].Count = health;
+            }
+        }
 
-        public void SetAlliance_Gold(int gold) => m_vAlliance_Gold = gold;
+        public void SetHeroState(HeroData hd, int state)
+        {
+            int index = GetDataIndex(this.HeroState, hd);
+            if (index == -1)
+            {
+                Slot ds = new Slot(hd.GetGlobalID(), state);
+                this.HeroState.Add(ds);
+            }
+            else
+            {
+                this.HeroState[index].Count = state;
+            }
+        }
 
-        public void SetAlliance_Elixir(int elixir) => m_vAlliance_Elixir = elixir;
 
-        public void SetAlliance_DarkElixir(int drkelixir) => m_vAlliance_DarkElixir = drkelixir;
+        #endregion
 
-        public void SetShieldTime(int time) => m_vShieldTime = time;
+        #region Method
 
-        public void SetProtectionTime(int time) => m_vProtectionTime = time;
 
-        public void SetAllianceId(long id) => this.AllianceId = id;
+        public void Add_Castle_Unit(long Id, int Data, int Count, int level)
+        {
+            int _Index = this.Castle_Units.FindIndex(U => U.DonatorID == Id && U.Data == Data && U.Level == level);
 
-        public void SetActiveLayout(int layout) => m_vActiveLayout = layout;
-
-        public void SetAndroid(bool android) => m_vAndroid = android;
+            if (_Index > -1)
+            {
+                this.Units[_Index].Count += Count;
+            }
+            else
+            {
+                this.Castle_Units.Add(new DonationSlot(Id, Data, Count, level));
+            }
+        }
 
         public async void SetAllianceRole(int a)
         {
             try
             {
                 AllianceMemberEntry ame = await GetAllianceMemberEntry();
-                if (ame != null)
-                    ame.SetRole(a);
+                ame?.SetRole(a);
             }
-            catch (Exception){}
+            catch (Exception)
+            {
+            }
         }
 
-        public void SetDiamonds(int count) => m_vCurrentGems = count;
+        public void SetDiamonds(int count) => this.Resources.Set(Resource.Diamonds, count);
 
-        public void SetLeagueId(int id) => m_vLeagueId = id;
+        public void SetLeagueId(int id) => this.League = id;
 
         public void SetName(string name)
         {
-            this.AvatarName = name;
-            if (m_vnameChosenByUser == 0x01)
-            {
-                m_vNameChangingLeft = 0x01;
-            }
-            else
-            {
-                m_vNameChangingLeft = 0x02;
-            }
-            TutorialStepsCount = 0x0D;
+            this.Username = name;
+            this.NameState += 1;
+            this.Tutorial += 3;
         }
 
-        public void SetScore(int newScore)
+        public void SetTrophies(int newScore)
         {
-            m_vScore = newScore;
+            this.Trophies = newScore;
             updateLeague();
         }
 
-        public void SetAvatarLevel(int newlv) => m_vAvatarLevel = newlv;
+        public void SetAvatarLevel(int newlv) => this.Level = newlv;
 
-        public void UseDiamonds(int diamondCount) => m_vCurrentGems -= diamondCount;
+        public void UseDiamonds(int diamondCount) => this.Resources.Minus(Resource.Diamonds, diamondCount);
+
+        #endregion
     }
 }

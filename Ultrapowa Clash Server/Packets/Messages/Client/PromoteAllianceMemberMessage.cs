@@ -32,9 +32,9 @@ namespace UCS.Packets.Messages.Client
             {
                 Level target = await ResourcesManager.GetPlayer(m_vId);
                 ClientAvatar player = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(player.GetAllianceId());
+                Alliance alliance = await ObjectManager.GetAlliance(player.AllianceID);
                 if (await player.GetAllianceRole() == 2 || await player.GetAllianceRole() == 4)
-                    if (player.GetAllianceId() == target.Avatar.GetAllianceId())
+                    if (player.AllianceID == target.Avatar.AllianceID)
                     {
                         int oldrole = await target.Avatar.GetAllianceRole();
                         target.Avatar.SetAllianceRole(m_vRole);
@@ -46,8 +46,8 @@ namespace UCS.Packets.Messages.Client
                             demote.SetId(alliance.GetChatMessages().Count + 1);
                             demote.SetSender(player);
                             demote.SetEventType(6);
-                            demote.SetAvatarId(player.GetId());
-                            demote.SetAvatarName(player.AvatarName);
+                            demote.SetAvatarId(player.UserID);
+                            demote.SetUsername(player.Username);
 
                             alliance.AddChatMessage(demote);
 
@@ -55,8 +55,8 @@ namespace UCS.Packets.Messages.Client
                             promote.SetId(alliance.GetChatMessages().Count + 1);
                             promote.SetSender(target.Avatar);
                             promote.SetEventType(5);
-                            promote.SetAvatarId(player.GetId());
-                            promote.SetAvatarName(player.AvatarName);
+                            promote.SetAvatarId(player.UserID);
+                            promote.SetUsername(player.Username);
 
                             alliance.AddChatMessage(promote);
 
@@ -68,12 +68,12 @@ namespace UCS.Packets.Messages.Client
 
                             PromoteAllianceMemberOkMessage rup = new PromoteAllianceMemberOkMessage(Device)
                             {
-                                Id = this.Device.Player.Avatar.GetId(),
+                                Id = this.Device.Player.Avatar.UserID,
                                 Role = 4
                             };
                             PromoteAllianceMemberOkMessage rub = new PromoteAllianceMemberOkMessage(target.Client)
                             {
-                                Id = target.Avatar.GetId(),
+                                Id = target.Avatar.UserID,
                                 Role = 2
                             };
 
@@ -117,8 +117,8 @@ namespace UCS.Packets.Messages.Client
 
                             stream.SetId(alliance.GetChatMessages().Count + 1);
                             stream.SetSender(target.Avatar);
-                            stream.SetAvatarId(player.GetId());
-                            stream.SetAvatarName(player.AvatarName);
+                            stream.SetAvatarId(player.UserID);
+                            stream.SetUsername(player.Username);
                             stream.SetEventType(m_vRole > oldrole ? 5 : 6);
 
                             t.SetAlliance(alliance);
@@ -127,7 +127,7 @@ namespace UCS.Packets.Messages.Client
 
                             PromoteAllianceMemberOkMessage ru = new PromoteAllianceMemberOkMessage(target.Client)
                             {
-                                Id = target.Avatar.GetId(),
+                                Id = target.Avatar.UserID,
                                 Role =  m_vRole
                             };
 

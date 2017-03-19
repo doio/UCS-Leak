@@ -23,8 +23,9 @@ namespace UCS.Packets.Commands.Client
 
             if (_Player != null)
             {
-                _Player.AllianceUnits.Clear();
-                _Player.SetAllianceCastleUsedCapacity(0);
+                _Player.Castle_Units.Clear();
+                _Player.Castle_Spells.Clear();
+                _Player.Castle_Used = 0;
             }
         }
     }

@@ -22,14 +22,14 @@ namespace UCS.Packets.Messages.Server
             List<byte> packet1 = new List<byte>();
             int i = 0;
 
-            foreach (Alliance alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.GetScore()))
+            foreach (Alliance alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.GetTrophies()))
             {
                 if (i >= 100)
                     break;
-                packet1.AddLong(alliance.GetAllianceId());
+                packet1.AddLong(alliance.AllianceID);
                 packet1.AddString(alliance.GetAllianceName());
                 packet1.AddInt(i + 1);
-                packet1.AddInt(alliance.GetScore());
+                packet1.AddInt(alliance.GetTrophies());
                 packet1.AddInt(i + 1);
                 packet1.AddInt(alliance.GetAllianceBadgeData());
                 packet1.AddInt(alliance.GetAllianceMembers().Count);

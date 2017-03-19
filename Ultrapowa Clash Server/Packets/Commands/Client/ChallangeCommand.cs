@@ -26,17 +26,17 @@ namespace UCS.Packets.Commands
             try
             {
                 ClientAvatar player = this.Device.Player.Avatar;
-                long allianceID = player.GetAllianceId();
+                long allianceID = player.AllianceID;
                 Alliance alliance = await ObjectManager.GetAlliance(allianceID);
 
                 ChallengeStreamEntry cm = new ChallengeStreamEntry();
                 cm.SetMessage(Message);
-                cm.SetSenderId(player.GetId());
-                cm.SetSenderName(player.AvatarName);
-                cm.SetSenderLevel(player.GetAvatarLevel());
+                cm.SetSenderId(player.UserID);
+                cm.SetSenderName(player.Username);
+                cm.SetSenderLevel(player.Level);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetId(alliance.GetChatMessages().Count + 1);
-                cm.SetSenderLeagueId(player.GetLeagueId());
+                cm.SetSenderLeagueId(player.League);
 
                 alliance.AddChatMessage((ChallengeStreamEntry)cm);
 

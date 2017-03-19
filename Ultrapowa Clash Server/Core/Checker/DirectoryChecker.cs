@@ -37,14 +37,8 @@ namespace UCS.Core.Checker
 
         public static void LoadEvents()
         {
-            if (File.Exists("calendar.json"))
-            {
-                _Events = File.ReadAllText("calendar.json");
-            }
-            else
-            {
-                _Events = ("{\"event\":[]}");
-            }
+            _Events = "{\"event\":[]}";
+            //_Events = File.Exists("calendar.json") ? File.ReadAllText("calendar.json") : "{\"event\":[]}";
         }
 
         public static void Directorys()

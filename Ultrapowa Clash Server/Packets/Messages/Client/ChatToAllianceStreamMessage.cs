@@ -39,15 +39,15 @@ namespace UCS.Packets.Messages.Client
                             {
                                 string player = "";
                                 if (this.Device.Player != null)
-                                    player += " (" + this.Device.Player.Avatar.GetId() + ", " +
-                                              this.Device.Player.Avatar.AvatarName + ")";
+                                    player += " (" + this.Device.Player.Avatar.UserID + ", " +
+                                              this.Device.Player.Avatar.Username + ")";
                                 ((GameOpCommand)obj).Execute(this.Device.Player);
                             }
                         }
                         else
                         {
                             ClientAvatar avatar = this.Device.Player.Avatar;
-                            long allianceId = avatar.GetAllianceId();
+                            long allianceId = avatar.AllianceID;
                             if (allianceId > 0)
                             {
                                 ChatStreamEntry cm = new ChatStreamEntry();

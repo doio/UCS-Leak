@@ -19,7 +19,7 @@ namespace UCS.Logic
         int m_vAllianceBadgeData;
         string m_vAllianceDescription;
         int m_vAllianceExperience;
-        long m_vAllianceId;
+        internal long AllianceID;
         int m_vAllianceLevel;
         string m_vAllianceName;
         int m_vAllianceOrigin;
@@ -42,7 +42,7 @@ namespace UCS.Logic
         public Alliance(long id)
         {
             Random r               = new Random();
-            m_vAllianceId          = id;
+            AllianceID          = id;
             m_vAllianceName        = "Default";
             m_vAllianceDescription = "Default";
             m_vAllianceBadgeData   = 0;
@@ -74,7 +74,7 @@ namespace UCS.Logic
         public byte[] EncodeFullEntry()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(m_vAllianceId);
+            data.AddLong(AllianceID);
             data.AddString(m_vAllianceName);
             data.AddInt(m_vAllianceBadgeData);
             data.AddInt(m_vAllianceType);
@@ -99,7 +99,7 @@ namespace UCS.Logic
         public byte[] EncodeHeader()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(m_vAllianceId);
+            data.AddLong(AllianceID);
             data.AddString(m_vAllianceName);
             data.AddInt(m_vAllianceBadgeData);
             data.Add(0);
@@ -127,7 +127,6 @@ namespace UCS.Logic
 
         public int GetAllianceExperience() => m_vAllianceExperience;
 
-        public long GetAllianceId() => m_vAllianceId;
 
         public int GetAllianceLevel() => m_vAllianceLevel;
 
@@ -145,7 +144,7 @@ namespace UCS.Logic
 
         public int GetRequiredScore() => m_vRequiredScore;
 
-        public int GetScore() => m_vScore;
+        public int GetTrophies() => m_vScore;
 
         public int GetWarFrequency() => m_vWarFrequency;
 
@@ -162,7 +161,7 @@ namespace UCS.Logic
             try
             {
                 JObject jsonObject = JObject.Parse(jsonString);
-                m_vAllianceId = jsonObject["alliance_id"].ToObject<long>();
+                AllianceID = jsonObject["alliance_id"].ToObject<long>();
                 m_vAllianceName = jsonObject["alliance_name"].ToObject<string>();
                 m_vAllianceBadgeData = jsonObject["alliance_badge"].ToObject<int>();
                 m_vAllianceType = jsonObject["alliance_type"].ToObject<int>();
@@ -184,7 +183,7 @@ namespace UCS.Logic
                     long id = jsonMember["avatar_id"].ToObject<long>();
                     Level pl = await ResourcesManager.GetPlayer(id);
                     AllianceMemberEntry member = new AllianceMemberEntry(id);
-                    m_vScore = m_vScore + pl.Avatar.GetScore();
+                    m_vScore = m_vScore + pl.Avatar.GetTrophies();
                     member.Load(jsonMember);
                     m_vAllianceMembers.Add(id, member);
                 }
@@ -220,7 +219,7 @@ namespace UCS.Logic
         public string SaveToJSON()
         {
             var jsonData = new JObject();
-            jsonData.Add("alliance_id", m_vAllianceId);
+            jsonData.Add("alliance_id", AllianceID);
             jsonData.Add("alliance_name", m_vAllianceName);
             jsonData.Add("alliance_badge", m_vAllianceBadgeData);
             jsonData.Add("alliance_type", m_vAllianceType);

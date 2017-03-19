@@ -21,13 +21,13 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ownerHome = new ClientHome(Player.Avatar.GetId());
-                ownerHome.SetShieldTime(Player.Avatar.GetShieldTime);
-                ownerHome.SetProtectionTime(Player.Avatar.GetProtectionTime);
+                ClientHome ownerHome = new ClientHome(Player.Avatar.UserID);
+                ownerHome.SetShieldTime(Player.Avatar.Shield);
+                ownerHome.SetProtectionTime(Player.Avatar.Guard);
                 ownerHome.SetHomeJSON(JsonBase);
 
                 this.Data.AddInt(0);
-                this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddInt((int)Player.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds); //Remake soon
                 this.Data.AddRange(ownerHome.Encode());
                 this.Data.AddRange(await Player.Avatar.Encode());
                 this.Data.AddInt(LevelId);

@@ -50,7 +50,7 @@ namespace UCS.Core.Events
                     {
                         if (_Player != null)
                         {
-                            ResourcesManager.RemoveAllianceFromMemory(_Player.GetAllianceId());
+                            ResourcesManager.RemoveAllianceFromMemory(_Player.AllianceID);
                         }
                     });
                 }

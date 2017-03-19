@@ -25,7 +25,7 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            this.Device.Player.Avatar.BookmarkedClan.Add(new BookmarkSlot(id));;
+            this.Device.Player.Avatar.Bookmark.Add(id);
             new BookmarkAddAllianceMessage(Device).Send();
         }
     }

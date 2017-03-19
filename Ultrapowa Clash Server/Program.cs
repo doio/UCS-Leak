@@ -22,7 +22,7 @@ namespace UCS
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
 
-        static void Main()
+        private static void Main()
         {
             if (Utils.ParseConfigBoolean("Animation"))
             {
@@ -51,17 +51,17 @@ namespace UCS
                 }).Start();
             }
 
-            if (Constants.LicensePlanID == 3)
+            switch (Constants.LicensePlanID)
             {
-                Console.Title = Title + OP;
-            }
-            else if(Constants.LicensePlanID == 2)
-            {
-                Console.Title = Title + OP + "/700";
-            }
-            else if (Constants.LicensePlanID == 1)
-            {
-                Console.Title = Title + OP + "/350";
+                case 3:
+                    Console.Title = Title + OP;
+                    break;
+                case 2:
+                    Console.Title = Title + OP + "/700";
+                    break;
+                case 1:
+                    Console.Title = Title + OP + "/350";
+                    break;
             }
 
             Say();
@@ -74,17 +74,11 @@ namespace UCS
             Logger.WriteCenter(@"|______/ |____/__|  |__|  (____  /   __/ \____/ \/\_/  (____  /    ");
             Logger.WriteCenter(@"                               \/|__|                       \/     ");
             Logger.WriteCenter("            ");
-
-            Console.ResetColor();
-
-            Console.ForegroundColor = ConsoleColor.Blue;
             Logger.WriteCenter("+-------------------------------------------------------+");
-            Console.ResetColor();
             Logger.WriteCenter("|This program is made by the Ultrapowa Development Team.|");
             Logger.WriteCenter("|    Ultrapowa is not affiliated to \"Supercell, Oy\".    |");
             Logger.WriteCenter("|        This program is copyrighted worldwide.         |");
             Logger.WriteCenter("|   Visit www.ultrapowa.com daily for News & Updates!   |");
-            Console.ForegroundColor = ConsoleColor.Blue;
             Logger.WriteCenter("+-------------------------------------------------------+");
             Console.ResetColor();
 
@@ -139,17 +133,17 @@ namespace UCS
 
         public static void UpdateTitle()
         {
-            if (Constants.LicensePlanID == 3)
+            switch (Constants.LicensePlanID)
             {
-                Console.Title = Title + OP;
-            }
-            else if (Constants.LicensePlanID == 2)
-            {
-                Console.Title = Title + OP + "/700";
-            }
-            else if (Constants.LicensePlanID == 1)
-            {
-                Console.Title = Title + OP + "/350";
+                case 3:
+                    Console.Title = Title + OP;
+                    break;
+                case 2:
+                    Console.Title = Title + OP + "/700";
+                    break;
+                case 1:
+                    Console.Title = Title + OP + "/350";
+                    break;
             }
         }
 
@@ -184,6 +178,7 @@ namespace UCS
                 Console.Title = Title + --OP + "/350";
             }
         }
+
 
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);

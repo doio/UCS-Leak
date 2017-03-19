@@ -18,14 +18,14 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.GetId());
-                ch.SetShieldTime(this.OwnerLevel.Avatar.GetShieldTime);
+                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserID);
+                ch.SetShieldTime(this.OwnerLevel.Avatar.Shield);
                 ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
-                ch.SetProtectionTime(this.OwnerLevel.Avatar.GetProtectionTime);
+                ch.SetProtectionTime(this.OwnerLevel.Avatar.Guard);
 
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);
                 this.Data.AddInt(-1);
-                this.Data.AddInt((int)this.OwnerLevel.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddInt((int)this.OwnerLevel.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                 this.Data.AddRange(ch.Encode());
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
                 this.Data.AddRange(await this.VisitorLevel.Avatar.Encode());

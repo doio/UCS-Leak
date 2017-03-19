@@ -36,10 +36,10 @@ namespace UCS.Packets.Messages.Client
 
                 InvitationStreamEntry cm = new InvitationStreamEntry();
                 cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.GetId());
-                cm.SetHomeId(player.GetId());
-                cm.SetSenderLeagueId(player.GetLeagueId());
-                cm.SetSenderName(player.AvatarName);
+                cm.SetSenderId(player.UserID);
+                cm.SetHomeId(player.UserID);
+                cm.SetSenderLeagueId(player.League);
+                cm.SetSenderName(player.Username);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetMessage(Message);
                 cm.SetState(1);

@@ -1,4 +1,4 @@
-﻿namespace UCS.Packets.Messages.Server
+﻿namespace UCS.Packets.Messages.Server.Api
 {
     internal class Facebook_Connect_OK : Message
     {

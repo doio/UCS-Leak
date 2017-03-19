@@ -31,7 +31,7 @@ namespace UCS.Packets.Messages.Client
             this.CTick = this.Reader.ReadInt32();
             this.Checksum = this.Reader.ReadInt32();
             this.Count = this.Reader.ReadInt32();
-            this.STick =  this.STick = (int) Math.Floor(DateTime.UtcNow.Subtract(this.Device.Player.Avatar.LastTickSaved).TotalSeconds * 20);
+            this.STick =  this.STick = (int) Math.Floor(DateTime.UtcNow.Subtract(this.Device.Player.Avatar.Update).TotalSeconds * 20);
             this.LCommands = new List<Command>((int) this.Count);
             this.Commands = this.Reader.ReadBytes((int) (this.Reader.BaseStream.Length - this.Reader.BaseStream.Position));
         }

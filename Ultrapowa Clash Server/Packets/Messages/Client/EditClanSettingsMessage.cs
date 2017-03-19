@@ -43,7 +43,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                 if (alliance != null)
                 {
                     if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
@@ -69,15 +69,15 @@ namespace UCS.Packets.Messages.Client
                                                 alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
 
                                                 ClientAvatar avatar = this.Device.Player.Avatar;
-                                                long allianceId = avatar.GetAllianceId();
+                                                long allianceId = avatar.AllianceID;
                                                 AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                                                 eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                                                 eventStreamEntry.SetSender(avatar);
                                                 eventStreamEntry.SetEventType(10);
-                                                eventStreamEntry.SetAvatarId(avatar.GetId());
-                                                eventStreamEntry.SetAvatarName(avatar.AvatarName);
-                                                eventStreamEntry.SetSenderId(avatar.GetId());
-                                                eventStreamEntry.SetSenderName(avatar.AvatarName);
+                                                eventStreamEntry.SetAvatarId(avatar.UserID);
+                                                eventStreamEntry.SetUsername(avatar.Username);
+                                                eventStreamEntry.SetSenderId(avatar.UserID);
+                                                eventStreamEntry.SetSenderName(avatar.Username);
                                                 alliance.AddChatMessage(eventStreamEntry);
 
                                                 AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand(this.Device);

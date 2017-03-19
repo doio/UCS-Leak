@@ -75,9 +75,9 @@ namespace UCS.Logic
 
         public virtual bool IsHero() => false;
 
-        public int TownHallLevel() => Avatar.Avatar.GetTownHallLevel();
+        public int TownHallLevel() => Avatar.Avatar.TownHall_Level;
 
-        public int LayoutID() => Avatar.Avatar.GetActiveLayout();
+        public int LayoutID() => Avatar.Avatar.ActiveLayout;
 
         public void Load(JObject jsonObject)
         {

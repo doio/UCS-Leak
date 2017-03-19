@@ -118,9 +118,9 @@ namespace UCS.Helpers
                             {
                                 var l = await ResourcesManager.GetPlayer(long.Parse(id));
                                 var avatar = l.Avatar;
-                                var playerID = avatar.GetId();
+                                var playerID = Avatar.UserID;
                                 var p = avatar.GetPremium();
-                                Say("Set the Privileges for Player: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "' to Premium?");
+                                Say("Set the Privileges for Player: '" + avatar.Username + "' ID: '" + Avatar.UserID + "' to Premium?");
                                 Say("Type in 'y':Yes or 'n': Cancel");
                                 loop:
                                 var a = ReadLine();
@@ -133,7 +133,7 @@ namespace UCS.Helpers
                                     else if (p == false)
                                     {
                                         ResourcesManager.GetPlayer(playerID).Avatar.SetPremium(true);
-                                        Say("Privileges set succesfully for: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "'");
+                                        Say("Privileges set succesfully for: '" + avatar.Username + "' ID: '" + Avatar.UserID + "'");
                                         DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
                                     }
                                 }

@@ -12,11 +12,23 @@ using static UCS.Core.Logger;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
 using UCS.Helpers;
+using Newtonsoft.Json;
 
 namespace UCS.Core
 {
     internal class DatabaseManager
     {
+        internal JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Formatting = Formatting.Indented,
+        };
+
         private string Mysql;
 
         public DatabaseManager()
@@ -30,17 +42,18 @@ namespace UCS.Core
         {
             try
             {
+                string Object = JsonConvert.SerializeObject(l.Avatar, this.Settings);
                 if (Constants.UseCacheServer)
                 {
-                    Redis.Players.StringSet(l.Avatar.GetId().ToString(), l.Avatar.SaveToJSON() + "#:#:#:#" + l.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Players.StringSet(l.Avatar.UserID.ToString(), Object + "#:#:#:#" + l.SaveToJSON(), TimeSpan.FromHours(4));
                 }
 
                 using (Mysql db = new Mysql())
                 {
                     db.Player.Add(new Player
                     {
-                        PlayerId = l.Avatar.GetId(),
-                        Avatar = l.Avatar.SaveToJSON(),
+                        PlayerId = l.Avatar.UserID,
+                        Avatar = Object,
                         GameObjects = l.SaveToJSON()
                     }
                     );
@@ -58,14 +71,14 @@ namespace UCS.Core
             try
             {
                 if (Constants.UseCacheServer) //Redis As Cache Server
-                    Redis.Clans.StringSet(a.GetAllianceId().ToString(), a.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Clans.StringSet(a.AllianceID.ToString(), a.SaveToJSON(), TimeSpan.FromHours(4));
 
                 using (Mysql db = new Mysql())
                 {
                     db.Clan.Add(
                         new Clan()
                         {
-                            ClanId = a.GetAllianceId(),
+                            ClanId = a.AllianceID,
                             LastUpdateTime = DateTime.Now,
                             Data = a.SaveToJSON()
                         }
@@ -93,8 +106,11 @@ namespace UCS.Core
 
                         if (!string.IsNullOrEmpty(_Datas[0]) && !string.IsNullOrEmpty(_Datas[1]))
                         {
-                            account = new Level();
-                            account.Avatar.LoadFromJSON(_Datas[0]);
+                            account = new Level
+                            {
+                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(_Datas[0], this.Settings)
+                            };
+                            Console.WriteLine(_Datas[0]);
                             account.LoadFromJSON(_Datas[1]);
                         }
                     }
@@ -106,8 +122,10 @@ namespace UCS.Core
 
                             if (p != null)
                             {
-                                account = new Level();
-                                account.Avatar.LoadFromJSON(p.Avatar);
+                                account = new Level
+                                {
+                                    Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this.Settings)
+                                };
                                 account.LoadFromJSON(p.GameObjects);
                                 Redis.Players.StringSet(playerId.ToString(), p.Avatar + "#:#:#:#" + p.GameObjects,
                                     TimeSpan.FromHours(4));
@@ -123,16 +141,19 @@ namespace UCS.Core
 
                         if (p != null)
                         {
-                            account = new Level();
-                            account.Avatar.LoadFromJSON(p.Avatar);
+                            account = new Level
+                            {
+                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this.Settings)
+                            };
                             account.LoadFromJSON(p.GameObjects);
                         }
                     }
                 }
                 return account;
             }
-            catch (Exception)
+            catch (Exception message)
             {
+                Console.WriteLine(message.Message);
                 return null;
             }
         }
@@ -270,7 +291,7 @@ namespace UCS.Core
         {
             try
             {
-                long id = alliance.GetAllianceId();
+                long id = alliance.AllianceID;
                 using (Mysql db = new Mysql())
                 {
                     db.Clan.Remove(db.Clan.Find((int)id));
@@ -302,12 +323,13 @@ namespace UCS.Core
 
                     if (Data != null)
                     {
-                        account = new Level();
-                        account.Avatar.LoadFromJSON(Data.Avatar);
+                        account = new Level
+                        {
+                            Avatar = JsonConvert.DeserializeObject<ClientAvatar>(Data.Avatar, this.Settings)
+                        };
                         account.LoadFromJSON(Data.GameObjects);
                         if (Constants.UseCacheServer)
-                            Redis.Players.StringSet(Data.PlayerId.ToString(), Data.Avatar + "#:#:#:#" + Data.GameObjects,
-                                TimeSpan.FromHours(4));
+                            Redis.Players.StringSet(Data.PlayerId.ToString(), Data.Avatar + "#:#:#:#" + Data.GameObjects, TimeSpan.FromHours(4));
                     }
 
                 }
@@ -324,11 +346,11 @@ namespace UCS.Core
             try
             {
                 if (Constants.UseCacheServer)
-                    Redis.Clans.StringSet(alliance.GetAllianceId().ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Clans.StringSet(alliance.AllianceID.ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
 
                 using (Mysql context = new Mysql())
                 {
-                    Clan c = await context.Clan.FindAsync((int)alliance.GetAllianceId());
+                    Clan c = await context.Clan.FindAsync((int)alliance.AllianceID);
                     if (c != null)
                     {
                         c.LastUpdateTime = DateTime.Now;
@@ -347,16 +369,16 @@ namespace UCS.Core
         {
             try
             {
+                string Object = JsonConvert.SerializeObject(avatar.Avatar, this.Settings);
                 if (Constants.UseCacheServer)
-                    Redis.Players.StringSet(avatar.Avatar.GetId().ToString(),
-                        avatar.Avatar.SaveToJSON() + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Players.StringSet(avatar.Avatar.UserID.ToString(), Object + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
 
                 using (Mysql context = new Mysql())
                 {
-                    Player p = await context.Player.FindAsync(avatar.Avatar.GetId());
+                    Player p = await context.Player.FindAsync(avatar.Avatar.UserID);
                     if (p != null)
                     {
-                        p.Avatar = avatar.Avatar.SaveToJSON();
+                        p.Avatar = Object;
                         p.GameObjects = avatar.SaveToJSON();
                     }
                     await context.SaveChangesAsync();
@@ -377,8 +399,7 @@ namespace UCS.Core
                         {
                             foreach (Level pl in avatars)
                             {
-                                Redis.Players.StringSet(pl.Avatar.GetId().ToString(),
-                                    pl.Avatar.SaveToJSON() + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
+                                Redis.Players.StringSet(pl.Avatar.UserID.ToString(), JsonConvert.SerializeObject(pl.Avatar, this.Settings) + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
                             }
                             break;
                         }
@@ -389,11 +410,11 @@ namespace UCS.Core
                             {
                                 foreach (Level pl in avatars)
                                 {
-                                    Player p = context.Player.Find(pl.Avatar.GetId());
+                                    Player p = context.Player.Find(pl.Avatar.UserID);
                                     if (p != null)
                                     {
 
-                                        p.Avatar = pl.Avatar.SaveToJSON();
+                                        p.Avatar = JsonConvert.SerializeObject(pl.Avatar, this.Settings);
                                         p.GameObjects = pl.SaveToJSON();
                                     }
 
@@ -426,8 +447,7 @@ namespace UCS.Core
                         {
                             foreach (Alliance alliance in alliances)
                             {
-                                Redis.Clans.StringSet(alliance.GetAllianceId().ToString(), alliance.SaveToJSON(),
-                                    TimeSpan.FromHours(4));
+                                Redis.Clans.StringSet(alliance.AllianceID.ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
                             }
                             break;
                         }
@@ -438,7 +458,7 @@ namespace UCS.Core
                             {
                                 foreach (Alliance alliance in alliances)
                                 {
-                                    Clan c = context.Clan.Find((int)alliance.GetAllianceId());
+                                    Clan c = context.Clan.Find((int)alliance.AllianceID);
                                     if (c != null)
                                     {
                                         c.LastUpdateTime = DateTime.Now;

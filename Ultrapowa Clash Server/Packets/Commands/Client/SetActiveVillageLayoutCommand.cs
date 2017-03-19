@@ -21,7 +21,7 @@ namespace UCS.Packets.Commands.Client
            /* this.Device.Player.Avatar.SetActiveLayout(this.Layout);
 
             System.Console.WriteLine(this.Layout);
-            System.Console.WriteLine(this.Device.Player.Avatar.GetActiveLayout());*/
+            System.Console.WriteLine(this.Device.Player.Avatar.ActiveLayout;*/
         }
     }
 }

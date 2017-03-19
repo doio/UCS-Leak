@@ -70,9 +70,9 @@ namespace UCS.Packets.Messages.Client
                                             alliance.SetAllianceOrigin(m_vAllianceOrigin);
                                             alliance.SetWarFrequency(m_vWarFrequency);
                                             alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-                                            this.Device.Player.Avatar.SetAllianceId(alliance.GetAllianceId());
+                                            this.Device.Player.Avatar.AllianceID = alliance.AllianceID;
 
-                                            AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.GetId());
+                                            AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserID);
                                             member.SetRole(2);
                                             alliance.AddAllianceMember(member);
 

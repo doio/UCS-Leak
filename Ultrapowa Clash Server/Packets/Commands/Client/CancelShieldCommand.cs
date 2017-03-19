@@ -21,9 +21,9 @@ namespace UCS.Packets.Commands.Client
         {
             ClientAvatar player = this.Device.Player.Avatar;
 
-            //if (player.GetShieldTime > 0)
+            //if (player.Shield > 0)
             //{
-                player.SetShieldTime(0);
+                player.Shield = 0;
                 //player.SetProtectionTime(1800);
             //}
             /*else 

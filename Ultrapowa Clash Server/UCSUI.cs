@@ -94,10 +94,10 @@ namespace UCS
             int count = 0;
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                ListViewItem item = new ListViewItem(acc.Avatar.Username);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
@@ -112,10 +112,10 @@ namespace UCS
             foreach(var alliance in ResourcesManager.GetInMemoryAlliances())
             {
                 ListViewItem item = new ListViewItem(alliance.GetAllianceName());
-                item.SubItems.Add(alliance.GetAllianceId().ToString());
+                item.SubItems.Add(alliance.AllianceID.ToString());
                 item.SubItems.Add(alliance.GetAllianceLevel().ToString());
                 item.SubItems.Add(alliance.GetAllianceMembers().Count.ToString());
-                item.SubItems.Add(alliance.GetScore().ToString());
+                item.SubItems.Add(alliance.GetTrophies().ToString());
                 listView2.Items.Add(item);
                 count2++;
 
@@ -174,10 +174,10 @@ namespace UCS
             listView1.Items.Clear();
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                ListViewItem item = new ListViewItem(acc.Avatar.Username);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
@@ -206,13 +206,13 @@ namespace UCS
 
                 Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
-                txtPlayerName.Text = Convert.ToString(l.Avatar.AvatarName);
-                txtPlayerScore.Text = Convert.ToString(l.Avatar.GetScore());
-                txtPlayerGems.Text = Convert.ToString(l.Avatar.GetDiamonds());
-                txtTownHallLevel.Text = Convert.ToString(l.Avatar.GetTownHallLevel());
-                txtAllianceID.Text = Convert.ToString(l.Avatar.GetAllianceId());
+                txtPlayerName.Text = Convert.ToString(l.Avatar.Username);
+                txtPlayerScore.Text = Convert.ToString(l.Avatar.GetTrophies());
+                txtPlayerGems.Text = Convert.ToString(l.Avatar.Resources.Gems);
+                txtTownHallLevel.Text = Convert.ToString(l.Avatar.TownHall_Level);
+                txtAllianceID.Text = Convert.ToString(l.Avatar.AllianceID);
                 materialLabel7.Text = l.Avatar.Region;
-                txtPlayerLevel.Text = l.Avatar.GetAvatarLevel().ToString();
+                txtPlayerLevel.Text = l.Avatar.Level.ToString();
             }
             catch (NullReferenceException)
             {
@@ -256,10 +256,10 @@ namespace UCS
             Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
             l.Avatar.SetName(txtPlayerName.Text);
-            l.Avatar.SetScore(Convert.ToInt32(txtPlayerScore.Text));
+            l.Avatar.SetTrophies(Convert.ToInt32(txtPlayerScore.Text));
             l.Avatar.SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
-            l.Avatar.SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
-            l.Avatar.SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
+            l.Avatar.TownHall_Level = Convert.ToInt32(txtTownHallLevel.Text);
+            l.Avatar.AllianceID = Convert.ToInt32(txtAllianceID.Text);
             l.Avatar.SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
 
             var title = "Finished!";
@@ -443,7 +443,7 @@ namespace UCS
             {
                 long id = Convert.ToInt64(txtPlayerID.Text);
                 Level player = await ResourcesManager.GetPlayer(id);
-                player.Avatar.AccountBanned = true;
+                player.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
                 DatabaseManager.Single().Save(player);
                 new OutOfSyncMessage(player.Client).Send();
             }
@@ -459,7 +459,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = await ResourcesManager.GetPlayer(id);
-                player.Avatar.AccountBanned = true;
+                player.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
                 DatabaseManager.Single().Save(player);
             }
         }
@@ -474,10 +474,10 @@ namespace UCS
                 int count = 0;
                 foreach (var acc in ResourcesManager.GetOnlinePlayers())
                 {
-                    ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetId()));
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetAvatarLevel()));
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
+                    ListViewItem item = new ListViewItem(acc.Avatar.Username);
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
+                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
                     item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                     listView1.Items.Add(item);
                     count++;
@@ -491,14 +491,14 @@ namespace UCS
             {
                 foreach (var n in ResourcesManager.GetInMemoryLevels())
                 {
-                    var l = await ResourcesManager.GetPlayer(n.Avatar.GetId());
-                    var na = l.Avatar.AvatarName;
+                    var l = await ResourcesManager.GetPlayer(n.Avatar.UserID);
+                    var na = l.Avatar.Username;
                     if (na == name || na == name.ToUpper() || na == name.ToLower())
                     {
-                        ListViewItem item = new ListViewItem(n.Avatar.AvatarName);
-                        item.SubItems.Add(Convert.ToString(n.Avatar.GetId()));
-                        item.SubItems.Add(Convert.ToString(n.Avatar.GetAvatarLevel()));
-                        item.SubItems.Add(Convert.ToString(n.Avatar.GetScore()));
+                        ListViewItem item = new ListViewItem(n.Avatar.Username);
+                        item.SubItems.Add(Convert.ToString(n.Avatar.UserID));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.Level));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.GetTrophies()));
                         item.SubItems.Add(Convert.ToString(n.Avatar.AccountPrivileges));
                         listView1.Items.Add(item);
                     }
@@ -579,10 +579,10 @@ namespace UCS
             foreach (var alliance in ResourcesManager.GetInMemoryAlliances())
             {
                 ListViewItem item = new ListViewItem(alliance.GetAllianceName());
-                item.SubItems.Add(alliance.GetAllianceId().ToString());
+                item.SubItems.Add(alliance.AllianceID.ToString());
                 item.SubItems.Add(alliance.GetAllianceLevel().ToString());
                 item.SubItems.Add(alliance.GetAllianceMembers().Count.ToString());
-                item.SubItems.Add(alliance.GetScore().ToString());
+                item.SubItems.Add(alliance.GetTrophies().ToString());
                 listView2.Items.Add(item);
                 count2++;
 
@@ -601,7 +601,7 @@ namespace UCS
                 txtAllianceName.Text = alliance.GetAllianceName();
                 txtAllianceLevel.Text = alliance.GetAllianceLevel().ToString();
                 txtAllianceDescription.Text = alliance.GetAllianceDescription();
-                txtAllianceScore.Text = alliance.GetScore().ToString();
+                txtAllianceScore.Text = alliance.GetTrophies().ToString();
             }
             else
             {

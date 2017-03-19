@@ -46,7 +46,7 @@ namespace UCS.Logic
                 if (!IsMaxLevel())
                 {
                     var requiredThLevel = m_vHeroData.GetRequiredTownHallLevel(currentLevel + 1);
-                    result = GetParent().Avatar.Avatar.GetTownHallLevel() >= requiredThLevel;
+                    result = GetParent().Avatar.Avatar.TownHall_Level >= requiredThLevel;
                 }
             }
             return result;
@@ -61,7 +61,7 @@ namespace UCS.Logic
             m_vTimer = null;
         }
 
-        public int GetRemainingUpgradeSeconds() => m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
+        public int GetRemainingUpgradeSeconds() => m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update); //Remake soon
 
         public int GetTotalSeconds() => m_vHeroData.GetUpgradeTime(GetParent().Avatar.Avatar.GetUnitUpgradeLevel(m_vHeroData));
 
@@ -82,7 +82,7 @@ namespace UCS.Logic
             {
                 m_vTimer = new Timer();
                 var remainingTime = unitUpgradeObject["t"].ToObject<int>();
-                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.LastTickSaved);
+                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.Update); //Remake soon
                 m_vUpgradeLevelInProgress = unitUpgradeObject["level"].ToObject<int>();
             }
         }
@@ -91,9 +91,12 @@ namespace UCS.Logic
         {
             if (m_vTimer != null)
             {
-                var unitUpgradeObject = new JObject();
-                unitUpgradeObject.Add("level", m_vUpgradeLevelInProgress);
-                unitUpgradeObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved));
+                var unitUpgradeObject = new JObject
+                {
+                    {"level", m_vUpgradeLevelInProgress},
+                    {"t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update)}
+                };
+                //Remake soon
                 jsonObject.Add("hero_upg", unitUpgradeObject);
             }
             return jsonObject;
@@ -104,7 +107,7 @@ namespace UCS.Logic
             var remainingSeconds = 0;
             if (IsUpgrading())
             {
-                remainingSeconds = m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
+                remainingSeconds = m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update); //Remake soon
             }
             var cost = GamePlayUtil.GetSpeedUpCost(remainingSeconds);
             var ca = GetParent().Avatar.Avatar;
@@ -121,19 +124,16 @@ namespace UCS.Logic
             {
                 GetParent().Avatar.WorkerManager.AllocateWorker(GetParent());
                 m_vTimer = new Timer();
-                m_vTimer.StartTimer(GetTotalSeconds(), GetParent().Avatar.Avatar.LastTickSaved);
+                m_vTimer.StartTimer(GetTotalSeconds(), GetParent().Avatar.Avatar.Update); //Remake soon
                 m_vUpgradeLevelInProgress = GetParent().Avatar.Avatar.GetUnitUpgradeLevel(m_vHeroData) + 1;
             }
         }
 
         public override void Tick()
         {
-            if (m_vTimer != null)
+            if (m_vTimer?.GetRemainingSeconds(GetParent().Avatar.Avatar.Update) <= 0) //Remake soon
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
-                {
-                    FinishUpgrading();
-                }
+                FinishUpgrading();
             }
         }
     }

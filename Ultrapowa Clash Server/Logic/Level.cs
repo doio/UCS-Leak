@@ -25,7 +25,7 @@ namespace UCS.Logic
         {
             this.WorkerManager = new WorkerManager();
             this.GameObjectManager = new GameObjectManager(this);
-            this.Avatar = new ClientAvatar(id, token);
+            this.Avatar = new ClientAvatar(id);
         }
 
         public ComponentManager GetComponentManager() => GameObjectManager.GetComponentManager();
@@ -44,7 +44,7 @@ namespace UCS.Logic
 
         public void Tick()
         {
-            this.Avatar.LastTickSaved = DateTime.UtcNow;
+            this.Avatar.Update = DateTime.UtcNow;
             GameObjectManager.Tick();
         }
     }

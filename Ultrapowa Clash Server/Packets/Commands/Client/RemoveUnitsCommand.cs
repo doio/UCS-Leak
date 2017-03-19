@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.IO;using UCS.Core;
+using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
-using UCS.Logic;
+using UCS.Logic.JSONProperty;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -10,7 +10,7 @@ namespace UCS.Packets.Commands.Client
     internal class RemoveUnitsCommand : Command
     {
         public RemoveUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
-        { 
+        {
         }
 
         internal override void Decode()
@@ -32,27 +32,27 @@ namespace UCS.Packets.Commands.Client
 
         internal override void Process()
         {
-            List<DataSlot> _PlayerUnits = this.Device.Player.Avatar.GetUnits();
-            List<DataSlot> _PlayerSpells = this.Device.Player.Avatar.GetSpells();
+            List<Slot> _PlayerUnits = this.Device.Player.Avatar.Units;
+            List<Slot> _PlayerSpells = this.Device.Player.Avatar.Spells;
 
             foreach (UnitToRemove _Unit in UnitsToRemove)
             {
                 if (_Unit.Data.ToString().StartsWith("400"))
                 {
                     CombatItemData _Troop = (CombatItemData)CSVManager.DataTables.GetDataById(_Unit.Data); ;
-                    DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == _Troop.GetGlobalID());
+                    Slot _DataSlot = _PlayerUnits.Find(t => t.Data == _Troop.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Value = _DataSlot.Value - 1;
+                        _DataSlot.Count -= 1;
                     }
                 }
                 else if (_Unit.Data.ToString().StartsWith("260"))
                 {
                     SpellData _Spell = (SpellData)CSVManager.DataTables.GetDataById(_Unit.Data); ;
-                    DataSlot _DataSlot = _PlayerSpells.Find(t => t.Data.GetGlobalID() == _Spell.GetGlobalID());
+                    Slot _DataSlot = _PlayerSpells.Find(t => t.Data == _Spell.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Value = _DataSlot.Value - 1;
+                        _DataSlot.Count -= 1;
                     }
                 }
             }

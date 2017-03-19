@@ -25,11 +25,11 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 List<byte> list = new List<byte>();
-                List<BookmarkSlot> rem = new List<BookmarkSlot>();
+                List<long> rem = new List<long>();
 
-                foreach (var p in Player.BookmarkedClan)
+                foreach (var p in Player.Bookmark)
                 {
-                    Alliance a = await ObjectManager.GetAlliance(p.Value);
+                    Alliance a = await ObjectManager.GetAlliance(p);
                     if (a != null)
                     {
                         list.AddRange(a.EncodeFullEntry());
@@ -46,9 +46,9 @@ namespace UCS.Packets.Messages.Server
                 this.Data.AddInt(I);
                 this.Data.AddRange(list);
 
-                foreach (BookmarkSlot im in rem)
+                foreach (var im in rem)
                 {
-                    Player.BookmarkedClan.RemoveAll(t => t == im);
+                    Player.Bookmark.RemoveAll(t => t == im);
                 }
             }
             catch (Exception)

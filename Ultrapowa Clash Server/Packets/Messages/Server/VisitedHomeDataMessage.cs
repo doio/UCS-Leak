@@ -19,9 +19,9 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 this.Device.PlayerState = Logic.Enums.State.VISIT;
-                ClientHome ownerHome = new ClientHome(m_vOwnerLevel.Avatar.GetId());
-                ownerHome.SetShieldTime(m_vOwnerLevel.Avatar.GetShieldTime);
-                ownerHome.SetProtectionTime(m_vOwnerLevel.Avatar.GetProtectionTime);
+                ClientHome ownerHome = new ClientHome(m_vOwnerLevel.Avatar.UserID);
+                ownerHome.SetShieldTime(m_vOwnerLevel.Avatar.Shield);
+                ownerHome.SetProtectionTime(m_vOwnerLevel.Avatar.Guard);
                 ownerHome.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
 
                 this.Data.AddInt(-1);

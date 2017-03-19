@@ -24,26 +24,26 @@ namespace UCS.Packets.Messages.Server
                 foreach (var player in ResourcesManager.GetOnlinePlayers())
                 {
                     ClientAvatar pl = player.Avatar;
-                    packet1.AddLong(pl.GetId());
-                    packet1.AddString(pl.AvatarName);
+                    packet1.AddLong(pl.UserID);
+                    packet1.AddString(pl.Username);
                     packet1.AddInt(i);
-                    packet1.AddInt(pl.GetScore());
+                    packet1.AddInt(pl.GetTrophies());
                     packet1.AddInt(i);
-                    packet1.AddInt(pl.GetAvatarLevel());
+                    packet1.AddInt(pl.Level);
                     packet1.AddInt(100);
                     packet1.AddInt(1);
                     packet1.AddInt(100);
                     packet1.AddInt(1);
-                    packet1.AddInt(pl.GetLeagueId());
+                    packet1.AddInt(pl.League);
                     packet1.AddString("EN");
-                    packet1.AddLong(pl.GetId());
+                    packet1.AddLong(pl.UserID);
                     packet1.AddInt(1);
                     packet1.AddInt(1);
-                    if (pl.GetAllianceId() > 0)
+                    if (pl.AllianceID > 0)
                     {
                         packet1.Add(1); // 1 = Have an alliance | 0 = No alliance
-                        packet1.AddLong(pl.GetAllianceId());
-                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
+                        packet1.AddLong(pl.AllianceID);
+                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceID);
                         packet1.AddString(_Alliance.GetAllianceName());
                         packet1.AddInt(_Alliance.GetAllianceBadgeData());
                     }

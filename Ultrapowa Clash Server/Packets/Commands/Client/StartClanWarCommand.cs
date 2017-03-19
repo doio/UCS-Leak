@@ -24,7 +24,7 @@ namespace UCS.Packets.Commands.Client
         {
             try
             {
-                Alliance an = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                Alliance an = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                 if (an != null)
                 {
                     if (an.GetAllianceMembers().Count >= 10)

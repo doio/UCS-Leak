@@ -22,35 +22,35 @@ namespace UCS.Packets.Messages.Server
             List<byte> packet1 = new List<byte>();
             int i = 0;
 
-            foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetScore()))
+            foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetTrophies()))
             {
-                if (player.Avatar.GetAvatarLevel() >= 70)
+                if (player.Avatar.Level >= 70)
                 {
                     try
                     {
                         ClientAvatar pl = player.Avatar;
                         if (i >= 100)
                             break;
-                        packet1.AddLong(pl.GetId());
-                        packet1.AddString(pl.AvatarName);
+                        packet1.AddLong(pl.UserID);
+                        packet1.AddString(pl.Username);
                         packet1.AddInt(i + 1);
-                        packet1.AddInt(pl.GetScore());
+                        packet1.AddInt(pl.GetTrophies());
                         packet1.AddInt(i + 1);
-                        packet1.AddInt(pl.GetAvatarLevel());
+                        packet1.AddInt(pl.Level);
                         packet1.AddInt(100);
                         packet1.AddInt(i);
                         packet1.AddInt(100);
                         packet1.AddInt(1);
-                        packet1.AddInt(pl.GetLeagueId());
+                        packet1.AddInt(pl.League);
                         packet1.AddString(pl.Region.ToUpper());
-                        packet1.AddLong(pl.GetId());
+                        packet1.AddLong(pl.UserID);
                         packet1.AddInt(1);
                         packet1.AddInt(1);
-                        if (pl.GetAllianceId() > 0)
+                        if (pl.AllianceID > 0)
                         {
                             packet1.Add(1); // 1 = Have an alliance | 0 = No alliance
-                            packet1.AddLong(pl.GetAllianceId());
-                            Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
+                            packet1.AddLong(pl.AllianceID);
+                            Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceID);
                             packet1.AddString(_Alliance.GetAllianceName());
                             packet1.AddInt(_Alliance.GetAllianceBadgeData());
                         }

@@ -34,13 +34,13 @@ namespace UCS.Packets.Commands.Client
                 Logger.Write("Unlocking Building: " + name + " (" + BuildingId + ')');
                 if (string.Equals(name, "Alliance Castle"))
                 {
-                    ca.IncrementAllianceCastleLevel();
+                    ca.Castle_Level++;
                     Building a = (Building)this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
                     BuildingData al = a.GetBuildingData();
-                    ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
+                    ca.Castle_Total =  al.GetUnitStorageCapacity(ca.Castle_Level);
                 }
                 var rd = bd.GetBuildResource(b.GetUpgradeLevel());
-                ca.SetResourceCount(rd, ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel()));
+                ca.Resources.Set(rd.GetGlobalID(), ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel()));
                 b.Unlock();
             }
         }

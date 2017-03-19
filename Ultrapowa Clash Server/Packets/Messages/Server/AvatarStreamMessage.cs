@@ -21,8 +21,8 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddInt(2); //Stream Type, 2 = attacked, 7 = defended;
             this.Data.AddLong(1); //Stream ID
             this.Data.Add(1);
-            this.Data.AddInt(pl.HighID);
-            this.Data.AddInt(pl.LowID);
+            this.Data.AddInt((int)pl.HighID);
+            this.Data.AddInt((int)pl.LowID);
             this.Data.AddString("Ultrapowa Dev. Team"); //Attacker Name
             this.Data.AddInt(1);
             this.Data.AddInt(0);

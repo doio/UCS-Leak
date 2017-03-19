@@ -30,7 +30,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                if (this.Device.Player.Avatar.Reported >= 3)
+                if (this.Device.Player.Avatar.ReportedCount >= 3)
                 {
                     ReportedPlayerMessage _ReportedPlayerMessage = new ReportedPlayerMessage(this.Device);
                     _ReportedPlayerMessage.SetID(6);
@@ -38,7 +38,7 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    this.Device.Player.Avatar.Reported++;
+                    this.Device.Player.Avatar.ReportedCount++;
 
                     ReportedPlayerMessage _ReportedPlayerMessage = new ReportedPlayerMessage(this.Device);
                     _ReportedPlayerMessage.SetID(1);

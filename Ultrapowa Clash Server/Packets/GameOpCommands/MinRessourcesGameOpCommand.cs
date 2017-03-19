@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Logic;
+using UCS.Logic.Enums;
 using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.GameOpCommands
@@ -22,9 +23,9 @@ namespace UCS.Packets.GameOpCommands
             if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
                 ClientAvatar p = level.Avatar;
-                p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), 1000);
-                p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), 1000);
-                p.SetResourceCount(CSVManager.DataTables.GetResourceByName("DarkElixir"), 100);
+                p.Resources.Set(Resource.Gold, 1000);
+                p.Resources.Set(Resource.Elixir, 1000);
+                p.Resources.Set(Resource.DarkElixir, 1000);
                 p.SetDiamonds(200);
                 new OwnHomeDataMessage(level.Client, level).Send();
             }

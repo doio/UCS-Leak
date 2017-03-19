@@ -26,7 +26,7 @@ namespace UCS.Packets.Commands.Client
 
         internal override void Process()
         {
-            /*if (this.Layout != this.Device.Player.Avatar.GetActiveLayout())
+            /*if (this.Layout != this.Device.Player.Avatar.ActiveLayout
             {
                 GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingID);
                 go.SetPositionXY(X, Y, this.Layout);

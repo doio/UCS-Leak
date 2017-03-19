@@ -41,15 +41,15 @@ namespace UCS.Packets.Messages.Client
                     {
                         string player = "";
                         if (this.Device.Player != null)
-                            player += " (" + this.Device.Player.Avatar.GetId() + ", " +
-                                      this.Device.Player.Avatar.AvatarName + ")";
+                            player += " (" + this.Device.Player.Avatar.UserID + ", " +
+                                      this.Device.Player.Avatar.Username + ")";
                         ((GameOpCommand) obj).Execute(this.Device.Player);
                     }
                 }
                 else
                 {
-                    long senderId = this.Device.Player.Avatar.GetId();
-                    string senderName = this.Device.Player.Avatar.AvatarName;
+                    long senderId = this.Device.Player.Avatar.UserID;
+                    string senderName = this.Device.Player.Avatar.Username;
 
                     bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
 
@@ -73,10 +73,10 @@ namespace UCS.Packets.Messages.Client
                                     Message = NewMessage,
                                     HomeId = senderId,
                                     CurrentHomeId = senderId,
-                                    LeagueId = this.Device.Player.Avatar.GetLeagueId()
+                                    LeagueId = this.Device.Player.Avatar.League
                                 };
 
-                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId()));
+                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID));
                                 p.Send();
                                 }
                             }
@@ -93,9 +93,9 @@ namespace UCS.Packets.Messages.Client
                                         Message = this.Message,
                                         HomeId = senderId,
                                         CurrentHomeId = senderId,
-                                        LeagueId = this.Device.Player.Avatar.GetLeagueId()
+                                        LeagueId = this.Device.Player.Avatar.League
                                     };
-                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId()));
+                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID));
                                     p.Send();
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
                                 }

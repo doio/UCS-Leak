@@ -12,7 +12,7 @@ namespace UCS.Logic.StreamEntry
     internal class ChallengeStreamEntry : StreamEntry
     {
         private long m_vAvatarId;
-        private string m_vAvatarName;
+        private string m_vUsername;
 
         public override byte[] Encode()
         {
@@ -46,9 +46,9 @@ namespace UCS.Logic.StreamEntry
             m_vAvatarId = id;
         }
 
-        public void SetAvatarName(string name)
+        public void SetUsername(string name)
         {
-            m_vAvatarName = name;
+            m_vUsername = name;
         }
     }
 }

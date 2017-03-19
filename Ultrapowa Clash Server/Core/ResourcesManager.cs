@@ -106,7 +106,7 @@ namespace UCS.Core
 
         public static void LoadLevel(Level level)
         {
-            m_vInMemoryLevels.TryAdd(level.Avatar.GetId(), level);
+            m_vInMemoryLevels.TryAdd(level.Avatar.UserID, level);
         }
 
         public static void LogPlayerIn(Level l, Device c)
@@ -131,7 +131,7 @@ namespace UCS.Core
         {
             DatabaseManager.Single().Save(level);
             m_vOnlinePlayers.Remove(level);
-            m_vInMemoryLevels.TryRemove(level.Avatar.GetId());
+            m_vInMemoryLevels.TryRemove(level.Avatar.UserID);
             m_vClients.TryRemove(level.Client.SocketHandle);
             Program.TitleD();
         }
@@ -142,7 +142,7 @@ namespace UCS.Core
 
         public static void AddAllianceInMemory(Alliance all)
         {
-            m_vInMemoryAlliances.TryAdd(all.GetAllianceId(), all);
+            m_vInMemoryAlliances.TryAdd(all.AllianceID, all);
         }
 
         public static void AddAllianceInMemory(List<Alliance> all)
@@ -150,7 +150,7 @@ namespace UCS.Core
             for (int i = 0, allCount = all.Count; i < allCount; i++)
             {
                 Alliance a = all[i];
-                m_vInMemoryAlliances.TryAdd(a.GetAllianceId(), a);
+                m_vInMemoryAlliances.TryAdd(a.AllianceID, a);
             }
         }
 
@@ -172,8 +172,7 @@ namespace UCS.Core
 
         public static void SetGameObject(Level level, string json)
         {
-            level.Avatar.LoadFromJSON(json);
-
+            level.LoadFromJSON(json);
             LogPlayerOut(level);
         }
 

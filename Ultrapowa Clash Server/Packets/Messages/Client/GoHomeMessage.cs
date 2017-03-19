@@ -10,6 +10,7 @@ using System.Text;
 using static UCS.Logic.ClientAvatar;
 using System.Collections.Generic;
 using UCS.Files.Logic;
+using UCS.Logic.Enums;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -36,7 +37,7 @@ namespace UCS.Packets.Messages.Client
                 /*if (player.State == UserState.PVP)
                 {
                     var info = default(ClientAvatar.AttackInfo);
-                    if (!level.Avatar.AttackingInfo.TryGetValue(level.Avatar.GetId(), out info))
+                    if (!level.Avatar.AttackingInfo.TryGetValue(level.Avatar.UserID, out info))
                     {
                         Logger.Write("Unable to obtain attack info.");
                     }
@@ -50,10 +51,10 @@ namespace UCS.Packets.Messages.Client
 
                         List<DataSlot> usedtroop = info.UsedTroop;
 
-                        int attackerscore = attacker.Avatar.GetScore();
-                        int defenderscore = defender.Avatar.GetScore();
+                        int attackerscore = attacker.Avatar.GetTrophies();
+                        int defenderscore = defender.Avatar.GetTrophies();
 
-                        if (defender.Avatar.GetScore() > 0)
+                        if (defender.Avatar.GetTrophies() > 0)
                             defender.Avatar.SetScore(defenderscore -= lost);
 
                         Logger.Write("Used troop type: " + usedtroop.Count);
@@ -85,7 +86,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     this.Device.PlayerState = Logic.Enums.State.LOGGED;
                     this.Device.Player.Tick();
-                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                     new OwnHomeDataMessage(Device, this.Device.Player).Send();
                     if (alliance != null)
                     {
@@ -109,13 +110,13 @@ namespace UCS.Packets.Messages.Client
 
             if (currentGold >= 1000000000 | currentElixir >= 1000000000)
             {
-                avatar.SetResourceCount(goldLocation, currentGold + 10);
-                avatar.SetResourceCount(elixirLocation, currentElixir + 10);
+                avatar.Resources.Plus(Resource.Gold,  10);
+                avatar.Resources.Plus(Resource.Elixir, 10);
             }
             else if (currentGold <= 999999999 || currentElixir <= 999999999)
             {
-                avatar.SetResourceCount(goldLocation, currentGold + 1000);
-                avatar.SetResourceCount(elixirLocation, currentElixir + 1000);
+                avatar.Resources.Plus(Resource.Gold, 1000);
+                avatar.Resources.Plus(Resource.Elixir, 1000);
             }
         } 
     }

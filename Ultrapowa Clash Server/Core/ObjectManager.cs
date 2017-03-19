@@ -154,7 +154,7 @@ namespace UCS.Core
 
                 if (ResourcesManager.GetOnlinePlayers().Count >= 500)
                 {
-                    if (l != null && l.Avatar.GetAvatarLevel() > 90)
+                    if (l != null && l.Avatar.Level > 90)
                     {
                         return l;
                     }

@@ -25,7 +25,7 @@ namespace UCS.Packets.Messages.Server
                 0xFF, 0xFF, 0xFF, 0xFF,
                 0x54, 0xCE, 0x5C, 0x4A});
 
-                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.GetId());
+                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserID);
                 ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
                 this.Data.AddRange(ch.Encode());
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());

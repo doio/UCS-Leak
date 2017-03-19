@@ -31,7 +31,7 @@ namespace UCS.Packets.GameOpCommands
                             l.Avatar.SetName(m_vArgs[2]);
                             if (ResourcesManager.IsPlayerOnline(l))
                             {
-                                var p = new AvatarNameChangeOkMessage(l.Client) {AvatarName = m_vArgs[2]};
+                                var p = new UsernameChangeOkMessage(l.Client) {Username = m_vArgs[2]};
                                 Processor.Send(p);
                             }
                         }

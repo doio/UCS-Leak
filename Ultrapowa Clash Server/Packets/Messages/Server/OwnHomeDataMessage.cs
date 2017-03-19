@@ -21,15 +21,15 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 ClientAvatar avatar = this.Player.Avatar;
-                ClientHome home = new ClientHome(avatar.GetId());
+                ClientHome home = new ClientHome(avatar.UserID);
 
-                home.SetShieldTime(avatar.GetShieldTime);
-                home.SetProtectionTime(avatar.GetProtectionTime);
+                home.SetShieldTime(avatar.Shield);
+                home.SetProtectionTime(avatar.Guard);
                 home.SetHomeJSON(Player.SaveToJSON());
 
                 this.Data.AddInt(0);
                 this.Data.AddInt(-1);
-                this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddInt((int)Player.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                 this.Data.AddRange(home.Encode());
                 this.Data.AddRange(await avatar.Encode());
                 this.Data.AddInt(this.Device.PlayerState == State.WAR_EMODE ? 1 : 0);

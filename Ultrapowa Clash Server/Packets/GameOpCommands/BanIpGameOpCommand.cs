@@ -27,7 +27,7 @@ namespace UCS.Packets.GameOpCommands
                         if (l != null)
                             if (l.Avatar.AccountPrivileges < level.Avatar.AccountPrivileges)
                             {
-                                l.Avatar.AccountBanned = true;
+                                l.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
                                 l.Avatar.AccountPrivileges = 0; ;
                                 if (ResourcesManager.IsPlayerOnline(l))
                                 {

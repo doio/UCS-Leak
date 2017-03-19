@@ -21,10 +21,10 @@ namespace UCS.Packets.Commands.Client
 
         internal override async void Process()
         {
-            Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+            Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
             if (a != null)
             {
-                AllianceMemberEntry _AllianceMemberEntry = a.GetAllianceMember(this.Device.Player.Avatar.GetId());
+                AllianceMemberEntry _AllianceMemberEntry = a.GetAllianceMember(this.Device.Player.Avatar.UserID);
                 _AllianceMemberEntry.ToggleStatus();
                 PlayerWarStatusMessage _PlayerWarStatusMessage = new PlayerWarStatusMessage(this.Device)
                 {

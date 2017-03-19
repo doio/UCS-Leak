@@ -29,12 +29,12 @@ namespace UCS.Packets.Messages.Server
         internal override void Encode()
         {
             ClientAvatar avatar = this.Device.Player.Avatar;
-            this.Data.AddLong(avatar.UserId);
-            this.Data.AddLong(avatar.UserId);
+            this.Data.AddLong(avatar.UserID);
+            this.Data.AddLong(avatar.UserID);
 
-            this.Data.AddString(avatar.UserToken);
+            this.Data.AddString(avatar.Token);
 
-            this.Data.AddString(avatar.FacebookId);
+            this.Data.AddString(avatar.Facebook.Identifier);
             this.Data.AddString(null);
 
 
@@ -48,13 +48,13 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddInt(490); //Playtime Second
             this.Data.AddInt(0);
 
-            this.Data.AddString(FacebookApi.ApplicationID);
+            this.Data.AddString(Logic.API.Facebook.ApplicationID);
 
             this.Data.AddString("1482970881296"); // 14 75 26 87 86 11 24 33
             this.Data.AddString("1482952262000"); // 14 78 03 95 03 10 0
 
             this.Data.AddInt(0);
-            this.Data.AddString(avatar.GoogleId);
+            this.Data.AddString(avatar.Google.Identifier);
             this.Data.AddString(avatar.Region.ToUpper());
             this.Data.AddString(null);
             this.Data.AddInt(1);

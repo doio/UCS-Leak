@@ -22,8 +22,8 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
-                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.GetId() && c.GetStreamEntryType() == 12);
+                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
+                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserID && c.GetStreamEntryType() == 12);
 
                 if (s != null)
                 {

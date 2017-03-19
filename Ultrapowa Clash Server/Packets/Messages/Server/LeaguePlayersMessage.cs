@@ -24,34 +24,34 @@ namespace UCS.Packets.Messages.Server
                 this.Data.AddInt(9000); //Season End
                 this.Data.AddInt(i);
 
-                foreach (Level player in ResourcesManager.GetOnlinePlayers().Where(t => t.Avatar.GetLeagueId() == this.Device.Player.Avatar.GetLeagueId()).OrderByDescending(t => t.Avatar.GetScore()))
+                foreach (Level player in ResourcesManager.GetOnlinePlayers().Where(t => t.Avatar.League == this.Device.Player.Avatar.League).OrderByDescending(t => t.Avatar.GetTrophies()))
                 {
                     if (i >= 50)
                         break;
 
                     ClientAvatar pl = player.Avatar;
-                    if (pl.AvatarName != null)
+                    if (pl.Username != null)
                     {
                         try
                         {
-                            this.Data.AddLong(pl.GetId());
-                            this.Data.AddString(pl.AvatarName);
+                            this.Data.AddLong(pl.UserID);
+                            this.Data.AddString(pl.Username);
                             this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.GetScore());
+                            this.Data.AddInt(pl.GetTrophies());
                             this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.GetAvatarLevel());
-                            this.Data.AddInt(pl.GetDonated());
+                            this.Data.AddInt(pl.Level);
+                            this.Data.AddInt(pl.Donations);
                             this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.GetReceived());
+                            this.Data.AddInt(pl.Received);
                             this.Data.AddInt(1);
-                            this.Data.AddLong(pl.GetAllianceId());
+                            this.Data.AddLong(pl.AllianceID);
                             this.Data.AddInt(1);
                             this.Data.AddInt(1);
-                            if (pl.GetAllianceId() > 0)
+                            if (pl.AllianceID > 0)
                             {
                                 this.Data.Add(1);
-                                this.Data.AddLong(pl.GetAllianceId());
-                                Alliance _Alliance = await ObjectManager.GetAlliance(pl.GetAllianceId());
+                                this.Data.AddLong(pl.AllianceID);
+                                Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceID);
                                 this.Data.AddString(_Alliance.GetAllianceName());
                                 this.Data.AddInt(_Alliance.GetAllianceBadgeData());
                                 this.Data.AddLong(i + 1);

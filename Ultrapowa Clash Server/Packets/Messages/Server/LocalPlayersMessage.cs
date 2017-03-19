@@ -20,33 +20,33 @@ namespace UCS.Packets.Messages.Server
             List<byte> data = new List<byte>();
             var i = 0;
 
-            foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetScore()))
+            foreach (var player in ResourcesManager.GetInMemoryLevels().OrderByDescending(t => t.Avatar.GetTrophies()))
             {
                 try
                 {
                     ClientAvatar pl = player.Avatar;
-                    long id = pl.GetAllianceId();
+                    long id = pl.AllianceID;
                     if (i >= 100)
                         break;
-                    data.AddLong(pl.GetId());
-                    data.AddString(pl.AvatarName);
+                    data.AddLong(pl.UserID);
+                    data.AddString(pl.Username);
                     data.AddInt(i + 1);
-                    data.AddInt(pl.GetScore());
+                    data.AddInt(pl.GetTrophies());
                     data.AddInt(i + 1);
-                    data.AddInt(pl.GetAvatarLevel());
+                    data.AddInt(pl.Level);
                     data.AddInt(100);
                     data.AddInt(1);
                     data.AddInt(100);
                     data.AddInt(1);
-                    data.AddInt(pl.GetLeagueId());
+                    data.AddInt(pl.League);
                     data.AddString(pl.Region.ToUpper());
-                    data.AddLong(pl.GetAllianceId());
+                    data.AddLong(pl.AllianceID);
                     data.AddInt(1);
                     data.AddInt(1);
-                    if (pl.GetAllianceId() > 0)
+                    if (pl.AllianceID > 0)
                     {
                         data.Add(1); // 1 = Have an alliance | 0 = No alliance
-                        data.AddLong(pl.GetAllianceId());
+                        data.AddLong(pl.AllianceID);
                         Alliance _Alliance = await ObjectManager.GetAlliance(id);
                         data.AddString(_Alliance.GetAllianceName());
                         data.AddInt(_Alliance.GetAllianceBadgeData());

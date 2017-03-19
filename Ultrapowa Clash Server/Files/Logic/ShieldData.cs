@@ -17,5 +17,6 @@ namespace UCS.Files.Logic
         public int LockedAboveScore { get; set; }
         public string TID { get; set; }
         public int TimeH { get; set; }
+        public int GuardTimeH { get; set; }
     }
 }

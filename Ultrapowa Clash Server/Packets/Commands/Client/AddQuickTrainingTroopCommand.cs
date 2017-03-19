@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
-using UCS.Logic;
+using UCS.Logic.JSONProperty;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -30,7 +30,7 @@ namespace UCS.Packets.Commands.Client
         }
         internal override void Process()
         {
-            List<DataSlot> defaultdatbase = this.Device.Player.Avatar.QuickTrain1;
+            var defaultdatbase = this.Device.Player.Avatar.QuickTrain1;
             switch (Database)
             {
                 case 1:
@@ -46,7 +46,7 @@ namespace UCS.Packets.Commands.Client
             }
 
             defaultdatbase.Clear();
-            defaultdatbase.AddRange(UnitsToAdd.Select(i => new DataSlot(i.Data, i.Count)));
+            defaultdatbase.AddRange(UnitsToAdd.Select(i => new Slot(i.Data.GetGlobalID(), i.Count)));
         }
         internal class UnitToAdd
         {

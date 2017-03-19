@@ -23,7 +23,7 @@ namespace UCS.Packets
                 {10117, typeof(ReportPlayerMessage)},
                 {10118, typeof(AccountSwitchMessage)},
                 {10113, typeof(GetDeviceTokenMessage)},
-                {10212, typeof(ChangeAvatarNameMessage)},
+                {10212, typeof(ChangeUsernameMessage)},
                 {10502, typeof(AddClashFriendMessage)},
                 {10905, typeof(NewsSeenMessage)},
                 {14100, typeof(AttackResultMessage)},
@@ -64,7 +64,7 @@ namespace UCS.Packets
                 {14404, typeof(TopLocalPlayersMessage)},
                 {14406, typeof(TopPreviousGlobalPlayersMessage)},
                 {14503, typeof(TopLeaguePlayersMessage)},
-                {14600, typeof(RequestAvatarNameChange)},
+                {14600, typeof(RequestUsernameChange)},
                 {15000, typeof(AllianceWarVisitMessage)},
                 {15001, typeof(AllianceWarAttackAvatarMessage)}
             };

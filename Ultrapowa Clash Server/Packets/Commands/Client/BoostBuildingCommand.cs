@@ -35,7 +35,7 @@ namespace UCS.Packets.Commands.Client
                 if (ca.HasEnoughDiamonds(costs))
                 {
                     b.BoostBuilding();
-                    ca.SetDiamonds(ca.GetDiamonds() - costs);
+                    ca.SetDiamonds(ca.Resources.Gems - costs);
                 }
             }
         }

@@ -31,14 +31,14 @@ namespace UCS.Packets.Commands.Client
             /*try
             {
                 ClientAvatar _Player = this.Device.Player.Avatar;
-                Alliance _Alliance = await ObjectManager.GetAlliance(_Player.GetAllianceId());
+                Alliance _Alliance = await ObjectManager.GetAlliance(_Player.AllianceID);
 
                 ShareStreamEntry _CM = new ShareStreamEntry();
                 _CM.SetReplayjson(File.ReadAllText("replay-json.txt"));
                 _CM.SetEnemyName("Ultrapowa");
                 _CM.SetMessage("Look at this battle! :D");
                 _CM.SetSenderId(_Player.GetId());
-                _CM.SetSenderName(_Player.AvatarName);
+                _CM.SetSenderName(_Player.Username);
                 _CM.SetSenderRole(await _Player.GetAllianceRole());
 
                 _Alliance.AddChatMessage(_CM);

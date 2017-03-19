@@ -27,7 +27,7 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 ClientAvatar avatar = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(avatar.GetAllianceId());
+                Alliance alliance = await ObjectManager.GetAlliance(avatar.AllianceID);
 
                 if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
@@ -56,7 +56,7 @@ namespace UCS.Packets.Messages.Client
                         int count = alliance.GetAllianceMembers().Count;
                         Random rnd = new Random();
                         int id = rnd.Next(1, count);
-                        while (id != this.Device.Player.Avatar.GetId())
+                        while (id != this.Device.Player.Avatar.UserID)
                             id = rnd.Next(1, count);
                         int loop = 0;
                         foreach (AllianceMemberEntry player in members)
@@ -86,8 +86,8 @@ namespace UCS.Packets.Messages.Client
 
                 new AvailableServerCommandMessage(Device, a.Handle()).Send();
 
-                alliance.RemoveMember(avatar.GetId());
-                avatar.SetAllianceId(0);
+                alliance.RemoveMember(avatar.UserID);
+                avatar.AllianceID = 0;
 
                 if (alliance.GetAllianceMembers().Count > 0)
                 {
@@ -95,11 +95,11 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                     eventStreamEntry.SetSender(avatar);
                     eventStreamEntry.SetEventType(4);
-                    eventStreamEntry.SetAvatarId(avatar.GetId());
-                    eventStreamEntry.SetAvatarName(avatar.AvatarName);
+                    eventStreamEntry.SetAvatarId(avatar.UserID);
+                    eventStreamEntry.SetUsername(avatar.Username);
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                        if (onlinePlayer.Avatar.GetAllianceId() == alliance.GetAllianceId())
+                        if (onlinePlayer.Avatar.AllianceID == alliance.AllianceID)
                         {
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.Client);
                             p.SetStreamEntry(eventStreamEntry);

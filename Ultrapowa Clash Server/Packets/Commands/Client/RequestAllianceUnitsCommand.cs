@@ -29,20 +29,20 @@ namespace UCS.Packets.Commands.Client
             {
                 ClientAvatar player = this.Device.Player.Avatar;
                 TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
-                Alliance all = await ObjectManager.GetAlliance(player.GetAllianceId());
+                Alliance all = await ObjectManager.GetAlliance(player.AllianceID);
 
                 cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.GetId());
-                cm.SetHomeId(player.GetId());
-                cm.SetSenderLeagueId(player.GetLeagueId());
-                cm.SetSenderName(player.AvatarName);
+                cm.SetSenderId(player.UserID);
+                cm.SetHomeId(player.UserID);
+                cm.SetSenderLeagueId(player.League);
+                cm.SetSenderName(player.Username);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetMessage(Message);
-                cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
+                cm.SetMaxTroop(player.Castle_Total);
 
                 all.AddChatMessage((TroopRequestStreamEntry)cm);
 
-                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
+                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserID && c.GetStreamEntryType() == 1);
                 if (s == null)
                 {
                     all.GetChatMessages().RemoveAll(t => t == s);

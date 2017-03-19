@@ -35,7 +35,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                 StreamEntry stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
                 Level _Sender = await ResourcesManager.GetPlayer(stream.GetSenderId());
                 int upcomingspace = stream.m_vDonatedTroop + Troop.GetHousingSpace();
@@ -45,7 +45,7 @@ namespace UCS.Packets.Messages.Client
 
                     /*DonatedAllianceUnitCommand _Donated = new DonatedAllianceUnitCommand(this.Device);
                     _Donated.Tick(_Sender);
-                    _Donated.SetDonator(this.Device.Player.Avatar.AvatarName);
+                    _Donated.SetDonator(this.Device.Player.Avatar.Username);
                     _Donated.SetUnitID(Troop.GetGlobalID());
                     _Donated.SetUnitLevel(this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));*/
 
@@ -54,14 +54,12 @@ namespace UCS.Packets.Messages.Client
                     StreamEntry _Stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
                     Level _PreviousPlayer = await ResourcesManager.GetPlayer(_Stream.GetSenderId());
                     ClientAvatar _PreviousPlayerAvatar = _PreviousPlayer.Avatar;
-                    _Stream.AddDonatedTroop(this.Device.Player.Avatar.GetId(), Troop.GetGlobalID(), 1,
+                    _Stream.AddDonatedTroop(this.Device.Player.Avatar.UserID, Troop.GetGlobalID(), 1,
                         this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
                     int _Capicity = Troop.GetHousingSpace();
                     _Stream.AddUsedCapicity(_Capicity);
-                    _PreviousPlayerAvatar.SetAllianceCastleUsedCapacity(
-                        _PreviousPlayerAvatar.GetAllianceCastleUsedCapacity() + _Capicity);
-                    _PreviousPlayerAvatar.AddAllianceTroop(this.Device.Player.Avatar.GetId(), Troop.GetGlobalID(), 1,
-                        this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    _PreviousPlayerAvatar.Castle_Used += _Capicity;
+                    _PreviousPlayerAvatar.Add_Castle_Unit(this.Device.Player.Avatar.UserID, Troop.GetGlobalID(), 1, this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
 
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {

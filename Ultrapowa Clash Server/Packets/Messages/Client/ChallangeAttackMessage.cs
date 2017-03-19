@@ -39,9 +39,9 @@ namespace UCS.Packets.Messages.Client
                 else
                 {
                     this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
-                    Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                    Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                     Level defender = await ResourcesManager.GetPlayer(a.GetChatMessages().Find(c => c.GetId() == ID).GetSenderId());
-                    if (defender.Avatar.GetId() > 0)
+                    if (defender.Avatar.UserID > 0)
                     {
                         defender.Tick();
                         new ChallangeAttackDataMessage(Device, defender).Send();
@@ -51,7 +51,7 @@ namespace UCS.Packets.Messages.Client
                         new OwnHomeDataMessage(Device, this.Device.Player).Send();
                     }
 
-                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.GetAllianceId());
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
                     StreamEntry s = alliance.GetChatMessages().Find(c => c.GetStreamEntryType() == 12);
                     if (s != null)
                     {

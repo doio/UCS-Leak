@@ -17,6 +17,7 @@ namespace UCS.Packets
         internal Level Player;
         internal Token Token;
         internal Crypto Keys;
+
         public Device(Socket so)
         {
             this.Socket = so;
@@ -42,7 +43,7 @@ namespace UCS.Packets
         }
 
 
-        internal State PlayerState = Logic.Enums.State.DISCONNECTED;
+        internal State PlayerState = State.DISCONNECTED;
 
         internal IntPtr SocketHandle;
 

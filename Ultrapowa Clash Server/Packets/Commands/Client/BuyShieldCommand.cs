@@ -1,8 +1,11 @@
 ﻿using System;
 using UCS.Core;
+using UCS.Core.Network;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Logic.Enums;
+using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -21,17 +24,23 @@ namespace UCS.Packets.Commands.Client
 
         internal override void Process()
         {
-            ClientAvatar player = this.Device.Player.Avatar;
-            /*if (ShieldId == 20000000)
+            ShieldData Shield = CSVManager.DataTables.GetDataById(this.ShieldId) as ShieldData;
+
+
+            if (Shield != null)
             {
-                player.SetProtectionTime(Convert.ToInt32(TimeSpan.FromHours(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH).TotalSeconds));
-                player.UseDiamonds(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).Diamonds);
+                if (this.Device.Player.Avatar.Resources.Get(Resource.Diamonds) >= Shield.Diamonds)
+                {
+                    this.Device.Player.Avatar.Shield += Shield.TimeH * 3600;
+                    this.Device.Player.Avatar.Guard += Shield.GuardTimeH * 3600;
+
+                    this.Device.Player.Avatar.Resources.Minus(Resource.Diamonds, Shield.Diamonds);
+                }
+                else
+                    new OutOfSyncMessage(this.Device).Send();
             }
             else
-            {*/
-                player.SetShieldTime(player.GetShieldTime + Convert.ToInt32(TimeSpan.FromHours(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).TimeH).TotalSeconds));
-                player.UseDiamonds(((ShieldData)CSVManager.DataTables.GetDataById(ShieldId)).Diamonds);
-            //}
+                new OutOfSyncMessage(this.Device).Send();
         }
 
         public int ShieldId;

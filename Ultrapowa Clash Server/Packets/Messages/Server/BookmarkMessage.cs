@@ -26,13 +26,13 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 List<byte> list = new List<byte>();
-                List<BookmarkSlot> rem = new List<BookmarkSlot>();
-                foreach (var p in Player.BookmarkedClan)
+                List<long> rem = new List<long>();
+                foreach (var p in Player.Bookmark)
                 {
-                    Alliance a = await ObjectManager.GetAlliance(p.Value);
+                    Alliance a = await ObjectManager.GetAlliance(p);
                     if (a != null)
                     {
-                        list.AddLong(p.Value);
+                        list.AddLong(p);
                         i++;
                     }
                     else
@@ -44,9 +44,9 @@ namespace UCS.Packets.Messages.Server
                 }
                 this.Data.AddInt(i);
                 this.Data.AddRange(list);
-                foreach (BookmarkSlot im in rem)
+                foreach (var im in rem)
                 {
-                    Player.BookmarkedClan.RemoveAll(t => t == im);
+                    Player.Bookmark.RemoveAll(t => t == im);
                 }
             }
             catch (Exception)

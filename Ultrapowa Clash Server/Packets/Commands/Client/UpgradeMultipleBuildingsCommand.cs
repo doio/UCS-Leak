@@ -48,12 +48,12 @@ namespace UCS.Packets.Commands.Client
                             Logger.Write("Building To Upgrade : " + name + " (" + buildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
-                                ca.IncrementAllianceCastleLevel();
-                                ca.SetAllianceCastleTotalCapacity(bd.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
+                                ca.Castle_Level++;
+                                ca.Castle_Total = bd.GetUnitStorageCapacity(ca.Castle_Level);
                             }
                             else if (string.Equals(name, "Town Hall"))
-                                ca.IncrementTownHallLevel();
-                            ca.SetResourceCount(rd, ca.GetResourceCount(rd) - cost);
+                                ca.TownHall_Level++;
+                            ca.Resources.Set(rd.GetGlobalID(), ca.GetResourceCount(rd) - cost);
                             b.StartUpgrading();
                         }
                     }

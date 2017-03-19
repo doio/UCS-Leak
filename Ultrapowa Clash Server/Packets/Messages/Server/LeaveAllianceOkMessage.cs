@@ -17,7 +17,7 @@ namespace UCS.Packets.Messages.Server
         internal override void Encode()
         {
             this.Data.AddInt(this.ServerCommandType);
-            this.Data.AddLong(this.Alliance.GetAllianceId());
+            this.Data.AddLong(this.Alliance.AllianceID);
             this.Data.AddInt(1); // 1 = leave, 2 = kick
             this.Data.AddInt(-1);
         }
