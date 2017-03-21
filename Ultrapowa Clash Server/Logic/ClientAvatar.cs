@@ -47,7 +47,7 @@ namespace UCS.Logic
         [JsonProperty("token")] internal string Token;
         [JsonProperty("password")] internal string Password;
 
-        [JsonProperty("name")] internal string Username = s_names[Core.Resources.Random.Next(s_names.Length)];
+        [JsonProperty("name")] internal string Username = "NoNameYet";
         [JsonProperty("IPAddress")] internal string IPAddress;
         [JsonProperty("region")] internal string Region;
 
@@ -192,6 +192,8 @@ namespace UCS.Logic
             this.QuickTrain1 = new List<Slot>();
             this.QuickTrain2 = new List<Slot>();
             this.QuickTrain3 = new List<Slot>();
+
+            this.GetTrophies();
         }
 
         public async Task<byte[]> Encode()
@@ -256,10 +258,14 @@ namespace UCS.Logic
                 data.AddInt(this.Castle_Level);
                 data.AddInt(this.Castle_Total);
                 data.AddInt(this.Castle_Used);
-                data.AddInt(0);
-                data.AddInt(-1);
+                data.AddInt(this.Castle_Total_SP);
+                data.AddInt(this.Castle_Used_SP);
                 data.AddInt(this.TownHall_Level);
+#if DEBUG
+                data.AddString(this.Username + " #" + this.UserID);
+#else
                 data.AddString(this.Username);
+#endif
                 data.AddString(this.Facebook.Identifier);
                 data.AddInt(this.Level);
                 data.AddInt(this.Experience);
@@ -267,6 +273,7 @@ namespace UCS.Logic
                 data.AddInt(this.Resources.Gems);
                 data.AddInt(1200);
                 data.AddInt(60);
+
                 data.AddInt(this.Trophies);
                 data.AddInt(this.Wins);
                 data.AddInt(this.Loses);
@@ -290,6 +297,7 @@ namespace UCS.Logic
                 data.AddInt(0);
                 data.AddInt(0);
                 data.AddBool(this.NameState > 1);
+
                 data.AddRange(this.Resources_Cap.ToBytes);
                 data.AddRange(this.Resources.ToBytes);
 
@@ -297,6 +305,7 @@ namespace UCS.Logic
                 data.AddDataSlots(this.Spells);
                 data.AddDataSlots(this.UnitUpgradeLevel);
                 data.AddDataSlots(this.SpellsUpgradeLevel);
+
                 data.AddDataSlots(this.HeroUpgradeLevel);
                 data.AddDataSlots(this.HeroHealth);
                 data.AddDataSlots(this.HeroState);
@@ -321,17 +330,17 @@ namespace UCS.Logic
                 for (int i = 0; i < this.Tutorial; i++)
                     data.AddInt(21000000 + i);
 
-                data.AddInt(this.Achievements.Count);
+                data.AddInt(this.Achievements.Completed.Count);
                 foreach (Slot Achievement in this.Achievements.Completed)
                 {
                     data.AddInt(Achievement.Data);
                 }
 
-                data.AddInt(this.Achievements.Count);
+                data.AddInt(this.Achievements.Completed.Count);
                 foreach (Slot Achievement in this.Achievements.Completed)
                 {
                     data.AddInt(Achievement.Data);
-                    data.AddInt(0);
+                    data.AddInt(Achievements.Count);
                 }
 
 
@@ -359,29 +368,6 @@ namespace UCS.Logic
                 return null;
             }
         }
-
-        private static readonly string[] s_names =
-        {
-            "Patrik",
-            "Jean",
-            "Kenny",
-            "Levi",
-            "Edward",
-            "Dan",
-            "Vincent",
-            "Luke",
-            "Vulcan",
-            "Kukli",
-            "Davi",
-            "Osie",
-            "Keem",
-            "Alfred",
-            "Dimitri",
-            "Valdimir",
-            "Kim Jong Un",
-            "New User",
-            "Mega Pumba"
-        };
 
         #region Set
 

@@ -159,7 +159,7 @@ namespace UCS.Logic.Manager
             }
             jsonData.Add("decos", JDecos);
 
-			var cooldowns = new JArray();
+            var cooldowns = new JArray();
             jsonData.Add("cooldowns", cooldowns);
             var newShopBuildings = new JArray
             {

@@ -16,36 +16,38 @@ namespace UCS.Core
 {
     internal class ResourcesManager : IDisposable
     {
-        public static ConcurrentDictionary<IntPtr, Device> m_vClients            = null;
-        private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
-        public static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances  = null;
-        private static List<Level> m_vOnlinePlayers                              = null;
-        private static DatabaseManager m_vDatabase                               = null;
+        internal static ConcurrentDictionary<IntPtr, Device> Clients = null;
+        internal static ConcurrentDictionary<long, Level> InMemoryLevels = null;
+        internal static ConcurrentDictionary<long, Battle> Battles = null;
+        internal static ConcurrentDictionary<long, Alliance> InMemoryAlliances = null;
+        internal static List<Level> OnlinePlayers = null;
+        internal static DatabaseManager m_vDatabase = null;
 
         public ResourcesManager()
         {
-            m_vDatabase          = new DatabaseManager();
-            m_vOnlinePlayers     = new List<Level>();
-            m_vClients           = new ConcurrentDictionary<IntPtr, Device>();
-            m_vInMemoryLevels    = new ConcurrentDictionary<long, Level>();
-            m_vInMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
+            m_vDatabase = new DatabaseManager();
+            OnlinePlayers = new List<Level>();
+            Clients = new ConcurrentDictionary<IntPtr, Device>();
+            InMemoryLevels = new ConcurrentDictionary<long, Level>();
+            InMemoryAlliances = new ConcurrentDictionary<long, Alliance>();
+            Battles = new ConcurrentDictionary<long, Battle>();
         }
 
         public static void AddClient(Socket _Socket)
         {
             Device c = new Device(_Socket){IPAddress = ((System.Net.IPEndPoint) _Socket.RemoteEndPoint).Address.ToString()};
-            m_vClients.TryAdd(c.Socket.Handle, c);
+            Clients.TryAdd(c.Socket.Handle, c);
         }
         public static void AddClient(Device Client)
         {
-            m_vClients.TryAdd(Client.Socket.Handle, Client);
+            Clients.TryAdd(Client.Socket.Handle, Client);
         }
         public static void DropClient(IntPtr socketHandle)
         {
             try
             {
                 Device _Client = null;
-                m_vClients.TryRemove(socketHandle, out _Client);
+                Clients.TryRemove(socketHandle, out _Client);
                 if (_Client.Player != null)
                 {
                     LogPlayerOut(_Client.Player);
@@ -59,7 +61,7 @@ namespace UCS.Core
         {
             try
             {
-                m_vClients.TryRemove(client.SocketHandle);
+                Clients.TryRemove(client.SocketHandle);
                 if (client.Player != null)
                 {
                     LogPlayerOut(client.Player);
@@ -72,13 +74,13 @@ namespace UCS.Core
 
         public static List<long> GetAllPlayerIds() => m_vDatabase.GetAllPlayerIds();
 
-        public static Device GetClient(IntPtr socketHandle) => m_vClients.ContainsKey(socketHandle) ? m_vClients[socketHandle] : null;
+        public static Device GetClient(IntPtr socketHandle) => Clients.ContainsKey(socketHandle) ? Clients[socketHandle] : null;
 
-        public static List<Device> GetConnectedClients() => m_vClients.Values.ToList();
+        public static List<Device> GetConnectedClients() => Clients.Values.ToList();
 
-        public static List<Level> GetInMemoryLevels() => m_vInMemoryLevels.Values.ToList();
+        public static List<Level> GetInMemoryLevels() => InMemoryLevels.Values.ToList();
 
-        public static List<Level> GetOnlinePlayers() => m_vOnlinePlayers;
+        public static List<Level> GetOnlinePlayers() => OnlinePlayers;
 
         public static async Task<Level> GetPlayer(long id, bool persistent = false)
         {
@@ -100,13 +102,13 @@ namespace UCS.Core
             DropClient(_Client.SocketHandle);
         }
 
-        public static bool IsClientConnected(IntPtr socketHandle) => m_vClients[socketHandle] != null && m_vClients[socketHandle].IsClientSocketConnected();
+        public static bool IsClientConnected(IntPtr socketHandle) => Clients[socketHandle] != null && Clients[socketHandle].IsClientSocketConnected();
 
-        public static bool IsPlayerOnline(Level l) => m_vOnlinePlayers.Contains(l);
+        public static bool IsPlayerOnline(Level l) => OnlinePlayers.Contains(l);
 
         public static void LoadLevel(Level level)
         {
-            m_vInMemoryLevels.TryAdd(level.Avatar.UserID, level);
+            InMemoryLevels.TryAdd(level.Avatar.UserID, level);
         }
 
         public static void LogPlayerIn(Level l, Device c)
@@ -114,60 +116,77 @@ namespace UCS.Core
             l.Client = c;
             c.Player = l;
 
-            if (!m_vOnlinePlayers.Contains(l))
+            if (!OnlinePlayers.Contains(l))
             {
-                m_vOnlinePlayers.Add(l);
+                OnlinePlayers.Add(l);
                 LoadLevel(l);
                 Program.TitleU();
             }
             else
             {
-                int i = m_vOnlinePlayers.IndexOf(l);
-                m_vOnlinePlayers[i] = l;
+                int i = OnlinePlayers.IndexOf(l);
+                OnlinePlayers[i] = l;
+            }
+        }
+
+        public static void RemoveBattle(long id)
+        {
+            try
+            {
+                Battles.TryRemove(id);
+            }
+            catch (Exception e)
+            {
             }
         }
 
         public static void LogPlayerOut(Level level)
         {
             DatabaseManager.Single().Save(level);
-            m_vOnlinePlayers.Remove(level);
-            m_vInMemoryLevels.TryRemove(level.Avatar.UserID);
-            m_vClients.TryRemove(level.Client.SocketHandle);
+            OnlinePlayers.Remove(level);
+            InMemoryLevels.TryRemove(level.Avatar.UserID);
+            Clients.TryRemove(level.Client.SocketHandle);
             Program.TitleD();
         }
 
-        private static Level GetInMemoryPlayer(long id) => m_vInMemoryLevels.ContainsKey(id) ? m_vInMemoryLevels[id] : null;
+        internal static Battle GetInMemoryBattle(long id) => Battles.ContainsKey(id) ? Battles[id] : null;
+        private static Level GetInMemoryPlayer(long id) => InMemoryLevels.ContainsKey(id) ? InMemoryLevels[id] : null;
 
-        public static List<Alliance> GetInMemoryAlliances() => m_vInMemoryAlliances.Values.ToList();
+        public static List<Alliance> GetInMemoryAlliances() => InMemoryAlliances.Values.ToList();
 
         public static void AddAllianceInMemory(Alliance all)
         {
-            m_vInMemoryAlliances.TryAdd(all.AllianceID, all);
+            InMemoryAlliances.TryAdd(all.AllianceID, all);
         }
+        public static void AddBattle(Battle _battle)
+        {
+            Battles.TryAdd(_battle.Battle_ID, _battle);
+        }
+
 
         public static void AddAllianceInMemory(List<Alliance> all)
         {
             for (int i = 0, allCount = all.Count; i < allCount; i++)
             {
                 Alliance a = all[i];
-                m_vInMemoryAlliances.TryAdd(a.AllianceID, a);
+                InMemoryAlliances.TryAdd(a.AllianceID, a);
             }
         }
 
-        public static bool InMemoryAlliancesContain(long key) => m_vInMemoryAlliances.Keys.Contains(key);
+        public static bool InMemoryAlliancesContain(long key) => InMemoryAlliances.Keys.Contains(key);
 
-        public static bool InMemoryAlliancesContain(Alliance all) => m_vInMemoryAlliances.Values.Contains(all);
+        public static bool InMemoryAlliancesContain(Alliance all) => InMemoryAlliances.Values.Contains(all);
 
         public static Alliance GetInMemoryAlliance(long key)
         {
             Alliance a;
-            m_vInMemoryAlliances.TryGetValue(key, out a);
+            InMemoryAlliances.TryGetValue(key, out a);
             return a;
         }
 
         public static void RemoveAllianceFromMemory(long key)
         {
-            m_vInMemoryAlliances.TryRemove(key);
+            InMemoryAlliances.TryRemove(key);
         }
 
         public static void SetGameObject(Level level, string json)

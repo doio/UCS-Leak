@@ -251,6 +251,9 @@
     <Compile Include="Database\Clan.cs">
       <DependentUpon>ucsdb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Stream.cs">
+      <DependentUpon>ucsdb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Mysql.cs" />
     <Compile Include="Database\Redis.cs" />
     <Compile Include="Core\Events\EventsHandler.cs" />
@@ -263,6 +266,7 @@
     </Compile>
     <Compile Include="Helpers\Binary\Reader.cs" />
     <Compile Include="Helpers\List\Writter.cs" />
+    <Compile Include="Helpers\BattleSerializers.cs" />
     <Compile Include="Logic\API\Facebook.cs" />
     <Compile Include="Logic\API\Gamecenter.cs" />
     <Compile Include="Logic\API\Google.cs" />
@@ -273,11 +277,17 @@
     <Compile Include="Logic\Enums\Save.cs" />
     <Compile Include="Logic\Enums\State.cs" />
     <Compile Include="Logic\JSONProperty\Achievements.cs" />
+    <Compile Include="Logic\JSONProperty\Calendar.cs" />
+    <Compile Include="Logic\JSONProperty\Commands.cs" />
     <Compile Include="Logic\JSONProperty\DonationSlot.cs" />
     <Compile Include="Logic\JSONProperty\Inbox.cs" />
+    <Compile Include="Logic\JSONProperty\Item\Battle_Commands.cs" />
+    <Compile Include="Logic\JSONProperty\Item\Event.cs" />
     <Compile Include="Logic\JSONProperty\Item\Mail.cs" />
     <Compile Include="Logic\JSONProperty\Item\Npc.cs" />
     <Compile Include="Logic\JSONProperty\Npcs.cs" />
+    <Compile Include="Logic\JSONProperty\Replay_Info.cs" />
+    <Compile Include="Logic\JSONProperty\Replay_Stats.cs" />
     <Compile Include="Logic\JSONProperty\Resources.cs" />
     <Compile Include="Logic\JSONProperty\Slot.cs" />
     <Compile Include="Logic\JSONProperty\Units.cs" />
@@ -1155,7 +1165,6 @@
     <Compile Include="Logic\AvatarStreamEntry\AllianceKickOutStreamEntry.cs" />
     <Compile Include="Logic\AllianceMemberEntry.cs" />
     <Compile Include="Logic\Avatar.cs" />
-    <Compile Include="Logic\Base.cs" />
     <Compile Include="Logic\AvatarStreamEntry\AvatarStreamEntry.cs" />
     <Compile Include="Logic\AvatarStreamEntry\AllianceMailStreamEntry.cs" />
     <Compile Include="Logic\StreamEntry\AllianceEventStreamEntry.cs" />

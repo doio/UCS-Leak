@@ -14,6 +14,7 @@
         {
             // Units.
         }
+
         internal Units Clone()
         {
             return this.MemberwiseClone() as Units;

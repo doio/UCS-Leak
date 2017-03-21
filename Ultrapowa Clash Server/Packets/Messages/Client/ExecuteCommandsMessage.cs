@@ -40,6 +40,9 @@ namespace UCS.Packets.Messages.Client
         {
             this.Device.Player.Tick();
 
+            if (this.Device.PlayerState == Logic.Enums.State.IN_BATTLE)
+                Console.WriteLine(ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].BattleTick = (int)this.CTick);
+
             if (this.Count > -1 && this.Count <= 400)  
             {
                 using (Reader Reader = new Reader(this.Commands))

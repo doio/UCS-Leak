@@ -18,11 +18,8 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ch = new ClientHome(this.Level.Avatar.UserID);
-                ch.SetHomeJSON(this.Level.SaveToJSON());
-
                 this.Data.AddRange(await this.Level.Avatar.Encode());
-                this.Data.AddCompressed(ch.GetHomeJSON(), false);
+                this.Data.AddCompressed(this.Level.SaveToJSON(), false);
 
                 this.Data.AddInt(this.Level.Avatar.Donations); //Donated
                 this.Data.AddInt(this.Level.Avatar.Received); //Received

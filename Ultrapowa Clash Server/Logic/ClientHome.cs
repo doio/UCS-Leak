@@ -6,7 +6,7 @@ using UCS.Core.Checker;
 
 namespace UCS.Logic
 {
-    internal class ClientHome : Base
+    internal class ClientHome 
     {
         readonly long m_vId;
         string village;
@@ -22,7 +22,7 @@ namespace UCS.Logic
             m_vId = id;
         }
 
-        public override byte[] Encode()
+        public byte[] Encode()
         {
             List<byte> data = new List<byte>();
             data.AddLong(m_vId);

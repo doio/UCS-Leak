@@ -1,15 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.IO.Compression;
-using Ionic.Zip;
-using Ionic.Zlib;
-using System.IO;
-using UCS.Core.Threading;
-using static UCS.Core.Logger;
 using System.Net;
 using System.Threading;
-using System.Reflection;
-using UCS.Core.Settings;
 using Newtonsoft.Json.Linq;
 
 namespace UCS.Core.Web

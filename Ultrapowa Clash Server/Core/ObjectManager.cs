@@ -24,6 +24,7 @@ namespace UCS.Core
     {
         private static long m_vAllianceSeed;
         private static long m_vAvatarSeed;
+        private static long m_vBattleSeed;
         public static int m_vDonationSeed;
         internal static long BattleSeed;
         private static int m_vRandomBaseAmount;
@@ -35,8 +36,6 @@ namespace UCS.Core
         public static Dictionary<int, string> NpcLevels;
         public static Dictionary<int, string> m_vRandomBases;
         public static FingerPrint FingerPrint;
-        static int MaxPlayerID;
-        static int MaxAllianceID;
 
         public ObjectManager()
         {
@@ -48,11 +47,9 @@ namespace UCS.Core
             m_vRandomBases         = new Dictionary<int, string>();
             FingerPrint            = new FingerPrint();
 
-            MaxPlayerID            = m_vDatabase.GetPlayerSeed() + 1;
-            MaxAllianceID          = m_vDatabase.GetClanSeed() + 1;
-
-            m_vAvatarSeed          = MaxPlayerID;
-            m_vAllianceSeed        = MaxAllianceID;
+            m_vAvatarSeed          = m_vDatabase.GetPlayerSeed() + 1;
+            m_vAllianceSeed        = m_vDatabase.GetClanSeed() + 1;
+            m_vBattleSeed          = m_vDatabase.GetStreamSeed() + 1;
 
             using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
             {
@@ -71,7 +68,7 @@ namespace UCS.Core
             {
                 TimerReferenceMysql = new Timer(SaveMysql, null, 10000, 60000);
             }
-            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + " Tables)");
+            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(m_vAvatarSeed + m_vAllianceSeed) + " Tables)");
         }
 
         private static void SaveRedis(object state)
@@ -111,6 +108,18 @@ namespace UCS.Core
             pl.LoadFromJSON(m_vHomeDefault);
             m_vDatabase.CreateAccount(pl);
             return pl;
+        }
+
+        public static Battle CreateBattle(Level attacker, Level defender)
+        {
+            Battle _Battle = null;
+
+            _Battle = new Battle(m_vBattleSeed++, attacker, defender);
+
+            attacker.Avatar.BattleId = _Battle.Battle_ID;
+
+            m_vDatabase.CreateBattle(_Battle);
+            return _Battle;
         }
 
         /*public static void LoadAllAlliancesFromDB()
@@ -209,9 +218,9 @@ namespace UCS.Core
             ResourcesManager.RemoveAllianceFromMemory(id);
         }
 
-        public static int GetMaxAllianceID() => MaxAllianceID;
+        public static long GetMaxAllianceID() => m_vAllianceSeed;
 
-        public static int GetMaxPlayerID() => MaxPlayerID;
+        public static long GetMaxPlayerID() => m_vAvatarSeed;
 
         public static int RandomBaseCount() => m_vRandomBaseAmount;
 

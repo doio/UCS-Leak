@@ -24,9 +24,18 @@
           <Property Name="Avatar" Type="text" Nullable="false" />
           <Property Name="GameObjects" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="Stream">
+          <Key>
+            <PropertyRef Name="StreamId" />
+          </Key>
+          <Property Name="StreamId" Type="bigint" Nullable="false" />
+          <Property Name="ReplayData" Type="text" Nullable="false" />
+          <Property Name="BattleData" Type="text" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="ucsdbModelStoreContainer">
           <EntitySet Name="Clan" EntityType="Self.Clan" Schema="ucsdb" store:Type="Tables" />
           <EntitySet Name="Player" EntityType="Self.Player" Schema="ucsdb" store:Type="Tables" />
+          <EntitySet Name="Stream" EntityType="Self.Stream" Schema="ucsdb" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -49,12 +58,20 @@
           </Key>
           <Property Name="PlayerId" Type="Int64" Nullable="false" />
           <Property Name="Avatar" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="GameObjects" Type="String" Nullable="false" MaxLength="65535" FixedLength="false"
-                    Unicode="false" />
+          <Property Name="GameObjects" Type="String" Nullable="false" MaxLength="65535" FixedLength="false"  Unicode="false" />
+        </EntityType>
+        <EntityType Name="Stream">
+          <Key>
+            <PropertyRef Name="StreamId" />
+          </Key>
+          <Property Name="StreamId" Type="Int64" Nullable="false" />
+          <Property Name="ReplayData" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="BattleData" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="ucsdbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clan" EntityType="Self.Clan" />
           <EntitySet Name="Player" EntityType="Self.Player" />
+          <EntitySet Name="Stream" EntityType="Self.Stream" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -77,6 +94,15 @@
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
                 <ScalarProperty Name="GameObjects" ColumnName="GameObjects" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stream">
+            <EntityTypeMapping TypeName="ucsdbModel.Stream">
+              <MappingFragment StoreEntitySet="Stream">
+                <ScalarProperty Name="StreamId" ColumnName="StreamId" />
+                <ScalarProperty Name="ReplayData" ColumnName="ReplayData" />
+                <ScalarProperty Name="BattleData" ColumnName="BattleData" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using UCS.Core;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
 using UCS.Logic.Enums;
 using UCS.Logic.JSONProperty;
+using UCS.Logic.JSONProperty.Item;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -26,8 +28,8 @@ namespace UCS.Packets.Commands.Client
         {
 
             if (this.Device.PlayerState == State.IN_BATTLE)
-            {/*
-                if (this.Device.Player.Avatar.Battle_ID > 0)
+            {
+                if (this.Device.Player.Avatar.BattleId > 0)
                 {
                     Battle_Command Command = new Battle_Command
                     {
@@ -35,28 +37,34 @@ namespace UCS.Packets.Commands.Client
                         Command_Base =
                             new Command_Base
                             {
-                                Base = new Logic.Items.Base { Tick = this.Tick },
+                                Base = new Base { Tick = this.Tick },
                                 Data = this.Unit.GetGlobalID(),
                                 X = this.X,
                                 Y = this.Y
                             }
                     };
 
-                    ResourcesManager.GetInMemoryBattle(this.Device.Player.Avatar.Battle_ID).Add_Command(Command);
+                    ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Add_Command(Command);
 
-                    int Index = ResourcesManager.GetInMemoryBattle(this.Device.Player.Avatar.Battle_ID).Replay_Info.Units.FindIndex(T => T[0] == this.Unit.GetGlobalID());
+                    int Index = ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Replay_Info.Units.FindIndex(T => T[0] == this.Unit.GetGlobalID());
                     if (Index > -1)
-                        ResourcesManager.GetInMemoryBattle(this.Device.Player.Avatar.Battle_ID).Replay_Info.Units[Index][1]++;
+                        ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Replay_Info.Units[Index][1]++;
                     else
-                        ResourcesManager.GetInMemoryBattle(this.Device.Player.Avatar.Battle_ID).Replay_Info.Units.Add(new[] { this.Unit.GetGlobalID(), 1 });
+                        ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Replay_Info.Units.Add(new[] { this.Unit.GetGlobalID(), 1 });
+
+                    int Index2 = ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Attacker.Units.FindIndex(T => T.Data == this.Unit.GetGlobalID());
+                    if (Index2 > -1)
+                        ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Attacker.Units[Index2].Count++;
+                    else
+                        ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Attacker.Units.Add(new Slot(this.Unit.GetGlobalID(), 1));
                 }
-                */
+                
                 List<Slot> _PlayerUnits = this.Device.Player.Avatar.Units;
 
                 Slot _DataSlot = _PlayerUnits.Find(t => t.Data == Unit.GetGlobalID());
                 if (_DataSlot != null)
                 {
-                    _DataSlot.Count -= 1;
+                    _DataSlot.Count--;
                 }
             }
         }

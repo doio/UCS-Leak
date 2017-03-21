@@ -25,7 +25,7 @@ namespace UCS.Packets.Commands.Client
             this.Device.Player.Avatar.Resources.Plus(Logic.Enums.Resource.Diamonds, ad.DiamondReward);
             this.Device.Player.Avatar.AddExperience(ad.ExpReward);
 
-            this.Device.Player.Avatar.Achievements.Add(new Slot(this.AchievementId, 0));
+            this.Device.Player.Avatar.Achievements.AddAchievement(new Slot(this.AchievementId, 1));
         }
 
         public int AchievementId;

@@ -9,14 +9,21 @@ namespace UCS.Packets.Messages.Client
     // Packet 14114
     internal class ReplayRequestMessage : Message
     {
+        internal long Replay_ID;
         public ReplayRequestMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
+        internal override void Decode()
+        {
+            this.Replay_ID = this.Reader.ReadInt64();
+            this.Reader.ReadByte();
+            this.Reader.ReadInt32();
+        }
+
         internal override void Process()
         {
-            this.Device.PlayerState = Logic.Enums.State.REPLAY;
-            new ReplayData(this.Device).Send();
+            new ReplayData(this.Device) { Battle_ID = this.Replay_ID }.Send();
         }
     }
 }

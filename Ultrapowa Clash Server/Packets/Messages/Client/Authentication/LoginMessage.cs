@@ -258,17 +258,17 @@ namespace UCS.Packets.Messages.Client
                     this.level.Avatar.AllianceID = 0;
                 }
             }
-            //new AvatarStreamMessage(this.Device).Send();
+            new AvatarStreamMessage(this.Device).Send();
             new OwnHomeDataMessage(this.Device, level).Send();
-            //new BookmarkMessage(this.Device).Send();
-            //new LeaguePlayersMessage(this.Device).Send();
+            new BookmarkMessage(this.Device).Send();
+            new LeaguePlayersMessage(this.Device).Send();
 
         }
 
         private async void CheckClient()
         {
             try
-            {
+            {   
                 if (UserID == 0 || string.IsNullOrEmpty(UserToken))
                 {
                      NewUser();

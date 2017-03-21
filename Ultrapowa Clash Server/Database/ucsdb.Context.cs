@@ -27,5 +27,6 @@ namespace UCS.Database
     
         public virtual DbSet<Clan> Clan { get; set; }
         public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<Stream> Stream { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -13,13 +14,97 @@ using System.Threading.Tasks;
 using UCS.Logic.Enums;
 using UCS.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UCS.Logic.JSONProperty;
 
 namespace UCS.Core
 {
     internal class DatabaseManager
     {
-        internal JsonSerializerSettings Settings = new JsonSerializerSettings
+        #region JSONConverter
+        public class ArrayReferencePreservngConverter : JsonConverter
         {
+            const string refProperty = "$ref";
+            const string idProperty = "$id";
+            const string valuesProperty = "$values";
+
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType.IsArray;
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                switch (reader.TokenType)
+                {
+                    case JsonToken.Null:
+                        return null;
+                    case JsonToken.StartArray:
+                    {
+                        // No $ref.  Deserialize as a List<T> to avoid infinite recursion and return as an array.
+                        var elementType = objectType.GetElementType();
+                        var listType = typeof(List<>).MakeGenericType(elementType);
+                        var list = (IList)serializer.Deserialize(reader, listType);
+                        if (list == null)
+                            return null;
+                        var array = Array.CreateInstance(elementType, list.Count);
+                        list.CopyTo(array, 0);
+                        return array;
+                    }
+                    default:
+                    {
+                        var obj = JObject.Load(reader);
+                        var refId = (string)obj[refProperty];
+                        if (refId != null)
+                        {
+                            var reference = serializer.ReferenceResolver.ResolveReference(serializer, refId);
+                            if (reference != null)
+                                return reference;
+                        }
+                        var values = obj[valuesProperty];
+                        if (values == null || values.Type == JTokenType.Null)
+                            return null;
+                        if (!(values is JArray))
+                        {
+                            throw new JsonSerializationException($"{values} was not an array");
+                        }
+                        var count = ((JArray)values).Count;
+
+                        var elementType = objectType.GetElementType();
+                        var array = Array.CreateInstance(elementType, count);
+
+                        var objId = (string)obj[idProperty];
+                        if (objId != null)
+                        {
+                            // Add the empty array into the reference table BEFORE poppulating it,
+                            // to handle recursive references.
+                            serializer.ReferenceResolver.AddReference(serializer, objId, array);
+                        }
+
+                        var listType = typeof(List<>).MakeGenericType(elementType);
+                        using (var subReader = values.CreateReader())
+                        {
+                            var list = (IList)serializer.Deserialize(subReader, listType);
+                            list.CopyTo(array, 0);
+                        }
+
+                        return array;
+                    }
+                }
+            }
+
+            public override bool CanWrite => false;
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+        #endregion
+
+        internal JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            Converters = { new ArrayReferencePreservngConverter()},
             TypeNameHandling = TypeNameHandling.Auto,
             MissingMemberHandling = MissingMemberHandling.Ignore,
             DefaultValueHandling = DefaultValueHandling.Ignore,
@@ -42,7 +127,7 @@ namespace UCS.Core
         {
             try
             {
-                string Object = JsonConvert.SerializeObject(l.Avatar, this.Settings);
+                string Object = JsonConvert.SerializeObject(l.Avatar, this._settings);
                 if (Constants.UseCacheServer)
                 {
                     Redis.Players.StringSet(l.Avatar.UserID.ToString(), Object + "#:#:#:#" + l.SaveToJSON(), TimeSpan.FromHours(4));
@@ -66,6 +151,34 @@ namespace UCS.Core
             }
         }
 
+        public void CreateBattle(Battle b)
+        {
+            try
+            {
+                string BattleData = JsonConvert.SerializeObject(b, this._settings);
+                string ReplayInfo = JsonConvert.SerializeObject(b.Replay_Info, this._settings);
+                if (Constants.UseCacheServer)
+                {
+                    Redis.Stream.StringSet(b.Battle_ID.ToString(), BattleData + "#:#:#:#" + ReplayInfo, TimeSpan.FromHours(4));
+                }
+
+                using (Mysql db = new Mysql())
+                {
+                    db.Stream.Add(new Stream
+                    {
+                        StreamId = b.Battle_ID,
+                        ReplayData = ReplayInfo,
+                        BattleData = BattleData
+                    }
+                    );
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
         public void CreateAlliance(Alliance a)
         {
             try
@@ -91,6 +204,44 @@ namespace UCS.Core
             }
         }
 
+        public Battle GetBattle(long BattleId)
+        {
+            Battle _Battle = new Battle(BattleId, new Level(), new Level() , false);
+            if (Constants.UseCacheServer) //Redis As Cache Server
+            {
+                string _Data = Redis.Stream.StringGet(BattleId.ToString()).ToString();
+
+                if (!string.IsNullOrEmpty(_Data) && _Data.Contains("#:#:#:#"))
+                {
+                    string[] _Datas = _Data.Split(new string[1] { "#:#:#:#" }, StringSplitOptions.None);
+
+                    if (!string.IsNullOrEmpty(_Datas[0]) && !string.IsNullOrEmpty(_Datas[1]))
+                    {
+                        _Battle = JsonConvert.DeserializeObject<Battle>(_Datas[0], _settings);
+                        _Battle.Replay_Info = JsonConvert.DeserializeObject<Replay_Info>(_Datas[1], _settings);
+                    }
+                    else
+                    {
+                        _Battle = null;
+                    }
+                }
+            }
+            else
+            {
+                using (Mysql db = new Mysql())
+                {
+                    Stream p = db.Stream.Find(BattleId);
+
+                    if (p != null)
+                    {
+                        _Battle = JsonConvert.DeserializeObject<Battle>(p.BattleData, _settings);
+                        _Battle.Replay_Info = JsonConvert.DeserializeObject<Replay_Info>(p.ReplayData, _settings);
+                    }
+                };
+            }
+            return _Battle;
+        }
+
         public async Task<Level> GetAccount(long playerId)
         {
             try
@@ -108,9 +259,8 @@ namespace UCS.Core
                         {
                             account = new Level
                             {
-                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(_Datas[0], this.Settings)
+                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(_Datas[0], this._settings)
                             };
-                            Console.WriteLine(_Datas[0]);
                             account.LoadFromJSON(_Datas[1]);
                         }
                     }
@@ -124,7 +274,7 @@ namespace UCS.Core
                             {
                                 account = new Level
                                 {
-                                    Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this.Settings)
+                                    Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this._settings)
                                 };
                                 account.LoadFromJSON(p.GameObjects);
                                 Redis.Players.StringSet(playerId.ToString(), p.Avatar + "#:#:#:#" + p.GameObjects,
@@ -143,7 +293,7 @@ namespace UCS.Core
                         {
                             account = new Level
                             {
-                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this.Settings)
+                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this._settings)
                             };
                             account.LoadFromJSON(p.GameObjects);
                         }
@@ -225,6 +375,24 @@ namespace UCS.Core
         internal int GetClanSeed()
         {
             const string SQL = "SELECT coalesce(MAX(ClanId), 0) FROM Clan";
+            int Seed = -1;
+
+            using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
+            {
+                Conn.Open();
+
+                using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
+                {
+                    CMD.Prepare();
+                    Seed = Convert.ToInt32(CMD.ExecuteScalar());
+                }
+            }
+
+            return Seed;
+        }
+        internal int GetStreamSeed()
+        {
+            const string SQL = "SELECT coalesce(MAX(StreamId), 0) FROM Stream";
             int Seed = -1;
 
             using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
@@ -325,7 +493,7 @@ namespace UCS.Core
                     {
                         account = new Level
                         {
-                            Avatar = JsonConvert.DeserializeObject<ClientAvatar>(Data.Avatar, this.Settings)
+                            Avatar = JsonConvert.DeserializeObject<ClientAvatar>(Data.Avatar, this._settings)
                         };
                         account.LoadFromJSON(Data.GameObjects);
                         if (Constants.UseCacheServer)
@@ -365,11 +533,39 @@ namespace UCS.Core
             }
         }
 
+
+        public void Save(Battle _Battle)
+        {
+            try
+            {
+                string BattleData = JsonConvert.SerializeObject(_Battle, this._settings);
+                string ReplayInfo = JsonConvert.SerializeObject(_Battle.Replay_Info, this._settings);
+                if (Constants.UseCacheServer)
+                    Redis.Stream.StringSet(_Battle.Battle_ID.ToString(), BattleData + "#:#:#:#" + ReplayInfo,
+                        TimeSpan.FromHours(4));
+
+                using (Mysql context = new Mysql())
+                {
+                    Stream p = context.Stream.Find(_Battle.Battle_ID);
+                    if (p != null)
+                    {
+                        p.StreamId = _Battle.Battle_ID;
+                        p.ReplayData = ReplayInfo;
+                        p.BattleData = BattleData;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public async Task Save(Level avatar)
         {
             try
             {
-                string Object = JsonConvert.SerializeObject(avatar.Avatar, this.Settings);
+                string Object = JsonConvert.SerializeObject(avatar.Avatar, this._settings);
                 if (Constants.UseCacheServer)
                     Redis.Players.StringSet(avatar.Avatar.UserID.ToString(), Object + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
 
@@ -399,7 +595,7 @@ namespace UCS.Core
                         {
                             foreach (Level pl in avatars)
                             {
-                                Redis.Players.StringSet(pl.Avatar.UserID.ToString(), JsonConvert.SerializeObject(pl.Avatar, this.Settings) + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
+                                Redis.Players.StringSet(pl.Avatar.UserID.ToString(), JsonConvert.SerializeObject(pl.Avatar, this._settings) + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
                             }
                             break;
                         }
@@ -414,7 +610,7 @@ namespace UCS.Core
                                     if (p != null)
                                     {
 
-                                        p.Avatar = JsonConvert.SerializeObject(pl.Avatar, this.Settings);
+                                        p.Avatar = JsonConvert.SerializeObject(pl.Avatar, this._settings);
                                         p.GameObjects = pl.SaveToJSON();
                                     }
 

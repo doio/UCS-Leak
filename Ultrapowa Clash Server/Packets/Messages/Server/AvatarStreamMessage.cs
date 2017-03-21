@@ -1,4 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Resources;
+using Newtonsoft.Json;
+using UCS.Core;
+using UCS.Core.Settings;
 using UCS.Helpers.List;
 using UCS.Logic;
 
@@ -7,6 +12,8 @@ namespace UCS.Packets.Messages.Server
     // Packets 24411
     internal class AvatarStreamMessage : Message
     {
+        static JsonSerializerSettings Settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore };
+
         public AvatarStreamMessage(Device client) : base(client)
         {
             this.Identifier = 24411;
@@ -14,29 +21,54 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            string StreamTest = @"{""loot"":[[3000002,999999999],[3000001,999999999]],""availableLoot"":[[3000000,0],[3000001,145430],[3000002,142872],[3000003,517]],""units"":[[4000001,58]],""spells"":[],""levels"":[[4000001,4]],""stats"":{""townhallDestroyed"":false,""battleEnded"":true,""allianceUsed"":false,""destructionPercentage"":6,""battleTime"":90,""originalAttackerScore"":6022,""attackerScore"":-10,""originalDefenderScore"":1056,""defenderScore"":18,""allianceName"":""Ultrapowa"",""attackerStars"":0,""homeID"":[0,5],""allianceBadge"":1526735450,""allianceBadge2"":1660949336,""allianceID"":[88,884629],""deployedHousingSpace"":168,""armyDeploymentPercentage"":5}}";
+            Console.WriteLine(this.Device.Player.Avatar.Stream.Count);
+            this.Data.AddInt(this.Device.Player.Avatar.Stream.Count);
 
-            ClientAvatar pl = this.Device.Player.Avatar;
-            this.Data.AddInt(1); //Stream Ammount
-            this.Data.AddInt(2); //Stream Type, 2 = attacked, 7 = defended;
-            this.Data.AddLong(1); //Stream ID
-            this.Data.Add(1);
-            this.Data.AddInt((int)pl.HighID);
-            this.Data.AddInt((int)pl.LowID);
-            this.Data.AddString("Ultrapowa Dev. Team"); //Attacker Name
-            this.Data.AddInt(1);
-            this.Data.AddInt(0);
-            this.Data.AddInt(446); //Age
-            this.Data.Add(2); // 2 = new, 0 = old;
-            this.Data.AddString(StreamTest);
-            this.Data.AddInt(0);
-            this.Data.Add(1);
-            this.Data.AddInt(8); // Version
-            this.Data.AddInt(709); // Version
-            this.Data.AddInt(0);
-            this.Data.Add(1);
-            this.Data.AddLong(1); // Stream ID?
-            this.Data.AddInt(int.MaxValue);
+            foreach (long[] Stream in this.Device.Player.Avatar.Stream)
+            {
+                if (Stream[1] == 2 || Stream[1] == 7)
+                {
+                    Battle Battle = DatabaseManager.Single().GetBattle(Stream[0]);
+
+                    if (Battle != null)
+                    {
+                        this.Data.AddInt((int) Stream[1]);
+                        // 2 : Défense PVP    3 : Demande refusé      4 : Invitation    5 : Exclusion du clan       6 : Message Clan         7 : Attaque PVP
+                        this.Data.AddLong(Battle.Battle_ID); // ?
+                        this.Data.AddBool(true);
+                        if (Stream[1] == 7)
+                        {
+                            this.Data.AddLong(Battle.Defender.UserID); // Enemy ID
+                            this.Data.AddString(Battle.Defender.Username);
+                        }
+                        else
+                        {
+                            this.Data.AddLong(Battle.Attacker.UserID); // Enemy ID
+                            this.Data.AddString(Battle.Attacker.Username);
+                        }
+                        this.Data.AddInt(1);
+                        this.Data.AddInt(0);
+                        this.Data.AddInt(446);
+
+                        this.Data.AddBool(false);
+                        this.Data.AddString(JsonConvert.SerializeObject(Battle.Replay_Info, Formatting.None, Settings));
+                        this.Data.AddInt(0);
+
+                        this.Data.Add(1);
+                        this.Data.AddInt(8); // Version
+                        this.Data.AddInt(709); // Version
+                        this.Data.AddInt(0);
+
+                        this.Data.AddBool(true);
+                        this.Data.AddLong(Battle.Battle_ID);
+                        this.Data.AddInt(int.MaxValue);
+                    }
+                }
+                else
+                {
+                    // BLABLABLA
+                }
+            }
         }
     }
 }

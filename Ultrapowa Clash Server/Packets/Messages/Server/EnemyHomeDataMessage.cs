@@ -1,4 +1,5 @@
 ﻿using System;
+using UCS.Core;
 using UCS.Helpers.List;
 using UCS.Logic;
 
@@ -35,6 +36,21 @@ namespace UCS.Packets.Messages.Server
             }
             catch (Exception)
             {
+            }
+        }
+        internal override void Process()
+        {
+            this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
+
+            if (this.Device.Player.Avatar.BattleId == 0)
+            {
+                ResourcesManager.AddBattle(ObjectManager.CreateBattle(this.Device.Player, OwnerLevel));
+            }
+            else
+            {
+                ResourcesManager.RemoveBattle(this.Device.Player.Avatar.BattleId);
+
+                ResourcesManager.AddBattle(ObjectManager.CreateBattle(this.Device.Player, OwnerLevel));
             }
         }
 
