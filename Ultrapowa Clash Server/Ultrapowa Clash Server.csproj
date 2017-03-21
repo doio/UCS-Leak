@@ -308,6 +308,7 @@
     <Compile Include="Packets\Messages\Server\Api\Facebook_Connect_OK.cs" />
     <Compile Include="Packets\Messages\Server\ClashFriendRequestSentMessage.cs" />
     <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
+    <Compile Include="Packets\Messages\Server\Friend_Request_Failed_Message.cs" />
     <Compile Include="Packets\Messages\Server\ReportedPlayerMessage.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
     <Compile Include="Utilities\Blake2B\Blake2BBase.cs" />
