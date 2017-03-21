@@ -38,7 +38,7 @@ namespace UCS.Logic
 
             data.AddInt(1);
             data.AddCompressed(this.Village);
-            data.AddCompressed(DirectoryChecker._Events);
+            data.AddCompressed("{\"event\":[]}");
             return data.ToArray();
         }
     }
