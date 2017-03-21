@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UCS.Logic.JSONProperty;
 using UCS.Logic.JSONProperty.Item;
+using UCS.Core;
 
 namespace UCS.Logic
 {
@@ -34,12 +35,12 @@ namespace UCS.Logic
                 if (this.Preparation_Time >= 1 && this.Commands.Count < 1)
                 {
                     this.Preparation_Time -= (value - this.Last_Tick) / 63;
-                    Console.WriteLine("Preparation Time : " + this.Preparation_Time);
+                    Logger.Write("Preparation Time : " + this.Preparation_Time);
                 }
                 else
                 {
                     this.Attack_Time -= (value - this.Last_Tick) / 63;
-                    Console.WriteLine("Attack Time      : " + this.Attack_Time);
+                    Logger.Write("Attack Time      : " + this.Attack_Time);
                 }
                 this.Last_Tick = value;
                 this.End_Tick = (int) value;
