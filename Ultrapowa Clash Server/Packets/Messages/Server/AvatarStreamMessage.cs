@@ -21,7 +21,6 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            Console.WriteLine(this.Device.Player.Avatar.Stream.Count);
             this.Data.AddInt(this.Device.Player.Avatar.Stream.Count);
 
             foreach (long[] Stream in this.Device.Player.Avatar.Stream)

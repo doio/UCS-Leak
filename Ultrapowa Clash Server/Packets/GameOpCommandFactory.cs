@@ -12,7 +12,6 @@ namespace UCS.Packets
         static GameOpCommandFactory()
         {
             m_vCommands = new Dictionary<string, Type>();
-            m_vCommands.Add("/attack", typeof(AttackGameOpCommand));
             m_vCommands.Add("/ban", typeof(BanGameOpCommand));
             m_vCommands.Add("/kick", typeof(KickGameOpCommand));
             m_vCommands.Add("/rename", typeof(RenameAvatarGameOpCommand));

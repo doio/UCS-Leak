@@ -88,25 +88,5 @@ namespace UCS.Packets.Messages.Client
             {
             }
         }
-
-        public void Resources(Level level)
-        {
-            ClientAvatar avatar = level.Avatar;
-            int currentGold = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"));
-            int currentElixir = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"));
-            ResourceData goldLocation = CSVManager.DataTables.GetResourceByName("Gold");
-            ResourceData elixirLocation = CSVManager.DataTables.GetResourceByName("Elixir");
-
-            if (currentGold >= 1000000000 | currentElixir >= 1000000000)
-            {
-                avatar.Resources.Plus(Resource.Gold,  10);
-                avatar.Resources.Plus(Resource.Elixir, 10);
-            }
-            else if (currentGold <= 999999999 || currentElixir <= 999999999)
-            {
-                avatar.Resources.Plus(Resource.Gold, 1000);
-                avatar.Resources.Plus(Resource.Elixir, 1000);
-            }
-        } 
     }
 }

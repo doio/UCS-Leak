@@ -1227,7 +1227,6 @@
     <Compile Include="Packets\GameOpCommands\SystemMessageGameOpCommand.cs" />
     <Compile Include="Packets\GameOpCommands\UnbanGameOpCommand.cs" />
     <Compile Include="Packets\GameOpCommands\BanGameOpCommand.cs" />
-    <Compile Include="Packets\GameOpCommands\AttackGameOpCommand.cs" />
     <Compile Include="Packets\GameOpCommands\VisitGameOpCommand.cs" />
     <Compile Include="Packets\GameOpCommands\KickGameOpCommand.cs" />
     <Compile Include="Packets\GameOpCommands\SetPrivilegesGameOpCommand.cs" />
