@@ -90,9 +90,6 @@ namespace UCS.Packets
 
                             try
                             {
-
-                                Console.WriteLine(Utils.Padding(message.Device.Socket.RemoteEndPoint.ToString(), 15) + " --> " + message.GetType().Name);
-                                Debug.WriteLine(Utils.Padding(message.Device.Socket.RemoteEndPoint.ToString(), 15) + " --> " + message.GetType().Name);
                                 Logger.Write("Message " + message.GetType().Name + " is handled");
                                 message.Decrypt();
                                 message.Decode();

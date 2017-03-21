@@ -243,6 +243,15 @@ namespace UCS.Packets.Messages.Client
             };
             l.Send();
 
+            AllianceMailStreamEntry _Mail = new AllianceMailStreamEntry();
+            _Mail.SetAllianceName("Ultrapowa Dev");
+            _Mail.SetSenderLeagueId(22);
+            _Mail.SetIsNew(2);
+            _Mail.SetMessage(Utils.ParseConfigString("AdminMessage"));
+            _Mail.SetSenderName("Ultrapowa");
+            _Mail.SetSenderId(0);
+            AvatarStreamEntryMessage Mail = new AvatarStreamEntryMessage(this.Device);
+
             if (level.Avatar.AllianceID > 0)
             {
 
@@ -263,6 +272,10 @@ namespace UCS.Packets.Messages.Client
             new BookmarkMessage(this.Device).Send();
             new LeaguePlayersMessage(this.Device).Send();
 
+            if (ResourcesManager.IsPlayerOnline(this.Device.Player))
+            {
+                Mail.Send();
+            }
         }
 
         private async void CheckClient()

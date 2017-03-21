@@ -1,6 +1,5 @@
 ﻿namespace UCS.Logic.Enums
 {
-
     public enum Exits
     {
         CTRL_C_EVENT = 0,
