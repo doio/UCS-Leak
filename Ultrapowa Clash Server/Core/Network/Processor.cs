@@ -27,13 +27,6 @@ namespace UCS.Core.Network
             {
                 Message.Encode();
                 Message.Encrypt();
-#if DEBUG
-                if (Message.Device.Connected)
-                {
-                    Console.WriteLine(Utils.Padding(Message.Device.Socket.RemoteEndPoint.ToString(), 15) + " <-- " + Message.GetType().Name);
-                    System.Diagnostics.Debug.WriteLine(Utils.Padding(Message.Device.Socket.RemoteEndPoint.ToString(), 15) + " <-- " + Message.GetType().Name);
-                }
-#endif
                 Resources.Gateway.Send(Message);
 
                 Message.Process();

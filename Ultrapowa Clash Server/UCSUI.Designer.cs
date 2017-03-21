@@ -2323,7 +2323,7 @@ namespace UCS
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage11.Size = new System.Drawing.Size(798, 403);
             this.tabPage11.TabIndex = 6;
-            this.tabPage11.Text = "Events";
+            this.tabPage11.Text = "ufgabhallon";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
             // UCSUI
