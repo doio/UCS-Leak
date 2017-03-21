@@ -6,12 +6,13 @@ using UCS.Core.Checker;
 
 namespace UCS.Logic
 {
-    internal class ClientHome 
+    internal class ClientHome
     {
-        readonly long m_vId;
-        string village;
-        int m_vShieldTime;
-        int m_vProtectionTime;
+        internal long Id;
+        internal string Village;
+        internal int ShieldTime;
+        internal int GuardTime;
+        internal bool Amical;
 
         public ClientHome()
         {
@@ -19,33 +20,26 @@ namespace UCS.Logic
 
         public ClientHome(long id)
         {
-            m_vId = id;
+            this.Id = id;
         }
 
         public byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(m_vId);
+            if (Amical) // Amical Battle
+            {
+                data.AddLong(this.Id);
+                data.AddLong(this.Id);
+            }
+            data.AddLong(this.Id);
 
-            data.AddInt(m_vShieldTime); // Shield
-            data.AddInt(m_vProtectionTime); // Protection
+            data.AddInt(this.ShieldTime); // Shield
+            data.AddInt(this.GuardTime); // Protection
 
             data.AddInt(1);
-            data.AddCompressed(village);
+            data.AddCompressed(this.Village);
             data.AddCompressed(DirectoryChecker._Events);
             return data.ToArray();
         }
-
-        public string GetHomeJSON() => village;
-
-        public void SetHomeJSON(string json) => village = json;
-
-        public void SetShieldTime(int seconds) => m_vShieldTime = seconds;
-
-        public int Shield() => m_vShieldTime;
-
-        public void SetProtectionTime(int time) => m_vProtectionTime = time;
-
-        public int Guard() => m_vProtectionTime;
     }
 }

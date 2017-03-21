@@ -23,10 +23,12 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ownerHome = new ClientHome(Player.Avatar.UserID);
-                ownerHome.SetShieldTime(Player.Avatar.Shield);
-                ownerHome.SetProtectionTime(Player.Avatar.Guard);
-                ownerHome.SetHomeJSON(JsonBase);
+                ClientHome ownerHome = new ClientHome(Player.Avatar.UserID)
+                {
+                    ShieldTime = Player.Avatar.Shield,
+                    GuardTime = Player.Avatar.Guard,
+                    Village = JsonBase
+                };
 
                 this.Data.AddInt(0);
                 this.Data.AddInt((int)Player.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);

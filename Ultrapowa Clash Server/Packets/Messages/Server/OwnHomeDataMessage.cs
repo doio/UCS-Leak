@@ -21,11 +21,13 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 ClientAvatar avatar = this.Player.Avatar;
-                ClientHome home = new ClientHome(avatar.UserID);
+                ClientHome home = new ClientHome(avatar.UserID)
+                {
+                    ShieldTime = avatar.Shield,
+                    GuardTime = avatar.Guard,
+                    Village = Player.SaveToJSON()
+                };
 
-                home.SetShieldTime(avatar.Shield);
-                home.SetProtectionTime(avatar.Guard);
-                home.SetHomeJSON(Player.SaveToJSON());
 
                 this.Data.AddInt(0);
                 this.Data.AddInt(-1);

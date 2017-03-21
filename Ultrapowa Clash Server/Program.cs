@@ -149,33 +149,33 @@ namespace UCS
 
         public static void TitleU()
         {
-            if (Constants.LicensePlanID == 3)
+            switch (Constants.LicensePlanID)
             {
-                Console.Title = Title + ++OP;
-            }
-            else if(Constants.LicensePlanID == 2)
-            {
-                Console.Title = Title + ++OP + "/700";
-            }
-            else if (Constants.LicensePlanID == 1)
-            {
-                Console.Title = Title + ++OP + "/350";
+                case 3:
+                    Console.Title = Title + ++OP;
+                    break;
+                case 2:
+                    Console.Title = Title + ++OP + "/700";
+                    break;
+                case 1:
+                    Console.Title = Title + ++OP + "/350";
+                    break;
             }
         }
 
         public static void TitleD()
         {
-            if (Constants.LicensePlanID == 3)
+            switch (Constants.LicensePlanID)
             {
-                Console.Title = Title + --OP;
-            }
-            else if(Constants.LicensePlanID == 2)
-            {
-                Console.Title = Title + --OP + "/700";
-            }
-            else if(Constants.LicensePlanID == 1)
-            {
-                Console.Title = Title + --OP + "/350";
+                case 3:
+                    Console.Title = Title + --OP;
+                    break;
+                case 2:
+                    Console.Title = Title + --OP + "/700";
+                    break;
+                case 1:
+                    Console.Title = Title + --OP + "/350";
+                    break;
             }
         }
 
