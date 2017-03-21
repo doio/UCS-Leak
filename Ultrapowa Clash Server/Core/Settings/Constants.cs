@@ -10,7 +10,6 @@ namespace UCS.Core.Settings
         public static string Version                 = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         public static string Build                   = "37";
         
-        public static bool IsRc4                     = Utils.ParseConfigBoolean("UseRc4");  // false = Pepper Crypto
         public static readonly bool UseCacheServer   = Utils.ParseConfigBoolean("CacheServer");
 
         public const int CleanInterval               = 5000;

@@ -45,19 +45,6 @@ namespace UCS.Packets.Messages.Client
         internal override void Process()
         {
             new HandshakeSuccess(Device, this).Send();
-            /*if (Constants.IsRc4)
-            {
-                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["patchingServer"]))
-                {
-                    LoginFailedMessage p = new LoginFailedMessage(Device);
-                    p.SetErrorCode(7);
-                    p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
-                    p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
-                    p.SetUpdateURL(ConfigurationManager.AppSettings["UpdateUrl"]);
-                    Processor.Send(p);
-                }
-            }
-            else*/
         }
 
     }

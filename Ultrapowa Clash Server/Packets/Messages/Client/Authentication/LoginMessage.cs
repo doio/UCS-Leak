@@ -113,14 +113,6 @@ namespace UCS.Packets.Messages.Client
             {
                 if (this.Device.PlayerState == State.LOGIN)
                 {
-                    /*
-                    if (Constants.IsRc4)
-                    {
-                        Device.ClientSeed = Seed;
-                        Processor.Send(new RC4SessionKey(Device));
-                    }
-                    */
-
                     if (Constants.LicensePlanID == 3)
                     {
                         if (ResourcesManager.GetOnlinePlayers().Count >= Constants.MaxOnlinePlayers)

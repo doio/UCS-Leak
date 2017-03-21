@@ -37,8 +37,6 @@
       <!-- Choose if you want to use the Web API-->
   <add key="APIPort" value="88" /> 
       <!-- The Port of the WebAPI-->
-  <add key="UseRC4" value="false" />
-      <!-- Default Crypto is Pepper-->
   <add key="ServerPort" value="9339"/>
       <!-- The Port of the Server (default is 9339)-->
   <add key="LogLevel" value="1"/>

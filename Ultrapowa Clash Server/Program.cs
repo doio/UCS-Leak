@@ -82,17 +82,6 @@ namespace UCS
             Logger.WriteCenter("+-------------------------------------------------------+");
             Console.ResetColor();
 
-            if (Constants.IsRc4)
-            {
-                Say();
-                Logger.WriteCenter("UCS is running under RC4 mode. Please make sure the CSV files are modded to allow RC4.");
-            }
-            else
-            {
-                Say();
-                Logger.WriteCenter("UCS is running under Pepper mode. Please make sure the client key is modded.");
-            }
-
             Say();
 
             Console.ForegroundColor = ConsoleColor.Blue;
