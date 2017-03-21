@@ -35,7 +35,6 @@ namespace UCS.Packets.GameOpCommands
                     mail.SetAllianceBadgeData(1526735450);
                     mail.SetAllianceName("UCS Server Commands Help");
                     mail.SetMessage(@"/help" +
-                        "\n/attack" +
                         "\n/ban" +
                         "\n/kick" +
                         "\n/rename" +
