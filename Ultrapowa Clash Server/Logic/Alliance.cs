@@ -60,7 +60,7 @@ namespace UCS.Logic
             m_vAllianceMembers     = new Dictionary<long, AllianceMemberEntry>();
         }
 
-        public void AddAllianceMember(AllianceMemberEntry entry) => m_vAllianceMembers.Add(entry.GetAvatarId(), entry);
+        public void AddAllianceMember(AllianceMemberEntry entry) => m_vAllianceMembers.Add(entry.AvatarID, entry);
 
         public void AddChatMessage(StreamEntry.StreamEntry message)
         {
@@ -115,7 +115,7 @@ namespace UCS.Logic
         {
             foreach(var member in m_vAllianceMembers)
             {
-                if(ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(member.Value.GetAvatarId())))
+                if(ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(member.Value.AvatarID)))
                 {
                     return true;
                 }

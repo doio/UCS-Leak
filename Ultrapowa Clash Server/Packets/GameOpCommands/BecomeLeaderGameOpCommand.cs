@@ -26,7 +26,7 @@ namespace UCS.Packets.GameOpCommands
 
                     foreach (var pl in _Alliance.GetAllianceMembers())
                     {
-                        if (pl.GetRole() == 2)
+                        if (pl.Role == 2)
                         {
                             pl.SetRole(4);
                             break;

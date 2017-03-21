@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
 using UCS.Logic;
@@ -23,7 +24,15 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            new ReplayData(this.Device) { Battle_ID = this.Replay_ID }.Send();
+            if (this.Device.PlayerState == Logic.Enums.State.REPLAY)
+            {
+                ResourcesManager.DisconnectClient(this.Device);
+            }
+            else
+            {
+                this.Device.PlayerState = Logic.Enums.State.REPLAY;
+                new ReplayData(this.Device) { Battle_ID = this.Replay_ID }.Send();
+            }
         }
     }
 }

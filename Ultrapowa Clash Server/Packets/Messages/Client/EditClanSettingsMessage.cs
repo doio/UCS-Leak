@@ -88,7 +88,7 @@ namespace UCS.Packets.Messages.Client
 
                                                 foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                                                 {
-                                                    Level user = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                                                    Level user = await ResourcesManager.GetPlayer(op.AvatarID);
                                                     if (ResourcesManager.IsPlayerOnline(user))
                                                     {
                                                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(user.Client);

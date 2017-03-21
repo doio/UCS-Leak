@@ -249,9 +249,11 @@ namespace UCS.Packets.Messages.Client
             _Mail.SetIsNew(2);
             _Mail.SetMessage(Utils.ParseConfigString("AdminMessage"));
             _Mail.SetSenderName("Ultrapowa");
+            _Mail.SetAllianceBadgeData(1526735450);
             _Mail.SetSenderId(0);
             AvatarStreamEntryMessage Mail = new AvatarStreamEntryMessage(this.Device);
             Mail.SetAvatarStreamEntry(_Mail);
+
             if (level.Avatar.AllianceID > 0)
             {
 
@@ -271,11 +273,7 @@ namespace UCS.Packets.Messages.Client
             new OwnHomeDataMessage(this.Device, level).Send();
             new BookmarkMessage(this.Device).Send();
             new LeaguePlayersMessage(this.Device).Send();
-
-            if (ResourcesManager.IsPlayerOnline(this.Device.Player))
-            {
-                Mail.Send();
-            }
+            Mail.Send();
         }
 
         private async void CheckClient()

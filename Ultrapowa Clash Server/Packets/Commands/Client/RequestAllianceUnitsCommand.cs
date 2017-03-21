@@ -50,7 +50,7 @@ namespace UCS.Packets.Commands.Client
 
                 foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                 {
-                    Level aplayer = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                    Level aplayer = await ResourcesManager.GetPlayer(op.AvatarID);
                     if (aplayer.Client != null)
                     {
                         if (s != null)

@@ -34,44 +34,6 @@ namespace UCS.Packets.Messages.Client
             {
                 ClientAvatar player = this.Device.Player.Avatar;
 
-                /*if (player.State == UserState.PVP)
-                {
-                    var info = default(ClientAvatar.AttackInfo);
-                    if (!level.Avatar.AttackingInfo.TryGetValue(level.Avatar.UserID, out info))
-                    {
-                        Logger.Write("Unable to obtain attack info.");
-                    }
-                    else
-                    {
-                        Level defender = info.Defender;
-                        Level attacker = info.Attacker;
-
-                        int lost = info.Lost;
-                        int reward = info.Reward;
-
-                        List<DataSlot> usedtroop = info.UsedTroop;
-
-                        int attackerscore = attacker.Avatar.GetTrophies();
-                        int defenderscore = defender.Avatar.GetTrophies();
-
-                        if (defender.Avatar.GetTrophies() > 0)
-                            defender.Avatar.SetScore(defenderscore -= lost);
-
-                        Logger.Write("Used troop type: " + usedtroop.Count);
-                        foreach(DataSlot a in usedtroop)
-                        {
-                            Logger.Write("Troop Name: " + a.Data.GetName());
-                            Logger.Write("Troop Used Value: " + a.Value);
-                        }
-                        attacker.Avatar.SetScore(attackerscore += reward);
-                        attacker.Avatar.AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
-                        Resources(attacker);
-
-                        DatabaseManager.Single().Save(attacker);
-                        DatabaseManager.Single().Save(defender);
-                    } 
-                    player.State = UserState.Home;
-                }*/
                 if (State == 1)
                 {
                     this.Device.PlayerState = Logic.Enums.State.WAR_EMODE;
@@ -124,8 +86,6 @@ namespace UCS.Packets.Messages.Client
             }
             catch (Exception)
             {
-
-
             }
         }
 

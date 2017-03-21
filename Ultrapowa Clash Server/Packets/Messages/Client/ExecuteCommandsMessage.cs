@@ -41,7 +41,7 @@ namespace UCS.Packets.Messages.Client
             this.Device.Player.Tick();
 
             if (this.Device.PlayerState == Logic.Enums.State.IN_BATTLE)
-                Console.WriteLine(ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].BattleTick = (int)this.CTick);
+                Logger.Write((ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].BattleTick = (int)this.CTick).ToString());
 
             if (this.Count > -1 && this.Count <= 400)  
             {
@@ -67,11 +67,9 @@ namespace UCS.Packets.Messages.Client
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
                             Logger.Write("Command " + CommandID + " has not been handled.");
                             if (this.LCommands.Any())
                                 Logger.Write("Previous command was " + this.LCommands.Last().Identifier + ". [" + (_Index + 1) + " / " + this.Count + "]");
-                            Console.ResetColor();
                             break;
 
                         }

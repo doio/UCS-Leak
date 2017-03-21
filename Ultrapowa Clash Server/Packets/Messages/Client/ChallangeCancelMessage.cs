@@ -30,7 +30,7 @@ namespace UCS.Packets.Messages.Client
                     a.GetChatMessages().RemoveAll(t => t == s);
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {
-                        Level player = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                        Level player = await ResourcesManager.GetPlayer(op.AvatarID);
                         if (player.Client != null)
                         {
                             new AllianceStreamEntryRemovedMessage(player.Client, s.GetId()).Send();

@@ -28,7 +28,7 @@ namespace UCS.Packets.Commands.Client
                 _AllianceMemberEntry.ToggleStatus();
                 PlayerWarStatusMessage _PlayerWarStatusMessage = new PlayerWarStatusMessage(this.Device)
                 {
-                    Status = _AllianceMemberEntry.GetStatus()
+                    Status = _AllianceMemberEntry.WarOptInStatus
                 };
                 _PlayerWarStatusMessage.Send();
             }

@@ -210,7 +210,7 @@ namespace UCS.Logic
                     Alliance alliance = await ObjectManager.GetAlliance(this.AllianceID);
                     data.AddString(alliance.GetAllianceName());
                     data.AddInt(alliance.GetAllianceBadgeData());
-                    data.AddInt(alliance.GetAllianceMember(this.UserID).GetRole());
+                    data.AddInt(alliance.GetAllianceMember(this.UserID).Role);
                     data.AddInt(alliance.GetAllianceLevel());
                 }
                 data.Add(0);
@@ -261,11 +261,7 @@ namespace UCS.Logic
                 data.AddInt(this.Castle_Total_SP);
                 data.AddInt(this.Castle_Used_SP);
                 data.AddInt(this.TownHall_Level);
-#if DEBUG
-                data.AddString(this.Username + " #" + this.UserID);
-#else
                 data.AddString(this.Username);
-#endif
                 data.AddString(this.Facebook.Identifier);
                 data.AddInt(this.Level);
                 data.AddInt(this.Experience);
@@ -343,7 +339,6 @@ namespace UCS.Logic
                     data.AddInt(Achievements.Count);
                 }
 
-
                 data.AddRange(this.Npcs.ToBytes);
 
                 data.AddInt(this.Variables.Count);
@@ -364,7 +359,7 @@ namespace UCS.Logic
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.Write(ex.ToString());
                 return null;
             }
         }
@@ -414,7 +409,7 @@ namespace UCS.Logic
         {
             try
             {
-                var alliance = await ObjectManager.GetAlliance(this.AllianceID);
+                Alliance alliance = await ObjectManager.GetAlliance(this.AllianceID);
                 return alliance?.GetAllianceMember(this.UserID);
             }
             catch (Exception)
@@ -429,7 +424,7 @@ namespace UCS.Logic
             {
                 var ame = await GetAllianceMemberEntry();
                 if (ame != null)
-                    return ame.GetRole();
+                    return ame.Role;
                 return -1;
             }
             catch (Exception)

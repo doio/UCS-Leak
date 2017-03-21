@@ -10,5 +10,4 @@ namespace UCS.Packets.Messages.Client
             int PacketID = 15001;
         }
     }
-
 }

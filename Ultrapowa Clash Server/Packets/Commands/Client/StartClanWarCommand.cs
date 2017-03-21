@@ -31,7 +31,7 @@ namespace UCS.Packets.Commands.Client
                     {
                         foreach (AllianceMemberEntry a in an.GetAllianceMembers())
                         {
-                            Level l = await ResourcesManager.GetPlayer(a.GetAvatarId());
+                            Level l = await ResourcesManager.GetPlayer(a.AvatarID);
                             new AllianceWarMapDataMessage(this.Device).Send();
                         }
                     }

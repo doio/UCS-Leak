@@ -47,7 +47,7 @@ namespace UCS.Packets.Commands
 
                     foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                     {
-                        Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                        Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarID);
                         if (alliancemembers.Client != null)
                         {
                             new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
@@ -57,7 +57,7 @@ namespace UCS.Packets.Commands
 
                 foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                 {
-                    Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                    Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarID);
                     if (alliancemembers.Client != null)
                     {
                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);

@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands.Client
                         var alliance = await ObjectManager.GetAlliance(requesterAllianceId);
                         var requesterMember = alliance.GetAllianceMember(requesterAvatar.UserID);
                         var targetMember = alliance.GetAllianceMember(m_vAvatarId);
-                        if (targetMember.HasLowerRoleThan(requesterMember.GetRole()))
+                        if (targetMember.HasLowerRoleThan(requesterMember.Role))
                         {
                             targetAvatar.AllianceID = 0;
                             alliance.RemoveMember(m_vAvatarId);
@@ -79,7 +79,7 @@ namespace UCS.Packets.Commands.Client
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                             {
-                                Level alliancemembers = await ResourcesManager.GetPlayer(op.GetAvatarId());
+                                Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarID);
                                 if (alliancemembers.Client != null)
                                 {
                                     AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);

@@ -32,14 +32,14 @@ namespace UCS.Packets.Messages.Client
                 if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
                     List<AllianceMemberEntry> members = alliance.GetAllianceMembers();
-                    foreach (AllianceMemberEntry player in members.Where(player => player.GetRole() >= 3))
+                    foreach (AllianceMemberEntry player in members.Where(player => player.Role >= 3))
                     {
                         player.SetRole(2);
 
-                        if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
+                        if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarID)))
                         {
 
-                            Level l = await ResourcesManager.GetPlayer(player.GetAvatarId());
+                            Level l = await ResourcesManager.GetPlayer(player.AvatarID);
 
                             AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand(l.Client);
                             c.SetAlliance(alliance);
@@ -65,9 +65,9 @@ namespace UCS.Packets.Messages.Client
                             if (loop == id)
                             {
                                 player.SetRole(2);
-                                if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.GetAvatarId())))
+                                if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarID)))
                                 {
-                                    Level l2 = await ResourcesManager.GetPlayer(player.GetAvatarId());
+                                    Level l2 = await ResourcesManager.GetPlayer(player.AvatarID);
                                     AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand(l2.Client);
                                     e.SetAlliance(alliance);
                                     e.SetRole(2);
