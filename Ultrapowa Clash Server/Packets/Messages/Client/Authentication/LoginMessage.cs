@@ -251,7 +251,7 @@ namespace UCS.Packets.Messages.Client
             _Mail.SetSenderName("Ultrapowa");
             _Mail.SetSenderId(0);
             AvatarStreamEntryMessage Mail = new AvatarStreamEntryMessage(this.Device);
-
+            Mail.SetAvatarStreamEntry(_Mail);
             if (level.Avatar.AllianceID > 0)
             {
 
