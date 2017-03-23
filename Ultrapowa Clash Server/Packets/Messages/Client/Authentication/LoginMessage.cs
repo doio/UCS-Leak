@@ -296,7 +296,7 @@ namespace UCS.Packets.Messages.Client
                         LoginFailedMessage p = new LoginFailedMessage(Device)
                         {
                             ErrorCode = 11,
-                            Reason = "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
+                            Reason = "We have some Problems with your Account. Please clean your App Data."
                         };
                         // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                  
                         p.Send();
@@ -309,7 +309,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         ErrorCode = 11,
                         Reason =
-                            "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
+                            "We have some Problems with your Account. Please clean your App Data."
                     };
                     /*FOR FHX*/     // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                                  
                     p.Send();

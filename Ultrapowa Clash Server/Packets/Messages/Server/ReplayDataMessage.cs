@@ -19,9 +19,7 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-
             string Replay = JsonConvert.SerializeObject(DatabaseManager.Single().GetBattle(Battle_ID), Settings);
-            Console.WriteLine(Replay);
             this.Data.AddCompressed(Replay, false);
         }
     }

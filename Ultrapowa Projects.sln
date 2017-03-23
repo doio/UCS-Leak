@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Clash Server", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Client", "Ultrapowa Client\Ultrapowa Client.csproj", "{C0788D62-CC4C-41AC-A850-3511963D8C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Clash of Clans Proxy", "..\Ultrapowa-Clash of Clans-Proxy-master\Ultrapowa Clash Proxy\Ultrapowa Clash of Clans Proxy.csproj", "{012F96AC-A584-408D-A0C8-E246B8FC55CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Clash of Clans Proxy", "Ultrapowa Clash Proxy\Ultrapowa Clash of Clans Proxy.csproj", "{012F96AC-A584-408D-A0C8-E246B8FC55CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
