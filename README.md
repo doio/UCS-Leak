@@ -7,6 +7,7 @@ All programs developed by the Ultrapowa Development Team are licensed by a own l
 Projects developed by the Ultrapowa Development Team include:  
 
 * Ultrapowa Clash Server   (UCS)  
+* Ultrapowa Clash Proxy    (UCP)
 * Ultrapowa SC Editor      (USE)  
 * Ultrapowa Server Updater (USU)  
 * Ultrapowa File Decryptor (UFD)
