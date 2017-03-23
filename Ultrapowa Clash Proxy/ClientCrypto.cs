@@ -75,16 +75,7 @@ namespace UCP
                 using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))
                 {
                     Console.WriteLine(_Reader.ReadInt64());
-                    Console.WriteLine(_Reader.ReadInt64());
-                }
-
-                ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
-            }
-            else if (messageId == 20112)
-            {
-                using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))
-                {
-                    Console.WriteLine(_Reader.ReadInt32()); // 2 = Player has to much Friend requests.
+                    Console.WriteLine(_Reader.ReadInt64()); // Need to be found
                 }
 
                 ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
