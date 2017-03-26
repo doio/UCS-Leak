@@ -19,6 +19,7 @@ namespace UCS.Logic.Manager
                 m_vGameObjectsIndex.Add(0);
             }
             m_vComponentManager     = new ComponentManager(m_vLevel);
+			//m_vObstacleManager      = new ObstacleManager(m_vLevel);
 		}
 
         readonly ComponentManager m_vComponentManager;
@@ -26,6 +27,7 @@ namespace UCS.Logic.Manager
         readonly List<List<GameObject>> m_vGameObjects;
         readonly List<int> m_vGameObjectsIndex;
         readonly Level m_vLevel;
+	    //readonly ObstacleManager m_vObstacleManager;
 
 		public void AddGameObject(GameObject go)
         {
@@ -43,6 +45,8 @@ namespace UCS.Logic.Manager
         public List<List<GameObject>> GetAllGameObjects() => m_vGameObjects;
 
         public ComponentManager GetComponentManager() => m_vComponentManager;
+
+		//public ObstacleManager GetObstacleManager() => m_vObstacleManager;
 
 		public GameObject GetGameObjectByID(int id)
         {
@@ -83,6 +87,17 @@ namespace UCS.Logic.Manager
                 AddGameObject(d);
                 d.Load(jsonDeco);
             }
+
+			/*var jsonObstacles = (JArray)jsonObject["obstacles"];
+			foreach (JObject jsonObstacle in jsonObstacles)
+			{
+				var dd = (ObstacleData)CSVManager.DataTables.GetDataById(jsonObstacle["data"].ToObject<int>());
+				var d = new Obstacle(dd, m_vLevel);
+				AddGameObject(d);
+				d.Load(jsonObstacle);
+			}
+
+			m_vObstacleManager.Load(jsonObject); */
 		}
 
         public void RemoveGameObject(GameObject go)
@@ -108,14 +123,12 @@ namespace UCS.Logic.Manager
         public JObject Save()
         {
             ClientAvatar pl = m_vLevel.Avatar;
-            var jsonData = new JObject
-            {
-                {"exp_ver", 1},
-                {"android_client", true},
-                {"active_layout", pl.ActiveLayout},
-                {"war_layout", pl.ActiveLayout},
-                {"layout_state", new JArray {0, 0, 0, 0, 0, 0}}
-            };
+            var jsonData = new JObject();
+            jsonData.Add("exp_ver", 1);
+            jsonData.Add("android_client", pl.m_vAndroid);
+            jsonData.Add("active_layout", pl.m_vActiveLayout);
+            jsonData.Add("war_layout", pl.m_vActiveLayout);
+            jsonData.Add("layout_state", new JArray { 0, 0, 0, 0, 0, 0 });
 
             JArray JBuildings = new JArray();
             int c = 0;
@@ -159,7 +172,23 @@ namespace UCS.Logic.Manager
             }
             jsonData.Add("decos", JDecos);
 
-            var cooldowns = new JArray();
+            /*JArray JObstacles = new JArray();
+            int o = 0;
+            foreach (GameObject go in new List<GameObject>(m_vGameObjects[3]))
+            {
+                Obstacle d = (Obstacle)go;
+                JObject j = new JObject();
+                j.Add("data", d.GetObstacleData().GetGlobalID());
+                j.Add("id", 503000000 + o);
+                d.Save(j);
+                JObstacles.Add(j);
+                o++;
+            }
+            jsonData.Add("obstacles", JObstacles);
+
+            m_vObstacleManager.Save(jsonData); */
+
+			var cooldowns = new JArray();
             jsonData.Add("cooldowns", cooldowns);
             var newShopBuildings = new JArray
             {
@@ -241,12 +270,12 @@ namespace UCS.Logic.Manager
             };
             jsonData.Add("newShopDecos", newShopDecos);
             jsonData.Add("troop_req_msg", "Ultrapowa Developement");
-            jsonData.Add("last_league_rank", m_vLevel.Avatar.League);
+            jsonData.Add("last_league_rank", m_vLevel.Avatar.m_vLeagueId);
             jsonData.Add("last_league_shuffle", 1);
-            jsonData.Add("last_season_seen", m_vLevel.Avatar.League);
+            jsonData.Add("last_season_seen", 1);
             jsonData.Add("last_news_seen", 999);
             jsonData.Add("edit_mode_shown", true);
-            jsonData.Add("war_tutorials_seen", 2);
+            jsonData.Add("war_tutorials_seen", 1);
             jsonData.Add("war_base", true);
             jsonData.Add("help_opened", true);
             jsonData.Add("bool_layout_edit_shown_erase", false);

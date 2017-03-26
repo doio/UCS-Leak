@@ -16,7 +16,6 @@ using static UCS.Core.Logger;
 using UCS.Core.Threading;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
-using UCS.Core.Settings;
 
 namespace UCS.Core
 {
@@ -24,9 +23,7 @@ namespace UCS.Core
     {
         private static long m_vAllianceSeed;
         private static long m_vAvatarSeed;
-        private static long m_vBattleSeed;
         public static int m_vDonationSeed;
-        internal static long BattleSeed;
         private static int m_vRandomBaseAmount;
         private static DatabaseManager m_vDatabase;
         private static string m_vHomeDefault;
@@ -36,6 +33,8 @@ namespace UCS.Core
         public static Dictionary<int, string> NpcLevels;
         public static Dictionary<int, string> m_vRandomBases;
         public static FingerPrint FingerPrint;
+        static int MaxPlayerID;
+        static int MaxAllianceID;
 
         public ObjectManager()
         {
@@ -47,9 +46,11 @@ namespace UCS.Core
             m_vRandomBases         = new Dictionary<int, string>();
             FingerPrint            = new FingerPrint();
 
-            m_vAvatarSeed          = m_vDatabase.GetPlayerSeed() + 1;
-            m_vAllianceSeed        = m_vDatabase.GetClanSeed() + 1;
-            m_vBattleSeed          = m_vDatabase.GetStreamSeed() + 1;
+            MaxPlayerID            = Convert.ToInt32(m_vDatabase.GetMaxPlayerId() + 1);
+            MaxAllianceID          = Convert.ToInt32(m_vDatabase.GetMaxAllianceId() + 1);
+
+            m_vAvatarSeed          = MaxPlayerID;
+            m_vAllianceSeed        = MaxAllianceID;
 
             using (StreamReader sr = new StreamReader(@"Gamefiles/starting_home.json"))
             {
@@ -57,18 +58,11 @@ namespace UCS.Core
             }
 
             LoadNpcLevels();
-            //LoadRandomBase(); // Useless 
+            //LoadRandomBase(); // Useless atm
 
-            if (Constants.UseCacheServer)
-            {
-                TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
-                TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(1.8e+6));
-            }
-            else
-            {
-                TimerReferenceMysql = new Timer(SaveMysql, null, 10000, 60000);
-            }
-            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(m_vAvatarSeed + m_vAllianceSeed) + " Tables)");
+            TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
+            TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
+            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
         }
 
         private static void SaveRedis(object state)
@@ -108,18 +102,6 @@ namespace UCS.Core
             pl.LoadFromJSON(m_vHomeDefault);
             m_vDatabase.CreateAccount(pl);
             return pl;
-        }
-
-        public static Battle CreateBattle(Level attacker, Level defender)
-        {
-            Battle _Battle = null;
-
-            _Battle = new Battle(m_vBattleSeed++, attacker, defender);
-
-            attacker.Avatar.BattleId = _Battle.Battle_ID;
-
-            m_vDatabase.CreateBattle(_Battle);
-            return _Battle;
         }
 
         /*public static void LoadAllAlliancesFromDB()
@@ -163,7 +145,7 @@ namespace UCS.Core
 
                 if (ResourcesManager.GetOnlinePlayers().Count >= 500)
                 {
-                    if (l != null && l.Avatar.Level > 90)
+                    if (l != null && l.Avatar.m_vAvatarLevel > 90)
                     {
                         return l;
                     }
@@ -218,9 +200,9 @@ namespace UCS.Core
             ResourcesManager.RemoveAllianceFromMemory(id);
         }
 
-        public static long GetMaxAllianceID() => m_vAllianceSeed;
+        public static int GetMaxAllianceID() => MaxAllianceID;
 
-        public static long GetMaxPlayerID() => m_vAvatarSeed;
+        public static int GetMaxPlayerID() => MaxPlayerID;
 
         public static int RandomBaseCount() => m_vRandomBaseAmount;
 

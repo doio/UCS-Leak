@@ -12,7 +12,7 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            this.Data.AddString(this.Device.Player.Avatar.Token);
+            this.Data.AddString(this.Device.Player.Avatar.UserToken);
         }
     }
 }

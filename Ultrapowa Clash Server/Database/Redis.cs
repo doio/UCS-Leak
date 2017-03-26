@@ -10,24 +10,23 @@
         internal static IDatabase Players;
         internal static IDatabase Clans;
         internal static IDatabase ClanWars;
-        internal static IDatabase Stream;
+        internal static IDatabase Battles;
 
         internal Redis()
         {
-            ConfigurationOptions Configuration = new ConfigurationOptions()
-            {
-                Password = Utils.ParseConfigString("RedisPassword"),
-                ClientName = this.GetType().Assembly.FullName,
-            };
+            ConfigurationOptions Configuration = new ConfigurationOptions();
 
-            Configuration.EndPoints.Add(Utils.ParseConfigString("RedisIPAddress"), Utils.ParseConfigInt("RedisPort"));
+            Configuration.EndPoints.Add(Utils.ParseConfigString("IPAddress"), Utils.ParseConfigInt("Port"));
+
+            Configuration.Password = Utils.ParseConfigString("Password");
+            Configuration.ClientName = this.GetType().Assembly.FullName;
 
             ConnectionMultiplexer Connection = ConnectionMultiplexer.Connect(Configuration);
 
             Redis.Players  = Connection.GetDatabase((int) Database.Players);
             Redis.Clans    = Connection.GetDatabase((int) Database.Clans);
             Redis.ClanWars = Connection.GetDatabase((int)Database.ClanWars);
-            Redis.Stream = Connection.GetDatabase((int)Database.Battles);
+            Redis.Battles  = Connection.GetDatabase((int)Database.Battles);
 
             Logger.Say("Redis Database has been succesfully loaded.");
         }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -12,113 +11,16 @@ using UCS.Core.Settings;
 using static UCS.Core.Logger;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
-using UCS.Helpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using UCS.Logic.JSONProperty;
 
 namespace UCS.Core
 {
     internal class DatabaseManager
     {
-        #region JSONConverter
-        public class ArrayReferencePreservngConverter : JsonConverter
-        {
-            const string refProperty = "$ref";
-            const string idProperty = "$id";
-            const string valuesProperty = "$values";
-
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType.IsArray;
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                switch (reader.TokenType)
-                {
-                    case JsonToken.Null:
-                        return null;
-                    case JsonToken.StartArray:
-                    {
-                        // No $ref.  Deserialize as a List<T> to avoid infinite recursion and return as an array.
-                        var elementType = objectType.GetElementType();
-                        var listType = typeof(List<>).MakeGenericType(elementType);
-                        var list = (IList)serializer.Deserialize(reader, listType);
-                        if (list == null)
-                            return null;
-                        var array = Array.CreateInstance(elementType, list.Count);
-                        list.CopyTo(array, 0);
-                        return array;
-                    }
-                    default:
-                    {
-                        var obj = JObject.Load(reader);
-                        var refId = (string)obj[refProperty];
-                        if (refId != null)
-                        {
-                            var reference = serializer.ReferenceResolver.ResolveReference(serializer, refId);
-                            if (reference != null)
-                                return reference;
-                        }
-                        var values = obj[valuesProperty];
-                        if (values == null || values.Type == JTokenType.Null)
-                            return null;
-                        if (!(values is JArray))
-                        {
-                            throw new JsonSerializationException($"{values} was not an array");
-                        }
-                        var count = ((JArray)values).Count;
-
-                        var elementType = objectType.GetElementType();
-                        var array = Array.CreateInstance(elementType, count);
-
-                        var objId = (string)obj[idProperty];
-                        if (objId != null)
-                        {
-                            // Add the empty array into the reference table BEFORE poppulating it,
-                            // to handle recursive references.
-                            serializer.ReferenceResolver.AddReference(serializer, objId, array);
-                        }
-
-                        var listType = typeof(List<>).MakeGenericType(elementType);
-                        using (var subReader = values.CreateReader())
-                        {
-                            var list = (IList)serializer.Deserialize(subReader, listType);
-                            list.CopyTo(array, 0);
-                        }
-
-                        return array;
-                    }
-                }
-            }
-
-            public override bool CanWrite => false;
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotImplementedException();
-            }
-        }
-        #endregion
-
-        internal JsonSerializerSettings _settings = new JsonSerializerSettings
-        {
-            Converters = { new ArrayReferencePreservngConverter()},
-            TypeNameHandling = TypeNameHandling.Auto,
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            PreserveReferencesHandling = PreserveReferencesHandling.All,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            Formatting = Formatting.Indented,
-        };
-
-        private string Mysql;
+        private readonly string m_vConnectionString;
 
         public DatabaseManager()
         {
-
+            m_vConnectionString = ConfigurationManager.AppSettings["databaseConnectionName"];
         }
 
         public static DatabaseManager Single() => new DatabaseManager();
@@ -127,73 +29,18 @@ namespace UCS.Core
         {
             try
             {
-                string Object = JsonConvert.SerializeObject(l.Avatar, this._settings);
-                if (Constants.UseCacheServer)
-                {
-                    Redis.Players.StringSet(l.Avatar.UserID.ToString(), Object + "#:#:#:#" + l.SaveToJSON(), TimeSpan.FromHours(4));
-                }
-
-                using (Mysql db = new Mysql())
-                {
-                    db.Player.Add(new Player
-                    {
-                        PlayerId = l.Avatar.UserID,
-                        Avatar = Object,
-                        GameObjects = l.SaveToJSON()
-                    }
-                    );
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        public void CreateBattle(Battle b)
-        {
-            try
-            {
-                string BattleData = JsonConvert.SerializeObject(b, this._settings);
-                string ReplayInfo = JsonConvert.SerializeObject(b.Replay_Info, this._settings);
-                if (Constants.UseCacheServer)
-                {
-                    Redis.Stream.StringSet(b.Battle_ID.ToString(), BattleData + "#:#:#:#" + ReplayInfo, TimeSpan.FromHours(4));
-                }
-
-                using (Mysql db = new Mysql())
-                {
-                    db.Stream.Add(new Stream
-                    {
-                        StreamId = b.Battle_ID,
-                        ReplayData = ReplayInfo,
-                        BattleData = BattleData
-                    }
-                    );
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-        public void CreateAlliance(Alliance a)
-        {
-            try
-            {
                 if (Constants.UseCacheServer) //Redis As Cache Server
-                    Redis.Clans.StringSet(a.AllianceID.ToString(), a.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Players.StringSet(l.Avatar.UserId.ToString(), l.Avatar.SaveToJSON() + "#:#:#:#" + l.SaveToJSON(),
+                        TimeSpan.FromHours(4));
 
-                using (Mysql db = new Mysql())
+                using (Mysql db = new Mysql(m_vConnectionString))
                 {
-                    db.Clan.Add(
-                        new Clan()
+                    db.Player.Add(
+                        new Player
                         {
-                            ClanId = a.AllianceID,
-                            LastUpdateTime = DateTime.Now,
-                            Data = a.SaveToJSON()
+                            PlayerId = l.Avatar.UserId,
+                            Avatar = l.Avatar.SaveToJSON(),
+                            GameObjects = l.SaveToJSON()
                         }
                     );
                     db.SaveChanges();
@@ -204,42 +51,29 @@ namespace UCS.Core
             }
         }
 
-        public Battle GetBattle(long BattleId)
+        public void CreateAlliance(Alliance a)
         {
-            Battle _Battle = new Battle(BattleId, new Level(), new Level() , false);
-            if (Constants.UseCacheServer) //Redis As Cache Server
+            try
             {
-                string _Data = Redis.Stream.StringGet(BattleId.ToString()).ToString();
+                if (Constants.UseCacheServer) //Redis As Cache Server
+                    Redis.Clans.StringSet(a.m_vAllianceId.ToString(), a.SaveToJSON(), TimeSpan.FromHours(4));
 
-                if (!string.IsNullOrEmpty(_Data) && _Data.Contains("#:#:#:#"))
+                using (Mysql db = new Mysql(m_vConnectionString))
                 {
-                    string[] _Datas = _Data.Split(new string[1] { "#:#:#:#" }, StringSplitOptions.None);
-
-                    if (!string.IsNullOrEmpty(_Datas[0]) && !string.IsNullOrEmpty(_Datas[1]))
-                    {
-                        _Battle = JsonConvert.DeserializeObject<Battle>(_Datas[0], _settings);
-                        _Battle.Replay_Info = JsonConvert.DeserializeObject<Replay_Info>(_Datas[1], _settings);
-                    }
-                    else
-                    {
-                        _Battle = null;
-                    }
+                    db.Clan.Add(
+                        new Clan()
+                        {
+                            ClanId = a.m_vAllianceId,
+                            LastUpdateTime = DateTime.Now,
+                            Data = a.SaveToJSON()
+                        }
+                    );
+                    db.SaveChanges();
                 }
             }
-            else
+            catch (Exception)
             {
-                using (Mysql db = new Mysql())
-                {
-                    Stream p = db.Stream.Find(BattleId);
-
-                    if (p != null)
-                    {
-                        _Battle = JsonConvert.DeserializeObject<Battle>(p.BattleData, _settings);
-                        _Battle.Replay_Info = JsonConvert.DeserializeObject<Replay_Info>(p.ReplayData, _settings);
-                    }
-                };
             }
-            return _Battle;
         }
 
         public async Task<Level> GetAccount(long playerId)
@@ -257,53 +91,47 @@ namespace UCS.Core
 
                         if (!string.IsNullOrEmpty(_Datas[0]) && !string.IsNullOrEmpty(_Datas[1]))
                         {
-                            account = new Level
-                            {
-                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(_Datas[0], this._settings)
-                            };
+                            account = new Level();
+                            account.Avatar.LoadFromJSON(_Datas[0]);
                             account.LoadFromJSON(_Datas[1]);
                         }
                     }
                     else
                     {
-                        using (Mysql db = new Mysql())
+                        using (Mysql db = new Mysql(m_vConnectionString))
                         {
                             Player p = await db.Player.FindAsync(playerId);
 
                             if (p != null)
                             {
-                                account = new Level
-                                {
-                                    Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this._settings)
-                                };
+                                account = new Level();
+                                account.Avatar.LoadFromJSON(p.Avatar);
                                 account.LoadFromJSON(p.GameObjects);
                                 Redis.Players.StringSet(playerId.ToString(), p.Avatar + "#:#:#:#" + p.GameObjects,
                                     TimeSpan.FromHours(4));
                             }
-                        };
+                        }
+                        ;
                     }
                 }
                 else
                 {
-                    using (Mysql db = new Mysql())
+                    using (Mysql db = new Mysql(m_vConnectionString))
                     {
                         Player p = await db.Player.FindAsync(playerId);
 
                         if (p != null)
                         {
-                            account = new Level
-                            {
-                                Avatar = JsonConvert.DeserializeObject<ClientAvatar>(p.Avatar, this._settings)
-                            };
+                            account = new Level();
+                            account.Avatar.LoadFromJSON(p.Avatar);
                             account.LoadFromJSON(p.GameObjects);
                         }
                     }
                 }
                 return account;
             }
-            catch (Exception message)
+            catch (Exception)
             {
-                Console.WriteLine(message.Message);
                 return null;
             }
         }
@@ -313,7 +141,7 @@ namespace UCS.Core
             try
             {
                 Alliance alliance = null;
-                if (Constants.UseCacheServer)
+                if (Constants.UseCacheServer) 
                 {
                     string _Data = Redis.Clans.StringGet(allianceId.ToString()).ToString();
 
@@ -325,7 +153,7 @@ namespace UCS.Core
                     }
                     else
                     {
-                        using (Mysql db = new Mysql())
+                        using (Mysql db = new Mysql(m_vConnectionString))
                         {
                             Clan p = await db.Clan.FindAsync(allianceId);
                             if (p != null)
@@ -339,7 +167,7 @@ namespace UCS.Core
                 }
                 else
                 {
-                    using (Mysql db = new Mysql())
+                    using (Mysql db = new Mysql(m_vConnectionString))
                     {
                         Clan p = await db.Clan.FindAsync(allianceId);
                         if (p != null)
@@ -360,7 +188,7 @@ namespace UCS.Core
         public List<long> GetAllPlayerIds()
         {
             List<long> ids = new List<long>();
-            using (Mysql db = new Mysql())
+            using (Mysql db = new Mysql(m_vConnectionString))
                 ids.AddRange(db.Player.Select(p => p.PlayerId));
             return ids;
         }
@@ -368,99 +196,79 @@ namespace UCS.Core
         public List<long> GetAllClanIds()
         {
             List<long> ids = new List<long>();
-            using (Mysql db = new Mysql())
+            using (Mysql db = new Mysql(m_vConnectionString))
                 ids.AddRange(db.Clan.Select(p => p.ClanId));
             return ids;
         }
-        internal int GetClanSeed()
-        {
-            const string SQL = "SELECT coalesce(MAX(ClanId), 0) FROM Clan";
-            int Seed = -1;
 
-            using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
-            {
-                Conn.Open();
-
-                using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
-                {
-                    CMD.Prepare();
-                    Seed = Convert.ToInt32(CMD.ExecuteScalar());
-                }
-            }
-
-            return Seed;
-        }
-        internal int GetStreamSeed()
-        {
-            const string SQL = "SELECT coalesce(MAX(StreamId), 0) FROM Stream";
-            int Seed = -1;
-
-            using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
-            {
-                Conn.Open();
-
-                using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
-                {
-                    CMD.Prepare();
-                    Seed = Convert.ToInt32(CMD.ExecuteScalar());
-                }
-            }
-
-            return Seed;
-        }
-
-        public int GetPlayerSeed()
+        public long GetMaxAllianceId()
         {
             try
             {
-                const string SQL = "SELECT coalesce(MAX(PlayerId), 0) FROM Player";
-                int Seed = -1;
-
-                var builder = new MySqlConnectionStringBuilder()
-                {
-                    Server = Utils.ParseConfigString("MysqlIPAddress"),
-                    UserID = Utils.ParseConfigString("MysqlUsername"),
-                    Port = (uint)Utils.ParseConfigInt("MysqlPort"),
-                    Pooling = false,
-                    Database = Utils.ParseConfigString("MysqlDatabase"),
-                    MinimumPoolSize = 1
-                };
-                if (!string.IsNullOrWhiteSpace(Utils.ParseConfigString("MysqlPassword")))
-                    builder.Password = Utils.ParseConfigString("MysqlPassword");
-                Mysql = builder.ToString();
-
-                using (MySqlConnection Conn = new MySqlConnection(Mysql))
-                {
-                    Conn.Open();
-
-                    using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
-                    {
-                        CMD.Prepare();
-                        Seed = Convert.ToInt32(CMD.ExecuteScalar());
-                    }
-                }
-
-                return Seed;
+                using (Mysql db = new Mysql(m_vConnectionString))
+                    return (from alliance in db.Clan select (long?) alliance.ClanId ?? 0).DefaultIfEmpty().Max();
             }
-            catch (Exception ex)
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public long GetMaxPlayerId()
+        {
+            try
+            {
+                using (Mysql db = new Mysql(m_vConnectionString))
+                    return (from ep in db.Player select (long?) ep.PlayerId ?? 0).DefaultIfEmpty().Max();
+            }
+            catch (EntityException ex)
+            {
+                if (ConfigurationManager.AppSettings["databaseConnectionName"] == "mysql")
+                {
+                    Error("An exception occured when connecting to the MySQL Server.");
+                    Error("Please check your database configuration !");
+                    Error(Convert.ToString(ex));
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Error("An exception occured when connecting to the SQLite database.");
+                    Error("Please check your database configuration !");
+                    Error(Convert.ToString(ex));
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+            }
+            catch (MySqlException)
             {
                 Say();
                 Error("An exception occured when reconnecting to the MySQL Server.");
-                Error("Please check your database configuration!");
-                Error(ex.Message);
-                Console.ReadKey();
+                Error("Please check your database configuration !");
+                //Reason
+                //Username is wrong
+                //Password is wrong
+                //IP Address is unauthorized
+
                 UCSControl.UCSRestart();
+            }
+            catch (Exception ex)
+            {
+                Error("An unknown exception occured when trying to connect to the sql server.");
+                Error("Please check your database configuration !");
+                Error(Convert.ToString(ex));
+                Console.ReadKey();
+                Environment.Exit(0);
             }
             return 0;
         }
-
 
         public void RemoveAlliance(Alliance alliance)
         {
             try
             {
-                long id = alliance.AllianceID;
-                using (Mysql db = new Mysql())
+                long id = alliance.m_vAllianceId;
+                using (Mysql db = new Mysql(m_vConnectionString))
                 {
                     db.Clan.Remove(db.Clan.Find((int)id));
                     db.SaveChanges();
@@ -478,7 +286,7 @@ namespace UCS.Core
             {
                 Level account = null;
                 Player Data = null;
-                using (Mysql Database = new Mysql())
+                using (Mysql Database = new Mysql(m_vConnectionString))
                 {
                     Parallel.ForEach(Database.Player.ToList(), (Query, state) =>
                     {
@@ -491,13 +299,12 @@ namespace UCS.Core
 
                     if (Data != null)
                     {
-                        account = new Level
-                        {
-                            Avatar = JsonConvert.DeserializeObject<ClientAvatar>(Data.Avatar, this._settings)
-                        };
+                        account = new Level();
+                        account.Avatar.LoadFromJSON(Data.Avatar);
                         account.LoadFromJSON(Data.GameObjects);
                         if (Constants.UseCacheServer)
-                            Redis.Players.StringSet(Data.PlayerId.ToString(), Data.Avatar + "#:#:#:#" + Data.GameObjects, TimeSpan.FromHours(4));
+                            Redis.Players.StringSet(Data.PlayerId.ToString(), Data.Avatar + "#:#:#:#" + Data.GameObjects,
+                                TimeSpan.FromHours(4));
                     }
 
                 }
@@ -514,11 +321,11 @@ namespace UCS.Core
             try
             {
                 if (Constants.UseCacheServer)
-                    Redis.Clans.StringSet(alliance.AllianceID.ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Clans.StringSet(alliance.m_vAllianceId.ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
 
-                using (Mysql context = new Mysql())
+                using (Mysql context = new Mysql(m_vConnectionString))
                 {
-                    Clan c = await context.Clan.FindAsync((int)alliance.AllianceID);
+                    Clan c = await context.Clan.FindAsync((int)alliance.m_vAllianceId);
                     if (c != null)
                     {
                         c.LastUpdateTime = DateTime.Now;
@@ -533,48 +340,20 @@ namespace UCS.Core
             }
         }
 
-
-        public void Save(Battle _Battle)
-        {
-            try
-            {
-                string BattleData = JsonConvert.SerializeObject(_Battle, this._settings);
-                string ReplayInfo = JsonConvert.SerializeObject(_Battle.Replay_Info, this._settings);
-                if (Constants.UseCacheServer)
-                    Redis.Stream.StringSet(_Battle.Battle_ID.ToString(), BattleData + "#:#:#:#" + ReplayInfo,
-                        TimeSpan.FromHours(4));
-
-                using (Mysql context = new Mysql())
-                {
-                    Stream p = context.Stream.Find(_Battle.Battle_ID);
-                    if (p != null)
-                    {
-                        p.StreamId = _Battle.Battle_ID;
-                        p.ReplayData = ReplayInfo;
-                        p.BattleData = BattleData;
-                    }
-                    context.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
-
         public async Task Save(Level avatar)
         {
             try
             {
-                string Object = JsonConvert.SerializeObject(avatar.Avatar, this._settings);
                 if (Constants.UseCacheServer)
-                    Redis.Players.StringSet(avatar.Avatar.UserID.ToString(), Object + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
+                    Redis.Players.StringSet(avatar.Avatar.UserId.ToString(),
+                        avatar.Avatar.SaveToJSON() + "#:#:#:#" + avatar.SaveToJSON(), TimeSpan.FromHours(4));
 
-                using (Mysql context = new Mysql())
+                using (Mysql context = new Mysql(m_vConnectionString))
                 {
-                    Player p = await context.Player.FindAsync(avatar.Avatar.UserID);
+                    Player p = await context.Player.FindAsync(avatar.Avatar.UserId);
                     if (p != null)
                     {
-                        p.Avatar = Object;
+                        p.Avatar = avatar.Avatar.SaveToJSON();
                         p.GameObjects = avatar.SaveToJSON();
                     }
                     await context.SaveChangesAsync();
@@ -595,22 +374,23 @@ namespace UCS.Core
                         {
                             foreach (Level pl in avatars)
                             {
-                                Redis.Players.StringSet(pl.Avatar.UserID.ToString(), JsonConvert.SerializeObject(pl.Avatar, this._settings) + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
+                                Redis.Players.StringSet(pl.Avatar.UserId.ToString(),
+                                    pl.Avatar.SaveToJSON() + "#:#:#:#" + pl.SaveToJSON(), TimeSpan.FromHours(4));
                             }
                             break;
                         }
 
                     case Save.Mysql:
                         {
-                            using (Mysql context = new Mysql())
+                            using (Mysql context = new Mysql(m_vConnectionString))
                             {
                                 foreach (Level pl in avatars)
                                 {
-                                    Player p = context.Player.Find(pl.Avatar.UserID);
+                                    Player p = context.Player.Find(pl.Avatar.UserId);
                                     if (p != null)
                                     {
 
-                                        p.Avatar = JsonConvert.SerializeObject(pl.Avatar, this._settings);
+                                        p.Avatar = pl.Avatar.SaveToJSON();
                                         p.GameObjects = pl.SaveToJSON();
                                     }
 
@@ -643,18 +423,18 @@ namespace UCS.Core
                         {
                             foreach (Alliance alliance in alliances)
                             {
-                                Redis.Clans.StringSet(alliance.AllianceID.ToString(), alliance.SaveToJSON(), TimeSpan.FromHours(4));
+                                Redis.Clans.StringSet(alliance.m_vAllianceId.ToString(), alliance.SaveToJSON(),
+                                    TimeSpan.FromHours(4));
                             }
                             break;
                         }
                     case Save.Mysql:
                         {
-                            using (Mysql context = new Mysql())
-
+                            using (Mysql context = new Mysql(m_vConnectionString))
                             {
                                 foreach (Alliance alliance in alliances)
                                 {
-                                    Clan c = context.Clan.Find((int)alliance.AllianceID);
+                                    Clan c = context.Clan.Find((int)alliance.m_vAllianceId);
                                     if (c != null)
                                     {
                                         c.LastUpdateTime = DateTime.Now;
@@ -675,7 +455,7 @@ namespace UCS.Core
                 }
             }
             catch (Exception)
-            {
+            {           
             }
         }
     }

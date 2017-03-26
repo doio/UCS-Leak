@@ -10,7 +10,6 @@ using System.Text;
 using static UCS.Logic.ClientAvatar;
 using System.Collections.Generic;
 using UCS.Files.Logic;
-using UCS.Logic.Enums;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -34,6 +33,44 @@ namespace UCS.Packets.Messages.Client
             {
                 ClientAvatar player = this.Device.Player.Avatar;
 
+                /*if (player.State == UserState.PVP)
+                {
+                    var info = default(ClientAvatar.AttackInfo);
+                    if (!level.Avatar.AttackingInfo.TryGetValue(level.Avatar.GetId(), out info))
+                    {
+                        Logger.Write("Unable to obtain attack info.");
+                    }
+                    else
+                    {
+                        Level defender = info.Defender;
+                        Level attacker = info.Attacker;
+
+                        int lost = info.Lost;
+                        int reward = info.Reward;
+
+                        List<DataSlot> usedtroop = info.UsedTroop;
+
+                        int attackerscore = attacker.Avatar.GetScore();
+                        int defenderscore = defender.Avatar.GetScore();
+
+                        if (defender.Avatar.GetScore() > 0)
+                            defender.Avatar.SetScore(defenderscore -= lost);
+
+                        Logger.Write("Used troop type: " + usedtroop.Count);
+                        foreach(DataSlot a in usedtroop)
+                        {
+                            Logger.Write("Troop Name: " + a.Data.GetName());
+                            Logger.Write("Troop Used Value: " + a.Value);
+                        }
+                        attacker.Avatar.SetScore(attackerscore += reward);
+                        attacker.Avatar.AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
+                        Resources(attacker);
+
+                        DatabaseManager.Single().Save(attacker);
+                        DatabaseManager.Single().Save(defender);
+                    } 
+                    player.State = UserState.Home;
+                }*/
                 if (State == 1)
                 {
                     this.Device.PlayerState = Logic.Enums.State.WAR_EMODE;
@@ -46,47 +83,40 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    if (this.Device.Player.Avatar.BattleId > 0)
+                    this.Device.PlayerState = Logic.Enums.State.LOGGED;
+                    this.Device.Player.Tick();
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                    new OwnHomeDataMessage(Device, this.Device.Player).Send();
+                    if (alliance != null)
                     {
-                        if (ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Commands.Count > 0)
-                        {
-                            ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Set_Replay_Info();
-                            this.Device.Player.Avatar.Stream.Add(new long[] {this.Device.Player.Avatar.BattleId, 7});
-
-                            if (
-                                !ResourcesManager.InMemoryLevels.ContainsKey(
-                                    ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Defender.UserID))
-                            {
-                                Level Player =
-                                    DatabaseManager.Single()
-                                        .GetAccount(
-                                            ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].Defender.UserID)
-                                        .Result;
-                                if (Player.Avatar.Guard < 1)
-                                    Player.Avatar.Stream.Add(new long[] {this.Device.Player.Avatar.BattleId, 2});
-                            }
-                            DatabaseManager.Single()
-                                .Save(ResourcesManager.GetInMemoryBattle(this.Device.Player.Avatar.BattleId));
-                        }
-                        else
-                            Core.ResourcesManager.RemoveBattle(this.Device.Player.Avatar.BattleId);
-
-                        this.Device.Player.Avatar.BattleId = 0;
-                        this.Device.PlayerState = Logic.Enums.State.LOGGED;
-                        this.Device.Player.Tick();
-                        Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
-                        new OwnHomeDataMessage(Device, this.Device.Player).Send();
-                        new AvatarStreamMessage(this.Device).Send();
-                        if (alliance != null)
-                        {
-                            new AllianceStreamMessage(Device, alliance).Send();
-                        }
+                        new AllianceStreamMessage(Device, alliance).Send();
                     }
                 }
             }
             catch (Exception)
             {
+                
             }
         }
+
+        public void Resources(Level level)
+        {
+            ClientAvatar avatar = level.Avatar;
+            int currentGold = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"));
+            int currentElixir = avatar.GetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"));
+            ResourceData goldLocation = CSVManager.DataTables.GetResourceByName("Gold");
+            ResourceData elixirLocation = CSVManager.DataTables.GetResourceByName("Elixir");
+
+            if (currentGold >= 1000000000 | currentElixir >= 1000000000)
+            {
+                avatar.SetResourceCount(goldLocation, currentGold + 10);
+                avatar.SetResourceCount(elixirLocation, currentElixir + 10);
+            }
+            else if (currentGold <= 999999999 || currentElixir <= 999999999)
+            {
+                avatar.SetResourceCount(goldLocation, currentGold + 1000);
+                avatar.SetResourceCount(elixirLocation, currentElixir + 1000);
+            }
+        } 
     }
 }

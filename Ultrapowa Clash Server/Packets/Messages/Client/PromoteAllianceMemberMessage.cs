@@ -32,9 +32,9 @@ namespace UCS.Packets.Messages.Client
             {
                 Level target = await ResourcesManager.GetPlayer(m_vId);
                 ClientAvatar player = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(player.AllianceID);
+                Alliance alliance = await ObjectManager.GetAlliance(player.AllianceId);
                 if (await player.GetAllianceRole() == 2 || await player.GetAllianceRole() == 4)
-                    if (player.AllianceID == target.Avatar.AllianceID)
+                    if (player.AllianceId == target.Avatar.AllianceId)
                     {
                         int oldrole = await target.Avatar.GetAllianceRole();
                         target.Avatar.SetAllianceRole(m_vRole);
@@ -46,8 +46,8 @@ namespace UCS.Packets.Messages.Client
                             demote.SetId(alliance.GetChatMessages().Count + 1);
                             demote.SetSender(player);
                             demote.SetEventType(6);
-                            demote.SetAvatarId(player.UserID);
-                            demote.SetUsername(player.Username);
+                            demote.SetAvatarId(player.UserId);
+                            demote.SetAvatarName(player.AvatarName);
 
                             alliance.AddChatMessage(demote);
 
@@ -55,8 +55,8 @@ namespace UCS.Packets.Messages.Client
                             promote.SetId(alliance.GetChatMessages().Count + 1);
                             promote.SetSender(target.Avatar);
                             promote.SetEventType(5);
-                            promote.SetAvatarId(player.UserID);
-                            promote.SetUsername(player.Username);
+                            promote.SetAvatarId(player.UserId);
+                            promote.SetAvatarName(player.AvatarName);
 
                             alliance.AddChatMessage(promote);
 
@@ -68,12 +68,12 @@ namespace UCS.Packets.Messages.Client
 
                             PromoteAllianceMemberOkMessage rup = new PromoteAllianceMemberOkMessage(Device)
                             {
-                                Id = this.Device.Player.Avatar.UserID,
+                                Id = this.Device.Player.Avatar.UserId,
                                 Role = 4
                             };
                             PromoteAllianceMemberOkMessage rub = new PromoteAllianceMemberOkMessage(target.Client)
                             {
-                                Id = target.Avatar.UserID,
+                                Id = target.Avatar.UserId,
                                 Role = 2
                             };
 
@@ -94,7 +94,7 @@ namespace UCS.Packets.Messages.Client
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                             {
-                                Level aplayer = await ResourcesManager.GetPlayer(op.AvatarID);
+                                Level aplayer = await ResourcesManager.GetPlayer(op.AvatarId);
                                 if (aplayer.Client != null)
                                 {
                                     AllianceStreamEntryMessage a = new AllianceStreamEntryMessage(aplayer.Client);
@@ -117,8 +117,8 @@ namespace UCS.Packets.Messages.Client
 
                             stream.SetId(alliance.GetChatMessages().Count + 1);
                             stream.SetSender(target.Avatar);
-                            stream.SetAvatarId(player.UserID);
-                            stream.SetUsername(player.Username);
+                            stream.SetAvatarId(player.UserId);
+                            stream.SetAvatarName(player.AvatarName);
                             stream.SetEventType(m_vRole > oldrole ? 5 : 6);
 
                             t.SetAlliance(alliance);
@@ -127,7 +127,7 @@ namespace UCS.Packets.Messages.Client
 
                             PromoteAllianceMemberOkMessage ru = new PromoteAllianceMemberOkMessage(target.Client)
                             {
-                                Id = target.Avatar.UserID,
+                                Id = target.Avatar.UserId,
                                 Role =  m_vRole
                             };
 
@@ -141,7 +141,7 @@ namespace UCS.Packets.Messages.Client
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                             {
-                                Level aplayer = await ResourcesManager.GetPlayer(op.AvatarID);
+                                Level aplayer = await ResourcesManager.GetPlayer(op.AvatarId);
                                 if (aplayer.Client != null)
                                 {
                                     AllianceStreamEntryMessage b = new AllianceStreamEntryMessage(aplayer.Client);

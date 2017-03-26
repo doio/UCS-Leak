@@ -1,9 +1,7 @@
 ﻿using UCS.Core;
-using UCS.Core.Network;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
 using UCS.Logic;
-using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -36,13 +34,13 @@ namespace UCS.Packets.Commands.Client
                 Logger.Write("Unlocking Building: " + name + " (" + BuildingId + ')');
                 if (string.Equals(name, "Alliance Castle"))
                 {
-                    ca.Castle_Level++;
+                    ca.IncrementAllianceCastleLevel();
                     Building a = (Building)this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
                     BuildingData al = a.GetBuildingData();
-                    ca.Castle_Total =  al.GetUnitStorageCapacity(ca.Castle_Level);
+                    ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
                 }
                 var rd = bd.GetBuildResource(b.GetUpgradeLevel());
-                ca.Resources.Set(rd.GetGlobalID(), ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel()));
+                ca.SetResourceCount(rd, ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel()));
                 b.Unlock();
             }
         }

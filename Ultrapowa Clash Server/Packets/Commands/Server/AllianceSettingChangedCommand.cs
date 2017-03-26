@@ -17,9 +17,9 @@ namespace  UCS.Packets.Commands.Server
         internal override void Encode()
         {
             m_vPlayer.Tick();
-            this.Data.AddLong(m_vAlliance.AllianceID);
-            this.Data.AddInt(m_vAlliance.GetAllianceBadgeData());
-            this.Data.AddInt(m_vAlliance.GetAllianceLevel());
+            this.Data.AddLong(m_vAlliance.m_vAllianceId);
+            this.Data.AddInt(m_vAlliance.m_vAllianceBadgeData);
+            this.Data.AddInt(m_vAlliance.m_vAllianceLevel);
             this.Data.AddInt(0); //Tick
         }
 

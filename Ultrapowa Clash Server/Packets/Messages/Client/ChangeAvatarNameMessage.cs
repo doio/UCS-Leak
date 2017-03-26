@@ -8,9 +8,9 @@ using UCS.Packets.Messages.Server;
 namespace UCS.Packets.Messages.Client
 {
     // Packet 10212
-    internal class ChangeUsernameMessage : Message
+    internal class ChangeAvatarNameMessage : Message
     {
-        public ChangeUsernameMessage(Device device, Reader reader) : base(device, reader)
+        public ChangeAvatarNameMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -30,9 +30,9 @@ namespace UCS.Packets.Messages.Client
             else
             {
                 this.Device.Player.Avatar.SetName(PlayerName);
-                UsernameChangeOkMessage p = new UsernameChangeOkMessage(this.Device)
+                AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(this.Device)
                 {
-                    Username = this.Device.Player.Avatar.Username
+                    AvatarName = this.Device.Player.Avatar.AvatarName
                 };
                 p.Send();
             }

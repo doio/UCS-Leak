@@ -18,10 +18,10 @@ namespace UCS.Packets.Messages.Server
         {
             this.Data.AddInt(1);
 
-            this.Data.AddLong(m_vHomeAlliance.AllianceID); // 1 Alliance ID
-            this.Data.AddString(m_vHomeAlliance.GetAllianceName()); // 1 Alliance Name
-            this.Data.AddInt(m_vHomeAlliance.GetAllianceBadgeData()); // 1 Alliance Badge
-            this.Data.AddInt(m_vHomeAlliance.GetAllianceLevel()); // 1 Alliance Level
+            this.Data.AddLong(m_vHomeAlliance.m_vAllianceId); // 1 Alliance ID
+            this.Data.AddString(m_vHomeAlliance.m_vAllianceName); // 1 Alliance Name
+            this.Data.AddInt(m_vHomeAlliance.m_vAllianceBadgeData); // 1 Alliance Badge
+            this.Data.AddInt(m_vHomeAlliance.m_vAllianceLevel); // 1 Alliance Level
 
             this.Data.AddLong(9999); // 2 Alliance ID
             this.Data.AddString("Ultrapowa"); // 2 Alliance Name

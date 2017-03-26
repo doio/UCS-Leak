@@ -26,7 +26,7 @@ namespace UCS.Packets.GameOpCommands
                         var l = await ResourcesManager.GetPlayer(id);
                         if (l != null)
                         {
-                            l.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
+                            l.Avatar.AccountBanned = false;
                         }
                         else
                         {

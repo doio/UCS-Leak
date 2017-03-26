@@ -11,6 +11,7 @@
     internal class Loader
     {
         internal CSVManager CsvManager;
+        internal ChatProcessor ChatProcessor;
         internal ConnectionBlocker ConnectionBlocker;
         internal DirectoryChecker DirectoryChecker;
         internal API API;
@@ -27,8 +28,6 @@
 
         public Loader()
         {
-            //LicenseChecker = new LicenseChecker();
-
             // CSV Files and Logger
             this.Logger = new Logger();
             this.DirectoryChecker = new DirectoryChecker();
@@ -36,8 +35,10 @@
 
 
             // Network and Packets
+            this.ChatProcessor = new ChatProcessor();
+
             this.ConnectionBlocker = new ConnectionBlocker();
-            if (Utils.ParseConfigBoolean("UseWebAPI") && Constants.LicensePlanID == 3)
+            if (Utils.ParseConfigBoolean("UseWebAPI"))
                 this.API = new API();
 
 

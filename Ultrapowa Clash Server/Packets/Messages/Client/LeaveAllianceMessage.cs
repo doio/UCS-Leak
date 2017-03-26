@@ -27,7 +27,7 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 ClientAvatar avatar = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(avatar.AllianceID);
+                Alliance alliance = await ObjectManager.GetAlliance(avatar.AllianceId);
 
                 if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
@@ -36,10 +36,10 @@ namespace UCS.Packets.Messages.Client
                     {
                         player.SetRole(2);
 
-                        if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarID)))
+                        if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarId)))
                         {
 
-                            Level l = await ResourcesManager.GetPlayer(player.AvatarID);
+                            Level l = await ResourcesManager.GetPlayer(player.AvatarId);
 
                             AllianceRoleUpdateCommand c = new AllianceRoleUpdateCommand(l.Client);
                             c.SetAlliance(alliance);
@@ -56,7 +56,7 @@ namespace UCS.Packets.Messages.Client
                         int count = alliance.GetAllianceMembers().Count;
                         Random rnd = new Random();
                         int id = rnd.Next(1, count);
-                        while (id != this.Device.Player.Avatar.UserID)
+                        while (id != this.Device.Player.Avatar.UserId)
                             id = rnd.Next(1, count);
                         int loop = 0;
                         foreach (AllianceMemberEntry player in members)
@@ -65,9 +65,9 @@ namespace UCS.Packets.Messages.Client
                             if (loop == id)
                             {
                                 player.SetRole(2);
-                                if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarID)))
+                                if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarId)))
                                 {
-                                    Level l2 = await ResourcesManager.GetPlayer(player.AvatarID);
+                                    Level l2 = await ResourcesManager.GetPlayer(player.AvatarId);
                                     AllianceRoleUpdateCommand e = new AllianceRoleUpdateCommand(l2.Client);
                                     e.SetAlliance(alliance);
                                     e.SetRole(2);
@@ -86,8 +86,8 @@ namespace UCS.Packets.Messages.Client
 
                 new AvailableServerCommandMessage(Device, a.Handle()).Send();
 
-                alliance.RemoveMember(avatar.UserID);
-                avatar.AllianceID = 0;
+                alliance.RemoveMember(avatar.UserId);
+                avatar.SetAllianceId(0);
 
                 if (alliance.GetAllianceMembers().Count > 0)
                 {
@@ -95,11 +95,11 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                     eventStreamEntry.SetSender(avatar);
                     eventStreamEntry.SetEventType(4);
-                    eventStreamEntry.SetAvatarId(avatar.UserID);
-                    eventStreamEntry.SetUsername(avatar.Username);
+                    eventStreamEntry.SetAvatarId(avatar.UserId);
+                    eventStreamEntry.SetAvatarName(avatar.AvatarName);
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
-                        if (onlinePlayer.Avatar.AllianceID == alliance.AllianceID)
+                        if (onlinePlayer.Avatar.AllianceId == alliance.m_vAllianceId)
                         {
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.Client);
                             p.SetStreamEntry(eventStreamEntry);

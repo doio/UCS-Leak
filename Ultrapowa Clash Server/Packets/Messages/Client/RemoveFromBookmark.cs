@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
@@ -25,10 +24,10 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            var al = this.Device.Player.Avatar.Bookmark.Find(a => a == id);
-            if (al > 0)
+            BookmarkSlot al = this.Device.Player.Avatar.BookmarkedClan.Find(a => a.Value == id);
+            if (al != null)
             {
-                this.Device.Player.Avatar.Bookmark.Remove(al);
+                this.Device.Player.Avatar.BookmarkedClan.Remove(al);
             }
             new BookmarkRemoveAllianceMessage(Device).Send();
         } 

@@ -30,34 +30,15 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                if (this.Device.Player.Avatar.ReportedCount >= 3)
+                Level ReportedPlayer = await ResourcesManager.GetPlayer(ReportedPlayerID);
+                ReportedPlayer.Avatar.ReportedTimes++;
+                if (ReportedPlayer.Avatar.ReportedTimes >= 3)
                 {
-                    ReportedPlayerMessage _ReportedPlayerMessage = new ReportedPlayerMessage(this.Device);
-                    _ReportedPlayerMessage.SetID(6);
-                    _ReportedPlayerMessage.Send();
+                    AvatarChatBanMessage _AvatarChatBanMessage = new AvatarChatBanMessage(ReportedPlayer.Client);
+                    //_AvatarChatBanMessage.SetBanPeriod(86400); // A Day
+                    _AvatarChatBanMessage.SetBanPeriod(1800); // 30 Minutes
+                    _AvatarChatBanMessage.Send();
                 }
-                else
-                {
-                    this.Device.Player.Avatar.ReportedCount++;
-
-                    ReportedPlayerMessage _ReportedPlayerMessage = new ReportedPlayerMessage(this.Device);
-                    _ReportedPlayerMessage.SetID(1);
-                    _ReportedPlayerMessage.Send();
-
-                    Level _ReportedPlayer = await ResourcesManager.GetPlayer(ReportedPlayerID);
-                    _ReportedPlayer.Avatar.GotReported++;
-
-                    if (_ReportedPlayer.Avatar.GotReported >= 3)
-                    {
-                        AvatarChatBanMessage _AvatarChatBanMessage = new AvatarChatBanMessage(_ReportedPlayer.Client);
-                        _AvatarChatBanMessage.SetBanPeriod(1800);
-                        _AvatarChatBanMessage.Send();
-                    }
-                }
-
-                // 6 = Wait before send again;
-                // 1 = Reported
-                // 2 = Daily Limit reached;
             }
             catch (Exception)
             {

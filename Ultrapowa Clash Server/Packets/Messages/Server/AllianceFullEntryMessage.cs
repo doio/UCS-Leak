@@ -17,7 +17,7 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            this.Data.AddString(m_vAlliance.GetAllianceDescription());
+            this.Data.AddString(m_vAlliance.m_vAllianceDescription);
             this.Data.AddInt(0); //War state:
             // 0 - Not started
             // 1 - Search enemy (old war type)
@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddInt(0); //Unknown
 
             this.Data.Add(0); //0 if no war
-            //this.Data.AddLong(1);
+            //pack.AddLong(WarID);
             this.Data.Add(0);
             this.Data.AddInt(0);
             this.Data.AddRange(m_vAlliance.EncodeFullEntry());

@@ -153,7 +153,7 @@ namespace UCS
             this.materialTabControl3 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.materialRaisedButton21 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.listView2 = new MaterialSkin.Controls.MaterialListView();
+            this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -176,9 +176,6 @@ namespace UCS
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.materialRadioButton1 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton2 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -205,14 +202,13 @@ namespace UCS
             this.materialTabControl1.Controls.Add(this.tabPage3);
             this.materialTabControl1.Controls.Add(this.tabPage6);
             this.materialTabControl1.Controls.Add(this.tabPage7);
-            this.materialTabControl1.Controls.Add(this.tabPage11);
             this.materialTabControl1.Controls.Add(this.tabPage8);
             this.materialTabControl1.Depth = 0;
             this.materialTabControl1.Location = new System.Drawing.Point(-1, 81);
             this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            this.materialTabControl1.Size = new System.Drawing.Size(806, 429);
+            this.materialTabControl1.Size = new System.Drawing.Size(708, 380);
             this.materialTabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -242,7 +238,7 @@ namespace UCS
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(798, 403);
+            this.tabPage1.Size = new System.Drawing.Size(700, 354);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -253,7 +249,7 @@ namespace UCS
             this.labelOnlineStatus.Depth = 0;
             this.labelOnlineStatus.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelOnlineStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelOnlineStatus.Location = new System.Drawing.Point(311, 226);
+            this.labelOnlineStatus.Location = new System.Drawing.Point(248, 197);
             this.labelOnlineStatus.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelOnlineStatus.Name = "labelOnlineStatus";
             this.labelOnlineStatus.Size = new System.Drawing.Size(62, 19);
@@ -266,7 +262,7 @@ namespace UCS
             this.materialLabel5.Depth = 0;
             this.materialLabel5.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel5.Location = new System.Drawing.Point(158, 226);
+            this.materialLabel5.Location = new System.Drawing.Point(95, 197);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
             this.materialLabel5.Size = new System.Drawing.Size(106, 19);
@@ -279,7 +275,7 @@ namespace UCS
             this.materialRaisedButton12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton12.Depth = 0;
             this.materialRaisedButton12.Icon = null;
-            this.materialRaisedButton12.Location = new System.Drawing.Point(273, 313);
+            this.materialRaisedButton12.Location = new System.Drawing.Point(210, 284);
             this.materialRaisedButton12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton12.Name = "materialRaisedButton12";
             this.materialRaisedButton12.Primary = true;
@@ -295,7 +291,7 @@ namespace UCS
             this.materialRaisedButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton3.Depth = 0;
             this.materialRaisedButton3.Icon = null;
-            this.materialRaisedButton3.Location = new System.Drawing.Point(487, 313);
+            this.materialRaisedButton3.Location = new System.Drawing.Point(424, 284);
             this.materialRaisedButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton3.Name = "materialRaisedButton3";
             this.materialRaisedButton3.Primary = true;
@@ -311,7 +307,7 @@ namespace UCS
             this.materialRaisedButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton2.Depth = 0;
             this.materialRaisedButton2.Icon = null;
-            this.materialRaisedButton2.Location = new System.Drawing.Point(103, 313);
+            this.materialRaisedButton2.Location = new System.Drawing.Point(40, 284);
             this.materialRaisedButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton2.Name = "materialRaisedButton2";
             this.materialRaisedButton2.Primary = true;
@@ -327,7 +323,7 @@ namespace UCS
             this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton1.Depth = 0;
             this.materialRaisedButton1.Icon = null;
-            this.materialRaisedButton1.Location = new System.Drawing.Point(613, 313);
+            this.materialRaisedButton1.Location = new System.Drawing.Point(550, 284);
             this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
@@ -343,7 +339,7 @@ namespace UCS
             this.materialLabel16.Depth = 0;
             this.materialLabel16.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel16.Location = new System.Drawing.Point(609, 197);
+            this.materialLabel16.Location = new System.Drawing.Point(546, 168);
             this.materialLabel16.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel16.Name = "materialLabel16";
             this.materialLabel16.Size = new System.Drawing.Size(17, 19);
@@ -356,7 +352,7 @@ namespace UCS
             this.materialLabel15.Depth = 0;
             this.materialLabel15.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel15.Location = new System.Drawing.Point(609, 165);
+            this.materialLabel15.Location = new System.Drawing.Point(546, 136);
             this.materialLabel15.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel15.Name = "materialLabel15";
             this.materialLabel15.Size = new System.Drawing.Size(17, 19);
@@ -369,7 +365,7 @@ namespace UCS
             this.materialLabel14.Depth = 0;
             this.materialLabel14.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel14.Location = new System.Drawing.Point(609, 131);
+            this.materialLabel14.Location = new System.Drawing.Point(546, 102);
             this.materialLabel14.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel14.Name = "materialLabel14";
             this.materialLabel14.Size = new System.Drawing.Size(17, 19);
@@ -382,7 +378,7 @@ namespace UCS
             this.labelMemoryPlayers.Depth = 0;
             this.labelMemoryPlayers.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelMemoryPlayers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelMemoryPlayers.Location = new System.Drawing.Point(609, 102);
+            this.labelMemoryPlayers.Location = new System.Drawing.Point(546, 73);
             this.labelMemoryPlayers.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelMemoryPlayers.Name = "labelMemoryPlayers";
             this.labelMemoryPlayers.Size = new System.Drawing.Size(17, 19);
@@ -395,7 +391,7 @@ namespace UCS
             this.materialLabel12.Depth = 0;
             this.materialLabel12.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel12.Location = new System.Drawing.Point(453, 197);
+            this.materialLabel12.Location = new System.Drawing.Point(390, 168);
             this.materialLabel12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel12.Name = "materialLabel12";
             this.materialLabel12.Size = new System.Drawing.Size(84, 19);
@@ -408,7 +404,7 @@ namespace UCS
             this.materialLabel11.Depth = 0;
             this.materialLabel11.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel11.Location = new System.Drawing.Point(453, 165);
+            this.materialLabel11.Location = new System.Drawing.Point(390, 136);
             this.materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel11.Name = "materialLabel11";
             this.materialLabel11.Size = new System.Drawing.Size(97, 19);
@@ -421,7 +417,7 @@ namespace UCS
             this.materialLabel10.Depth = 0;
             this.materialLabel10.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel10.Location = new System.Drawing.Point(453, 131);
+            this.materialLabel10.Location = new System.Drawing.Point(390, 102);
             this.materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel10.Name = "materialLabel10";
             this.materialLabel10.Size = new System.Drawing.Size(81, 19);
@@ -434,7 +430,7 @@ namespace UCS
             this.materialLabel9.Depth = 0;
             this.materialLabel9.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel9.Location = new System.Drawing.Point(453, 102);
+            this.materialLabel9.Location = new System.Drawing.Point(390, 73);
             this.materialLabel9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel9.Name = "materialLabel9";
             this.materialLabel9.Size = new System.Drawing.Size(137, 19);
@@ -447,7 +443,7 @@ namespace UCS
             this.labelConnectedPlayers.Depth = 0;
             this.labelConnectedPlayers.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelConnectedPlayers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelConnectedPlayers.Location = new System.Drawing.Point(311, 197);
+            this.labelConnectedPlayers.Location = new System.Drawing.Point(248, 168);
             this.labelConnectedPlayers.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelConnectedPlayers.Name = "labelConnectedPlayers";
             this.labelConnectedPlayers.Size = new System.Drawing.Size(17, 19);
@@ -460,7 +456,7 @@ namespace UCS
             this.labelOnlinePlayers.Depth = 0;
             this.labelOnlinePlayers.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelOnlinePlayers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelOnlinePlayers.Location = new System.Drawing.Point(311, 165);
+            this.labelOnlinePlayers.Location = new System.Drawing.Point(248, 136);
             this.labelOnlinePlayers.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelOnlinePlayers.Name = "labelOnlinePlayers";
             this.labelOnlinePlayers.Size = new System.Drawing.Size(17, 19);
@@ -473,7 +469,7 @@ namespace UCS
             this.labelPort.Depth = 0;
             this.labelPort.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelPort.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelPort.Location = new System.Drawing.Point(311, 131);
+            this.labelPort.Location = new System.Drawing.Point(248, 102);
             this.labelPort.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelPort.Name = "labelPort";
             this.labelPort.Size = new System.Drawing.Size(17, 19);
@@ -486,7 +482,7 @@ namespace UCS
             this.labelIP.Depth = 0;
             this.labelIP.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelIP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelIP.Location = new System.Drawing.Point(311, 102);
+            this.labelIP.Location = new System.Drawing.Point(248, 73);
             this.labelIP.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(17, 19);
@@ -499,7 +495,7 @@ namespace UCS
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel4.Location = new System.Drawing.Point(158, 197);
+            this.materialLabel4.Location = new System.Drawing.Point(95, 168);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(138, 19);
@@ -512,7 +508,7 @@ namespace UCS
             this.materialLabel3.Depth = 0;
             this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel3.Location = new System.Drawing.Point(158, 165);
+            this.materialLabel3.Location = new System.Drawing.Point(95, 136);
             this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel3.Name = "materialLabel3";
             this.materialLabel3.Size = new System.Drawing.Size(108, 19);
@@ -525,7 +521,7 @@ namespace UCS
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(158, 131);
+            this.materialLabel2.Location = new System.Drawing.Point(95, 102);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(45, 19);
@@ -538,7 +534,7 @@ namespace UCS
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(158, 102);
+            this.materialLabel1.Location = new System.Drawing.Point(95, 73);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(85, 19);
@@ -552,7 +548,7 @@ namespace UCS
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(798, 403);
+            this.tabPage2.Size = new System.Drawing.Size(700, 354);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Player Manager";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -564,7 +560,7 @@ namespace UCS
             this.materialTabSelector2.Location = new System.Drawing.Point(-4, 14);
             this.materialTabSelector2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector2.Name = "materialTabSelector2";
-            this.materialTabSelector2.Size = new System.Drawing.Size(813, 30);
+            this.materialTabSelector2.Size = new System.Drawing.Size(715, 30);
             this.materialTabSelector2.TabIndex = 1;
             this.materialTabSelector2.Text = "materialTabSelector2";
             // 
@@ -573,11 +569,11 @@ namespace UCS
             this.materialTabControl2.Controls.Add(this.tabPage4);
             this.materialTabControl2.Controls.Add(this.tabPage5);
             this.materialTabControl2.Depth = 0;
-            this.materialTabControl2.Location = new System.Drawing.Point(-4, 41);
+            this.materialTabControl2.Location = new System.Drawing.Point(-4, 29);
             this.materialTabControl2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl2.Name = "materialTabControl2";
             this.materialTabControl2.SelectedIndex = 0;
-            this.materialTabControl2.Size = new System.Drawing.Size(811, 392);
+            this.materialTabControl2.Size = new System.Drawing.Size(715, 335);
             this.materialTabControl2.TabIndex = 0;
             // 
             // tabPage4
@@ -590,7 +586,7 @@ namespace UCS
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(803, 366);
+            this.tabPage4.Size = new System.Drawing.Size(707, 309);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Player List";
             // 
@@ -600,7 +596,7 @@ namespace UCS
             this.materialRaisedButton16.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton16.Depth = 0;
             this.materialRaisedButton16.Icon = null;
-            this.materialRaisedButton16.Location = new System.Drawing.Point(715, 15);
+            this.materialRaisedButton16.Location = new System.Drawing.Point(630, 22);
             this.materialRaisedButton16.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton16.Name = "materialRaisedButton16";
             this.materialRaisedButton16.Primary = true;
@@ -615,7 +611,7 @@ namespace UCS
             this.txtSearchPlayer.BackColor = System.Drawing.SystemColors.Menu;
             this.txtSearchPlayer.Depth = 0;
             this.txtSearchPlayer.Hint = "";
-            this.txtSearchPlayer.Location = new System.Drawing.Point(574, 22);
+            this.txtSearchPlayer.Location = new System.Drawing.Point(493, 30);
             this.txtSearchPlayer.MaxLength = 32767;
             this.txtSearchPlayer.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtSearchPlayer.Name = "txtSearchPlayer";
@@ -627,7 +623,6 @@ namespace UCS
             this.txtSearchPlayer.TabIndex = 2;
             this.txtSearchPlayer.TabStop = false;
             this.txtSearchPlayer.UseSystemPasswordChar = false;
-            this.txtSearchPlayer.Click += new System.EventHandler(this.txtSearchPlayer_Click);
             // 
             // listView1
             // 
@@ -639,19 +634,18 @@ namespace UCS
             this.columnHeader4,
             this.columnHeader5});
             this.listView1.Depth = 0;
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2});
-            this.listView1.Location = new System.Drawing.Point(3, 3);
+            this.listView1.Location = new System.Drawing.Point(0, 22);
             this.listView1.MouseLocation = new System.Drawing.Point(-1, -1);
             this.listView1.MouseState = MaterialSkin.MouseState.OUT;
             this.listView1.Name = "listView1";
             this.listView1.OwnerDraw = true;
-            this.listView1.Size = new System.Drawing.Size(797, 360);
+            this.listView1.Size = new System.Drawing.Size(704, 334);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -724,7 +718,7 @@ namespace UCS
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(803, 366);
+            this.tabPage5.Size = new System.Drawing.Size(707, 309);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Edit Player";
             // 
@@ -732,7 +726,7 @@ namespace UCS
             // 
             this.txtPlayerLevel.Depth = 0;
             this.txtPlayerLevel.Hint = "";
-            this.txtPlayerLevel.Location = new System.Drawing.Point(449, 168);
+            this.txtPlayerLevel.Location = new System.Drawing.Point(335, 139);
             this.txtPlayerLevel.MaxLength = 32767;
             this.txtPlayerLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerLevel.Name = "txtPlayerLevel";
@@ -751,7 +745,7 @@ namespace UCS
             this.materialLabel38.Depth = 0;
             this.materialLabel38.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel38.Location = new System.Drawing.Point(338, 167);
+            this.materialLabel38.Location = new System.Drawing.Point(224, 138);
             this.materialLabel38.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel38.Name = "materialLabel38";
             this.materialLabel38.Size = new System.Drawing.Size(93, 19);
@@ -764,7 +758,7 @@ namespace UCS
             this.materialLabel7.Depth = 0;
             this.materialLabel7.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel7.Location = new System.Drawing.Point(530, 304);
+            this.materialLabel7.Location = new System.Drawing.Point(416, 275);
             this.materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel7.Name = "materialLabel7";
             this.materialLabel7.Size = new System.Drawing.Size(29, 19);
@@ -777,7 +771,7 @@ namespace UCS
             this.materialLabel6.Depth = 0;
             this.materialLabel6.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel6.Location = new System.Drawing.Point(338, 304);
+            this.materialLabel6.Location = new System.Drawing.Point(224, 275);
             this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel6.Name = "materialLabel6";
             this.materialLabel6.Size = new System.Drawing.Size(59, 19);
@@ -790,9 +784,9 @@ namespace UCS
             this.groupBox3.Controls.Add(this.materialRaisedButton14);
             this.groupBox3.Controls.Add(this.materialRaisedButton13);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox3.Location = new System.Drawing.Point(114, 77);
+            this.groupBox3.Location = new System.Drawing.Point(9, 48);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 234);
+            this.groupBox3.Size = new System.Drawing.Size(200, 215);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Player Options";
@@ -851,7 +845,7 @@ namespace UCS
             this.materialRaisedButton8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton8.Depth = 0;
             this.materialRaisedButton8.Icon = null;
-            this.materialRaisedButton8.Location = new System.Drawing.Point(581, 171);
+            this.materialRaisedButton8.Location = new System.Drawing.Point(467, 142);
             this.materialRaisedButton8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton8.Name = "materialRaisedButton8";
             this.materialRaisedButton8.Primary = true;
@@ -867,7 +861,7 @@ namespace UCS
             this.materialRaisedButton7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton7.Depth = 0;
             this.materialRaisedButton7.Icon = null;
-            this.materialRaisedButton7.Location = new System.Drawing.Point(581, 295);
+            this.materialRaisedButton7.Location = new System.Drawing.Point(467, 266);
             this.materialRaisedButton7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton7.Name = "materialRaisedButton7";
             this.materialRaisedButton7.Primary = true;
@@ -883,7 +877,7 @@ namespace UCS
             this.materialRaisedButton6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton6.Depth = 0;
             this.materialRaisedButton6.Icon = null;
-            this.materialRaisedButton6.Location = new System.Drawing.Point(581, 57);
+            this.materialRaisedButton6.Location = new System.Drawing.Point(467, 28);
             this.materialRaisedButton6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton6.Name = "materialRaisedButton6";
             this.materialRaisedButton6.Primary = true;
@@ -897,7 +891,7 @@ namespace UCS
             // 
             this.txtPlayerID.Depth = 0;
             this.txtPlayerID.Hint = "";
-            this.txtPlayerID.Location = new System.Drawing.Point(441, 59);
+            this.txtPlayerID.Location = new System.Drawing.Point(327, 30);
             this.txtPlayerID.MaxLength = 32767;
             this.txtPlayerID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerID.Name = "txtPlayerID";
@@ -916,7 +910,7 @@ namespace UCS
             this.materialLabel36.Depth = 0;
             this.materialLabel36.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel36.Location = new System.Drawing.Point(338, 58);
+            this.materialLabel36.Location = new System.Drawing.Point(224, 29);
             this.materialLabel36.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel36.Name = "materialLabel36";
             this.materialLabel36.Size = new System.Drawing.Size(72, 19);
@@ -927,7 +921,7 @@ namespace UCS
             // 
             this.txtAllianceID.Depth = 0;
             this.txtAllianceID.Hint = "";
-            this.txtAllianceID.Location = new System.Drawing.Point(429, 275);
+            this.txtAllianceID.Location = new System.Drawing.Point(315, 246);
             this.txtAllianceID.MaxLength = 32767;
             this.txtAllianceID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceID.Name = "txtAllianceID";
@@ -946,7 +940,7 @@ namespace UCS
             this.materialLabel35.Depth = 0;
             this.materialLabel35.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel35.Location = new System.Drawing.Point(338, 274);
+            this.materialLabel35.Location = new System.Drawing.Point(224, 245);
             this.materialLabel35.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel35.Name = "materialLabel35";
             this.materialLabel35.Size = new System.Drawing.Size(85, 19);
@@ -957,7 +951,7 @@ namespace UCS
             // 
             this.txtTownHallLevel.Depth = 0;
             this.txtTownHallLevel.Hint = "";
-            this.txtTownHallLevel.Location = new System.Drawing.Point(457, 237);
+            this.txtTownHallLevel.Location = new System.Drawing.Point(343, 208);
             this.txtTownHallLevel.MaxLength = 32767;
             this.txtTownHallLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtTownHallLevel.Name = "txtTownHallLevel";
@@ -976,7 +970,7 @@ namespace UCS
             this.materialLabel34.Depth = 0;
             this.materialLabel34.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel34.Location = new System.Drawing.Point(338, 93);
+            this.materialLabel34.Location = new System.Drawing.Point(224, 64);
             this.materialLabel34.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel34.Name = "materialLabel34";
             this.materialLabel34.Size = new System.Drawing.Size(98, 19);
@@ -987,7 +981,7 @@ namespace UCS
             // 
             this.txtPlayerGems.Depth = 0;
             this.txtPlayerGems.Hint = "";
-            this.txtPlayerGems.Location = new System.Drawing.Point(441, 201);
+            this.txtPlayerGems.Location = new System.Drawing.Point(327, 172);
             this.txtPlayerGems.MaxLength = 32767;
             this.txtPlayerGems.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerGems.Name = "txtPlayerGems";
@@ -1006,7 +1000,7 @@ namespace UCS
             this.materialLabel33.Depth = 0;
             this.materialLabel33.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel33.Location = new System.Drawing.Point(338, 200);
+            this.materialLabel33.Location = new System.Drawing.Point(224, 171);
             this.materialLabel33.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel33.Name = "materialLabel33";
             this.materialLabel33.Size = new System.Drawing.Size(97, 19);
@@ -1017,7 +1011,7 @@ namespace UCS
             // 
             this.txtPlayerScore.Depth = 0;
             this.txtPlayerScore.Hint = "";
-            this.txtPlayerScore.Location = new System.Drawing.Point(449, 132);
+            this.txtPlayerScore.Location = new System.Drawing.Point(335, 103);
             this.txtPlayerScore.MaxLength = 32767;
             this.txtPlayerScore.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerScore.Name = "txtPlayerScore";
@@ -1036,7 +1030,7 @@ namespace UCS
             this.materialLabel32.Depth = 0;
             this.materialLabel32.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel32.Location = new System.Drawing.Point(338, 236);
+            this.materialLabel32.Location = new System.Drawing.Point(224, 207);
             this.materialLabel32.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel32.Name = "materialLabel32";
             this.materialLabel32.Size = new System.Drawing.Size(113, 19);
@@ -1047,7 +1041,7 @@ namespace UCS
             // 
             this.txtPlayerName.Depth = 0;
             this.txtPlayerName.Hint = "";
-            this.txtPlayerName.Location = new System.Drawing.Point(441, 94);
+            this.txtPlayerName.Location = new System.Drawing.Point(327, 65);
             this.txtPlayerName.MaxLength = 32767;
             this.txtPlayerName.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPlayerName.Name = "txtPlayerName";
@@ -1066,7 +1060,7 @@ namespace UCS
             this.materialLabel31.Depth = 0;
             this.materialLabel31.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel31.Location = new System.Drawing.Point(338, 131);
+            this.materialLabel31.Location = new System.Drawing.Point(224, 102);
             this.materialLabel31.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel31.Name = "materialLabel31";
             this.materialLabel31.Size = new System.Drawing.Size(97, 19);
@@ -1111,7 +1105,7 @@ namespace UCS
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(798, 403);
+            this.tabPage3.Size = new System.Drawing.Size(700, 354);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config Editor";
             // 
@@ -1119,7 +1113,7 @@ namespace UCS
             // 
             this.txtClientVersion.Depth = 0;
             this.txtClientVersion.Hint = "";
-            this.txtClientVersion.Location = new System.Drawing.Point(507, 246);
+            this.txtClientVersion.Location = new System.Drawing.Point(445, 198);
             this.txtClientVersion.MaxLength = 32767;
             this.txtClientVersion.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtClientVersion.Name = "txtClientVersion";
@@ -1138,7 +1132,7 @@ namespace UCS
             this.materialLabel37.Depth = 0;
             this.materialLabel37.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel37.Location = new System.Drawing.Point(378, 244);
+            this.materialLabel37.Location = new System.Drawing.Point(316, 196);
             this.materialLabel37.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel37.Name = "materialLabel37";
             this.materialLabel37.Size = new System.Drawing.Size(108, 19);
@@ -1151,7 +1145,7 @@ namespace UCS
             this.materialRaisedButton5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton5.Depth = 0;
             this.materialRaisedButton5.Icon = null;
-            this.materialRaisedButton5.Location = new System.Drawing.Point(83, 338);
+            this.materialRaisedButton5.Location = new System.Drawing.Point(21, 290);
             this.materialRaisedButton5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton5.Name = "materialRaisedButton5";
             this.materialRaisedButton5.Primary = true;
@@ -1165,7 +1159,7 @@ namespace UCS
             // 
             this.txtLogLevel.Depth = 0;
             this.txtLogLevel.Hint = "";
-            this.txtLogLevel.Location = new System.Drawing.Point(487, 87);
+            this.txtLogLevel.Location = new System.Drawing.Point(425, 39);
             this.txtLogLevel.MaxLength = 32767;
             this.txtLogLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtLogLevel.Name = "txtLogLevel";
@@ -1184,7 +1178,7 @@ namespace UCS
             this.materialLabel30.Depth = 0;
             this.materialLabel30.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel30.Location = new System.Drawing.Point(378, 88);
+            this.materialLabel30.Location = new System.Drawing.Point(316, 40);
             this.materialLabel30.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel30.Name = "materialLabel30";
             this.materialLabel30.Size = new System.Drawing.Size(77, 19);
@@ -1197,7 +1191,7 @@ namespace UCS
             this.materialLabel29.Depth = 0;
             this.materialLabel29.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel29.Location = new System.Drawing.Point(79, 244);
+            this.materialLabel29.Location = new System.Drawing.Point(17, 196);
             this.materialLabel29.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel29.Name = "materialLabel29";
             this.materialLabel29.Size = new System.Drawing.Size(41, 19);
@@ -1208,7 +1202,7 @@ namespace UCS
             // 
             this.txtPort.Depth = 0;
             this.txtPort.Hint = "";
-            this.txtPort.Location = new System.Drawing.Point(229, 243);
+            this.txtPort.Location = new System.Drawing.Point(167, 195);
             this.txtPort.MaxLength = 32767;
             this.txtPort.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPort.Name = "txtPort";
@@ -1225,7 +1219,7 @@ namespace UCS
             // 
             this.txtAdminMessage.Depth = 0;
             this.txtAdminMessage.Hint = "";
-            this.txtAdminMessage.Location = new System.Drawing.Point(507, 220);
+            this.txtAdminMessage.Location = new System.Drawing.Point(445, 172);
             this.txtAdminMessage.MaxLength = 32767;
             this.txtAdminMessage.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAdminMessage.Name = "txtAdminMessage";
@@ -1244,7 +1238,7 @@ namespace UCS
             this.materialLabel28.Depth = 0;
             this.materialLabel28.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel28.Location = new System.Drawing.Point(378, 218);
+            this.materialLabel28.Location = new System.Drawing.Point(316, 170);
             this.materialLabel28.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel28.Name = "materialLabel28";
             this.materialLabel28.Size = new System.Drawing.Size(121, 19);
@@ -1257,7 +1251,7 @@ namespace UCS
             this.materialRaisedButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton4.Depth = 0;
             this.materialRaisedButton4.Icon = null;
-            this.materialRaisedButton4.Location = new System.Drawing.Point(620, 338);
+            this.materialRaisedButton4.Location = new System.Drawing.Point(558, 290);
             this.materialRaisedButton4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton4.Name = "materialRaisedButton4";
             this.materialRaisedButton4.Primary = true;
@@ -1271,7 +1265,7 @@ namespace UCS
             // 
             this.txtDatabaseType.Depth = 0;
             this.txtDatabaseType.Hint = "";
-            this.txtDatabaseType.Location = new System.Drawing.Point(487, 194);
+            this.txtDatabaseType.Location = new System.Drawing.Point(425, 146);
             this.txtDatabaseType.MaxLength = 32767;
             this.txtDatabaseType.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtDatabaseType.Name = "txtDatabaseType";
@@ -1288,7 +1282,7 @@ namespace UCS
             // 
             this.txtUsePatch.Depth = 0;
             this.txtUsePatch.Hint = "";
-            this.txtUsePatch.Location = new System.Drawing.Point(487, 141);
+            this.txtUsePatch.Location = new System.Drawing.Point(425, 93);
             this.txtUsePatch.MaxLength = 32767;
             this.txtUsePatch.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtUsePatch.Name = "txtUsePatch";
@@ -1308,7 +1302,7 @@ namespace UCS
             this.materialLabel27.Depth = 0;
             this.materialLabel27.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel27.Location = new System.Drawing.Point(378, 140);
+            this.materialLabel27.Location = new System.Drawing.Point(316, 92);
             this.materialLabel27.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel27.Name = "materialLabel27";
             this.materialLabel27.Size = new System.Drawing.Size(81, 19);
@@ -1321,7 +1315,7 @@ namespace UCS
             this.materialLabel26.Depth = 0;
             this.materialLabel26.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel26.Location = new System.Drawing.Point(378, 193);
+            this.materialLabel26.Location = new System.Drawing.Point(316, 145);
             this.materialLabel26.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel26.Name = "materialLabel26";
             this.materialLabel26.Size = new System.Drawing.Size(76, 19);
@@ -1332,7 +1326,7 @@ namespace UCS
             // 
             this.txtMintenance.Depth = 0;
             this.txtMintenance.Hint = "";
-            this.txtMintenance.Location = new System.Drawing.Point(229, 268);
+            this.txtMintenance.Location = new System.Drawing.Point(167, 220);
             this.txtMintenance.MaxLength = 32767;
             this.txtMintenance.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtMintenance.Name = "txtMintenance";
@@ -1351,7 +1345,7 @@ namespace UCS
             this.materialLabel25.Depth = 0;
             this.materialLabel25.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel25.Location = new System.Drawing.Point(79, 269);
+            this.materialLabel25.Location = new System.Drawing.Point(17, 221);
             this.materialLabel25.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel25.Name = "materialLabel25";
             this.materialLabel25.Size = new System.Drawing.Size(137, 19);
@@ -1362,7 +1356,7 @@ namespace UCS
             // 
             this.txtPatchURL.Depth = 0;
             this.txtPatchURL.Hint = "";
-            this.txtPatchURL.Location = new System.Drawing.Point(487, 165);
+            this.txtPatchURL.Location = new System.Drawing.Point(425, 117);
             this.txtPatchURL.MaxLength = 32767;
             this.txtPatchURL.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPatchURL.Name = "txtPatchURL";
@@ -1381,7 +1375,7 @@ namespace UCS
             this.materialLabel24.Depth = 0;
             this.materialLabel24.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel24.Location = new System.Drawing.Point(378, 166);
+            this.materialLabel24.Location = new System.Drawing.Point(316, 118);
             this.materialLabel24.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel24.Name = "materialLabel24";
             this.materialLabel24.Size = new System.Drawing.Size(82, 19);
@@ -1392,7 +1386,7 @@ namespace UCS
             // 
             this.txtUpdateURL.Depth = 0;
             this.txtUpdateURL.Hint = "";
-            this.txtUpdateURL.Location = new System.Drawing.Point(487, 115);
+            this.txtUpdateURL.Location = new System.Drawing.Point(425, 67);
             this.txtUpdateURL.MaxLength = 32767;
             this.txtUpdateURL.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtUpdateURL.Name = "txtUpdateURL";
@@ -1411,7 +1405,7 @@ namespace UCS
             this.materialLabel23.Depth = 0;
             this.materialLabel23.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel23.Location = new System.Drawing.Point(378, 114);
+            this.materialLabel23.Location = new System.Drawing.Point(316, 66);
             this.materialLabel23.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel23.Name = "materialLabel23";
             this.materialLabel23.Size = new System.Drawing.Size(91, 19);
@@ -1422,7 +1416,7 @@ namespace UCS
             // 
             this.txtStartingLevel.Depth = 0;
             this.txtStartingLevel.Hint = "";
-            this.txtStartingLevel.Location = new System.Drawing.Point(229, 217);
+            this.txtStartingLevel.Location = new System.Drawing.Point(167, 169);
             this.txtStartingLevel.MaxLength = 32767;
             this.txtStartingLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingLevel.Name = "txtStartingLevel";
@@ -1441,7 +1435,7 @@ namespace UCS
             this.materialLabel22.Depth = 0;
             this.materialLabel22.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel22.Location = new System.Drawing.Point(79, 218);
+            this.materialLabel22.Location = new System.Drawing.Point(17, 170);
             this.materialLabel22.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel22.Name = "materialLabel22";
             this.materialLabel22.Size = new System.Drawing.Size(104, 19);
@@ -1452,7 +1446,7 @@ namespace UCS
             // 
             this.txtStartingTrophies.Depth = 0;
             this.txtStartingTrophies.Hint = "";
-            this.txtStartingTrophies.Location = new System.Drawing.Point(229, 192);
+            this.txtStartingTrophies.Location = new System.Drawing.Point(167, 144);
             this.txtStartingTrophies.MaxLength = 32767;
             this.txtStartingTrophies.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingTrophies.Name = "txtStartingTrophies";
@@ -1471,7 +1465,7 @@ namespace UCS
             this.materialLabel21.Depth = 0;
             this.materialLabel21.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel21.Location = new System.Drawing.Point(79, 193);
+            this.materialLabel21.Location = new System.Drawing.Point(17, 145);
             this.materialLabel21.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel21.Name = "materialLabel21";
             this.materialLabel21.Size = new System.Drawing.Size(128, 19);
@@ -1482,7 +1476,7 @@ namespace UCS
             // 
             this.txtStartingDarkElixir.Depth = 0;
             this.txtStartingDarkElixir.Hint = "";
-            this.txtStartingDarkElixir.Location = new System.Drawing.Point(229, 165);
+            this.txtStartingDarkElixir.Location = new System.Drawing.Point(167, 117);
             this.txtStartingDarkElixir.MaxLength = 32767;
             this.txtStartingDarkElixir.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingDarkElixir.Name = "txtStartingDarkElixir";
@@ -1501,7 +1495,7 @@ namespace UCS
             this.materialLabel20.Depth = 0;
             this.materialLabel20.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel20.Location = new System.Drawing.Point(79, 166);
+            this.materialLabel20.Location = new System.Drawing.Point(17, 118);
             this.materialLabel20.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel20.Name = "materialLabel20";
             this.materialLabel20.Size = new System.Drawing.Size(137, 19);
@@ -1512,7 +1506,7 @@ namespace UCS
             // 
             this.txtStartingElixir.Depth = 0;
             this.txtStartingElixir.Hint = "";
-            this.txtStartingElixir.Location = new System.Drawing.Point(229, 139);
+            this.txtStartingElixir.Location = new System.Drawing.Point(167, 91);
             this.txtStartingElixir.MaxLength = 32767;
             this.txtStartingElixir.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingElixir.Name = "txtStartingElixir";
@@ -1531,7 +1525,7 @@ namespace UCS
             this.materialLabel19.Depth = 0;
             this.materialLabel19.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel19.Location = new System.Drawing.Point(79, 140);
+            this.materialLabel19.Location = new System.Drawing.Point(17, 92);
             this.materialLabel19.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel19.Name = "materialLabel19";
             this.materialLabel19.Size = new System.Drawing.Size(102, 19);
@@ -1542,7 +1536,7 @@ namespace UCS
             // 
             this.txtStartingGold.Depth = 0;
             this.txtStartingGold.Hint = "";
-            this.txtStartingGold.Location = new System.Drawing.Point(229, 113);
+            this.txtStartingGold.Location = new System.Drawing.Point(167, 65);
             this.txtStartingGold.MaxLength = 32767;
             this.txtStartingGold.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingGold.Name = "txtStartingGold";
@@ -1561,7 +1555,7 @@ namespace UCS
             this.materialLabel18.Depth = 0;
             this.materialLabel18.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel18.Location = new System.Drawing.Point(79, 114);
+            this.materialLabel18.Location = new System.Drawing.Point(17, 66);
             this.materialLabel18.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel18.Name = "materialLabel18";
             this.materialLabel18.Size = new System.Drawing.Size(100, 19);
@@ -1572,7 +1566,7 @@ namespace UCS
             // 
             this.txtStartingGems.Depth = 0;
             this.txtStartingGems.Hint = "";
-            this.txtStartingGems.Location = new System.Drawing.Point(229, 89);
+            this.txtStartingGems.Location = new System.Drawing.Point(167, 41);
             this.txtStartingGems.MaxLength = 32767;
             this.txtStartingGems.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStartingGems.Name = "txtStartingGems";
@@ -1591,7 +1585,7 @@ namespace UCS
             this.materialLabel17.Depth = 0;
             this.materialLabel17.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel17.Location = new System.Drawing.Point(79, 88);
+            this.materialLabel17.Location = new System.Drawing.Point(17, 40);
             this.materialLabel17.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel17.Name = "materialLabel17";
             this.materialLabel17.Size = new System.Drawing.Size(108, 19);
@@ -1607,7 +1601,7 @@ namespace UCS
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(798, 403);
+            this.tabPage6.Size = new System.Drawing.Size(700, 354);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Mail ";
             // 
@@ -1623,7 +1617,7 @@ namespace UCS
             this.groupBox4.Controls.Add(this.textBox2);
             this.groupBox4.Controls.Add(this.textBox1);
             this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox4.Location = new System.Drawing.Point(62, 234);
+            this.groupBox4.Location = new System.Drawing.Point(9, 203);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(685, 134);
             this.groupBox4.TabIndex = 2;
@@ -1777,7 +1771,7 @@ namespace UCS
             this.groupBox2.Controls.Add(this.textBox23);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox2.Location = new System.Drawing.Point(401, 52);
+            this.groupBox2.Location = new System.Drawing.Point(348, 21);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(346, 176);
             this.groupBox2.TabIndex = 1;
@@ -1851,7 +1845,7 @@ namespace UCS
             this.groupBox1.Controls.Add(this.textBox21);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox1.Location = new System.Drawing.Point(62, 52);
+            this.groupBox1.Location = new System.Drawing.Point(9, 21);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(330, 176);
             this.groupBox1.TabIndex = 0;
@@ -1924,7 +1918,7 @@ namespace UCS
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(798, 403);
+            this.tabPage7.Size = new System.Drawing.Size(700, 354);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "Alliance Manager";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1936,7 +1930,7 @@ namespace UCS
             this.materialTabSelector3.Location = new System.Drawing.Point(-4, 12);
             this.materialTabSelector3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector3.Name = "materialTabSelector3";
-            this.materialTabSelector3.Size = new System.Drawing.Size(815, 30);
+            this.materialTabSelector3.Size = new System.Drawing.Size(715, 30);
             this.materialTabSelector3.TabIndex = 1;
             this.materialTabSelector3.Text = "materialTabSelector3";
             // 
@@ -1945,11 +1939,11 @@ namespace UCS
             this.materialTabControl3.Controls.Add(this.tabPage9);
             this.materialTabControl3.Controls.Add(this.tabPage10);
             this.materialTabControl3.Depth = 0;
-            this.materialTabControl3.Location = new System.Drawing.Point(-2, 41);
+            this.materialTabControl3.Location = new System.Drawing.Point(0, 35);
             this.materialTabControl3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl3.Name = "materialTabControl3";
             this.materialTabControl3.SelectedIndex = 0;
-            this.materialTabControl3.Size = new System.Drawing.Size(811, 391);
+            this.materialTabControl3.Size = new System.Drawing.Size(714, 328);
             this.materialTabControl3.TabIndex = 0;
             // 
             // tabPage9
@@ -1959,7 +1953,7 @@ namespace UCS
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(803, 365);
+            this.tabPage9.Size = new System.Drawing.Size(706, 302);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "Alliance List";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1970,7 +1964,7 @@ namespace UCS
             this.materialRaisedButton21.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton21.Depth = 0;
             this.materialRaisedButton21.Icon = null;
-            this.materialRaisedButton21.Location = new System.Drawing.Point(700, 15);
+            this.materialRaisedButton21.Location = new System.Drawing.Point(617, 43);
             this.materialRaisedButton21.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton21.Name = "materialRaisedButton21";
             this.materialRaisedButton21.Primary = true;
@@ -1982,29 +1976,21 @@ namespace UCS
             // 
             // listView2
             // 
-            this.listView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
-            this.listView2.Depth = 0;
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.listView2.FullRowSelect = true;
-            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             listViewItem3.StateImageIndex = 0;
             listViewItem4.StateImageIndex = 0;
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem3,
             listViewItem4});
-            this.listView2.Location = new System.Drawing.Point(3, 3);
-            this.listView2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.listView2.MouseState = MaterialSkin.MouseState.OUT;
+            this.listView2.Location = new System.Drawing.Point(-4, 6);
             this.listView2.Name = "listView2";
-            this.listView2.OwnerDraw = true;
-            this.listView2.Size = new System.Drawing.Size(797, 359);
+            this.listView2.Size = new System.Drawing.Size(714, 326);
             this.listView2.TabIndex = 2;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -2017,22 +2003,22 @@ namespace UCS
             // columnHeader7
             // 
             this.columnHeader7.Text = "Alliance ID";
-            this.columnHeader7.Width = 105;
+            this.columnHeader7.Width = 78;
             // 
             // columnHeader8
             // 
             this.columnHeader8.Text = "Alliance Level";
-            this.columnHeader8.Width = 114;
+            this.columnHeader8.Width = 100;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "Alliance Members";
-            this.columnHeader9.Width = 155;
+            this.columnHeader9.Width = 110;
             // 
             // columnHeader10
             // 
             this.columnHeader10.Text = "Trophies";
-            this.columnHeader10.Width = 418;
+            this.columnHeader10.Width = 101;
             // 
             // tabPage10
             // 
@@ -2053,7 +2039,7 @@ namespace UCS
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(803, 365);
+            this.tabPage10.Size = new System.Drawing.Size(706, 302);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Edit Alliance";
             // 
@@ -2063,7 +2049,7 @@ namespace UCS
             this.txtAllianceScore.Depth = 0;
             this.txtAllianceScore.Font = new System.Drawing.Font("Roboto", 11F);
             this.txtAllianceScore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.txtAllianceScore.Location = new System.Drawing.Point(330, 268);
+            this.txtAllianceScore.Location = new System.Drawing.Point(294, 226);
             this.txtAllianceScore.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceScore.Name = "txtAllianceScore";
             this.txtAllianceScore.Size = new System.Drawing.Size(17, 19);
@@ -2074,7 +2060,7 @@ namespace UCS
             // 
             this.txtAllianceLevel.Depth = 0;
             this.txtAllianceLevel.Hint = "";
-            this.txtAllianceLevel.Location = new System.Drawing.Point(334, 143);
+            this.txtAllianceLevel.Location = new System.Drawing.Point(298, 101);
             this.txtAllianceLevel.MaxLength = 32767;
             this.txtAllianceLevel.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceLevel.Name = "txtAllianceLevel";
@@ -2093,7 +2079,7 @@ namespace UCS
             this.materialLabel39.Depth = 0;
             this.materialLabel39.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel39.Location = new System.Drawing.Point(220, 142);
+            this.materialLabel39.Location = new System.Drawing.Point(184, 100);
             this.materialLabel39.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel39.Name = "materialLabel39";
             this.materialLabel39.Size = new System.Drawing.Size(106, 19);
@@ -2106,7 +2092,7 @@ namespace UCS
             this.materialRaisedButton22.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton22.Depth = 0;
             this.materialRaisedButton22.Icon = null;
-            this.materialRaisedButton22.Location = new System.Drawing.Point(466, 180);
+            this.materialRaisedButton22.Location = new System.Drawing.Point(430, 138);
             this.materialRaisedButton22.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton22.Name = "materialRaisedButton22";
             this.materialRaisedButton22.Primary = true;
@@ -2122,7 +2108,7 @@ namespace UCS
             this.materialRaisedButton23.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton23.Depth = 0;
             this.materialRaisedButton23.Icon = null;
-            this.materialRaisedButton23.Location = new System.Drawing.Point(466, 304);
+            this.materialRaisedButton23.Location = new System.Drawing.Point(430, 262);
             this.materialRaisedButton23.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton23.Name = "materialRaisedButton23";
             this.materialRaisedButton23.Primary = true;
@@ -2138,7 +2124,7 @@ namespace UCS
             this.materialRaisedButton24.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton24.Depth = 0;
             this.materialRaisedButton24.Icon = null;
-            this.materialRaisedButton24.Location = new System.Drawing.Point(466, 66);
+            this.materialRaisedButton24.Location = new System.Drawing.Point(430, 24);
             this.materialRaisedButton24.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton24.Name = "materialRaisedButton24";
             this.materialRaisedButton24.Primary = true;
@@ -2152,7 +2138,7 @@ namespace UCS
             // 
             this.txtID.Depth = 0;
             this.txtID.Hint = "";
-            this.txtID.Location = new System.Drawing.Point(326, 68);
+            this.txtID.Location = new System.Drawing.Point(290, 26);
             this.txtID.MaxLength = 32767;
             this.txtID.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtID.Name = "txtID";
@@ -2171,7 +2157,7 @@ namespace UCS
             this.materialLabel43.Depth = 0;
             this.materialLabel43.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel43.Location = new System.Drawing.Point(220, 67);
+            this.materialLabel43.Location = new System.Drawing.Point(184, 25);
             this.materialLabel43.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel43.Name = "materialLabel43";
             this.materialLabel43.Size = new System.Drawing.Size(85, 19);
@@ -2180,7 +2166,7 @@ namespace UCS
             // 
             // txtAllianceDescription
             // 
-            this.txtAllianceDescription.Location = new System.Drawing.Point(224, 212);
+            this.txtAllianceDescription.Location = new System.Drawing.Point(188, 170);
             this.txtAllianceDescription.Multiline = true;
             this.txtAllianceDescription.Name = "txtAllianceDescription";
             this.txtAllianceDescription.Size = new System.Drawing.Size(218, 43);
@@ -2192,7 +2178,7 @@ namespace UCS
             this.alliancename.Depth = 0;
             this.alliancename.Font = new System.Drawing.Font("Roboto", 11F);
             this.alliancename.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.alliancename.Location = new System.Drawing.Point(220, 102);
+            this.alliancename.Location = new System.Drawing.Point(184, 60);
             this.alliancename.MouseState = MaterialSkin.MouseState.HOVER;
             this.alliancename.Name = "alliancename";
             this.alliancename.Size = new System.Drawing.Size(111, 19);
@@ -2205,7 +2191,7 @@ namespace UCS
             this.materialLabel47.Depth = 0;
             this.materialLabel47.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel47.Location = new System.Drawing.Point(220, 179);
+            this.materialLabel47.Location = new System.Drawing.Point(184, 137);
             this.materialLabel47.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel47.Name = "materialLabel47";
             this.materialLabel47.Size = new System.Drawing.Size(148, 19);
@@ -2216,7 +2202,7 @@ namespace UCS
             // 
             this.txtAllianceName.Depth = 0;
             this.txtAllianceName.Hint = "";
-            this.txtAllianceName.Location = new System.Drawing.Point(334, 103);
+            this.txtAllianceName.Location = new System.Drawing.Point(298, 61);
             this.txtAllianceName.MaxLength = 32767;
             this.txtAllianceName.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtAllianceName.Name = "txtAllianceName";
@@ -2235,7 +2221,7 @@ namespace UCS
             this.materialLabel48.Depth = 0;
             this.materialLabel48.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel48.Location = new System.Drawing.Point(220, 268);
+            this.materialLabel48.Location = new System.Drawing.Point(184, 226);
             this.materialLabel48.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel48.Name = "materialLabel48";
             this.materialLabel48.Size = new System.Drawing.Size(110, 19);
@@ -2244,13 +2230,11 @@ namespace UCS
             // 
             // tabPage8
             // 
-            this.tabPage8.Controls.Add(this.materialRadioButton2);
-            this.tabPage8.Controls.Add(this.materialRadioButton1);
             this.tabPage8.Controls.Add(this.materialLabel40);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(798, 403);
+            this.tabPage8.Size = new System.Drawing.Size(700, 354);
             this.tabPage8.TabIndex = 5;
             this.tabPage8.Text = "About";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -2261,7 +2245,7 @@ namespace UCS
             this.materialLabel40.Depth = 0;
             this.materialLabel40.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel40.Location = new System.Drawing.Point(260, 189);
+            this.materialLabel40.Location = new System.Drawing.Point(214, 158);
             this.materialLabel40.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel40.Name = "materialLabel40";
             this.materialLabel40.Size = new System.Drawing.Size(272, 38);
@@ -2275,69 +2259,21 @@ namespace UCS
             this.materialTabSelector1.Location = new System.Drawing.Point(-1, 62);
             this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(806, 34);
+            this.materialTabSelector1.Size = new System.Drawing.Size(708, 34);
             this.materialTabSelector1.TabIndex = 1;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            // 
-            // materialRadioButton1
-            // 
-            this.materialRadioButton1.AutoSize = true;
-            this.materialRadioButton1.Checked = true;
-            this.materialRadioButton1.Depth = 0;
-            this.materialRadioButton1.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton1.Location = new System.Drawing.Point(264, 366);
-            this.materialRadioButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton1.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton1.Name = "materialRadioButton1";
-            this.materialRadioButton1.Ripple = true;
-            this.materialRadioButton1.Size = new System.Drawing.Size(114, 30);
-            this.materialRadioButton1.TabIndex = 3;
-            this.materialRadioButton1.TabStop = true;
-            this.materialRadioButton1.Text = "Blue (Default)";
-            this.materialRadioButton1.UseVisualStyleBackColor = true;
-            this.materialRadioButton1.CheckedChanged += new System.EventHandler(this.materialRadioButton1_CheckedChanged);
-            // 
-            // materialRadioButton2
-            // 
-            this.materialRadioButton2.AutoSize = true;
-            this.materialRadioButton2.Depth = 0;
-            this.materialRadioButton2.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton2.Location = new System.Drawing.Point(466, 366);
-            this.materialRadioButton2.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton2.Name = "materialRadioButton2";
-            this.materialRadioButton2.Ripple = true;
-            this.materialRadioButton2.Size = new System.Drawing.Size(66, 30);
-            this.materialRadioButton2.TabIndex = 4;
-            this.materialRadioButton2.TabStop = true;
-            this.materialRadioButton2.Text = "Green";
-            this.materialRadioButton2.UseVisualStyleBackColor = true;
-            this.materialRadioButton2.CheckedChanged += new System.EventHandler(this.materialRadioButton2_CheckedChanged);
-            // 
-            // tabPage11
-            // 
-            this.tabPage11.Location = new System.Drawing.Point(4, 22);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(798, 403);
-            this.tabPage11.TabIndex = 6;
-            this.tabPage11.Text = "ufgabhallon";
-            this.tabPage11.UseVisualStyleBackColor = true;
             // 
             // UCSUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(802, 508);
+            this.ClientSize = new System.Drawing.Size(705, 423);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.materialTabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "UCSUI";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ultrapowa Clash Server Manager";
             this.Load += new System.EventHandler(this.UCSUI_Load);
             this.materialTabControl1.ResumeLayout(false);
@@ -2493,7 +2429,7 @@ namespace UCS
         private MaterialSkin.Controls.MaterialTabControl materialTabControl3;
         private System.Windows.Forms.TabPage tabPage9;
         private MaterialSkin.Controls.MaterialTabSelector materialTabSelector3;
-        private MaterialSkin.Controls.MaterialListView listView2;
+        private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
@@ -2517,8 +2453,5 @@ namespace UCS
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton16;
         private MaterialSkin.Controls.MaterialLabel label1;
         private MaterialSkin.Controls.MaterialLabel label2;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton2;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton1;
-        private System.Windows.Forms.TabPage tabPage11;
     }
 }

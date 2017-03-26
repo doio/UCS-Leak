@@ -13,6 +13,7 @@ namespace UCS.Packets.Messages.Client
         {
         }
 
+
         internal override void Process()
         {
             new BookmarkListMessage(this.Device).Send();

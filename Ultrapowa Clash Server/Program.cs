@@ -22,46 +22,26 @@ namespace UCS
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
 
-        private static void Main()
+        static void Main()
         {
-            if (Utils.ParseConfigBoolean("Animation"))
-            {
-                int GWL_EXSTYLE = -20;
-                int WS_EX_LAYERED = 0x80000;
-                uint LWA_ALPHA = 0x2;
-                IntPtr Handle = GetConsoleWindow();
-                SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
-                SetLayeredWindowAttributes(Handle, 0, 20, LWA_ALPHA);
+            int GWL_EXSTYLE = -20;
+            int WS_EX_LAYERED = 0x80000;
+            uint LWA_ALPHA = 0x2;
+            IntPtr Handle = GetConsoleWindow();
+            SetWindowLong(Handle, GWL_EXSTYLE, (int)GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
+            SetLayeredWindowAttributes(Handle, 0, 20, LWA_ALPHA);
 
-                new Thread(() =>
-                {
-                    for (int i = 20; i < 227; i++)
-                    {
-                        if (i < 100)
-                        {
-                            SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                            Thread.Sleep(5);
-                        }
-                        else
-                        {
-                            SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
-                            Thread.Sleep(10);
-                        }
-                    }
-                }).Start();
+            if (Constants.LicensePlanID == 3)
+            {
+                Console.Title = Title + OP;
             }
-
-            switch (Constants.LicensePlanID)
+            else if(Constants.LicensePlanID == 2)
             {
-                case 3:
-                    Console.Title = Title + OP;
-                    break;
-                case 2:
-                    Console.Title = Title + OP + "/700";
-                    break;
-                case 1:
-                    Console.Title = Title + OP + "/350";
-                    break;
+                Console.Title = Title + OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + OP + "/350";
             }
 
             Say();
@@ -74,13 +54,36 @@ namespace UCS
             Logger.WriteCenter(@"|______/ |____/__|  |__|  (____  /   __/ \____/ \/\_/  (____  /    ");
             Logger.WriteCenter(@"                               \/|__|                       \/     ");
             Logger.WriteCenter("            ");
+
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Blue;
             Logger.WriteCenter("+-------------------------------------------------------+");
+            Console.ResetColor();
             Logger.WriteCenter("|This program is made by the Ultrapowa Development Team.|");
             Logger.WriteCenter("|    Ultrapowa is not affiliated to \"Supercell, Oy\".    |");
             Logger.WriteCenter("|        This program is copyrighted worldwide.         |");
             Logger.WriteCenter("|   Visit www.ultrapowa.com daily for News & Updates!   |");
+            Console.ForegroundColor = ConsoleColor.Blue;
             Logger.WriteCenter("+-------------------------------------------------------+");
             Console.ResetColor();
+
+            new Thread(() =>
+            {
+                for (int i = 20; i < 227; i++)
+                {
+                    if (i < 100)
+                    {
+                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                        Thread.Sleep(5);
+                    }
+                    else
+                    {
+                        SetLayeredWindowAttributes(Handle, 0, (byte)i, LWA_ALPHA);
+                        Thread.Sleep(15);
+                    }
+                }
+            }).Start();
 
             Say();
 
@@ -94,7 +97,6 @@ namespace UCS
             {
                 Console.WriteLine("> UCS is up-to-date: " + Constants.Version);
                 Console.ResetColor();
-                Say("By downloading or using this software, you accept the terms of the software license agreement.");
                 Say();
                 Say("Preparing Server...\n");
 
@@ -105,7 +107,7 @@ namespace UCS
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("> An Error occured when requesting the Version number.");
                 Console.WriteLine();
-                Logger.Say("Please contact us for support at https://ultrapowa.com/forum!");
+                Logger.Say("Please contact the Support at https://ultrapowa.com/forum!");
                 Console.WriteLine();
                 Logger.Say("Aborting...");
                 Thread.Sleep(5000);
@@ -122,52 +124,51 @@ namespace UCS
 
         public static void UpdateTitle()
         {
-            switch (Constants.LicensePlanID)
+            if (Constants.LicensePlanID == 3)
             {
-                case 3:
-                    Console.Title = Title + OP;
-                    break;
-                case 2:
-                    Console.Title = Title + OP + "/700";
-                    break;
-                case 1:
-                    Console.Title = Title + OP + "/350";
-                    break;
+                Console.Title = Title + OP;
+            }
+            else if (Constants.LicensePlanID == 2)
+            {
+                Console.Title = Title + OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + OP + "/350";
             }
         }
 
         public static void TitleU()
         {
-            switch (Constants.LicensePlanID)
+            if (Constants.LicensePlanID == 3)
             {
-                case 3:
-                    Console.Title = Title + ++OP;
-                    break;
-                case 2:
-                    Console.Title = Title + ++OP + "/700";
-                    break;
-                case 1:
-                    Console.Title = Title + ++OP + "/350";
-                    break;
+                Console.Title = Title + ++OP;
+            }
+            else if(Constants.LicensePlanID == 2)
+            {
+                Console.Title = Title + ++OP + "/700";
+            }
+            else if (Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + ++OP + "/350";
             }
         }
 
         public static void TitleD()
         {
-            switch (Constants.LicensePlanID)
+            if (Constants.LicensePlanID == 3)
             {
-                case 3:
-                    Console.Title = Title + --OP;
-                    break;
-                case 2:
-                    Console.Title = Title + --OP + "/700";
-                    break;
-                case 1:
-                    Console.Title = Title + --OP + "/350";
-                    break;
+                Console.Title = Title + --OP;
+            }
+            else if(Constants.LicensePlanID == 2)
+            {
+                Console.Title = Title + --OP + "/700";
+            }
+            else if(Constants.LicensePlanID == 1)
+            {
+                Console.Title = Title + --OP + "/350";
             }
         }
-
 
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);

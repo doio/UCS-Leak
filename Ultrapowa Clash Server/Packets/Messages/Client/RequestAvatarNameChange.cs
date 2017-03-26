@@ -9,9 +9,9 @@ using UCS.Packets.Messages.Server;
 namespace UCS.Packets.Messages.Client
 {
     // Packet 14600
-    internal class RequestUsernameChange : Message
+    internal class RequestAvatarNameChange : Message
     {
-        public RequestUsernameChange(Device device, Reader reader) : base(device, reader)
+        public RequestAvatarNameChange(Device device, Reader reader) : base(device, reader)
         {
         }
 
@@ -28,7 +28,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                long id = this.Device.Player.Avatar.UserID;
+                long id = this.Device.Player.Avatar.UserId;
                 Level l = await ResourcesManager.GetPlayer(id);
                 if (l != null)
                 {
@@ -39,7 +39,7 @@ namespace UCS.Packets.Messages.Client
                     else
                     {
                         l.Avatar.SetName(PlayerName);
-                        UsernameChangeOkMessage p = new UsernameChangeOkMessage(l.Client) {Username = PlayerName};
+                        AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(l.Client) {AvatarName = PlayerName};
                         p.Send();
                     }
                 }

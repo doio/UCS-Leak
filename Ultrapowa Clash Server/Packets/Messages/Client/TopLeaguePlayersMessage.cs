@@ -16,7 +16,7 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            new LeaguePlayersMessage(this.Device).Send();
+          new LeaguePlayersMessage(Device).Send();
         }
     }
 }

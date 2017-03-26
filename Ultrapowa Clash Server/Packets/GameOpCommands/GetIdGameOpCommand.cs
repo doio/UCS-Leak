@@ -25,7 +25,7 @@ namespace UCS.Packets.GameOpCommands
                     GlobalChatLineMessage _MSG = new GlobalChatLineMessage(level.Client);
                     _MSG.PlayerName = "Ultrapowa Clash Server";
                     _MSG.LeagueId = 22;
-                    _MSG.Message = "Your ID: " + level.Avatar.UserID;
+                    _MSG.Message = "Your ID: " + level.Avatar.UserId;
                     _MSG.Send();
                 }
             }

@@ -35,7 +35,7 @@ namespace UCS.Packets.Commands.Client
                 if (ca.HasEnoughResources(rd, cost))
                 {
                     Logger.Write("Unit To Upgrade : " + UnitData.GetName() + " (" + UnitData.GetGlobalID() + ')');
-                    ca.Resources.Set(rd.GetGlobalID(), ca.GetResourceCount(rd) - cost);
+                    ca.SetResourceCount(rd, ca.GetResourceCount(rd) - cost);
                     uuc.StartUpgrading(UnitData);
                 }
             }

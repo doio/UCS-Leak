@@ -33,13 +33,13 @@ namespace UCS.Packets.Commands.Client
                         Logger.Write("Canceling Building Upgrade: " + name + " (" + BuildingId + ')');
                         if (string.Equals(name, "Alliance Castle"))
                         {
-                            ca.Castle_Level--;
+                            ca.DeIncrementAllianceCastleLevel();
                             Building a = (Building)go;
                             BuildingData al = a.GetBuildingData();
-                            ca.Castle_Total = al.GetUnitStorageCapacity(ca.Castle_Level- 1);
+                            ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel() - 1));
                         }
                         else if (string.Equals(name, "Town Hall"))
-                            ca.TownHall_Level--;
+                            ca.DeIncrementTownHallLevel();
 
                         constructionItem.CancelConstruction();
                     }

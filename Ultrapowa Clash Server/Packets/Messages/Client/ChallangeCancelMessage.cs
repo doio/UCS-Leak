@@ -22,18 +22,18 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
-                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserID && c.GetStreamEntryType() == 12);
+                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                StreamEntry s = a.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.AllianceId && c.GetStreamEntryType() == 12);
 
                 if (s != null)
                 {
                     a.GetChatMessages().RemoveAll(t => t == s);
                     foreach (AllianceMemberEntry op in a.GetAllianceMembers())
                     {
-                        Level player = await ResourcesManager.GetPlayer(op.AvatarID);
+                        Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (player.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(player.Client, s.GetId()).Send();
+                            new AllianceStreamEntryRemovedMessage(Device, s.GetId()).Send();
                         }
                     }
                 }

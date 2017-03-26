@@ -1,76 +1,80 @@
+using System.Collections.Generic;
 using UCS.Helpers.Binary;
-using UCS.Logic.JSONProperty;
+using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
-    internal class TrainQuickUnitsCommand : Command
-    {
-        public TrainQuickUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
-        {
+	internal class TrainQuickUnitsCommand : Command
+	{
+	    public TrainQuickUnitsCommand(Reader reader, Device client, int id) : base(reader, client, id)
+	    {
+	        
+	    }
 
-        }
+	    internal override void Decode()
+		{
+		    this.DataSlotID = this.Reader.ReadInt32(); 
+			this.Tick = this.Reader.ReadInt32(); 
+		}
 
-        internal override void Decode()
-        {
-            this.DataSlotID = this.Reader.ReadInt32();
-            this.Tick = this.Reader.ReadInt32();
-        }
+	    public int DataSlotID;
+	    public int Tick;
 
-        public int DataSlotID;
-        public int Tick;
+		internal override void Process()
+		{
+			var player = this.Device.Player.Avatar;
 
-        internal override void Process()
-        {
-            var player = this.Device.Player.Avatar;
-
-            if (DataSlotID == 1)
-            {
-                foreach (Slot i in player.QuickTrain1)
-                {
-                    Slot _DataSlot = player.Units.Find(t => t.Data == i.Data);
+			if (DataSlotID == 1)
+			{
+				foreach (DataSlot i in player.QuickTrain1)
+				{
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
+                    DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Count = _DataSlot.Count + i.Count;
+                        _DataSlot.Value = _DataSlot.Value + i.Value;
                     }
                     else
                     {
-                        Slot ds = new Slot(i.Data, i.Count);
-                        this.Device.Player.Avatar.Units.Add(ds);
+                        DataSlot ds = new DataSlot(i.Data, i.Value);
+                        _PlayerUnits.Add(ds);
                     }
                 }
             }
-            else if (DataSlotID == 2)
-            {
-                foreach (Slot i in player.QuickTrain2)
-                {
-                    Slot _DataSlot = player.Units.Find(t => t.Data == i.Data);
+			else if (DataSlotID == 2)
+			{
+				foreach (DataSlot i in player.QuickTrain2)
+				{
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
+                    DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Count = _DataSlot.Count + i.Count;
+                        _DataSlot.Value = _DataSlot.Value + i.Value;
                     }
                     else
                     {
-                        Slot ds = new Slot(i.Data, i.Count);
-                        player.Units.Add(ds);
+                        DataSlot ds = new DataSlot(i.Data, i.Value);
+                        _PlayerUnits.Add(ds);
                     }
                 }
-            }
-            else if (DataSlotID == 3)
-            {
-                foreach (Slot i in player.QuickTrain3)
-                {
-                    Slot _DataSlot = player.Units.Find(t => t.Data == i.Data);
+			}
+			else if (DataSlotID == 3)
+			{
+				foreach (DataSlot i in player.QuickTrain3)
+				{
+                    List<DataSlot> _PlayerUnits = player.GetUnits();
+                    DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == i.Data.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Count = _DataSlot.Count + i.Count;
+                        _DataSlot.Value = _DataSlot.Value + i.Value;
                     }
                     else
                     {
-                        Slot ds = new Slot(i.Data, i.Count);
-                        player.Units.Add(ds);
+                        DataSlot ds = new DataSlot(i.Data, i.Value);
+                        _PlayerUnits.Add(ds);
                     }
                 }
-            }
-        }
-    }
+			}			
+		}
+	}
 }

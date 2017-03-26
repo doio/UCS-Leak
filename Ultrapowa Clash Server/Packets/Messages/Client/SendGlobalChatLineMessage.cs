@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using UCS.Core;
 using UCS.Core.Checker;
 using UCS.Core.Network;
-using UCS.Core.Settings;
 using UCS.Core.Threading;
 using UCS.Helpers.Binary;
 using UCS.Logic;
@@ -34,22 +33,22 @@ namespace UCS.Packets.Messages.Client
 
             if (Message.Length > 0 && Message.Length < 200)
             {
-                if (Message[0] == '/' && Constants.LicensePlanID == 3)
+                if (Message[0] == '/')
                 {
                     object obj = GameOpCommandFactory.Parse(Message);
                     if (obj != null)
                     {
                         string player = "";
                         if (this.Device.Player != null)
-                            player += " (" + this.Device.Player.Avatar.UserID + ", " +
-                                      this.Device.Player.Avatar.Username + ")";
+                            player += " (" + this.Device.Player.Avatar.UserId + ", " +
+                                      this.Device.Player.Avatar.AvatarName + ")";
                         ((GameOpCommand) obj).Execute(this.Device.Player);
                     }
                 }
                 else
                 {
-                    long senderId = this.Device.Player.Avatar.UserID;
-                    string senderName = this.Device.Player.Avatar.Username;
+                    long senderId = this.Device.Player.Avatar.UserId;
+                    string senderName = this.Device.Player.Avatar.AvatarName;
 
                     bool badword = DirectoryChecker.badwords.Any(s => Message.Contains(s));
 
@@ -73,10 +72,10 @@ namespace UCS.Packets.Messages.Client
                                     Message = NewMessage,
                                     HomeId = senderId,
                                     CurrentHomeId = senderId,
-                                    LeagueId = this.Device.Player.Avatar.League
+                                    LeagueId = this.Device.Player.Avatar.m_vLeagueId
                                 };
 
-                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID));
+                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
                                 p.Send();
                                 }
                             }
@@ -93,9 +92,9 @@ namespace UCS.Packets.Messages.Client
                                         Message = this.Message,
                                         HomeId = senderId,
                                         CurrentHomeId = senderId,
-                                        LeagueId = this.Device.Player.Avatar.League
+                                        LeagueId = this.Device.Player.Avatar.m_vLeagueId
                                     };
-                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID));
+                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
                                     p.Send();
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
                                 }

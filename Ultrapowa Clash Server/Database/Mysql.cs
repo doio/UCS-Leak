@@ -5,7 +5,7 @@
 
     public class Mysql : DbContext
     {
-        public Mysql() : base("name=mysql")
+        public Mysql(string connectionString) : base("name=" + connectionString)
         {
         }
 
@@ -16,6 +16,5 @@
 
         public virtual DbSet<Clan> Clan { get; set; }
         public virtual DbSet<Player> Player { get; set; }
-        public virtual DbSet<Stream> Stream { get; set; }
     }
 }

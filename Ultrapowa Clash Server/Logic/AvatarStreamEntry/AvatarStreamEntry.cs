@@ -52,10 +52,10 @@ namespace UCS.Logic.AvatarStreamEntry
 
         public void SetAvatar(ClientAvatar avatar)
         {
-            m_vSenderId = avatar.UserID;
-            m_vSenderName = avatar.Username;
-            m_vSenderLevel = avatar.Level;
-            m_vSenderLeagueId = avatar.League;
+            m_vSenderId = avatar.UserId;
+            m_vSenderName = avatar.AvatarName;
+            m_vSenderLevel = avatar.m_vAvatarLevel;
+            m_vSenderLeagueId = avatar.m_vLeagueId;
         }
 
         public void SetId(int id) => m_vId = id;

@@ -30,8 +30,8 @@ namespace UCS.Packets.Commands.Client
                 Vector movedBuildingPosition = this.Device.Player.GameObjectManager.GetGameObjectByID(MovedBuilding).GetPosition();
                 Vector replacedBuildingPosition = this.Device.Player.GameObjectManager.GetGameObjectByID(ReplacedBuilding).GetPosition();
 
-                this.Device.Player.GameObjectManager.GetGameObjectByID(MovedBuilding).SetPositionXY(Convert.ToInt32(replacedBuildingPosition.X), Convert.ToInt32(replacedBuildingPosition.Y), this.Device.Player.Avatar.ActiveLayout);
-                this.Device.Player.GameObjectManager.GetGameObjectByID(ReplacedBuilding).SetPositionXY(Convert.ToInt32(movedBuildingPosition.X), Convert.ToInt32(movedBuildingPosition.Y), this.Device.Player.Avatar.ActiveLayout);
+                this.Device.Player.GameObjectManager.GetGameObjectByID(MovedBuilding).SetPositionXY(Convert.ToInt32(replacedBuildingPosition.X), Convert.ToInt32(replacedBuildingPosition.Y), this.Device.Player.Avatar.m_vActiveLayout);
+                this.Device.Player.GameObjectManager.GetGameObjectByID(ReplacedBuilding).SetPositionXY(Convert.ToInt32(movedBuildingPosition.X), Convert.ToInt32(movedBuildingPosition.Y), this.Device.Player.Avatar.m_vActiveLayout);
             }
         }
     }

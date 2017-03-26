@@ -44,16 +44,16 @@ namespace UCS.Packets.Commands.Client
                             Logger.Write("Building To Upgrade : " + name + " (" + BuildingId + ')');
                             if (string.Equals(name, "Alliance Castle"))
                             {
-                                ca.Castle_Level++;
+                                ca.IncrementAllianceCastleLevel();
                                 Building a = (Building)this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
                                 BuildingData al = a.GetBuildingData();
-                                ca.Castle_Total = al.GetUnitStorageCapacity(ca.Castle_Level);
+                                ca.SetAllianceCastleTotalCapacity(al.GetUnitStorageCapacity(ca.GetAllianceCastleLevel()));
                             }
                             else if (string.Equals(name, "Town Hall"))
-                                ca.TownHall_Level++;
+                                ca.IncrementTownHallLevel();
 
                             var rd = bd.GetBuildResource(b.GetUpgradeLevel() + 1);
-                            ca.Resources.Set(rd.GetGlobalID(), ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel() + 1));
+                            ca.SetResourceCount(rd, ca.GetResourceCount(rd) - bd.GetBuildCost(b.GetUpgradeLevel() + 1));
                             b.StartUpgrading();
                         }
                     }

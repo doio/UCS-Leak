@@ -43,7 +43,7 @@ namespace UCS.Packets.Commands.Client
                     var sellPrice = d.GetDecoData().GetSellPrice();
                     if (rd.PremiumCurrency)
                     {
-                        ca.SetDiamonds(ca.Resources.Gems + sellPrice);
+                        ca.SetDiamonds(ca.m_vCurrentGems + sellPrice);
                     }
                     else
                     {

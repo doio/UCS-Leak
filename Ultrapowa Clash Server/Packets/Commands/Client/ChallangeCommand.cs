@@ -1,4 +1,3 @@
-using System;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
@@ -23,22 +22,19 @@ namespace UCS.Packets.Commands
 
         internal override async void Process()
         {
-            try
-            {
+
                 ClientAvatar player = this.Device.Player.Avatar;
-                long allianceID = player.AllianceID;
+                long allianceID = player.AllianceId;
                 Alliance alliance = await ObjectManager.GetAlliance(allianceID);
 
-                ChallengeStreamEntry cm = new ChallengeStreamEntry();
-                cm.SetMessage(Message);
-                cm.SetSenderId(player.UserID);
-                cm.SetSenderName(player.Username);
-                cm.SetSenderLevel(player.Level);
+                ChallangeStreamEntry cm = new ChallangeStreamEntry();
+                cm.SetMessage(this.Message);
+                cm.SetSenderId(player.UserId);
+                cm.SetSenderName(player.AvatarName);
+                cm.SetSenderLevel(player.m_vAvatarLevel);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetId(alliance.GetChatMessages().Count + 1);
-                cm.SetSenderLeagueId(player.League);
-
-                alliance.AddChatMessage((ChallengeStreamEntry)cm);
+                cm.SetSenderLeagueId(player.m_vLeagueId);
 
                 StreamEntry s = alliance.GetChatMessages().Find(c => c.GetStreamEntryType() == 12);
                 if (s != null)
@@ -47,27 +43,25 @@ namespace UCS.Packets.Commands
 
                     foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                     {
-                        Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarID);
+                        Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (alliancemembers.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
+                        new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
                         }
                     }
                 }
 
-                foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
-                {
-                    Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarID);
-                    if (alliancemembers.Client != null)
-                    {
-                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
-                        p.SetStreamEntry(cm);
-                        p.Send();
-                    }
-                }
-            }
-            catch (Exception)
+                alliance.AddChatMessage(cm);
+
+            foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
             {
+                Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
+                if (alliancemembers.Client != null)
+                {
+                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
+                    p.SetStreamEntry(cm);
+                    p.Send();
+                }
             }
         }
     }

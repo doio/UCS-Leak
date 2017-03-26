@@ -31,20 +31,6 @@ namespace UCS.Helpers
 
     internal static class Utils
     {
-        public static string GetBetween(string strSource, string strStart, string strEnd)
-        {
-            int Start, End;
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-            else
-            {
-                return "";
-            }
-        }
         public static string Padding(string _String, int _Limit = 23)
         {
             if (_String.Length > _Limit)
@@ -111,16 +97,6 @@ namespace UCS.Helpers
                                             "comp");
 
             return str.IndexOf(substring, comp) >= 0;
-        }
-        public static string StripPunctuation(this string s)
-        {
-            var sb = new StringBuilder();
-            foreach (char c in s)
-            {
-                if (!char.IsPunctuation(c))
-                    sb.Append(c);
-            }
-            return sb.ToString();
         }
     }
 }

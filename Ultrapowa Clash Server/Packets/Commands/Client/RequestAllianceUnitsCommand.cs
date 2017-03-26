@@ -29,28 +29,29 @@ namespace UCS.Packets.Commands.Client
             {
                 ClientAvatar player = this.Device.Player.Avatar;
                 TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
-                Alliance all = await ObjectManager.GetAlliance(player.AllianceID);
+                Alliance all = await ObjectManager.GetAlliance(player.AllianceId);
 
                 cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.UserID);
-                cm.SetHomeId(player.UserID);
-                cm.SetSenderLeagueId(player.League);
-                cm.SetSenderName(player.Username);
+                cm.SetSenderId(player.UserId);
+                cm.SetHomeId(player.UserId);
+                cm.SetSenderLeagueId(player.m_vLeagueId);
+                cm.SetSenderName(player.AvatarName);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetMessage(Message);
-                cm.SetMaxTroop(player.Castle_Total);
+                cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
 
-                all.AddChatMessage((TroopRequestStreamEntry)cm);
+                all.AddChatMessage(cm);
 
-                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserID && c.GetStreamEntryType() == 1);
+                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
                 if (s == null)
                 {
                     all.GetChatMessages().RemoveAll(t => t == s);
                 }
+                all.AddChatMessage(cm);
 
                 foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                 {
-                    Level aplayer = await ResourcesManager.GetPlayer(op.AvatarID);
+                    Level aplayer = await ResourcesManager.GetPlayer(op.AvatarId);
                     if (aplayer.Client != null)
                     {
                         if (s != null)
@@ -63,9 +64,7 @@ namespace UCS.Packets.Commands.Client
                     }
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
 
         public byte FlagHasRequestMessage;

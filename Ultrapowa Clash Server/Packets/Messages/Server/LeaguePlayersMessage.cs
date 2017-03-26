@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UCS.Core;
 using UCS.Helpers.List;
@@ -17,60 +16,48 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-            try
+            List<byte> packet1 = new List<byte>();
+
+            int i = 1;
+            foreach (Level player in  ResourcesManager.GetOnlinePlayers() .Where(t => t.Avatar.m_vLeagueId == this.Device.Player.Avatar.m_vLeagueId) .OrderByDescending(t => t.Avatar.GetScore()))
             {
-                int i = 0;
+                if (i >= 51)
+                    break;
 
-                this.Data.AddInt(9000); //Season End
-                this.Data.AddInt(i);
-
-                foreach (Level player in ResourcesManager.GetOnlinePlayers().Where(t => t.Avatar.League == this.Device.Player.Avatar.League).OrderByDescending(t => t.Avatar.GetTrophies()))
+                ClientAvatar pl = player.Avatar;
+                if (pl.AvatarName != null)
                 {
-                    if (i >= 50)
-                        break;
-
-                    ClientAvatar pl = player.Avatar;
-                    if (pl.Username != null)
+                    packet1.AddLong(pl.UserId);
+                    packet1.AddString(pl.AvatarName);
+                    packet1.AddInt(i);
+                    packet1.AddInt(pl.GetScore());
+                    packet1.AddInt(i);
+                    packet1.AddInt(pl.m_vAvatarLevel);
+                    packet1.AddInt(200);
+                    packet1.AddInt(i);
+                    packet1.AddInt(100);
+                    packet1.AddInt(1);
+                    packet1.AddLong(pl.AllianceId);
+                    packet1.AddInt(1);
+                    packet1.AddInt(1);
+                    if (pl.AllianceId > 0)
                     {
-                        try
-                        {
-                            this.Data.AddLong(pl.UserID);
-                            this.Data.AddString(pl.Username);
-                            this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.GetTrophies());
-                            this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.Level);
-                            this.Data.AddInt(pl.Donations);
-                            this.Data.AddInt(i + 1);
-                            this.Data.AddInt(pl.Received);
-                            this.Data.AddInt(1);
-                            this.Data.AddLong(pl.AllianceID);
-                            this.Data.AddInt(1);
-                            this.Data.AddInt(1);
-                            if (pl.AllianceID > 0)
-                            {
-                                this.Data.Add(1);
-                                this.Data.AddLong(pl.AllianceID);
-                                Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceID);
-                                this.Data.AddString(_Alliance.GetAllianceName());
-                                this.Data.AddInt(_Alliance.GetAllianceBadgeData());
-                                this.Data.AddLong(i + 1);
-                            }
-                            else
-                            {
-                                this.Data.Add(0);
-                            }
-                            i++;
-                        }
-                        catch (Exception)
-                        {
-                        }
+                        packet1.Add(1);
+                        packet1.AddLong(pl.AllianceId);
+                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceId);
+                        packet1.AddString(_Alliance.m_vAllianceName);
+                        packet1.AddInt(_Alliance.m_vAllianceBadgeData);
+                        packet1.AddLong(i);
                     }
+                    else
+                        packet1.Add(0);
+                    i++;
                 }
             }
-            catch (Exception)
-            {
-            }
+            this.Data.AddInt(9000); //Season End
+            this.Data.AddInt(i - 1);
+            this.Data.AddRange(packet1);
+
         }
     }
 }

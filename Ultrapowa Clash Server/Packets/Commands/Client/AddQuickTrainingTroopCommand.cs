@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
-using UCS.Logic.JSONProperty;
+using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -46,7 +46,7 @@ namespace UCS.Packets.Commands.Client
             }
 
             defaultdatbase.Clear();
-            defaultdatbase.AddRange(UnitsToAdd.Select(i => new Slot(i.Data.GetGlobalID(), i.Count)));
+            defaultdatbase.AddRange(UnitsToAdd.Select(i => new DataSlot(i.Data, i.Count)));
         }
         internal class UnitToAdd
         {

@@ -45,14 +45,13 @@ namespace UCS.Helpers
                             Say("/gui               - Shows the UCS Graphical User Interface.");
                             Say("/restart           - Restarts UCS instantly.");
                             Say("/shutdown          - Shuts UCS down instantly.");
-                            //Say("/addpremium        - Adds a Premium Player.");
+                            Say("/addpremium        - Add a Premium Player.");
                             Say("/banned            - Writes all Banned IP's into the Console.");
-                            Say("/addip             - Adds an IP to the Blacklist");
-                            Say("/maintenance       - Begins Server Maintenance.");
+                            Say("/addip             - Add an IP to the Blacklist");
+                            Say("/maintenance       - Begin Server Maintenance.");
                             Say("/saveall           - Saves everything to the Database");
-                            Say("/dl csv            - Downloads latest CSV Files (if Fingerprint is up-to-date).");
-                            Say("/del key           - Deletes the installed License Key.");
-                            Say("/info              - Shows UCS Information.");
+                            Say("/dl csv            - Downloads latest CSV Files (if Fingerprint is up to Date).");
+                            Say("/info              - Shows the UCS Informations.");
                             Say("/info 'command'    - More Info On a Command. Ex: /info gui");
                             Print("------------------------------------------------------------------------------>");
                             break;
@@ -64,19 +63,8 @@ namespace UCS.Helpers
                             Say("LicenseID:           " + Constants.LicensePlanID);
                             Say("CoC Version from SC: " + VersionChecker.LatestCoCVersion());
                             Say("");
-                            Say("(C) Ultrapowa 2014 - " + DateTime.Now.Year);
+                            Say("©Ultrapowa 2014 - " + DateTime.Now.Year);
                             Console.WriteLine("------------------------------------->");
-                            break;
-
-                        case "/del key":
-
-                            Say("Deleting Key...");
-                            string _FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "Ky01.lic";
-
-                            LicenseChecker.DeleteKey();
-                            Say("Key has been successfully deleted!");
-                            Thread.Sleep(4000);
-                            UCSControl.UCSRestart();
                             break;
 
                         case "/dl csv":
@@ -99,12 +87,12 @@ namespace UCS.Helpers
                         case "/saveall":
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
-                            Say("Starting saving all Players... (" + ResourcesManager.GetInMemoryLevels().Count + ")");
+                            Say("Starting saving of all Players... (" + ResourcesManager.GetInMemoryLevels().Count + ")");
                             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels()).Wait();
-                            Say("Finished saving all Players!");
-                            Say("Starting saving all Alliances... (" + ResourcesManager.GetInMemoryAlliances().Count + ")");
+                            Say("Finished saving of all Players!");
+                            Say("Starting saving of all Alliances... (" + ResourcesManager.GetInMemoryAlliances().Count + ")");
                             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances()).Wait();
-                            Say("Finished saving all Alliances!");
+                            Say("Finished saving of all Alliances!");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
                             Console.ResetColor();
@@ -118,9 +106,9 @@ namespace UCS.Helpers
                             {
                                 var l = await ResourcesManager.GetPlayer(long.Parse(id));
                                 var avatar = l.Avatar;
-                                var playerID = Avatar.UserID;
+                                var playerID = avatar.GetId();
                                 var p = avatar.GetPremium();
-                                Say("Set the Privileges for Player: '" + avatar.Username + "' ID: '" + Avatar.UserID + "' to Premium?");
+                                Say("Set the Privileges for Player: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "' to Premium?");
                                 Say("Type in 'y':Yes or 'n': Cancel");
                                 loop:
                                 var a = ReadLine();
@@ -133,7 +121,7 @@ namespace UCS.Helpers
                                     else if (p == false)
                                     {
                                         ResourcesManager.GetPlayer(playerID).Avatar.SetPremium(true);
-                                        Say("Privileges set succesfully for: '" + avatar.Username + "' ID: '" + Avatar.UserID + "'");
+                                        Say("Privileges set succesfully for: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "'");
                                         DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
                                     }
                                 }
@@ -151,28 +139,25 @@ namespace UCS.Helpers
                             {
                                 Say("Player doesn't exists!");
                             }
-                            break;
+                            break;*/
 
                         case "/info addpremium":
                             Print("------------------------------------------------------------------------------->");
                             Say("/addpremium > Adds a Premium Player, which will get more Privileges.");
                             Print("------------------------------------------------------------------------------->");
-                            break;*/
+                            break;
 
                         case "/maintenance":
-                            if (Constants.LicensePlanID != 1)
-                            {
-                                StartMaintenance();
-                            }
+                            StartMaintenance();
                             break;
 
                         case "/info maintenance":
                             Print("------------------------------------------------------------------------------>");
                             Say(@"/maintenance > Enables Maintenance which will do the following:");
                             Say(@"     - All Online Users will be notified (Attacks will be disabled),");
-                            Say(@"     - All new connections get a Maintenace Message at the Login Screen. ");
-                            Say(@"     - After 5 min all Players will be kicked.");
-                            Say(@"     - After the Maintenance, Players will be able to connect again.");
+                            Say(@"     - All new connections get a Maintenace Message at the Login. ");
+                            Say(@"     - After 5min all Players will be kicked.");
+                            Say(@"     - After the Maintenance Players will be able to connect again.");
                             Print("------------------------------------------------------------------------------>");
                             break;
 
@@ -234,7 +219,6 @@ namespace UCS.Helpers
                             Say(@"     - Status Controler/Manager");
                             Say(@"     - Player Editor");
                             Say(@"     - Config.UCS editor.");
-                            Say(@"     - And much more.");
                             Print("------------------------------------------------------------------------------->");
                             break;
 
@@ -267,11 +251,11 @@ namespace UCS.Helpers
         public static void StartMaintenance()
         {
             Print("------------------------------------------------------------------->");
-            Say("Please Type your Desired Maintenance Time.");
+            Say("Please type in now your Time for the Maintenance");
             Say("(Seconds): ");
             String newTime = ReadLine();
             Time = Convert.ToInt32(((newTime + 0) + 0) + 0);
-            Say("Server will be restarted in 5 min and will start with");
+            Say("Server will be restarted in 5min and will start with the");
             Say("Maintenance Mode (" + Time + ")");
             Print("------------------------------------------------------------------->");
 

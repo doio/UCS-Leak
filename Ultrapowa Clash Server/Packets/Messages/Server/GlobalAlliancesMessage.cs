@@ -22,20 +22,24 @@ namespace UCS.Packets.Messages.Server
             List<byte> packet1 = new List<byte>();
             int i = 0;
 
-            foreach (Alliance alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.GetTrophies()))
+            foreach (Alliance alliance in ObjectManager.GetInMemoryAlliances().OrderByDescending(t => t.m_vScore))
             {
-                if (i >= 100)
-                    break;
-                packet1.AddLong(alliance.AllianceID);
-                packet1.AddString(alliance.GetAllianceName());
-                packet1.AddInt(i + 1);
-                packet1.AddInt(alliance.GetTrophies());
-                packet1.AddInt(i + 1);
-                packet1.AddInt(alliance.GetAllianceBadgeData());
-                packet1.AddInt(alliance.GetAllianceMembers().Count);
-                packet1.AddInt(0);
-                packet1.AddInt(alliance.GetAllianceLevel());
-                i++;
+                try
+                {
+                    if (i >= 100)
+                        break;
+                    packet1.AddLong(alliance.m_vAllianceId);
+                    packet1.AddString(alliance.m_vAllianceName);
+                    packet1.AddInt(i + 1);
+                    packet1.AddInt(alliance.m_vScore);
+                    packet1.AddInt(i + 1);
+                    packet1.AddInt(alliance.m_vAllianceBadgeData);
+                    packet1.AddInt(alliance.GetAllianceMembers().Count);
+                    packet1.AddInt(0);
+                    packet1.AddInt(alliance.m_vAllianceLevel);
+                    i++;
+                }
+                catch (Exception) { }
             }
 
             this.Data.AddInt(i);

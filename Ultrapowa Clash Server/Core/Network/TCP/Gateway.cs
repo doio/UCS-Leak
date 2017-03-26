@@ -9,7 +9,6 @@ using UCS.Core.Settings;
 using UCS.Packets;
 using System.Configuration;
 using UCS.Helpers;
-using UCS.Core.Checker;
 
 namespace UCS.Core.Network
 {
@@ -22,9 +21,7 @@ namespace UCS.Core.Network
         internal Mutex Mutex;
 
         internal int ConnectedSockets;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TCPServer"/> class.
-        /// </summary>
+
         internal Gateway()
         {
             this.ReadPool = new SocketAsyncEventArgsPool();
@@ -43,7 +40,7 @@ namespace UCS.Core.Network
             this.Listener.Listen(200);
 
             Logger.Say();
-            Logger.Say("UCS has been started on " + this.Listener.LocalEndPoint + " in " + Program._Stopwatch.ElapsedMilliseconds + " milliseconds!");
+            Logger.Say("UCS has been started on " + this.Listener.LocalEndPoint + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds !");
             Program._Stopwatch.Stop();
 
             SocketAsyncEventArgs AcceptEvent = new SocketAsyncEventArgs();
@@ -51,9 +48,7 @@ namespace UCS.Core.Network
 
             this.StartAccept(AcceptEvent);
         }
-        /// <summary>
-        /// Initializes the read and write pools.
-        /// </summary>
+
         internal void Initialize()
         {
             for (int Index = 0; Index < Constants.MaxOnlinePlayers + 1; Index++)
@@ -68,10 +63,7 @@ namespace UCS.Core.Network
                 this.WritePool.Enqueue(WriterEvent);
             }
         }
-        /// <summary>
-        /// Accepts a TCP Request.
-        /// </summary>
-        /// <param name="AcceptEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+
         internal void StartAccept(SocketAsyncEventArgs AcceptEvent)
         {
             AcceptEvent.AcceptSocket = null;
@@ -82,25 +74,13 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        /// Accept the new client and store it in memory.
-        /// </summary>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void ProcessAccept(SocketAsyncEventArgs AsyncEvent)
         {
             Socket Socket = AsyncEvent.AcceptSocket;
 
             if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
             {
-
-                if (ConnectionBlocker.IsAddressBanned(Socket.RemoteEndPoint.ToString().Split(':')[0]))
-                {
-                    Socket.Close(5);
-                    this.StartAccept(AsyncEvent);
-                    return;
-                }
-
-                Logger.Write("New client connected -> " + Socket.RemoteEndPoint.ToString().Split(':')[0]);
+                Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
 
 
                 SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
@@ -135,17 +115,13 @@ namespace UCS.Core.Network
             }
             else
             {
-                Logger.Write("Failed to Receive and Process the Data.");
+                Logger.Write("Not connected or error at ProcessAccept.");
                 Socket.Close(5);
             }
 
             this.StartAccept(AsyncEvent);
         }
 
-        /// <summary>
-        /// Receives data from the specified client.
-        /// </summary>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void ProcessReceive(SocketAsyncEventArgs AsyncEvent)
         {
             if (AsyncEvent.BytesTransferred > 0 && AsyncEvent.SocketError == SocketError.Success)
@@ -190,20 +166,11 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        /// Called when [receive completed].
-        /// </summary>
-        /// <param name="Sender">The sender.</param>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void OnReceiveCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
         {
             this.ProcessReceive(AsyncEvent);
         }
 
-        /// <summary>
-        /// Closes the specified client's socket.
-        /// </summary>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void Disconnect(SocketAsyncEventArgs AsyncEvent)
         {
             Token Token = AsyncEvent.UserToken as Token;
@@ -211,20 +178,11 @@ namespace UCS.Core.Network
             this.ReadPool.Enqueue(AsyncEvent);
         }
 
-        /// <summary>
-        /// Called when the client has been accepted.
-        /// </summary>
-        /// <param name="Sender">The sender.</param>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void OnAcceptCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
         {
             this.ProcessAccept(AsyncEvent);
         }
 
-        /// <summary>
-        /// Sends the specified message.
-        /// </summary>
-        /// <param name="Message">The message.</param>
         internal void Send(Message Message)
         {
             SocketAsyncEventArgs WriteEvent = this.WritePool.Dequeue();
@@ -257,11 +215,6 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        /// Processes to send the specified message using the specified SocketAsyncEventArgs.
-        /// </summary>
-        /// <param name="Message">The message.</param>
-        /// <param name="Args">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void ProcessSend(Message Message, SocketAsyncEventArgs Args)
         {
             Message.Offset += Args.BytesTransferred;
@@ -280,11 +233,6 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        /// Called when [send completed].
-        /// </summary>
-        /// <param name="Sender">The sender.</param>
-        /// <param name="AsyncEvent">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
         internal void OnSendCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
         {
             this.WritePool.Enqueue(AsyncEvent);

@@ -134,7 +134,7 @@ namespace UCS.Core
                 if (!File.Exists("Logs/log_" + timestamp + "_.txt"))
                     using (StreamWriter sw = new StreamWriter("Logs/log_" + timestamp + "_.txt"))
                     {
-                        sw.WriteLineAsync("Log file created at " + DateTime.UtcNow);
+                        sw.WriteLineAsync("Log file created at " + DateTime.Now);
                         sw.WriteLineAsync();
                     }
             }
@@ -145,7 +145,7 @@ namespace UCS.Core
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine();
             Console.WriteLine("Please choose a valid Log Level");
-            Console.WriteLine("UCS Emulator is closing...");
+            Console.WriteLine("UCS Emulator is now closing...");
             Console.ResetColor();
             Thread.Sleep(5000);
             Environment.Exit(0);

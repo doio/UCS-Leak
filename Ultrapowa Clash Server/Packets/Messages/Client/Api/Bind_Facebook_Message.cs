@@ -2,7 +2,6 @@
 using UCS.Helpers.Binary;
 using UCS.Logic.API;
 using UCS.Packets.Messages.Server;
-using UCS.Packets.Messages.Server.Api;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -26,10 +25,9 @@ namespace UCS.Packets.Messages.Client
 
         internal override async void Process()
         {
-            this.Device.Player.Avatar.Facebook.Identifier = this.Id;
-            this.Device.Player.Avatar.Facebook.Token = this.Token;
-            this.Device.Player.Avatar.Facebook.Connect();
-
+            this.Device.Player.Avatar.FacebookId = this.Id;
+            this.Device.Player.Avatar.FacebookToken = this.Token;
+            new FacebookApi(this.Device.Player).Connect();
             new Facebook_Connect_OK(this.Device).Send();
 
 

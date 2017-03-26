@@ -23,14 +23,12 @@ namespace UCS.Packets.Messages.Server
                 this.Data.AddString(null);
                 this.Data.Add(1);
 
-                this.Data.AddLong(clientAvatar.UserID);
+                this.Data.AddLong(clientAvatar.UserId);
 
-                this.Data.AddString(clientAvatar.Token);
+                this.Data.AddString(clientAvatar.UserToken);
                 this.Data.AddRange(await clientAvatar.Encode());
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
     }
 }

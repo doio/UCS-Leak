@@ -19,6 +19,8 @@ namespace UCS.Core
 
         public CSVManager()
         {
+            //DownloadLatestCSVFiles();
+
             try
             {
                 _gameFiles.Add(new Tuple<string, string, int>("Buildings", @"Gamefiles/logic/buildings.csv", 0));
@@ -62,11 +64,11 @@ namespace UCS.Core
             catch (Exception)
             {
                 Say();
-                Error("An Error occured when loading CSV Files. It looks like you have:");
+                Error("Error loading Gamefiles. Looks like you have :");
                 Error("     -> Edited the Files Wrong");
                 Error("     -> Made mistakes by deleting values");
-                Error("     -> Entered too High or too Low values");
-                Error("Please check that you have not done any of the listed.");
+                Error("     -> Entered too High or Low value");
+                Error("     -> Please check to these errors");
                 Console.ReadKey();
                 Environment.Exit(0);
             }
@@ -82,7 +84,7 @@ namespace UCS.Core
                 string _DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + ObjectManager.FingerPrint.sha + "/";
                 bool DownloadOnlyCSV;
                 back:
-                Console.WriteLine("Do you want to download CSV files only? (All Includes SC...)? Y = Yes, N = No.");
+                Console.WriteLine("Do you want to download only CSV Files or all (Includes SC...)? Y = Yes, N = No.");
                 string answer = Console.ReadLine().ToUpper();
 
                 if (answer == "Y")
@@ -128,7 +130,7 @@ namespace UCS.Core
                         }
                     }
                 }
-                Console.WriteLine("All Files have been downloaded successfully!");
+                Console.WriteLine("All Files has been succesfully downloaded!");
             }
             catch (Exception)
             { 

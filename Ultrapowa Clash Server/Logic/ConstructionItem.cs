@@ -12,7 +12,7 @@ namespace UCS.Logic
         {
             m_vLevel          = level;
             IsBoosted         = false;
-            m_vBoostEndTime   = level.Avatar.Update;
+            m_vBoostEndTime   = level.Avatar.LastTickSaved;
             m_vIsConstructing = false;
             UpgradeLevel      = -1;
         }
@@ -30,7 +30,7 @@ namespace UCS.Logic
         public void BoostBuilding()
         {
             IsBoosted       = true;
-            m_vBoostEndTime = Avatar.Avatar.Update.AddMinutes(GetBoostDuration());
+            m_vBoostEndTime = Avatar.Avatar.LastTickSaved.AddMinutes(GetBoostDuration());
         }
 
         public void CancelConstruction()
@@ -68,7 +68,7 @@ namespace UCS.Logic
                     result = true;
                     if (ClassId == 0 || ClassId == 4)
                     {
-                        int currentTownHallLevel  = Avatar.Avatar.TownHall_Level;
+                        int currentTownHallLevel  = Avatar.Avatar.GetTownHallLevel();
                         int requiredTownHallLevel = GetRequiredTownHallLevelForUpgrade();
                         if (currentTownHallLevel < requiredTownHallLevel)
                         {
@@ -168,7 +168,7 @@ namespace UCS.Logic
             return null;
         }
 
-        public int GetRemainingConstructionTime() => m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.Update);
+        public int GetRemainingConstructionTime() => m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved);
 
         public int GetRequiredTownHallLevelForUpgrade()
         {
@@ -244,7 +244,7 @@ namespace UCS.Logic
                 m_vTimer = new Timer();
                 m_vIsConstructing = true;
                 var remainingConstructionTime = constTimeToken.ToObject<int>();
-                m_vTimer.StartTimer(remainingConstructionTime, m_vLevel.Avatar.Update);
+                m_vTimer.StartTimer(remainingConstructionTime, m_vLevel.Avatar.LastTickSaved);
                 m_vLevel.WorkerManager.AllocateWorker(this);
             }
             Locked = false;
@@ -269,14 +269,14 @@ namespace UCS.Logic
         {
             jsonObject.Add("lvl", UpgradeLevel);
             if (IsConstructing())
-                jsonObject.Add("const_t", m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.Update));
+                jsonObject.Add("const_t", m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved));
             if (Locked)
                 jsonObject.Add("locked", true);
             if (IsBoosted)
             {
-                if ((int) (m_vBoostEndTime - Avatar.Avatar.Update).TotalSeconds >= 0)
+                if ((int) (m_vBoostEndTime - Avatar.Avatar.LastTickSaved).TotalSeconds >= 0)
                 {
-                    jsonObject.Add("boost_t", (int) (m_vBoostEndTime - Avatar.Avatar.Update).TotalSeconds);
+                    jsonObject.Add("boost_t", (int) (m_vBoostEndTime - Avatar.Avatar.LastTickSaved).TotalSeconds);
                 }
                 jsonObject.Add("boost_endTime", m_vBoostEndTime);
             }
@@ -289,7 +289,7 @@ namespace UCS.Logic
             UpgradeLevel = level;
             if (GetConstructionItemData().IsTownHall())
             {
-                Avatar.Avatar.TownHall_Level = level;
+                Avatar.Avatar.SetTownHallLevel(level);
             }
             if (UpgradeLevel > -1 || IsUpgrading() || !IsConstructing())
             {
@@ -319,7 +319,7 @@ namespace UCS.Logic
             if (IsConstructing())
             {
                 ClientAvatar ca      = Avatar.Avatar;
-                int remainingSeconds = m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.Update);
+                int remainingSeconds = m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved);
                 int cost             = GamePlayUtil.GetSpeedUpCost(remainingSeconds);
                 if (ca.HasEnoughDiamonds(cost))
                 {
@@ -341,7 +341,7 @@ namespace UCS.Logic
             else
             {
                 m_vTimer          = new Timer();
-                m_vTimer.StartTimer(constructionTime, m_vLevel.Avatar.Update);
+                m_vTimer.StartTimer(constructionTime, m_vLevel.Avatar.LastTickSaved);
                 m_vLevel.WorkerManager.AllocateWorker(this);
                 m_vIsConstructing = true;
             }
@@ -358,7 +358,7 @@ namespace UCS.Logic
             {
                 m_vIsConstructing = true;
                 m_vTimer          = new Timer();
-                m_vTimer.StartTimer(constructionTime, m_vLevel.Avatar.Update);
+                m_vTimer.StartTimer(constructionTime, m_vLevel.Avatar.LastTickSaved);
                 m_vLevel.WorkerManager.AllocateWorker(this);
             }
         }
@@ -369,7 +369,7 @@ namespace UCS.Logic
 
             if (IsConstructing())
             {
-                if (m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.Update) <= 0)
+                if (m_vTimer.GetRemainingSeconds(m_vLevel.Avatar.LastTickSaved) <= 0)
                 {
                     FinishConstruction();
                 }

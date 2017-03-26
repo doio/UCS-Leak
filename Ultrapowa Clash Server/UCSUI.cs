@@ -53,7 +53,7 @@ namespace UCS
 
             if (Core.Settings.Constants.LicensePlanID < 2)
             {
-                var message = MessageBox.Show("The User Interface is not available for the Lite Plan.\n\nPlease upgrade on https://ultrapowa.com/", "Not available for Lite Plan.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var message = MessageBox.Show("The User Interface is not available for unpaid Users. Please upgrade to Premium on https://ultrapowa.com/forum", "Not available for unpaid Users.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (message == DialogResult.OK)
                 {
@@ -94,14 +94,14 @@ namespace UCS
             int count = 0;
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.Avatar.Username);
-                item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
+                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.UserId));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.m_vAvatarLevel));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
-                if(count >= 200)
+                if(count >= 100)
                 {
                     break;
                 }
@@ -111,11 +111,11 @@ namespace UCS
             int count2 = 0;
             foreach(var alliance in ResourcesManager.GetInMemoryAlliances())
             {
-                ListViewItem item = new ListViewItem(alliance.GetAllianceName());
-                item.SubItems.Add(alliance.AllianceID.ToString());
-                item.SubItems.Add(alliance.GetAllianceLevel().ToString());
+                ListViewItem item = new ListViewItem(alliance.m_vAllianceName);
+                item.SubItems.Add(alliance.m_vAllianceId.ToString());
+                item.SubItems.Add(alliance.m_vAllianceLevel.ToString());
                 item.SubItems.Add(alliance.GetAllianceMembers().Count.ToString());
-                item.SubItems.Add(alliance.GetTrophies().ToString());
+                item.SubItems.Add(alliance.m_vScore.ToString());
                 listView2.Items.Add(item);
                 count2++;
 
@@ -174,14 +174,14 @@ namespace UCS
             listView1.Items.Clear();
             foreach (var acc in ResourcesManager.GetOnlinePlayers())
             {
-                ListViewItem item = new ListViewItem(acc.Avatar.Username);
-                item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
-                item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
+                ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
+                item.SubItems.Add(Convert.ToString(acc.Avatar.UserId));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.m_vAvatarLevel));
+                item.SubItems.Add(Convert.ToString(acc.Avatar.GetScore()));
                 item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
                 listView1.Items.Add(item);
                 count++;
-                if(count >= 200)
+                if(count >= 100)
                 {
                     break;
                 }
@@ -206,13 +206,13 @@ namespace UCS
 
                 Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
-                txtPlayerName.Text = Convert.ToString(l.Avatar.Username);
-                txtPlayerScore.Text = Convert.ToString(l.Avatar.GetTrophies());
-                txtPlayerGems.Text = Convert.ToString(l.Avatar.Resources.Gems);
-                txtTownHallLevel.Text = Convert.ToString(l.Avatar.TownHall_Level);
-                txtAllianceID.Text = Convert.ToString(l.Avatar.AllianceID);
+                txtPlayerName.Text = Convert.ToString(l.Avatar.AvatarName);
+                txtPlayerScore.Text = Convert.ToString(l.Avatar.GetScore());
+                txtPlayerGems.Text = Convert.ToString(l.Avatar.m_vCurrentGems);
+                txtTownHallLevel.Text = Convert.ToString(l.Avatar.GetTownHallLevel());
+                txtAllianceID.Text = Convert.ToString(l.Avatar.AllianceId);
                 materialLabel7.Text = l.Avatar.Region;
-                txtPlayerLevel.Text = l.Avatar.Level.ToString();
+                txtPlayerLevel.Text = l.Avatar.m_vAvatarLevel.ToString();
             }
             catch (NullReferenceException)
             {
@@ -256,10 +256,10 @@ namespace UCS
             Level l = await ResourcesManager.GetPlayer(long.Parse(txtPlayerID.Text));
 
             l.Avatar.SetName(txtPlayerName.Text);
-            l.Avatar.SetTrophies(Convert.ToInt32(txtPlayerScore.Text));
+            l.Avatar.SetScore(Convert.ToInt32(txtPlayerScore.Text));
             l.Avatar.SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
-            l.Avatar.TownHall_Level = Convert.ToInt32(txtTownHallLevel.Text);
-            l.Avatar.AllianceID = Convert.ToInt32(txtAllianceID.Text);
+            l.Avatar.SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
+            l.Avatar.SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
             l.Avatar.SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
 
             var title = "Finished!";
@@ -443,7 +443,7 @@ namespace UCS
             {
                 long id = Convert.ToInt64(txtPlayerID.Text);
                 Level player = await ResourcesManager.GetPlayer(id);
-                player.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
+                player.Avatar.AccountBanned = true;
                 DatabaseManager.Single().Save(player);
                 new OutOfSyncMessage(player.Client).Send();
             }
@@ -459,7 +459,7 @@ namespace UCS
             {
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = await ResourcesManager.GetPlayer(id);
-                player.Avatar.BanTime = DateTime.UtcNow.AddDays(30);
+                player.Avatar.AccountBanned = true;
                 DatabaseManager.Single().Save(player);
             }
         }
@@ -470,35 +470,20 @@ namespace UCS
             listView1.Items.Clear();
             if (string.IsNullOrEmpty(txtSearchPlayer.Text))
             {
-                listView1.Items.Clear();
-                int count = 0;
-                foreach (var acc in ResourcesManager.GetOnlinePlayers())
-                {
-                    ListViewItem item = new ListViewItem(acc.Avatar.Username);
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.UserID));
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.Level));
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.GetTrophies()));
-                    item.SubItems.Add(Convert.ToString(acc.Avatar.AccountPrivileges));
-                    listView1.Items.Add(item);
-                    count++;
-                    if (count >= 200)
-                    {
-                        break;
-                    }
-                }
+                MessageBox.Show("The Player-Name can't be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 foreach (var n in ResourcesManager.GetInMemoryLevels())
                 {
-                    var l = await ResourcesManager.GetPlayer(n.Avatar.UserID);
-                    var na = l.Avatar.Username;
+                    var l = await ResourcesManager.GetPlayer(n.Avatar.UserId);
+                    var na = l.Avatar.AvatarName;
                     if (na == name || na == name.ToUpper() || na == name.ToLower())
                     {
-                        ListViewItem item = new ListViewItem(n.Avatar.Username);
-                        item.SubItems.Add(Convert.ToString(n.Avatar.UserID));
-                        item.SubItems.Add(Convert.ToString(n.Avatar.Level));
-                        item.SubItems.Add(Convert.ToString(n.Avatar.GetTrophies()));
+                        ListViewItem item = new ListViewItem(n.Avatar.AvatarName);
+                        item.SubItems.Add(Convert.ToString(n.Avatar.UserId));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.m_vAvatarLevel));
+                        item.SubItems.Add(Convert.ToString(n.Avatar.GetScore()));
                         item.SubItems.Add(Convert.ToString(n.Avatar.AccountPrivileges));
                         listView1.Items.Add(item);
                     }
@@ -578,11 +563,11 @@ namespace UCS
             int count2 = 0;
             foreach (var alliance in ResourcesManager.GetInMemoryAlliances())
             {
-                ListViewItem item = new ListViewItem(alliance.GetAllianceName());
-                item.SubItems.Add(alliance.AllianceID.ToString());
-                item.SubItems.Add(alliance.GetAllianceLevel().ToString());
+                ListViewItem item = new ListViewItem(alliance.m_vAllianceName);
+                item.SubItems.Add(alliance.m_vAllianceId.ToString());
+                item.SubItems.Add(alliance.m_vAllianceLevel.ToString());
                 item.SubItems.Add(alliance.GetAllianceMembers().Count.ToString());
-                item.SubItems.Add(alliance.GetTrophies().ToString());
+                item.SubItems.Add(alliance.m_vScore.ToString());
                 listView2.Items.Add(item);
                 count2++;
 
@@ -598,10 +583,10 @@ namespace UCS
             if(!string.IsNullOrEmpty(txtID.Text))
             {
                 Alliance alliance = await ObjectManager.GetAlliance(long.Parse(txtID.Text));
-                txtAllianceName.Text = alliance.GetAllianceName();
-                txtAllianceLevel.Text = alliance.GetAllianceLevel().ToString();
-                txtAllianceDescription.Text = alliance.GetAllianceDescription();
-                txtAllianceScore.Text = alliance.GetTrophies().ToString();
+                txtAllianceName.Text = alliance.m_vAllianceName;
+                txtAllianceLevel.Text = alliance.m_vAllianceLevel.ToString();
+                txtAllianceDescription.Text = alliance.m_vAllianceDescription;
+                txtAllianceScore.Text = alliance.m_vScore.ToString();
             }
             else
             {
@@ -626,8 +611,6 @@ namespace UCS
                 alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
                 alliance.SetAllianceDescription(txtAllianceDescription.Text);
                 DatabaseManager.Single().Save(alliance);
-
-                MessageBox.Show("Changes has been saved.", "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -643,33 +626,6 @@ namespace UCS
             T.Stop();
             Count = 0;
             materialLabel13.Text = Convert.ToString(Count);
-        }
-
-        private void txtSearchPlayer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialRadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (materialRadioButton1.Checked)
-            {
-                var sm = MaterialSkinManager.Instance;
-                sm.AddFormToManage(this);
-                sm.Theme = MaterialSkinManager.Themes.DARK;
-                sm.ColorScheme = new ColorScheme(Primary.Blue800, Primary.Blue900, Primary.Grey500, Accent.Blue200, TextShade.WHITE);
-            }
-        }
-
-        private void materialRadioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (materialRadioButton2.Checked)
-            {
-                var sm = MaterialSkinManager.Instance;
-                sm.AddFormToManage(this);
-                sm.Theme = MaterialSkinManager.Themes.DARK;
-                sm.ColorScheme = new ColorScheme(Primary.Teal800, Primary.Teal900, Primary.Grey500, Accent.Teal200, TextShade.WHITE);
-            }
         }
     }
 }

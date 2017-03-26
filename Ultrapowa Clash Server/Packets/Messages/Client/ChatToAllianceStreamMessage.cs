@@ -7,7 +7,6 @@ using UCS.Logic;
 using UCS.Logic.StreamEntry;
 using UCS.Packets.Messages.Server;
 using System.Threading.Tasks;
-using UCS.Core.Settings;
 
 namespace UCS.Packets.Messages.Client
 {
@@ -32,22 +31,22 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (m_vChatMessage.Length < 101)
                     {
-                        if (m_vChatMessage[0] == '/' && Constants.LicensePlanID == 3)
+                        if (m_vChatMessage[0] == '/')
                         {
                             Object obj = GameOpCommandFactory.Parse(m_vChatMessage);
                             if (obj != null)
                             {
                                 string player = "";
                                 if (this.Device.Player != null)
-                                    player += " (" + this.Device.Player.Avatar.UserID + ", " +
-                                              this.Device.Player.Avatar.Username + ")";
+                                    player += " (" + this.Device.Player.Avatar.UserId + ", " +
+                                              this.Device.Player.Avatar.AvatarName + ")";
                                 ((GameOpCommand)obj).Execute(this.Device.Player);
                             }
                         }
                         else
                         {
                             ClientAvatar avatar = this.Device.Player.Avatar;
-                            long allianceId = avatar.AllianceID;
+                            long allianceId = avatar.AllianceId;
                             if (allianceId > 0)
                             {
                                 ChatStreamEntry cm = new ChatStreamEntry();
@@ -62,7 +61,7 @@ namespace UCS.Packets.Messages.Client
 
                                     foreach (var op in alliance.GetAllianceMembers())
                                     {
-                                        Level player = await ResourcesManager.GetPlayer(op.AvatarID);
+                                        Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                                         if (player.Client != null)
                                         {
                                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.Client);

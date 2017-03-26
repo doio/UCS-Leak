@@ -21,7 +21,7 @@ namespace UCS.Packets.Commands.Client
         internal override void Process()
         {
             GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingId);
-            go.SetPositionXY(X, Y, this.Device.Player.Avatar.ActiveLayout);
+            go.SetPositionXY(X, Y, this.Device.Player.Avatar.m_vActiveLayout);
         }
 
         public int BuildingId;

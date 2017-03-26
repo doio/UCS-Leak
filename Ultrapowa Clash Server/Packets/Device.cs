@@ -33,12 +33,9 @@ namespace UCS.Packets
         }
 
 
-        internal State PlayerState = State.DISCONNECTED;
+        internal State PlayerState = Logic.Enums.State.DISCONNECTED;
 
         internal IntPtr SocketHandle;
-
-        internal byte[] IncomingPacketsKey;
-        internal byte[] OutgoingPacketsKey;
 
         internal string Interface;
         internal string AndroidID;
@@ -90,6 +87,7 @@ namespace UCS.Packets
 
                             try
                             {
+                                Debug.WriteLine(Utils.Padding(message.Device.Socket.RemoteEndPoint.ToString(), 15) + " --> " + message.GetType().Name);
                                 Logger.Write("Message " + message.GetType().Name + " is handled");
                                 message.Decrypt();
                                 message.Decode();

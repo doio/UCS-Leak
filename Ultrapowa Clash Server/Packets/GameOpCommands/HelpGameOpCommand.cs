@@ -27,9 +27,9 @@ namespace UCS.Packets.GameOpCommands
                     var avatar = level.Avatar;
                     var mail = new AllianceMailStreamEntry();
                     mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    mail.SetSenderId(avatar.UserID);
-                    mail.SetSenderAvatarId(avatar.UserID);
-                    mail.SetSenderName(avatar.Username);
+                    mail.SetSenderId(avatar.UserId);
+                    mail.SetSenderAvatarId(avatar.UserId);
+                    mail.SetSenderName(avatar.AvatarName);
                     mail.SetIsNew(2);
                     mail.SetAllianceId(0);
                     mail.SetAllianceBadgeData(1526735450);
@@ -49,8 +49,8 @@ namespace UCS.Packets.GameOpCommands
                         "\n/saveall" +
                         "\n/becomeleader" +
                         "\n/status");
-                    mail.SetSenderLevel(avatar.Level);
-                    mail.SetSenderLeagueId(avatar.League);
+                    mail.SetSenderLevel(avatar.m_vAvatarLevel);
+                    mail.SetSenderLeagueId(avatar.m_vLeagueId);
 
                     var p = new AvatarStreamEntryMessage(level.Client);
                     p.SetAvatarStreamEntry(mail);

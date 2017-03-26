@@ -14,24 +14,24 @@ namespace UCS.Logic
     {
         const int m_vMaxAllianceMembers    = 50;
         const int m_vMaxChatMessagesNumber = 30;
-        readonly Dictionary<long, AllianceMemberEntry> m_vAllianceMembers;
-        readonly List<StreamEntry.StreamEntry> m_vChatMessages;
-        int m_vAllianceBadgeData;
-        string m_vAllianceDescription;
-        int m_vAllianceExperience;
-        internal long AllianceID;
-        int m_vAllianceLevel;
-        string m_vAllianceName;
-        int m_vAllianceOrigin;
-        int m_vAllianceType;
-        int m_vDrawWars;
-        int m_vLostWars;
-        int m_vRequiredScore;
-        int m_vScore;
-        int m_vWarFrequency;
-        byte m_vWarLogPublic;
-        int m_vWonWars;
-        byte m_vFriendlyWar;
+        internal readonly Dictionary<long, AllianceMemberEntry> m_vAllianceMembers;
+        internal readonly List<StreamEntry.StreamEntry> m_vChatMessages;
+        internal int m_vAllianceBadgeData;
+        internal string m_vAllianceDescription;
+        internal int m_vAllianceExperience;
+        internal long m_vAllianceId;
+        internal int m_vAllianceLevel;
+        internal string m_vAllianceName;
+        internal int m_vAllianceOrigin;
+        internal int m_vAllianceType;
+        internal int m_vDrawWars;
+        internal int m_vLostWars;
+        internal int m_vRequiredScore;
+        internal int m_vScore;
+        internal int m_vWarFrequency;
+        internal byte m_vWarLogPublic;
+        internal int m_vWonWars;
+        internal byte m_vFriendlyWar;
 
         public Alliance()
         {
@@ -42,7 +42,7 @@ namespace UCS.Logic
         public Alliance(long id)
         {
             Random r               = new Random();
-            AllianceID          = id;
+            m_vAllianceId          = id;
             m_vAllianceName        = "Default";
             m_vAllianceDescription = "Default";
             m_vAllianceBadgeData   = 0;
@@ -60,11 +60,11 @@ namespace UCS.Logic
             m_vAllianceMembers     = new Dictionary<long, AllianceMemberEntry>();
         }
 
-        public void AddAllianceMember(AllianceMemberEntry entry) => m_vAllianceMembers.Add(entry.AvatarID, entry);
+        public void AddAllianceMember(AllianceMemberEntry entry) => m_vAllianceMembers.Add(entry.AvatarId, entry);
 
         public void AddChatMessage(StreamEntry.StreamEntry message)
         {
-            if (m_vChatMessages.Count >= m_vMaxChatMessagesNumber)
+            while (m_vChatMessages.Count >= m_vMaxChatMessagesNumber)
             {
                 m_vChatMessages.RemoveAt(0);
             }
@@ -74,7 +74,7 @@ namespace UCS.Logic
         public byte[] EncodeFullEntry()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(AllianceID);
+            data.AddLong(m_vAllianceId);
             data.AddString(m_vAllianceName);
             data.AddInt(m_vAllianceBadgeData);
             data.AddInt(m_vAllianceType);
@@ -99,7 +99,7 @@ namespace UCS.Logic
         public byte[] EncodeHeader()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(AllianceID);
+            data.AddLong(m_vAllianceId);
             data.AddString(m_vAllianceName);
             data.AddInt(m_vAllianceBadgeData);
             data.Add(0);
@@ -109,50 +109,9 @@ namespace UCS.Logic
             return data.ToArray();
         }
 
-        public int GetAllianceBadgeData() => m_vAllianceBadgeData;
-
-        public async Task<bool> IsAllianceMemberOnline()
-        {
-            foreach(var member in m_vAllianceMembers)
-            {
-                if(ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(member.Value.AvatarID)))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public string GetAllianceDescription() => m_vAllianceDescription;
-
-        public int GetAllianceExperience() => m_vAllianceExperience;
-
-
-        public int GetAllianceLevel() => m_vAllianceLevel;
-
-        public AllianceMemberEntry GetAllianceMember(long avatarId) => m_vAllianceMembers[avatarId];
-
         public List<AllianceMemberEntry> GetAllianceMembers() => m_vAllianceMembers.Values.ToList();
 
-        public string GetAllianceName() => m_vAllianceName;
-
-        public int GetAllianceOrigin() => m_vAllianceOrigin;
-
-        public int GetAllianceType() => m_vAllianceType;
-
         public List<StreamEntry.StreamEntry> GetChatMessages() => m_vChatMessages;
-
-        public int GetRequiredScore() => m_vRequiredScore;
-
-        public int GetTrophies() => m_vScore;
-
-        public int GetWarFrequency() => m_vWarFrequency;
-
-        public int GetWarScore() => m_vWonWars;
-
-        public byte GetWarLogPublic() => m_vWarLogPublic;
-
-        public byte GetFriendlyWar() => m_vFriendlyWar;
 
         public bool IsAllianceFull() => m_vAllianceMembers.Count >= m_vMaxAllianceMembers;
 
@@ -161,7 +120,7 @@ namespace UCS.Logic
             try
             {
                 JObject jsonObject = JObject.Parse(jsonString);
-                AllianceID = jsonObject["alliance_id"].ToObject<long>();
+                m_vAllianceId = jsonObject["alliance_id"].ToObject<long>();
                 m_vAllianceName = jsonObject["alliance_name"].ToObject<string>();
                 m_vAllianceBadgeData = jsonObject["alliance_badge"].ToObject<int>();
                 m_vAllianceType = jsonObject["alliance_type"].ToObject<int>();
@@ -183,7 +142,7 @@ namespace UCS.Logic
                     long id = jsonMember["avatar_id"].ToObject<long>();
                     Level pl = await ResourcesManager.GetPlayer(id);
                     AllianceMemberEntry member = new AllianceMemberEntry(id);
-                    m_vScore = m_vScore + pl.Avatar.GetTrophies();
+                    m_vScore = m_vScore + pl.Avatar.GetScore();
                     member.Load(jsonMember);
                     m_vAllianceMembers.Add(id, member);
                 }
@@ -219,7 +178,7 @@ namespace UCS.Logic
         public string SaveToJSON()
         {
             var jsonData = new JObject();
-            jsonData.Add("alliance_id", AllianceID);
+            jsonData.Add("alliance_id", m_vAllianceId);
             jsonData.Add("alliance_name", m_vAllianceName);
             jsonData.Add("alliance_badge", m_vAllianceBadgeData);
             jsonData.Add("alliance_type", m_vAllianceType);

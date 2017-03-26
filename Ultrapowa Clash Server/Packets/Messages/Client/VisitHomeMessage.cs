@@ -31,9 +31,9 @@ namespace UCS.Packets.Messages.Client
                 new VisitedHomeDataMessage(Device, targetLevel, this.Device.Player).Send();
 
 
-                if (this.Device.Player.Avatar.AllianceID > 0)
+                if (this.Device.Player.Avatar.AllianceId > 0)
                 {
-                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceID);
+                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                     if (alliance != null)
                     {
                         new AllianceStreamMessage(Device, alliance).Send();

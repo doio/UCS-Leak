@@ -15,7 +15,7 @@ namespace UCS.WebAPI
     {
         private static IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         private static HttpListener Listener;
-        private static int Port = Utils.ParseConfigInt("APIPort"); 
+        private static int Port = Utils.ParseConfigInt("APIPort"); // TODO: Add it to the config File
         private static string IP = ipHostInfo.AddressList[0].ToString();
         private static string URL = "http://" + IP + ":" + Port + "/";
 
@@ -28,10 +28,10 @@ namespace UCS.WebAPI
                     return sr.ReadToEnd();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
-                return "Error when reading the HTML File.";
+                Console.WriteLine();
+                return "File not Found";
             }
         }
 
@@ -43,13 +43,13 @@ namespace UCS.WebAPI
                 {
                     if (!HttpListener.IsSupported)
                     {
-                        Logger.Say("The current System doesn't support WebAPI.");
+                        Logger.Say("The current System doesn't support the WebAPI.");
                         return;
                     }
 
                     if (Port == 80)
                     {
-                        Logger.Say("Can't start the API on Port 80, using default Port(88)");
+                        Logger.Say("Can't start the API on Port 80 using now default Port(88)");
                         Port = 88;
                         URL = "http://" + IP + ":" + Port + "/";
                     }
@@ -69,7 +69,6 @@ namespace UCS.WebAPI
                             {
                                 try
                                 {
-                                    Logger.Write("New Api Request.");
                                     HttpListenerContext ctx = (HttpListenerContext)c;
                                     byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
                                     ctx.Response.ContentLength64 = responseBuf.Length;
@@ -78,7 +77,6 @@ namespace UCS.WebAPI
                                 }
                                 catch (Exception)
                                 {
-                                    Logger.Write("Failed to Process API request.");
                                 }
 
                             }, Listener.GetContext());

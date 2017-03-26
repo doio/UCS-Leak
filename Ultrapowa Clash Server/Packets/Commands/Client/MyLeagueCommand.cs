@@ -1,7 +1,5 @@
-﻿using UCS.Core.Network;
-using UCS.Helpers.Binary;
+﻿using UCS.Helpers.Binary;
 using UCS.Logic;
-using UCS.Packets.Messages.Server;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -15,7 +13,7 @@ namespace UCS.Packets.Commands.Client
 
         internal override void Process()
         {
-            new LeaguePlayersMessage(this.Device).Send();
+            //new LeaguePlayersMessage(level.Client).Send();
         }
     }
 }

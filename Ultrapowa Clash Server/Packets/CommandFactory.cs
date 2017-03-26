@@ -58,7 +58,6 @@ namespace UCS.Packets
                 {539, typeof(NewsSeenCommand)},
                 {540, typeof(RequestAllianceUnitsCommand)},
                 {541, typeof(SpeedUpRequestUnitsCommand)},
-                {542, typeof(ShareReplayCommand)},
                 {543, typeof(KickAllianceMemberCommand)},
                 {544, typeof(GetVillageLayoutsCommand)},
                 {546, typeof(EditVillageLayoutCommand)},
@@ -96,6 +95,8 @@ namespace UCS.Packets
             //Commands.Add(551, typeof(ContinueBarrackBoostCommand));
             //Commands.Add(563, typeof(CollectClanResourcesCommand));
             //Commands.Add(573, typeof(RemoveShieldToAttackCommand));
+
+
         }
     }
 }

@@ -12,7 +12,7 @@ namespace UCS.Packets
 
         public static void SendCommandFailedMessage(Device c)
         {
-            Console.WriteLine("GameOp command failed. Insufficient privileges. Requster ID -> " + c.Player.Avatar.UserID);
+            Console.WriteLine("GameOp command failed. Insufficient privileges. Requster ID -> " + c.Player.Avatar.UserId);
             var p = new GlobalChatLineMessage(c)
             {
                 Message = "GameOp command failed. Insufficient privileges.",

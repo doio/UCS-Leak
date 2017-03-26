@@ -13,9 +13,9 @@ namespace UCS.Logic.Enums
             Layout1    = 0,
             Layout2    = 2,
             Layout3    = 3,
-            /*WarLayout1 = 1,
+            WarLayout1 = 1,
             WarLayout2 = 4,
-            WarLayout3 = 5*/
+            WarLayout3 = 5
         }
     }
 }

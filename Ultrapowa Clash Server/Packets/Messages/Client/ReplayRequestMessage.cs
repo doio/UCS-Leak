@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
 using UCS.Logic;
@@ -10,29 +9,14 @@ namespace UCS.Packets.Messages.Client
     // Packet 14114
     internal class ReplayRequestMessage : Message
     {
-        internal long Replay_ID;
         public ReplayRequestMessage(Device device, Reader reader) : base(device, reader)
         {
         }
 
-        internal override void Decode()
-        {
-            this.Replay_ID = this.Reader.ReadInt64();
-            this.Reader.ReadByte();
-            this.Reader.ReadInt32();
-        }
-
         internal override void Process()
         {
-            if (this.Device.PlayerState == Logic.Enums.State.REPLAY)
-            {
-                ResourcesManager.DisconnectClient(this.Device);
-            }
-            else
-            {
-                this.Device.PlayerState = Logic.Enums.State.REPLAY;
-                new ReplayData(this.Device) { Battle_ID = this.Replay_ID }.Send();
-            }
+            this.Device.PlayerState = Logic.Enums.State.REPLAY;
+            new ReplayData(this.Device).Send();
         }
     }
 }

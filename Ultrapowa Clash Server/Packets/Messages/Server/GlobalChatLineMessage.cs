@@ -42,10 +42,11 @@ namespace UCS.Packets.Messages.Server
 
             if (!this.HasAlliance)
             {
-                this.Data.Add(1);
-                this.Data.AddLong(this.AllianceId);
-                this.Data.AddString(this.AllianceName);
-                this.Data.AddInt(this.AllianceIcon);
+                
+                    this.Data.Add(1);
+                    this.Data.AddLong(this.AllianceId);
+                    this.Data.AddString(this.AllianceName);
+                    this.Data.AddInt(this.AllianceIcon);
             }
             else
             {
@@ -56,12 +57,12 @@ namespace UCS.Packets.Messages.Server
 
         public void SetAlliance(Alliance alliance)
         {
-            if(alliance?.AllianceID > 0)
+            if(alliance?.m_vAllianceId > 0)
             {
                 this.HasAlliance = true;
-                this.AllianceId = alliance.AllianceID;
-                this.AllianceName = alliance.GetAllianceName();
-                this.AllianceIcon = alliance.GetAllianceBadgeData();
+                this.AllianceId = alliance.m_vAllianceId;
+                this.AllianceName = alliance.m_vAllianceName;
+                this.AllianceIcon = alliance.m_vAllianceBadgeData;
             }
         }
     }

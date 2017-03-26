@@ -24,6 +24,7 @@ namespace UCS.Packets.Messages.Client
             this.m_vAvatarId = this.Reader.ReadInt64();
             if (this.Reader.ReadBoolean())
                 this.m_vCurrentHomeId = this.Reader.ReadInt64();
+
         }
 
         internal override async void Process()

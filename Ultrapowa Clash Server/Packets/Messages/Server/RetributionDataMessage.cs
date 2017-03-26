@@ -21,23 +21,18 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ownerHome = new ClientHome(Player.Avatar.UserID)
-                {
-                    ShieldTime = Player.Avatar.Shield,
-                    GuardTime = Player.Avatar.Guard,
-                    Village = JsonBase
-                };
-
+                ClientHome ownerHome = new ClientHome(Player.Avatar.UserId);
+                ownerHome.SetShieldTime(Player.Avatar.m_vShieldTime);
+                ownerHome.SetProtectionTime(Player.Avatar.m_vProtectionTime);
+                ownerHome.SetHomeJSON(JsonBase);
 
                 this.Data.AddInt(0);
-                this.Data.AddInt((int)Player.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds); //Remake soon
+                this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                 this.Data.AddRange(ownerHome.Encode());
                 this.Data.AddRange(await Player.Avatar.Encode());
                 this.Data.AddInt(LevelId);
             }
-            catch (Exception)
-            {
-            }
+            catch(Exception){ }
         }
 
         public string JsonBase;

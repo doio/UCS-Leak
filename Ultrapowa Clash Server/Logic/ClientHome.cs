@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using UCS.Helpers;
 using UCS.Helpers.List;
-using System;
-using UCS.Core.Checker;
 
 namespace UCS.Logic
 {
-    internal class ClientHome
+    internal class ClientHome : Base
     {
-        internal long Id;
-        internal string Village;
-        internal int ShieldTime;
-        internal int GuardTime;
-        internal bool Amical;
+        readonly long m_vId;
+        string village;
+        int m_vShieldTime;
+        int m_vProtectionTime;
 
         public ClientHome()
         {
@@ -20,26 +17,33 @@ namespace UCS.Logic
 
         public ClientHome(long id)
         {
-            this.Id = id;
+            m_vId = id;
         }
 
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             List<byte> data = new List<byte>();
-            if (Amical) // Amical Battle
-            {
-                data.AddLong(this.Id);
-                data.AddLong(this.Id);
-            }
-            data.AddLong(this.Id);
+            data.AddLong(m_vId);
 
-            data.AddInt(this.ShieldTime); // Shield
-            data.AddInt(this.GuardTime); // Protection
+            data.AddInt(m_vShieldTime); // Shield
+            data.AddInt(m_vProtectionTime); // Protection
 
-            data.AddInt(1);
-            data.AddCompressed(this.Village);
+            data.AddInt(0);
+            data.AddCompressed(village);
             data.AddCompressed("{\"event\":[]}");
             return data.ToArray();
         }
+
+        public string GetHomeJSON() => village;
+
+        public void SetHomeJSON(string json) => village = json;
+
+        public void SetShieldTime(int seconds) => m_vShieldTime = seconds;
+
+        public int GetShieldTime() => m_vShieldTime;
+
+        public void SetProtectionTime(int time) => m_vProtectionTime = time;
+
+        public int GetProtectionTime() => m_vProtectionTime;
     }
 }

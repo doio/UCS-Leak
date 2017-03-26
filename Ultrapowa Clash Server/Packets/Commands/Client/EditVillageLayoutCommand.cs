@@ -1,5 +1,4 @@
 using UCS.Helpers.Binary;
-using UCS.Logic;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -26,13 +25,11 @@ namespace UCS.Packets.Commands.Client
 
         internal override void Process()
         {
-            /*if (this.Layout != this.Device.Player.Avatar.ActiveLayout
+            /*if (Layout != level.Avatar.GetActiveLayout())
             {
-                GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(BuildingID);
-                go.SetPositionXY(X, Y, this.Layout);
-            }*/
-
-            //System.Console.WriteLine(this.Layout);
+                GameObject go = level.GameObjectManager.GetGameObjectByID(BuildingID);
+                go.SetPositionXY(X, Y, Layout);
+            } */
         }
 
     }

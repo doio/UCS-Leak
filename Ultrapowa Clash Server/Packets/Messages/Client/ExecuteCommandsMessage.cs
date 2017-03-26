@@ -31,19 +31,17 @@ namespace UCS.Packets.Messages.Client
             this.CTick = this.Reader.ReadInt32();
             this.Checksum = this.Reader.ReadInt32();
             this.Count = this.Reader.ReadInt32();
-            this.STick =  this.STick = (int) Math.Floor(DateTime.UtcNow.Subtract(this.Device.Player.Avatar.Update).TotalSeconds * 20);
+            this.STick =  this.STick = (int) Math.Floor(DateTime.UtcNow.Subtract(this.Device.Player.Avatar.LastTickSaved).TotalSeconds * 20);
             this.LCommands = new List<Command>((int) this.Count);
             this.Commands = this.Reader.ReadBytes((int) (this.Reader.BaseStream.Length - this.Reader.BaseStream.Position));
         }
 
         internal override void Process()
         {
+
             this.Device.Player.Tick();
 
-            if (this.Device.PlayerState == Logic.Enums.State.IN_BATTLE)
-                Logger.Write((ResourcesManager.Battles[this.Device.Player.Avatar.BattleId].BattleTick = (int)this.CTick).ToString());
-
-            if (this.Count > -1 && this.Count <= 400)  
+            if (this.Count > -1 && this.Count <= 400)
             {
                 using (Reader Reader = new Reader(this.Commands))
                 {
@@ -67,9 +65,11 @@ namespace UCS.Packets.Messages.Client
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Logger.Write("Command " + CommandID + " has not been handled.");
                             if (this.LCommands.Any())
                                 Logger.Write("Previous command was " + this.LCommands.Last().Identifier + ". [" + (_Index + 1) + " / " + this.Count + "]");
+                            Console.ResetColor();
                             break;
 
                         }

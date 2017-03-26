@@ -8,7 +8,7 @@ namespace UCS.Logic.StreamEntry
     internal class AllianceEventStreamEntry : StreamEntry
     {
         long m_vAvatarId;
-        string m_vUsername;
+        string m_vAvatarName;
         int m_vEventType;
 
         public override byte[] Encode()
@@ -17,7 +17,7 @@ namespace UCS.Logic.StreamEntry
             data.AddRange(base.Encode());
             data.AddInt(m_vEventType);
             data.AddLong(m_vAvatarId);
-            data.AddString(m_vUsername);
+            data.AddString(m_vAvatarName);
             return data.ToArray();
         }
 
@@ -37,14 +37,14 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            m_vUsername = jsonObject["avatar_name"].ToObject<string>();
+            m_vAvatarName = jsonObject["avatar_name"].ToObject<string>();
             m_vEventType  = jsonObject["event_type"].ToObject<int>();
             m_vAvatarId   = jsonObject["avatar_id"].ToObject<long>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject.Add("avatar_name", m_vUsername);
+            jsonObject.Add("avatar_name", m_vAvatarName);
             jsonObject.Add("event_type", m_vEventType);
             jsonObject.Add("avatar_id", m_vAvatarId);
             return jsonObject;
@@ -52,7 +52,7 @@ namespace UCS.Logic.StreamEntry
 
         public void SetAvatarId(long id) => m_vAvatarId = id;
 
-        public void SetUsername(string name) => m_vUsername = name;
+        public void SetAvatarName(string name) => m_vAvatarName = name;
 
         public void SetEventType(int type) => m_vEventType = type;
     }

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UCS.Core;
 using UCS.Logic;
-using UCS.Logic.JSONProperty;
 using UCS.Utilities.ZLib;
-using Resources = UCS.Core.Resources;
 
 namespace UCS.Helpers.List
 {
@@ -111,16 +110,6 @@ namespace UCS.Helpers.List
                 _Packet.AddRange(dataSlot.Encode());
             }
         }
-        public static void AddDataSlots(this List<byte> _Packet, List<Slot> data)
-        {
-            _Packet.AddInt(data.Count);
-            foreach (var dataSlot in data)
-            {
-                _Packet.AddInt(dataSlot.Data);
-                _Packet.AddInt(dataSlot.Count);
-            }
-        }
-
         public static void AddByteArray(this List<byte> list, byte[] data)
         {
             if (data == null)
@@ -154,7 +143,7 @@ namespace UCS.Helpers.List
                 byte[] Compressed = ZlibStream.CompressString(_Value);
 
                 _Packet.AddInt(Compressed.Length + 4);
-                _Packet.AddInt(_Value.Length);
+                _Packet.AddRange(BitConverter.GetBytes(_Value.Length));
                 _Packet.AddRange(Compressed);
         }
 

@@ -36,10 +36,10 @@ namespace UCS.Packets.Messages.Client
 
                 InvitationStreamEntry cm = new InvitationStreamEntry();
                 cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.UserID);
-                cm.SetHomeId(player.UserID);
-                cm.SetSenderLeagueId(player.League);
-                cm.SetSenderName(player.Username);
+                cm.SetSenderId(player.UserId);
+                cm.SetHomeId(player.UserId);
+                cm.SetSenderLeagueId(player.m_vLeagueId);
+                cm.SetSenderName(player.AvatarName);
                 cm.SetSenderRole(await player.GetAllianceRole());
                 cm.SetMessage(Message);
                 cm.SetState(1);
@@ -47,7 +47,7 @@ namespace UCS.Packets.Messages.Client
 
                 foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                 {
-                    Level playera = await ResourcesManager.GetPlayer(op.AvatarID);
+                    Level playera = await ResourcesManager.GetPlayer(op.AvatarId);
                     if (playera.Client != null)
                     {
                         AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.Client);

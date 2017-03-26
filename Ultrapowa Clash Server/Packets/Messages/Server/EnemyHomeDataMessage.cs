@@ -1,5 +1,4 @@
 ﻿using System;
-using UCS.Core;
 using UCS.Helpers.List;
 using UCS.Logic;
 
@@ -19,16 +18,14 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserID)
-                {
-                    ShieldTime = this.OwnerLevel.Avatar.Shield,
-                    Village = this.OwnerLevel.SaveToJSON(),
-                    GuardTime = this.OwnerLevel.Avatar.Guard
-                };
+                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserId);
+                ch.SetShieldTime(this.OwnerLevel.Avatar.m_vShieldTime);
+                ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
+                ch.SetProtectionTime(this.OwnerLevel.Avatar.m_vProtectionTime);
 
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);
                 this.Data.AddInt(-1);
-                this.Data.AddInt((int)this.OwnerLevel.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddInt((int)this.OwnerLevel.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                 this.Data.AddRange(ch.Encode());
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
                 this.Data.AddRange(await this.VisitorLevel.Avatar.Encode());
@@ -38,21 +35,6 @@ namespace UCS.Packets.Messages.Server
             }
             catch (Exception)
             {
-            }
-        }
-        internal override void Process()
-        {
-            this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
-
-            if (this.Device.Player.Avatar.BattleId == 0)
-            {
-                ResourcesManager.AddBattle(ObjectManager.CreateBattle(this.Device.Player, OwnerLevel));
-            }
-            else
-            {
-                ResourcesManager.RemoveBattle(this.Device.Player.Avatar.BattleId);
-
-                ResourcesManager.AddBattle(ObjectManager.CreateBattle(this.Device.Player, OwnerLevel));
             }
         }
 

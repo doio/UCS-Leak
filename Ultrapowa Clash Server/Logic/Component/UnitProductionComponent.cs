@@ -41,7 +41,7 @@ namespace UCS.Logic
                     var ca = GetParent().Avatar.Avatar;
                     m_vTimer = new Timer();
                     var trainingTime = cd.GetTrainingTime(ca.GetUnitUpgradeLevel(cd));
-                    m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.Update);
+                    m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.LastTickSaved);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace UCS.Logic
                             if (firstUnit)
                             {
                                 if (m_vTimer != null)
-                                    result += m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update);
+                                    result += m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved);
                                 count--;
                                 firstUnit = false;
                             }
@@ -144,7 +144,7 @@ namespace UCS.Logic
             {
                 if (m_vTimer != null)
                 {
-                    if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update) == 0)
+                    if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) == 0)
                     {
                         result = m_vIsWaitingForSpace;
                     }
@@ -162,7 +162,7 @@ namespace UCS.Logic
             {
                 m_vTimer = new Timer();
                 var remainingTime = timeToken.ToObject<int>();
-                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.Update);
+                m_vTimer.StartTimer(remainingTime, GetParent().Avatar.Avatar.LastTickSaved);
             }
             var unitJsonArray = (JArray) unitProdObject["slots"];
             if (unitJsonArray != null)
@@ -239,7 +239,7 @@ namespace UCS.Logic
                             var ca = GetParent().Avatar.Avatar;
                             m_vTimer = new Timer();
                             var trainingTime = newcd.GetTrainingTime(ca.GetUnitUpgradeLevel(newcd));
-                            m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.Update);
+                            m_vTimer.StartTimer(trainingTime, GetParent().Avatar.Avatar.LastTickSaved);
                         }
                     }
                 }
@@ -256,7 +256,7 @@ namespace UCS.Logic
 
             if (m_vTimer != null)
             {
-                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update));
+                unitProdObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved));
             }
 
             if (GetSlotCount() >= 1)
@@ -302,7 +302,7 @@ namespace UCS.Logic
         {
             if (m_vTimer != null)
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.Update) <= 0)
+                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
                 {
                     ProductionCompleted();
                 }

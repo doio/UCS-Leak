@@ -37,7 +37,7 @@ namespace UCS.Logic
             {
                 AddComponent(new CombatComponent(this, level));
             }
-            if (!string.IsNullOrEmpty(GetBuildingData().ProducesResource))
+            if (GetBuildingData().ProducesResource != null && GetBuildingData().ProducesResource != string.Empty)
             {
                 string s = GetBuildingData().ProducesResource;
                 AddComponent(new ResourceProductionComponent(this, level));

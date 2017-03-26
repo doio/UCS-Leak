@@ -32,7 +32,7 @@ namespace UCS.Packets.Commands.Client
                 ca.CommodityCountChangeHelper(0, rd, -dd.GetBuildCost());
 
                 Deco d = new Deco(dd, this.Device.Player);
-                d.SetPositionXY(X, Y, this.Device.Player.Avatar.ActiveLayout);
+                d.SetPositionXY(X, Y, this.Device.Player.Avatar.m_vActiveLayout);
                 this.Device.Player.GameObjectManager.AddGameObject(d);
             }
         }

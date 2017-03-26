@@ -20,24 +20,28 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserID)
-                {
-                    Village = this.OwnerLevel.SaveToJSON(),
-                    Amical = false
-                };
-                this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);
-                this.Data.AddInt(-1);
-                this.Data.AddInt((int)this.OwnerLevel.Avatar.Update.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                this.Data.AddRange(new byte[]
+{
+                0x00, 0x00, 0x00, 0xF0,
+                0xFF, 0xFF, 0xFF, 0xFF,
+                0x54, 0xCE, 0x5C, 0x4A
+});
+                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserId);
+                ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
                 this.Data.AddRange(ch.Encode());
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
-                this.Data.AddRange(await this.VisitorLevel.Avatar.Encode());
-                this.Data.AddInt(1); // 1 : Amical ?       2 : next button disabled       3 : PvP         5 : Amical again ?
+                this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
+                this.Data.AddRange(new byte[]
+                {
+                0x00, 0x00, 0x00, 0x03, 0x00
+                });
                 this.Data.AddInt(0);
-                this.Data.Add(0);
+                this.Data.AddInt(0);
+                this.Data.AddLong(0);
+                this.Data.AddLong(0);
+                this.Data.AddLong(0);
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
     }
 }

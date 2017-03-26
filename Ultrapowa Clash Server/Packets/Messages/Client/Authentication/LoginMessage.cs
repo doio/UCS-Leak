@@ -192,7 +192,7 @@ namespace UCS.Packets.Messages.Client
 
                     string[] cv2 = ConfigurationManager.AppSettings["ClientVersion"].Split('.');
                     string[] cv = ClientVersion.Split('.');
-                    if (cv[0] != cv2[0] || cv[1] != cv2[1])
+                    if (cv[0] != cv2[0] || cv[1] != cv2[1] || cv[2] != cv2[2])
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Device)
                         {
@@ -205,7 +205,7 @@ namespace UCS.Packets.Messages.Client
                         return;
                     }
 
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha && Constants.LicensePlanID != 1)
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Device)
                         {
@@ -235,21 +235,10 @@ namespace UCS.Packets.Messages.Client
             };
             l.Send();
 
-            AllianceMailStreamEntry _Mail = new AllianceMailStreamEntry();
-            _Mail.SetAllianceName("Ultrapowa Dev");
-            _Mail.SetSenderLeagueId(22);
-            _Mail.SetIsNew(2);
-            _Mail.SetMessage(Utils.ParseConfigString("AdminMessage"));
-            _Mail.SetSenderName("Ultrapowa");
-            _Mail.SetAllianceBadgeData(1526735450);
-            _Mail.SetSenderId(0);
-            AvatarStreamEntryMessage Mail = new AvatarStreamEntryMessage(this.Device);
-            Mail.SetAvatarStreamEntry(_Mail);
-
-            if (level.Avatar.AllianceID > 0)
+            if (level.Avatar.AllianceId > 0)
             {
 
-                Alliance alliance = await ObjectManager.GetAlliance(level.Avatar.AllianceID);
+                Alliance alliance = await ObjectManager.GetAlliance(level.Avatar.AllianceId);
                 if (alliance != null)
                 {
                     new AllianceFullEntryMessage(this.Device, alliance).Send();
@@ -258,20 +247,39 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    this.level.Avatar.AllianceID = 0;
+                    this.level.Avatar.AllianceId = 0;
                 }
             }
             new AvatarStreamMessage(this.Device).Send();
             new OwnHomeDataMessage(this.Device, level).Send();
             new BookmarkMessage(this.Device).Send();
-            new LeaguePlayersMessage(this.Device).Send();
-            Mail.Send();
+
+            if (ResourcesManager.IsPlayerOnline(level))
+            {
+                AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
+                mail.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                mail.SetSenderId(0);
+                mail.SetSenderAvatarId(0);
+                //mail.SetSenderName("Clash Of Heroes Team");
+                mail.SetSenderName("Server Manager");
+                mail.SetIsNew(2);
+                mail.SetAllianceId(0);
+                mail.SetSenderLeagueId(22);
+                mail.SetAllianceBadgeData(1526735450);
+                //mail.SetAllianceName("COH-TEAM");
+                mail.SetAllianceName("Server Admin");
+                mail.SetMessage(ConfigurationManager.AppSettings["AdminMessage"]);
+                mail.SetSenderLevel(500);
+                AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.Client);
+                p.SetAvatarStreamEntry(mail);
+                p.Send();
+            }
         }
 
         private async void CheckClient()
         {
             try
-            {   
+            {
                 if (UserID == 0 || string.IsNullOrEmpty(UserToken))
                 {
                      NewUser();
@@ -281,13 +289,13 @@ namespace UCS.Packets.Messages.Client
                 level = await ResourcesManager.GetPlayer(UserID);
                 if (level != null)
                 {
-                    if (level.Avatar.Banned)
+                    if (level.Avatar.AccountBanned)
                     {
                         LoginFailedMessage p = new LoginFailedMessage(Device) {ErrorCode = 11};
                         p.Send();
                         return;
                     }
-                    if (string.Equals(level.Avatar.Token, UserToken, StringComparison.Ordinal))
+                    if (string.Equals(level.Avatar.UserToken, UserToken, StringComparison.Ordinal))
                     {
                         LogUser();
                     }
@@ -296,7 +304,7 @@ namespace UCS.Packets.Messages.Client
                         LoginFailedMessage p = new LoginFailedMessage(Device)
                         {
                             ErrorCode = 11,
-                            Reason = "We have some Problems with your Account. Please clean your App Data."
+                            Reason = "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
                         };
                         // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                  
                         p.Send();
@@ -309,7 +317,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         ErrorCode = 11,
                         Reason =
-                            "We have some Problems with your Account. Please clean your App Data."
+                            "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
                     };
                     /*FOR FHX*/     // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                                  
                     p.Send();
@@ -326,11 +334,14 @@ namespace UCS.Packets.Messages.Client
                 for (int i = 0; i < 20; i++)
                 {
                     char Letter = (char)Core.Resources.Random.Next('A', 'Z');
-                    this.level.Avatar.Token = this.level.Avatar.Token + Letter;
+                    this.level.Avatar.UserToken = this.level.Avatar.UserToken + Letter;
                 }
             }
 
             level.Avatar.Region = Region.ToUpper();
+            level.Avatar.InitializeAccountCreationDate();
+            level.Avatar.SetAndroid(Android);
+
             DatabaseManager.Single().Save(level);
             LogUser();
         }

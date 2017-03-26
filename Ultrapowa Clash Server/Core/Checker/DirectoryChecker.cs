@@ -12,15 +12,12 @@ namespace UCS.Core.Checker
     {
         public DirectoryChecker()
         {
-            LoadEvents();
             Directorys();
             Files();
             LoadFilter();
         }
 
         public static List<string> badwords = new List<string>();
-
-        public static string _Events = null;
 
         public static void LoadFilter()
         {
@@ -33,12 +30,6 @@ namespace UCS.Core.Checker
                     badwords.Add(line);
                 }
             }
-        }
-
-        public static void LoadEvents()
-        {
-            _Events = "{\"event\":[]}";
-            //_Events = File.Exists("calendar.json") ? File.ReadAllText("calendar.json") : "{\"event\":[]}";
         }
 
         public static void Directorys()

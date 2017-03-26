@@ -29,13 +29,13 @@ namespace UCS.Packets.GameOpCommands
                         if (l != null)
                         {
                             ClientAvatar acc = l.Avatar;
-                            Message = "Player Info : \n\n" + "ID = " + id + "\nName = " + acc.Username +
-                                      "\nCreation Date : " + acc.Created + "\nRegion : " + acc.Region +
+                            Message = "Player Info : \n\n" + "ID = " + id + "\nName = " + acc.AvatarName +
+                                      "\nCreation Date : " + acc.m_vAccountCreationDate + "\nRegion : " + acc.Region +
                                       "\nIP Address : " + l.Avatar.IPAddress;
-                            if (acc.AllianceID != 0)
+                            if (acc.AllianceId != 0)
                             {
-                                Alliance a = await ObjectManager.GetAlliance(acc.AllianceID);
-                                Message = Message + "\nClan Name : " + a.GetAllianceName();
+                                Alliance a = await ObjectManager.GetAlliance(acc.AllianceId);
+                                Message = Message + "\nClan Name : " + a.m_vAllianceName;
                                 switch (await acc.GetAllianceRole())
                                 {
                                     case 1:
@@ -59,22 +59,22 @@ namespace UCS.Packets.GameOpCommands
                                         break;
                                 }
                             }
-                            Message = Message + "\nLevel : " + acc.Level + "\nTrophy : " + acc.GetTrophies() +
-                                      "\nTown Hall Level : " + (acc.TownHall_Level + 1) +
-                                      "\nAlliance Castle Level : " + (acc.Castle_Level+ 1);
+                            Message = Message + "\nLevel : " + acc.m_vAvatarLevel + "\nTrophy : " + acc.GetScore() +
+                                      "\nTown Hall Level : " + (acc.GetTownHallLevel() + 1) +
+                                      "\nAlliance Castle Level : " + (acc.GetAllianceCastleLevel() + 1);
 
                             var avatar = level.Avatar;
                             AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
-                            mail.SetSenderId(avatar.UserID);
-                            mail.SetSenderAvatarId(avatar.UserID);
-                            mail.SetSenderName(avatar.Username);
+                            mail.SetSenderId(avatar.UserId);
+                            mail.SetSenderAvatarId(avatar.UserId);
+                            mail.SetSenderName(avatar.AvatarName);
                             mail.SetIsNew(2);
                             mail.SetAllianceId(0);
                             mail.SetAllianceBadgeData(1526735450);
                             mail.SetAllianceName("UCS Server Information");
                             mail.SetMessage(Message);
-                            mail.SetSenderLevel(avatar.Level);
-                            mail.SetSenderLeagueId(avatar.League);
+                            mail.SetSenderLevel(avatar.m_vAvatarLevel);
+                            mail.SetSenderLeagueId(avatar.m_vLeagueId);
 
                             AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.Client);
                             p.SetAvatarStreamEntry(mail);
@@ -86,8 +86,8 @@ namespace UCS.Packets.GameOpCommands
                         GlobalChatLineMessage c = new GlobalChatLineMessage(level.Client)
                         {
                             Message = "Command Failed, Wrong Format Or User Doesn't Exist (/accinfo id).",
-                            HomeId = level.Avatar.UserID,
-                            CurrentHomeId = level.Avatar.UserID,
+                            HomeId = level.Avatar.UserId,
+                            CurrentHomeId = level.Avatar.UserId,
                             LeagueId = 22,
                             PlayerName = "Ultrapowa Clash Server"
                         };
@@ -101,8 +101,8 @@ namespace UCS.Packets.GameOpCommands
                     GlobalChatLineMessage b = new GlobalChatLineMessage(level.Client)
                     {
                         Message = "Command Failed, Wrong Format (/accinfo id).",
-                        HomeId = level.Avatar.UserID,
-                        CurrentHomeId = level.Avatar.UserID,
+                        HomeId = level.Avatar.UserId,
+                        CurrentHomeId = level.Avatar.UserId,
                         LeagueId = 22,
                         PlayerName = "Ultrapowa Clash Server"
                     };

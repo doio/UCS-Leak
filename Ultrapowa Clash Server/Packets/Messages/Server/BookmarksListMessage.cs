@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UCS.Core;
 using UCS.Helpers.List;
@@ -22,37 +21,31 @@ namespace UCS.Packets.Messages.Server
 
         internal override async void Encode()
         {
-            try
+            List<byte> list = new List<byte>();
+            List<BookmarkSlot> rem = new List<BookmarkSlot>();
+
+            foreach (var p in Player.BookmarkedClan)
             {
-                List<byte> list = new List<byte>();
-                List<long> rem = new List<long>();
-
-                foreach (var p in Player.Bookmark)
+                Alliance a = await ObjectManager.GetAlliance(p.Value);
+                if (a != null)
                 {
-                    Alliance a = await ObjectManager.GetAlliance(p);
-                    if (a != null)
-                    {
-                        list.AddRange(a.EncodeFullEntry());
-                        I++;
-                    }
-                    else
-                    {
-                        rem.Add(p);
-                        if (I > 0)
-                            I--;
-                    }
+                    list.AddRange(a.EncodeFullEntry());
+                    I++;
                 }
-
-                this.Data.AddInt(I);
-                this.Data.AddRange(list);
-
-                foreach (var im in rem)
+                else
                 {
-                    Player.Bookmark.RemoveAll(t => t == im);
+                    rem.Add(p);
+                    if (I > 0)
+                        I--;
                 }
             }
-            catch (Exception)
+
+            this.Data.AddInt(I);
+            this.Data.AddRange(list);
+
+            foreach (BookmarkSlot im in rem)
             {
+                Player.BookmarkedClan.RemoveAll(t => t == im);
             }
         }
     }

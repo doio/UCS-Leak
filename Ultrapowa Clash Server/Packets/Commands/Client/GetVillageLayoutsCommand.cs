@@ -8,5 +8,6 @@ namespace UCS.Packets.Commands.Client
         public GetVillageLayoutsCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
         }
+
     }
 }

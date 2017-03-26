@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UCS.Files.Logic;
 using UCS.Helpers.Binary;
-using UCS.Logic.JSONProperty;
+using UCS.Logic;
 
-namespace UCS.Packets.Commands.Client
+namespace UCS.Packets.Commands
 {
     // Packet 604
     internal class CastSpellCommand : Command
@@ -16,18 +16,18 @@ namespace UCS.Packets.Commands.Client
         {
             this.X = this.Reader.ReadInt32();
             this.Y = this.Reader.ReadInt32();
-            this.Spell = (SpellData)this.Reader.ReadDataReference();
+            this.Spell = (SpellData) this.Reader.ReadDataReference();
             this.Unknown1 = this.Reader.ReadUInt32();
         }
 
         internal override void Process()
         {
-            List<Slot> _PlayerSpells = this.Device.Player.Avatar.Spells;
+            List<DataSlot> _PlayerSpells = this.Device.Player.Avatar.GetSpells();
 
-            Slot _DataSlot = _PlayerSpells.Find(t => t.Data == Spell.GetGlobalID());
+            DataSlot _DataSlot = _PlayerSpells.Find(t => t.Data.GetGlobalID() == Spell.GetGlobalID());
             if (_DataSlot != null)
             {
-                _DataSlot.Count -= 1;
+                _DataSlot.Value = _DataSlot.Value - 1;
             }
         }
 

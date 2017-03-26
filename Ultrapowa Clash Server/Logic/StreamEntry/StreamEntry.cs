@@ -104,11 +104,11 @@ namespace UCS.Logic.StreamEntry
 
         public async void SetSender(ClientAvatar avatar)
         {
-            m_vSenderId       = avatar.UserID;
-            m_vHomeId         = avatar.UserID;
-            m_vSenderName     = avatar.Username;
-            m_vSenderLeagueId = avatar.League;
-            m_vSenderLevel    = avatar.Level;
+            m_vSenderId       = avatar.UserId;
+            m_vHomeId         = avatar.UserId;
+            m_vSenderName     = avatar.AvatarName;
+            m_vSenderLeagueId = avatar.m_vLeagueId;
+            m_vSenderLevel    = avatar.m_vAvatarLevel;
             m_vSenderRole     = await avatar.GetAllianceRole();
         }
 

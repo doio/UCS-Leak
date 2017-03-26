@@ -28,7 +28,7 @@ namespace UCS.Packets.Commands.Client
             try
             {
                 var avatar = this.Device.Player.Avatar;
-                var allianceId = avatar.AllianceID;
+                var allianceId = avatar.AllianceId;
                 if (allianceId > 0)
                 {
                     var alliance = await ObjectManager.GetAlliance(allianceId);
@@ -38,15 +38,15 @@ namespace UCS.Packets.Commands.Client
                         mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                         mail.SetAvatar(avatar);
                         mail.SetIsNew(2);
-                        mail.SetSenderId(avatar.UserID);
+                        mail.SetSenderId(avatar.UserId);
                         mail.SetAllianceId(allianceId);
-                        mail.SetAllianceBadgeData(alliance.GetAllianceBadgeData());
-                        mail.SetAllianceName(alliance.GetAllianceName());
+                        mail.SetAllianceBadgeData(alliance.m_vAllianceBadgeData);
+                        mail.SetAllianceName(alliance.m_vAllianceName);
                         mail.SetMessage(m_vMailContent);
 
                         foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
                         {
-                            if (onlinePlayer.Avatar.AllianceID == allianceId)
+                            if (onlinePlayer.Avatar.AllianceId == allianceId)
                             {
                                 var p = new AvatarStreamEntryMessage(onlinePlayer.Client);
                                 p.SetAvatarStreamEntry(mail);

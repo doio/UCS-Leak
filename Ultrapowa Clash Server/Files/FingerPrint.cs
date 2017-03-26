@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UCS.Core;
 
 namespace UCS.Files
 {
@@ -22,9 +21,8 @@ namespace UCS.Files
                 LoadFromJson(fpstring);
             }
             else
-            {
-                Logger.Error("Failed to load the Fingerprint!");
-            }
+                Console.WriteLine(
+                    "[UCS]    LoadFingerPrint: error! tried to load FingerPrint without file, run gen_patch first");
         }
 
         public List<GameFile> files { get; set; }

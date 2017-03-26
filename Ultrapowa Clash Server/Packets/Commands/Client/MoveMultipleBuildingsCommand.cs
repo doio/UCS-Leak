@@ -42,7 +42,7 @@ namespace UCS.Packets.Commands.Client
             foreach (var buildingToMove in this.m_vBuildingsToMove)
             {
                 GameObject go = this.Device.Player.GameObjectManager.GetGameObjectByID(buildingToMove.GameObjectId);
-                go.SetPositionXY(buildingToMove.X, buildingToMove.Y, this.Device.Player.Avatar.ActiveLayout);
+                go.SetPositionXY(buildingToMove.X, buildingToMove.Y, this.Device.Player.Avatar.m_vActiveLayout);
             }
         }
     }

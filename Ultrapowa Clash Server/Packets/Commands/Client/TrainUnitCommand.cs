@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using UCS.Core;
 using UCS.Files.Logic;
+using UCS.Helpers;
 using UCS.Helpers.Binary;
 using UCS.Logic;
-using UCS.Logic.JSONProperty;
 
 namespace UCS.Packets.Commands.Client
 {
@@ -11,7 +14,7 @@ namespace UCS.Packets.Commands.Client
     {
         public TrainUnitCommand(Reader reader, Device client, int id) : base(reader, client, id)
         {
-
+            
         }
 
         internal override void Decode()
@@ -19,9 +22,9 @@ namespace UCS.Packets.Commands.Client
             this.Reader.ReadInt32();
             this.Reader.ReadUInt32();
             this.UnitType = this.Reader.ReadInt32();
-            this.Count = this.Reader.ReadInt32();
+            this.Count    = this.Reader.ReadInt32();
             this.Reader.ReadUInt32();
-            Tick = this.Reader.ReadInt32();
+            Tick     = this.Reader.ReadInt32();
         }
 
         public int Count;
@@ -35,43 +38,45 @@ namespace UCS.Packets.Commands.Client
             if (UnitType.ToString().StartsWith("400"))
             {
                 CombatItemData _TroopData = (CombatItemData)CSVManager.DataTables.GetDataById(UnitType);
+                List<DataSlot> _PlayerUnits = this.Device.Player.Avatar.GetUnits();
                 ResourceData _TrainingResource = _TroopData.GetTrainingResource();
 
                 if (_TroopData != null)
                 {
-                    Slot _DataSlot = _Player.Units.Find(t => t.Data == _TroopData.GetGlobalID());
+                    DataSlot _DataSlot = _PlayerUnits.Find(t => t.Data.GetGlobalID() == _TroopData.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Count += this.Count;
+                        _DataSlot.Value = _DataSlot.Value + this.Count;
                     }
                     else
                     {
-                        Slot ds = new Slot(_TroopData.GetGlobalID(), this.Count);
-                        _Player.Units.Add(ds);
+                        DataSlot ds = new DataSlot(_TroopData, this.Count);
+                        _PlayerUnits.Add(ds);
                     }
 
-                    _Player.Resources.Minus(_TrainingResource.GetGlobalID(), _TroopData.GetTrainingCost(_Player.GetUnitUpgradeLevel(_TroopData)));
+                    _Player.SetResourceCount(_TrainingResource, _Player.GetResourceCount(_TrainingResource) - _TroopData.GetTrainingCost(_Player.GetUnitUpgradeLevel(_TroopData)));
                 }
             }
             else if (UnitType.ToString().StartsWith("260"))
             {
                 SpellData _SpellData = (SpellData)CSVManager.DataTables.GetDataById(UnitType);
+                List<DataSlot> _PlayerSpells = this.Device.Player.Avatar.GetSpells();
                 ResourceData _CastResource = _SpellData.GetTrainingResource();
 
                 if (_SpellData != null)
                 {
-                    Slot _DataSlot = _Player.Spells.Find(t => t.Data == _SpellData.GetGlobalID());
+                    DataSlot _DataSlot = _PlayerSpells.Find(t => t.Data.GetGlobalID() == _SpellData.GetGlobalID());
                     if (_DataSlot != null)
                     {
-                        _DataSlot.Count += this.Count;
+                        _DataSlot.Value = _DataSlot.Value + this.Count;
                     }
                     else
                     {
-                        Slot ds = new Slot(_SpellData.GetGlobalID(), this.Count);
-                        _Player.Spells.Add(ds);
+                        DataSlot ds = new DataSlot(_SpellData, this.Count);
+                        _PlayerSpells.Add(ds);
                     }
 
-                    _Player.Resources.Minus(_CastResource.GetGlobalID(), _SpellData.GetTrainingCost(_Player.GetUnitUpgradeLevel(_SpellData)));
+                    _Player.SetResourceCount(_CastResource, _Player.GetResourceCount(_CastResource) - _SpellData.GetTrainingCost(_Player.GetUnitUpgradeLevel(_SpellData)));
                 }
             }
         }
