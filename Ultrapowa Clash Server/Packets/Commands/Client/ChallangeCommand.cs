@@ -1,3 +1,4 @@
+using System;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
@@ -22,7 +23,8 @@ namespace UCS.Packets.Commands
 
         internal override async void Process()
         {
-
+            try
+            {
                 ClientAvatar player = this.Device.Player.Avatar;
                 long allianceID = player.AllianceId;
                 Alliance alliance = await ObjectManager.GetAlliance(allianceID);
@@ -46,23 +48,25 @@ namespace UCS.Packets.Commands
                         Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (alliancemembers.Client != null)
                         {
-                        new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
+                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
                         }
                     }
                 }
 
                 alliance.AddChatMessage(cm);
 
-            foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
-            {
-                Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
-                if (alliancemembers.Client != null)
+                foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                 {
-                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
-                    p.SetStreamEntry(cm);
-                    p.Send();
+                    Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
+                    if (alliancemembers.Client != null)
+                    {
+                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
+                        p.SetStreamEntry(cm);
+                        p.Send();
+                    }
                 }
             }
+            catch (Exception) { }
         }
     }
 }
