@@ -14,7 +14,6 @@ namespace UCS.Packets.Messages.Client
         {
         }
 
-
         internal override void Process()
         {
             new LocalPlayersMessage(Device).Send();

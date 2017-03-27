@@ -37,6 +37,10 @@ namespace UCS.Packets.Messages.Client
                         }
                     }
                 }
+                else
+                {
+                    new OutOfSyncMessage(this.Device).Send();
+                }
             } catch (Exception) { }
         }
 

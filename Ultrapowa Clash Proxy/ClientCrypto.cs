@@ -74,8 +74,9 @@ namespace UCP
             {
                 using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))
                 {
-                    Console.WriteLine(_Reader.ReadInt64());
-                    Console.WriteLine(_Reader.ReadInt64()); // Need to be found
+                    Console.WriteLine(_Reader.ReadInt64()); // player id
+                    Console.WriteLine(_Reader.ReadByte()); // 0 = revert back, 1 = sent;
+                    Console.WriteLine(BitConverter.ToString(_Reader.ReadBytes()).Replace("-", ""));
                 }
 
                 ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);

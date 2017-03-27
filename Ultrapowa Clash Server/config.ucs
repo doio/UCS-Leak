@@ -43,6 +43,8 @@
       <!-- The Port of the Server (default is 9339)-->
   <add key="LogLevel" value="1"/>
       <!-- Default for no log = 0, for Full Log = 1, Log only = 2-->
+  <add key="Animation" value="true"/>
+  <!-- Use Start Animation = true/false -->
   <!-- _______________________________________________________________________________________ -->
 
   <!-- ____________________________________ Redis SETTINGS ____________________________________ -->

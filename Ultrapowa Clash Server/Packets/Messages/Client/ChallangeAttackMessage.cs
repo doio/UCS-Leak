@@ -38,35 +38,42 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
-                    Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                    Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.GetId() == ID).GetSenderId());
-                    if (defender != null)
+                    if (ID > 0)
                     {
-                        defender.Tick();
-                        new ChallangeAttackDataMessage(Device, defender).Send();
+                        this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
+                        Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                        Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.GetId() == ID).GetSenderId());
+                        if (defender != null)
+                        {
+                            defender.Tick();
+                            new ChallangeAttackDataMessage(Device, defender).Send();
+                        }
+                        else
+                        {
+                            new OwnHomeDataMessage(Device, this.Device.Player).Send();
+                        }
+
+                        Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                        StreamEntry s = alliance.m_vChatMessages.Find(c => c.GetStreamEntryType() == 12);
+                        if (s != null)
+                        {
+                            alliance.m_vChatMessages.RemoveAll(t => t == s);
+
+                            foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
+                            {
+                                Level playera = await ResourcesManager.GetPlayer(op.AvatarId);
+                                if (playera.Client != null)
+                                {
+                                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.Client);
+                                    p.SetStreamEntry(s);
+                                    p.Send();
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        new OwnHomeDataMessage(Device, this.Device.Player).Send();
-                    }
-
-                    Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                    StreamEntry s = alliance.m_vChatMessages.Find(c => c.GetStreamEntryType() == 12);
-                    if (s != null)
-                    {
-                        alliance.m_vChatMessages.RemoveAll(t => t == s);
-
-                        foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
-                        {
-                            Level playera = await ResourcesManager.GetPlayer(op.AvatarId);
-                            if (playera.Client != null)
-                            {
-                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(playera.Client);
-                                p.SetStreamEntry(s);
-                                p.Send();
-                            }
-                        }
+                        new OutOfSyncMessage(this.Device).Send();
                     }
                 }
             } catch (Exception) { }

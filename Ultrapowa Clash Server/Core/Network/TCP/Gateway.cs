@@ -9,6 +9,7 @@ using UCS.Core.Settings;
 using UCS.Packets;
 using System.Configuration;
 using UCS.Helpers;
+using UCS.Core.Checker;
 
 namespace UCS.Core.Network
 {
@@ -80,37 +81,39 @@ namespace UCS.Core.Network
 
             if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
             {
-                Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
-
-
-                SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
-
-                if (ReadEvent != null)
+                if (!ConnectionBlocker.Banned_IPs.Contains(((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()))
                 {
-                    Device device = new Device(Socket)
+                    Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
+
+                    SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
+
+                    if (ReadEvent != null)
                     {
-                        IPAddress = ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()
-
-                    };
-
-                    Token Token = new Token(ReadEvent, device);
-                    Interlocked.Increment(ref this.ConnectedSockets);
-                    ResourcesManager.AddClient(device);
-
-                    Task.Run(() =>
-                    {
-                        try
+                        Device device = new Device(Socket)
                         {
-                            if (!Socket.ReceiveAsync(ReadEvent))
+                            IPAddress = ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()
+
+                        };
+
+                        Token Token = new Token(ReadEvent, device);
+                        Interlocked.Increment(ref this.ConnectedSockets);
+                        ResourcesManager.AddClient(device);
+
+                        Task.Run(() =>
+                        {
+                            try
                             {
-                                this.ProcessReceive(ReadEvent);
+                                if (!Socket.ReceiveAsync(ReadEvent))
+                                {
+                                    this.ProcessReceive(ReadEvent);
+                                }
                             }
-                        }
-                        catch (Exception)
-                        {
-                            this.Disconnect(ReadEvent);
-                        }
-                    });
+                            catch (Exception)
+                            {
+                                this.Disconnect(ReadEvent);
+                            }
+                        });
+                    }
                 }
             }
             else

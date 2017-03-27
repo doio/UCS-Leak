@@ -278,6 +278,7 @@
     <Compile Include="Packets\Messages\Client\Api\Bind_Google_Message.cs" />
     <Compile Include="Packets\Messages\Client\RetributionAttackerMessage.cs" />
     <Compile Include="Packets\Messages\Server\Api\Facebook_Connect_OK.cs" />
+    <Compile Include="Packets\Messages\Server\Clash_Friend_Request_Sent_Message.cs" />
     <Compile Include="Packets\Messages\Server\DeviceAlreadyBoundMessage.cs" />
     <Compile Include="Packets\Messages\Server\Friend_Request_Failed_Message.cs" />
     <Compile Include="Packets\Messages\Server\RetributionDataMessage.cs" />
@@ -1024,9 +1025,7 @@
     <None Include="start.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ucsdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="ucsdb" />
     <None Include="Ultrapowa Clash Server.psproj" />
   </ItemGroup>
   <ItemGroup>

@@ -95,16 +95,11 @@ namespace UCS.Packets
                             }
                             catch (Exception Exception)
                             {
-#if DEBUG
-                                Console.WriteLine(Utils.Padding(Exception.GetType().Name, 15) + " : " + Exception.Message + ". [" + (this.Player != null ? this.Player.Avatar.HighID + ":" + this.Player.Avatar.LowID : "---") + ']' + Environment.NewLine + Exception.StackTrace);
-#endif
                             }
                         }
                         else
                         {
                             Logger.Write("Message " + Identifier + " is unhandled");
-                            Debug.WriteLine(Utils.Padding(this.GetType().Name, 15) +  " : Aborting, we can't handle the following message : ID " +  Identifier + ", Length " + Length + ", Version " +  Version + ".");
-
                             this.Keys.SNonce.Increment();
                         }
 
