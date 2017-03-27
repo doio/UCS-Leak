@@ -68,7 +68,6 @@ namespace UCS.Logic
                 data.AddInt(400);
                 data.AddInt(0);
                 data.AddInt(0);
-                avatar.Avatar.SetAllianceId(0);
             }          
             data.AddInt(Order);
             data.AddInt(PreviousOrder);

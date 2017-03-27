@@ -209,7 +209,7 @@ namespace UCS
                 txtPlayerName.Text = Convert.ToString(l.Avatar.AvatarName);
                 txtPlayerScore.Text = Convert.ToString(l.Avatar.GetScore());
                 txtPlayerGems.Text = Convert.ToString(l.Avatar.m_vCurrentGems);
-                txtTownHallLevel.Text = Convert.ToString(l.Avatar.GetTownHallLevel());
+                txtTownHallLevel.Text = Convert.ToString(l.Avatar.m_vTownHallLevel);
                 txtAllianceID.Text = Convert.ToString(l.Avatar.AllianceId);
                 materialLabel7.Text = l.Avatar.Region;
                 txtPlayerLevel.Text = l.Avatar.m_vAvatarLevel.ToString();
@@ -582,7 +582,7 @@ namespace UCS
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                Alliance alliance = await ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 txtAllianceName.Text = alliance.m_vAllianceName;
                 txtAllianceLevel.Text = alliance.m_vAllianceLevel.ToString();
                 txtAllianceDescription.Text = alliance.m_vAllianceDescription;
@@ -606,7 +606,7 @@ namespace UCS
         {
             if(!string.IsNullOrEmpty(txtID.Text))
             {
-                Alliance alliance = await ObjectManager.GetAlliance(long.Parse(txtID.Text));
+                Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
                 alliance.SetAllianceName(txtAllianceName.Text);
                 alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
                 alliance.SetAllianceDescription(txtAllianceDescription.Text);

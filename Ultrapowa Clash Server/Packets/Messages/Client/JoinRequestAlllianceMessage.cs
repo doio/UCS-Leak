@@ -32,15 +32,11 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 ClientAvatar player = this.Device.Player.Avatar;
-                Alliance all = await ObjectManager.GetAlliance(ID);
+                Alliance all = ObjectManager.GetAlliance(ID);
 
                 InvitationStreamEntry cm = new InvitationStreamEntry();
-                cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.UserId);
-                cm.SetHomeId(player.UserId);
-                cm.SetSenderLeagueId(player.m_vLeagueId);
-                cm.SetSenderName(player.AvatarName);
-                cm.SetSenderRole(await player.GetAllianceRole());
+                cm.SetId(all.m_vChatMessages.Count + 1);
+                cm.SetSender(player);
                 cm.SetMessage(Message);
                 cm.SetState(1);
                 all.AddChatMessage(cm);

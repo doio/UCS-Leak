@@ -41,7 +41,7 @@ namespace UCS.Packets.Commands.Client
                     var requesterAllianceId = requesterAvatar.AllianceId;
                     if (requesterAllianceId > 0 && targetAllianceId == requesterAllianceId)
                     {
-                        var alliance = await ObjectManager.GetAlliance(requesterAllianceId);
+                        var alliance = ObjectManager.GetAlliance(requesterAllianceId);
                         var requesterMember = alliance.m_vAllianceMembers[requesterAvatar.UserId];
                         var targetMember = alliance.m_vAllianceMembers[m_vAvatarId];
                         if (targetMember.HasLowerRoleThan(requesterMember.Role))
@@ -73,8 +73,6 @@ namespace UCS.Packets.Commands.Client
                             eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                             eventStreamEntry.SetSender(targetAvatar);
                             eventStreamEntry.SetEventType(1);
-                            eventStreamEntry.SetAvatarId(requesterAvatar.UserId);
-                            eventStreamEntry.SetAvatarName(requesterAvatar.AvatarName);
                             alliance.AddChatMessage(eventStreamEntry);
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())

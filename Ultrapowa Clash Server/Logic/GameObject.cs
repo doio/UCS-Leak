@@ -75,7 +75,7 @@ namespace UCS.Logic
 
         public virtual bool IsHero() => false;
 
-        public int TownHallLevel() => Avatar.Avatar.GetTownHallLevel();
+        public int TownHallLevel() => Avatar.Avatar.m_vTownHallLevel;
 
         public int LayoutID() => Avatar.Avatar.m_vActiveLayout;
 

@@ -136,7 +136,7 @@ namespace UCS.Core
             }
         }
 
-        public async Task<Alliance> GetAlliance(long allianceId)
+        public Alliance GetAlliance(long allianceId)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace UCS.Core
                     {
                         using (Mysql db = new Mysql(m_vConnectionString))
                         {
-                            Clan p = await db.Clan.FindAsync(allianceId);
+                            Clan p = db.Clan.Find(allianceId);
                             if (p != null)
                             {
                                 alliance = new Alliance();
@@ -169,7 +169,7 @@ namespace UCS.Core
                 {
                     using (Mysql db = new Mysql(m_vConnectionString))
                     {
-                        Clan p = await db.Clan.FindAsync(allianceId);
+                        Clan p = db.Clan.Find(allianceId);
                         if (p != null)
                         {
                             alliance = new Alliance();

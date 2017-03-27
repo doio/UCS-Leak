@@ -44,7 +44,7 @@ namespace UCS.Packets.Messages.Server
                     {
                         packet1.Add(1);
                         packet1.AddLong(pl.AllianceId);
-                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceId);
+                        Alliance _Alliance = ObjectManager.GetAlliance(pl.AllianceId);
                         packet1.AddString(_Alliance.m_vAllianceName);
                         packet1.AddInt(_Alliance.m_vAllianceBadgeData);
                         packet1.AddLong(i);

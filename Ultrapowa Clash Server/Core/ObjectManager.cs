@@ -109,7 +109,7 @@ namespace UCS.Core
             ResourcesManager.AddAllianceInMemory(m_vDatabase.GetAllAlliances());
         }*/
 
-        public static async Task<Alliance> GetAlliance(long allianceId)
+        public static Alliance GetAlliance(long allianceId)
         {
             Alliance alliance;
             if (ResourcesManager.InMemoryAlliancesContain(allianceId))
@@ -118,7 +118,7 @@ namespace UCS.Core
             }
             else
             {
-                alliance = await m_vDatabase.GetAlliance(allianceId);
+                alliance = m_vDatabase.GetAlliance(allianceId);
                 if (alliance != null)
                     ResourcesManager.AddAllianceInMemory(alliance);
                 else

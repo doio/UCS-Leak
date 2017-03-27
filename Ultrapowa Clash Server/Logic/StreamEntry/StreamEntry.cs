@@ -24,14 +24,14 @@ namespace UCS.Logic.StreamEntry
         private int m_vSenderLeagueId;
         private int m_vSenderLevel;
         private int m_vSenderRole;
-        private int m_vType        = -1;
+        private int m_vType = -1;
         private string m_vSenderName;
         private DateTime m_vMessageTime;
         public string m_vMessage;
         public int m_vMaxTroop;
         public int m_vDonatedTroop = 0;
         public int m_vDonatedSpell = 0;
-        public int m_vState        = 1; // 3 Refused - 2 Accepted - 1 Waiting
+        public int m_vState = 1; // 3 Refused - 2 Accepted - 1 Waiting
         public string m_vJudge;
 
         public virtual byte[] Encode()
@@ -68,7 +68,7 @@ namespace UCS.Logic.StreamEntry
 
         public int GetSenderRole() => m_vSenderRole;
 
-        public string GetMessage() =>  m_vMessage;
+        public string GetMessage() => m_vMessage;
 
         public int GetMaxTroop() => m_vMaxTroop;
 
@@ -76,15 +76,15 @@ namespace UCS.Logic.StreamEntry
 
         public virtual void Load(JObject jsonObject)
         {
-            m_vType           = jsonObject["type"].ToObject<int>();
-            m_vId             = jsonObject["id"].ToObject<int>();
-            m_vSenderId       = jsonObject["sender_id"].ToObject<long>();
-            m_vHomeId         = jsonObject["home_id"].ToObject<long>();
-            m_vSenderLevel    = jsonObject["sender_level"].ToObject<int>();
-            m_vSenderName     = jsonObject["sender_name"].ToObject<string>();
+            m_vType = jsonObject["type"].ToObject<int>();
+            m_vId = jsonObject["id"].ToObject<int>();
+            m_vSenderId = jsonObject["sender_id"].ToObject<long>();
+            m_vHomeId = jsonObject["home_id"].ToObject<long>();
+            m_vSenderLevel = jsonObject["sender_level"].ToObject<int>();
+            m_vSenderName = jsonObject["sender_name"].ToObject<string>();
             m_vSenderLeagueId = jsonObject["sender_leagueId"].ToObject<int>();
-            m_vSenderRole     = jsonObject["sender_role"].ToObject<int>();
-            m_vMessageTime    = jsonObject["message_time"].ToObject<DateTime>();
+            m_vSenderRole = jsonObject["sender_role"].ToObject<int>();
+            m_vMessageTime = jsonObject["message_time"].ToObject<DateTime>();
         }
 
         public virtual JObject Save(JObject jsonObject)
@@ -102,29 +102,19 @@ namespace UCS.Logic.StreamEntry
             return jsonObject;
         }
 
-        public async void SetSender(ClientAvatar avatar)
+        internal async void SetSender(ClientAvatar avatar)
         {
-            m_vSenderId       = avatar.UserId;
-            m_vHomeId         = avatar.UserId;
-            m_vSenderName     = avatar.AvatarName;
+            m_vSenderId = avatar.UserId;
+            m_vHomeId = avatar.UserId;
+            m_vSenderName = avatar.AvatarName;
             m_vSenderLeagueId = avatar.m_vLeagueId;
-            m_vSenderLevel    = avatar.m_vAvatarLevel;
-            m_vSenderRole     = await avatar.GetAllianceRole();
+            m_vSenderLevel = avatar.m_vAvatarLevel;
+            m_vSenderRole = await avatar.GetAllianceRole();
         }
 
         public void SetHomeId(long id) => m_vHomeId = id;
 
         public void SetId(int id) => m_vId = id;
-
-        public void SetSenderId(long id) => m_vSenderId = id;
-
-        public void SetSenderLeagueId(int leagueId) => m_vSenderLeagueId = leagueId;
-
-        public void SetSenderLevel(int level) => m_vSenderLevel = level;
-
-        public void SetSenderName(string name) => m_vSenderName = name;
-
-        public void SetSenderRole(int role) => m_vSenderRole = role;
 
         public void SetMessage(string message) => m_vMessage = message;
 

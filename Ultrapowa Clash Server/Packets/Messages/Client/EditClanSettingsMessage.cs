@@ -43,7 +43,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                 if (alliance != null)
                 {
                     if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
@@ -74,10 +74,7 @@ namespace UCS.Packets.Messages.Client
                                                 eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                                                 eventStreamEntry.SetSender(avatar);
                                                 eventStreamEntry.SetEventType(10);
-                                                eventStreamEntry.SetAvatarId(avatar.UserId);
-                                                eventStreamEntry.SetAvatarName(avatar.AvatarName);
-                                                eventStreamEntry.SetSenderId(avatar.UserId);
-                                                eventStreamEntry.SetSenderName(avatar.AvatarName);
+                                                eventStreamEntry.SetSender(avatar);
                                                 alliance.AddChatMessage(eventStreamEntry);
 
                                                 AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand(this.Device);

@@ -31,7 +31,7 @@ namespace UCS.Packets.Commands.Client
                 var allianceId = avatar.AllianceId;
                 if (allianceId > 0)
                 {
-                    var alliance = await ObjectManager.GetAlliance(allianceId);
+                    var alliance = ObjectManager.GetAlliance(allianceId);
                     if (alliance != null)
                     {
                         var mail = new AllianceMailStreamEntry();

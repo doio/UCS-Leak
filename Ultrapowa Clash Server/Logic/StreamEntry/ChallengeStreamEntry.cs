@@ -9,7 +9,7 @@ using UCS.Helpers.List;
 
 namespace UCS.Logic.StreamEntry
 {
-    internal class ChallangeStreamEntry : StreamEntry
+    internal class ChallengeStreamEntry : StreamEntry
     {
         public override byte[] Encode()
         {
@@ -24,12 +24,14 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            m_vMessage = jsonObject["Message"].ToObject<string>();
+            base.Load(jsonObject);
+            m_vMessage = jsonObject["message"].ToObject<string>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject.Add("Message", m_vMessage);
+            jsonObject = base.Save(jsonObject);
+            jsonObject.Add("message", m_vMessage);
             return jsonObject;
         }
     }

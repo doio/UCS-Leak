@@ -10,13 +10,13 @@ namespace UCS.Logic.StreamEntry
 {
     internal class TroopRequestStreamEntry : StreamEntry
     {
-        public static int ID   = (int)ObjectManager.m_vDonationSeed;
+        public static int ID = (int)ObjectManager.m_vDonationSeed;
         public int m_vMaxSpell = 1;
 
         public TroopRequestStreamEntry()
         {
             m_vUnitDonation = new List<DonationSlot>();
-            m_vDonatorList  = new List<BookmarkSlot>();
+            m_vDonatorList = new List<BookmarkSlot>();
         }
 
         public override byte[] Encode()
@@ -68,15 +68,17 @@ namespace UCS.Logic.StreamEntry
 
         public override void Load(JObject jsonObject)
         {
-            ID                   = jsonObject["rid"].ToObject<int>();
-            m_vMaxTroop          = jsonObject["max_troops"].ToObject<int>();
-            m_vMaxSpell          = jsonObject["max_spells"].ToObject<int>();
-            m_vDonatedTroop      = jsonObject["donated_troops"].ToObject<int>();
-            m_vDonatedSpell      = jsonObject["donated_spell"].ToObject<int>();
+            base.Load(jsonObject);
+            ID = jsonObject["rid"].ToObject<int>();
+            m_vMaxTroop = jsonObject["max_troops"].ToObject<int>();
+            m_vMaxSpell = jsonObject["max_spells"].ToObject<int>();
+            m_vDonatedTroop = jsonObject["donated_troops"].ToObject<int>();
+            m_vDonatedSpell = jsonObject["donated_spell"].ToObject<int>();
+            m_vMessage = jsonObject["message"].ToObject<string>();
             JArray jsonDonaterID = (JArray)jsonObject["donater_list"];
             foreach (JToken jToken in jsonDonaterID)
             {
-                JObject data    = (JObject)jToken;
+                JObject data = (JObject)jToken;
                 BookmarkSlot di = new BookmarkSlot(0);
                 di.Load(data);
                 m_vDonatorList.Add(di);
@@ -84,21 +86,22 @@ namespace UCS.Logic.StreamEntry
             JArray jsonDonatedUnit = (JArray)jsonObject["donated_unit"];
             foreach (JToken jToken in jsonDonatedUnit)
             {
-                JObject data    = (JObject)jToken;
+                JObject data = (JObject)jToken;
                 DonationSlot ds = new DonationSlot(0, 0, 0, 0);
                 ds.Load(data);
                 m_vUnitDonation.Add(ds);
             }
-            m_vMessage = jsonObject["message"].ToObject<string>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
+            jsonObject = base.Save(jsonObject);
             jsonObject.Add("rid", ID);
             jsonObject.Add("max_troops", m_vMaxTroop);
             jsonObject.Add("max_spells", m_vMaxSpell);
             jsonObject.Add("donated_troops", m_vDonatedTroop);
             jsonObject.Add("donated_spell", m_vDonatedSpell);
+            jsonObject.Add("message", m_vMessage);
             JArray jsonDonaterID = new JArray();
             foreach (BookmarkSlot id in m_vDonatorList)
             {
@@ -111,7 +114,6 @@ namespace UCS.Logic.StreamEntry
                 jsonDonatedUnit.Add(unit.Save(new JObject()));
             }
             jsonObject.Add("donated_unit", jsonDonatedUnit);
-            jsonObject.Add("message", m_vMessage);
             return jsonObject;
         }
     }

@@ -92,30 +92,28 @@ namespace UCS.Logic
 
         public ClientAvatar(long id, string token) : this()
         {
-            Random rnd             = new Random();
-            LastUpdate             = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            Login                  = id.ToString() + (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            this.UserId                  = id;
-            this.HighID            = (int)(id >> 32);
-            this.LowID             = (int)(id & 0xffffffffL);
-            this.UserToken         = token;
-            this.CurrentHomeId     = id;
-            this.AccountPrivileges = 0;
-            this.AccountBanned    = false;
-            m_vnameChosenByUser    = 0x00;
-            m_vNameChangingLeft    = 0x02;
-            m_vAvatarLevel         = ToInt32(AppSettings["startingLevel"]);
-            this.AllianceId        = 0;
-            m_vExperience          = 0;
-            EndShieldTime          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            m_vCurrentGems         = ToInt32(AppSettings["startingGems"]);
-            m_vScore               = AppSettings["startingTrophies"] == "random"
-                ? rnd.Next(1500, 4999)
-                : ToInt32(AppSettings["startingTrophies"]);
+            Random rnd               = new Random();
+            this.LastUpdate          = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            this.Login               = id.ToString() + (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            this.UserId              = id;
+            this.HighID              = (int)(id >> 32);
+            this.LowID               = (int)(id & 0xffffffffL);
+            this.UserToken           = token;
+            this.CurrentHomeId       = id;
+            this.AccountPrivileges   = 0;
+            this.AccountBanned       = false;
+            this.m_vnameChosenByUser = 0x00;
+            this.m_vNameChangingLeft = 0x02;
+            this.m_vAvatarLevel      = ToInt32(AppSettings["startingLevel"]);
+            this.AllianceId          = 0;
+            this.m_vExperience       = 0;
+            this.EndShieldTime       = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            this.m_vCurrentGems      = ToInt32(AppSettings["startingGems"]);
+            this.m_vScore            = AppSettings["startingTrophies"] == "random" ? rnd.Next(1500, 4999) : ToInt32(AppSettings["startingTrophies"]);
 
-            TutorialStepsCount     = 0x0A;
-            m_vPremium             = false;
-            this.AvatarName        = "NoNameYet";
+            this.TutorialStepsCount  = 0x0A;
+            this.m_vPremium          = false;
+            this.AvatarName          = "NoNameYet";
 
             SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), ToInt32(AppSettings["startingGold"]));
             SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), ToInt32(AppSettings["startingElixir"]));
@@ -160,7 +158,7 @@ namespace UCS.Logic
 
         public void AddDiamonds(int diamondCount)
         {
-            m_vCurrentGems += diamondCount;
+            this.m_vCurrentGems += diamondCount;
         }
 
         public void AddExperience(int exp)
@@ -191,7 +189,7 @@ namespace UCS.Logic
                 {
                     data.Add(1);
                     data.AddLong(this.AllianceId);
-                    Alliance alliance = await ObjectManager.GetAlliance(this.AllianceId);
+                    Alliance alliance = ObjectManager.GetAlliance(this.AllianceId);
                     data.AddString(alliance.m_vAllianceName);
                     data.AddInt(alliance.m_vAllianceBadgeData);
                     data.AddInt(alliance.m_vAllianceMembers[this.UserId].Role);
@@ -207,7 +205,7 @@ namespace UCS.Logic
                     data.AddInt(month);
                     data.AddInt(DateTime.Now.Year);
                     data.AddInt(rnd.Next(1, 10));
-                    data.AddInt(m_vScore);
+                    data.AddInt(this.m_vScore);
                     data.AddInt(1);
                     if (month == 1)
                     {
@@ -216,12 +214,11 @@ namespace UCS.Logic
                     }
                     else
                     {
-                        int pmonth = month - 1;
-                        data.AddInt(pmonth);
+                        data.AddInt(month - 1);
                         data.AddInt(DateTime.Now.Year);
                     }
                     data.AddInt(rnd.Next(1, 10));
-                    data.AddInt(m_vScore / 2);
+                    data.AddInt(this.m_vScore / 2);
                 }
                 else
                 {
@@ -238,19 +235,19 @@ namespace UCS.Logic
                     data.AddInt(0); //11
                 }
 
-                data.AddInt(m_vLeagueId);
+                data.AddInt(this.m_vLeagueId);
                 data.AddInt(GetAllianceCastleLevel());
                 data.AddInt(GetAllianceCastleTotalCapacity());
                 data.AddInt(GetAllianceCastleUsedCapacity());
                 data.AddInt(0);
                 data.AddInt(-1);
-                data.AddInt(GetTownHallLevel());
+                data.AddInt(m_vTownHallLevel);
                 data.AddString(this.AvatarName);
                 data.AddString(this.FacebookId);
-                data.AddInt(m_vAvatarLevel);
-                data.AddInt(m_vExperience);
-                data.AddInt(m_vCurrentGems);
-                data.AddInt(m_vCurrentGems);
+                data.AddInt(this.m_vAvatarLevel);
+                data.AddInt(this.m_vExperience);
+                data.AddInt(this.m_vCurrentGems);
+                data.AddInt(this.m_vCurrentGems);
                 data.AddInt(1200);
                 data.AddInt(60);
                 data.AddInt(m_vScore);
@@ -259,14 +256,14 @@ namespace UCS.Logic
                 data.AddInt(100); // Attack Loses
                 data.AddInt(m_vReceived);
 
-                data.AddInt(m_vAlliance_Gold);
-                data.AddInt(m_vAlliance_Elixir);
-                data.AddInt(m_vAlliance_DarkElixir);
+                data.AddInt(this.m_vAlliance_Gold);
+                data.AddInt(this.m_vAlliance_Elixir);
+                data.AddInt(this.m_vAlliance_DarkElixir);
                 data.AddInt(0);
                 data.Add(1);
                 data.AddLong(946720861000);
 
-                data.Add(m_vnameChosenByUser);
+                data.Add(this.m_vnameChosenByUser);
 
                 data.AddInt(0);
                 data.AddInt(0);
@@ -359,7 +356,7 @@ namespace UCS.Logic
         {
             try
             {
-                var alliance = await ObjectManager.GetAlliance(this.AllianceId);
+                var alliance = ObjectManager.GetAlliance(this.AllianceId);
                 return alliance?.m_vAllianceMembers[this.UserId];
             } catch (Exception) { return null; }
         }
@@ -396,12 +393,12 @@ namespace UCS.Logic
             this.UserToken = jsonObject["token"].ToObject<string>();
             this.Region = jsonObject["region"].ToObject<string>();
             this.IPAddress = jsonObject["IPAddress"].ToObject<string>();
-            m_vAccountCreationDate = jsonObject["avatar_creation_date"].ToObject<DateTime>();
+            this.m_vAccountCreationDate = jsonObject["avatar_creation_date"].ToObject<DateTime>();
             this.AccountPrivileges = jsonObject["avatar_privilages"].ToObject<byte>();
             this.AccountBanned = jsonObject["avatar_banned"].ToObject<bool>();
-            m_vActiveLayout = jsonObject["active_layout"].ToObject<int>();
+            this.m_vActiveLayout = jsonObject["active_layout"].ToObject<int>();
             this.LastTickSaved = jsonObject["last_tick_save"].ToObject<DateTime>();
-            m_vAndroid = jsonObject["android"].ToObject<bool>();
+            this.m_vAndroid = jsonObject["android"].ToObject<bool>();
             this.CurrentHomeId = jsonObject["current_home_id"].ToObject<long>();
             this.AllianceId = jsonObject["alliance_id"].ToObject<long>();
             SetAllianceCastleLevel(jsonObject["alliance_castle_level"].ToObject<int>());
@@ -409,14 +406,14 @@ namespace UCS.Logic
             SetAllianceCastleUsedCapacity(jsonObject["alliance_castle_used_capacity"].ToObject<int>());
             SetTownHallLevel(jsonObject["townhall_level"].ToObject<int>());
             this.AvatarName = jsonObject["avatar_name"].ToObject<string>();
-            m_vAvatarLevel = jsonObject["avatar_level"].ToObject<int>();
-            m_vExperience = jsonObject["experience"].ToObject<int>();
-            m_vCurrentGems = jsonObject["current_gems"].ToObject<int>();
+            this.m_vAvatarLevel = jsonObject["avatar_level"].ToObject<int>();
+            this.m_vExperience = jsonObject["experience"].ToObject<int>();
+            this.m_vCurrentGems = jsonObject["current_gems"].ToObject<int>();
             SetScore(jsonObject["score"].ToObject<int>());
-            m_vNameChangingLeft = jsonObject["nameChangesLeft"].ToObject<byte>();
-            m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
-            m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
-            m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
+            this.m_vNameChangingLeft = jsonObject["nameChangesLeft"].ToObject<byte>();
+            this.m_vnameChosenByUser = jsonObject["nameChosenByUser"].ToObject<byte>();
+            this.m_vShieldTime = jsonObject["shield_time"].ToObject<int>();
+            this.m_vProtectionTime = jsonObject["protection_time"].ToObject<int>();
             this.FacebookId = jsonObject["fb_id"].ToObject<string>();
             this.FacebookToken = jsonObject["fb_token"].ToObject<string>();
             this.GoogleId = jsonObject["gg_id"].ToObject<string>();
@@ -639,27 +636,27 @@ namespace UCS.Logic
                 {"token", this.UserToken},
                 {"region", this.Region},
                 {"IPAddress", this.IPAddress},
-                {"avatar_creation_date", m_vAccountCreationDate},
+                {"avatar_creation_date", this.m_vAccountCreationDate},
                 {"avatar_privilages", this.AccountPrivileges},
                 {"avatar_banned", this.AccountBanned},
-                {"active_layout", m_vActiveLayout},
+                {"active_layout", this.m_vActiveLayout},
                 {"last_tick_save", this.LastTickSaved},
-                {"android", m_vAndroid},
+                {"android", this.m_vAndroid},
                 {"current_home_id", this.CurrentHomeId},
                 {"alliance_id", this.AllianceId},
                 {"alliance_castle_level", GetAllianceCastleLevel()},
                 {"alliance_castle_total_capacity", GetAllianceCastleTotalCapacity()},
                 {"alliance_castle_used_capacity", GetAllianceCastleUsedCapacity()},
-                {"townhall_level", GetTownHallLevel()},
+                {"townhall_level", m_vTownHallLevel},
                 {"avatar_name", this.AvatarName},
-                {"avatar_level", m_vAvatarLevel},
-                {"experience", m_vExperience},
-                {"current_gems", m_vCurrentGems},
+                {"avatar_level", this.m_vAvatarLevel},
+                {"experience", this.m_vExperience},
+                {"current_gems", this.m_vCurrentGems},
                 {"score", GetScore()},
-                {"nameChangesLeft", m_vNameChangingLeft},
+                {"nameChangesLeft", this.m_vNameChangingLeft},
                 {"nameChosenByUser", (ushort) m_vnameChosenByUser},
-                {"shield_time", m_vShieldTime},
-                {"protection_time", m_vProtectionTime},
+                {"shield_time", this.m_vShieldTime},
+                {"protection_time", this.m_vProtectionTime},
                 {"fb_id", this.FacebookId},
                 {"fb_token", this.FacebookToken},
                 {"gg_id", this.GoogleId},
@@ -674,7 +671,7 @@ namespace UCS.Logic
                 {"hero_health", jsonHeroHealthArray},
                 {"hero_state", jsonHeroStateArray},
                 {"alliance_units", jsonAllianceUnitsArray},
-                {"tutorial_step", TutorialStepsCount},
+                {"tutorial_step", this.TutorialStepsCount},
                 {"achievements_progress", jsonAchievementsProgressArray},
                 {"npc_stars", jsonNpcStarsArray},
                 {"npc_looted_gold", jsonNpcLootedGoldArray},
@@ -682,7 +679,7 @@ namespace UCS.Logic
                 {"quick_train_1", jsonQuickTrain1Array},
                 {"quick_train_2", jsonQuickTrain2Array},
                 {"quick_train_3", jsonQuickTrain3Array},
-                {"Premium", m_vPremium}
+                {"Premium", this.m_vPremium}
             };
 
             return JsonConvert.SerializeObject(jsonData, Formatting.Indented);

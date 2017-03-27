@@ -33,7 +33,7 @@ namespace UCS.Logic
         int m_vCastleLevel = -1;
         int m_vCastleTotalCapacity;
         int m_vCastleUsedCapacity;
-        int m_vTownHallLevel;
+        internal int m_vTownHallLevel;
 
         public static int GetDataIndex(List<DataSlot> dsl, Data d) => dsl.FindIndex(ds => ds.Data == d);
 
@@ -94,8 +94,6 @@ namespace UCS.Logic
         public List<DataSlot> GetResources() => m_vResources;
 
         public List<DataSlot> GetSpells() => m_vSpellCount;
-
-        public int GetTownHallLevel() => m_vTownHallLevel;
 
         public int GetUnitCount(CombatItemData cd)
         {

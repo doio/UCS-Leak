@@ -17,8 +17,8 @@ namespace UCS
 {
     internal class Program
     {
-        public static int OP                   = 0;
-        public static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - ©Ultrapowa | Online Players: ";
+        internal static int OP                   = 0;
+        internal static string Title             = "Ultrapowa Clash Server v" + Constants.Version + " - ©Ultrapowa | Online Players: ";
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
 

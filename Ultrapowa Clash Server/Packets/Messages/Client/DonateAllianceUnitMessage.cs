@@ -35,8 +35,8 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                StreamEntry stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+                Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                StreamEntry stream = a.m_vChatMessages.Find(c => c.GetId() == MessageID);
                 Level _Sender = await ResourcesManager.GetPlayer(stream.GetSenderId());
                 int upcomingspace = stream.m_vDonatedTroop + Troop.GetHousingSpace();
 
@@ -51,7 +51,7 @@ namespace UCS.Packets.Messages.Client
 
                     //new AvailableServerCommandMessage(this.Device, _Donated.Handle()).Send();
 
-                    StreamEntry _Stream = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+                    StreamEntry _Stream = a.m_vChatMessages.Find(c => c.GetId() == MessageID);
                     Level _PreviousPlayer = await ResourcesManager.GetPlayer(_Stream.GetSenderId());
                     ClientAvatar _PreviousPlayerAvatar = _PreviousPlayer.Avatar;
                     _Stream.AddDonatedTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1,

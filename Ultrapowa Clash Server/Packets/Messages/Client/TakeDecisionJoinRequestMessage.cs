@@ -32,8 +32,8 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                StreamEntry message = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+                Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                StreamEntry message = a.m_vChatMessages.Find(c => c.GetId() == MessageID);
                 Level requester = await ResourcesManager.GetPlayer(message.GetSenderId());
                 if (Choice == 1)
                 {
@@ -45,15 +45,13 @@ namespace UCS.Packets.Messages.Client
                         member.SetRole(1);
                         a.AddAllianceMember(member);
 
-                        StreamEntry e = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+                        StreamEntry e = a.m_vChatMessages.Find(c => c.GetId() == MessageID);
                         e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                         e.SetState(2);
 
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                        eventStreamEntry.SetId(a.GetChatMessages().Count + 1);
+                        eventStreamEntry.SetId(a.m_vChatMessages.Count + 1);
                         eventStreamEntry.SetSender(requester.Avatar);
-                        eventStreamEntry.SetAvatarName(this.Device.Player.Avatar.AvatarName);
-                        eventStreamEntry.SetAvatarId(this.Device.Player.Avatar.UserId);
                         eventStreamEntry.SetEventType(2);
 
                         a.AddChatMessage(eventStreamEntry);
@@ -92,7 +90,7 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    StreamEntry e = a.GetChatMessages().Find(c => c.GetId() == MessageID);
+                    StreamEntry e = a.m_vChatMessages.Find(c => c.GetId() == MessageID);
                     e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                     e.SetState(3);
 

@@ -28,25 +28,19 @@ namespace UCS.Packets.Commands.Client
             try
             {
                 ClientAvatar player = this.Device.Player.Avatar;
+                Alliance all = ObjectManager.GetAlliance(player.AllianceId);
                 TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
-                Alliance all = await ObjectManager.GetAlliance(player.AllianceId);
-
-                cm.SetId(all.GetChatMessages().Count + 1);
-                cm.SetSenderId(player.UserId);
-                cm.SetHomeId(player.UserId);
-                cm.SetSenderLeagueId(player.m_vLeagueId);
-                cm.SetSenderName(player.AvatarName);
-                cm.SetSenderRole(await player.GetAllianceRole());
-                cm.SetMessage(Message);
+                cm.SetSender(player);
+                cm.SetMessage(this.Message);
+                cm.SetId(all.m_vChatMessages.Count + 1);
                 cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
 
-                all.AddChatMessage(cm);
-
-                StreamEntry s = all.GetChatMessages().Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
+                StreamEntry s = all.m_vChatMessages.Find(c => c.GetSenderId() == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
                 if (s == null)
                 {
-                    all.GetChatMessages().RemoveAll(t => t == s);
+                    all.m_vChatMessages.RemoveAll(t => t == s);
                 }
+
                 all.AddChatMessage(cm);
 
                 foreach (AllianceMemberEntry op in all.GetAllianceMembers())
@@ -64,7 +58,9 @@ namespace UCS.Packets.Commands.Client
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
         }
 
         public byte FlagHasRequestMessage;

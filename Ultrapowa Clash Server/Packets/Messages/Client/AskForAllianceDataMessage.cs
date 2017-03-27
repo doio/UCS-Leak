@@ -27,7 +27,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(m_vAllianceId);
                 if (alliance != null)
                     new AllianceDataMessage(Device, alliance).Send();
             }

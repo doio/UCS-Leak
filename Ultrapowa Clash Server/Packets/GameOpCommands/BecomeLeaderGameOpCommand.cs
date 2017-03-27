@@ -22,7 +22,7 @@ namespace UCS.Packets.GameOpCommands
                 var clanid = level.Avatar.AllianceId;
                 if (clanid != 0)
                 {
-                    Alliance _Alliance = await ObjectManager.GetAlliance(level.Avatar.AllianceId);
+                    Alliance _Alliance = ObjectManager.GetAlliance(level.Avatar.AllianceId);
 
                     foreach (var pl in _Alliance.GetAllianceMembers())
                     {

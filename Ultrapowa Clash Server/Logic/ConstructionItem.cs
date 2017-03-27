@@ -68,7 +68,7 @@ namespace UCS.Logic
                     result = true;
                     if (ClassId == 0 || ClassId == 4)
                     {
-                        int currentTownHallLevel  = Avatar.Avatar.GetTownHallLevel();
+                        int currentTownHallLevel  = Avatar.Avatar.m_vTownHallLevel;
                         int requiredTownHallLevel = GetRequiredTownHallLevelForUpgrade();
                         if (currentTownHallLevel < requiredTownHallLevel)
                         {

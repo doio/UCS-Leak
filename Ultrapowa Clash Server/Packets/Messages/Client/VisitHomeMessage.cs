@@ -33,7 +33,7 @@ namespace UCS.Packets.Messages.Client
 
                 if (this.Device.Player.Avatar.AllianceId > 0)
                 {
-                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                    Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                     if (alliance != null)
                     {
                         new AllianceStreamMessage(Device, alliance).Send();

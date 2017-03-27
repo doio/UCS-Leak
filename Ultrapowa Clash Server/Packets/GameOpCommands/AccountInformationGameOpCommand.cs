@@ -34,7 +34,7 @@ namespace UCS.Packets.GameOpCommands
                                       "\nIP Address : " + l.Avatar.IPAddress;
                             if (acc.AllianceId != 0)
                             {
-                                Alliance a = await ObjectManager.GetAlliance(acc.AllianceId);
+                                Alliance a = ObjectManager.GetAlliance(acc.AllianceId);
                                 Message = Message + "\nClan Name : " + a.m_vAllianceName;
                                 switch (await acc.GetAllianceRole())
                                 {
@@ -60,7 +60,7 @@ namespace UCS.Packets.GameOpCommands
                                 }
                             }
                             Message = Message + "\nLevel : " + acc.m_vAvatarLevel + "\nTrophy : " + acc.GetScore() +
-                                      "\nTown Hall Level : " + (acc.GetTownHallLevel() + 1) +
+                                      "\nTown Hall Level : " + (acc.m_vTownHallLevel + 1) +
                                       "\nAlliance Castle Level : " + (acc.GetAllianceCastleLevel() + 1);
 
                             var avatar = level.Avatar;

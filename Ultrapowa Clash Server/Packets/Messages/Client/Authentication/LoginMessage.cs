@@ -238,7 +238,7 @@ namespace UCS.Packets.Messages.Client
             if (level.Avatar.AllianceId > 0)
             {
 
-                Alliance alliance = await ObjectManager.GetAlliance(level.Avatar.AllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(level.Avatar.AllianceId);
                 if (alliance != null)
                 {
                     new AllianceFullEntryMessage(this.Device, alliance).Send();

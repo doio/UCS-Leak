@@ -21,7 +21,7 @@ namespace UCS.Packets.Commands.Client
 
         internal override async void Process()
         {
-            Alliance a = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+            Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
             if (a != null)
             {
                 AllianceMemberEntry _AllianceMemberEntry = a.m_vAllianceMembers[this.Device.Player.Avatar.UserId];

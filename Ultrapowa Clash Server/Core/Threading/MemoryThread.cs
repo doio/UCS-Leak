@@ -43,6 +43,10 @@ namespace UCS.Core.Threading
                     }
                 }
 
+                int c = ResourcesManager.GetOnlinePlayers().Count; 
+                Console.Title = Program.Title + c;
+                Program.OP = c;
+
                 GC.Collect(GC.MaxGeneration);
                 GC.WaitForPendingFinalizers();
             } catch (Exception) { }

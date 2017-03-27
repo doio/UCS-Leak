@@ -75,7 +75,7 @@ namespace UCS.Packets.Messages.Client
                                     LeagueId = this.Device.Player.Avatar.m_vLeagueId
                                 };
 
-                                p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
+                                p.SetAlliance(ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
                                 p.Send();
                                 }
                             }
@@ -94,7 +94,7 @@ namespace UCS.Packets.Messages.Client
                                         CurrentHomeId = senderId,
                                         LeagueId = this.Device.Player.Avatar.m_vLeagueId
                                     };
-                                    p.SetAlliance(await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
+                                    p.SetAlliance(ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
                                     p.Send();
                                     Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
                                 }

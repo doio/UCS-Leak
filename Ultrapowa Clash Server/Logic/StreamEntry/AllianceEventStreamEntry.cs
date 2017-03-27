@@ -50,10 +50,6 @@ namespace UCS.Logic.StreamEntry
             return jsonObject;
         }
 
-        public void SetAvatarId(long id) => m_vAvatarId = id;
-
-        public void SetAvatarName(string name) => m_vAvatarName = name;
-
         public void SetEventType(int type) => m_vEventType = type;
     }
 }

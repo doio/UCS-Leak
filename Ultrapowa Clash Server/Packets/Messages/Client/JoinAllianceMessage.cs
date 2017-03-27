@@ -4,6 +4,7 @@ using UCS.Core;
 using UCS.Core.Network;
 using UCS.Helpers.Binary;
 using UCS.Logic;
+using UCS.Logic.StreamEntry;
 using UCS.Packets.Commands.Server;
 using UCS.Packets.Messages.Server;
 
@@ -27,7 +28,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance alliance = await ObjectManager.GetAlliance(m_vAllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(m_vAllianceId);
                 if (alliance != null)
                 {
                     if (!alliance.IsAllianceFull())
@@ -45,11 +46,25 @@ namespace UCS.Packets.Messages.Client
                         c.SetRole(1);
                         c.Tick(this.Device.Player);
 
+                        AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
+                        eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                        eventStreamEntry.SetSender(this.Device.Player.Avatar);
+                        eventStreamEntry.SetEventType(3);
+                        alliance.AddChatMessage(eventStreamEntry);
+
                         new AvailableServerCommandMessage(this.Device, b.Handle()).Send();
 
                         new AvailableServerCommandMessage(this.Device, c.Handle()).Send();
 
                         new AllianceStreamMessage(Device, alliance).Send();
+
+                        foreach (AllianceMemberEntry a in alliance.GetAllianceMembers())
+                        {
+                            Level l = await ResourcesManager.GetPlayer(a.AvatarId);
+                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(l.Client);
+                            p.SetStreamEntry(eventStreamEntry);
+                            p.Send();
+                        }
                     }
                 }
             } catch (Exception) { }

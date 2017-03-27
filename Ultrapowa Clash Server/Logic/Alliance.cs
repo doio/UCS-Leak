@@ -74,44 +74,42 @@ namespace UCS.Logic
         public byte[] EncodeFullEntry()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(m_vAllianceId);
-            data.AddString(m_vAllianceName);
-            data.AddInt(m_vAllianceBadgeData);
-            data.AddInt(m_vAllianceType);
-            data.AddInt(m_vAllianceMembers.Count);
-            data.AddInt(m_vScore);
-            data.AddInt(m_vRequiredScore);
-            data.AddInt(m_vWonWars);
-            data.AddInt(m_vLostWars);
-            data.AddInt(m_vDrawWars);
+            data.AddLong(this.m_vAllianceId);
+            data.AddString(this.m_vAllianceName);
+            data.AddInt(this.m_vAllianceBadgeData);
+            data.AddInt(this.m_vAllianceType);
+            data.AddInt(this.m_vAllianceMembers.Count);
+            data.AddInt(this.m_vScore);
+            data.AddInt(this.m_vRequiredScore);
+            data.AddInt(this.m_vWonWars);
+            data.AddInt(this.m_vLostWars);
+            data.AddInt(this.m_vDrawWars);
             data.AddInt(20000001);
-            data.AddInt(m_vWarFrequency);
-            data.AddInt(m_vAllianceOrigin);
-            data.AddInt(m_vAllianceExperience);
-            data.AddInt(m_vAllianceLevel);
+            data.AddInt(this.m_vWarFrequency);
+            data.AddInt(this.m_vAllianceOrigin);
+            data.AddInt(this.m_vAllianceExperience);
+            data.AddInt(this.m_vAllianceLevel);
             data.AddInt(0);
             data.AddInt(0);
-            data.Add(m_vWarLogPublic);
-            data.Add(m_vFriendlyWar);
+            data.Add(this.m_vWarLogPublic);
+            data.Add(this.m_vFriendlyWar);
             return data.ToArray();
         }
 
         public byte[] EncodeHeader()
         {
             List<byte> data = new List<byte>();
-            data.AddLong(m_vAllianceId);
-            data.AddString(m_vAllianceName);
-            data.AddInt(m_vAllianceBadgeData);
+            data.AddLong(this.m_vAllianceId);
+            data.AddString(this.m_vAllianceName);
+            data.AddInt(this.m_vAllianceBadgeData);
             data.Add(0);
-            data.AddInt(m_vAllianceLevel);
+            data.AddInt(this.m_vAllianceLevel);
             data.AddInt(1);
             data.AddInt(-1);
             return data.ToArray();
         }
 
         public List<AllianceMemberEntry> GetAllianceMembers() => m_vAllianceMembers.Values.ToList();
-
-        public List<StreamEntry.StreamEntry> GetChatMessages() => m_vChatMessages;
 
         public bool IsAllianceFull() => m_vAllianceMembers.Count >= m_vMaxAllianceMembers;
 
@@ -177,7 +175,7 @@ namespace UCS.Logic
 
         public string SaveToJSON()
         {
-            var jsonData = new JObject();
+            JObject jsonData = new JObject();
             jsonData.Add("alliance_id", m_vAllianceId);
             jsonData.Add("alliance_name", m_vAllianceName);
             jsonData.Add("alliance_badge", m_vAllianceBadgeData);
@@ -235,23 +233,24 @@ namespace UCS.Logic
 
         public void SetWarAndFriendlytStatus(byte status)
         {
-            if (status == 1)
+            switch (status)
             {
-                SetWarPublicStatus(1);
-            }
-            else if (status == 2)
-            {
-                SetFriendlyWar(1);
-            }
-            else if (status == 3)
-            {
-                SetWarPublicStatus(1);
-                SetFriendlyWar(1);
-            }
-            else if (status == 0)
-            {
-                SetWarPublicStatus(0);
-                SetFriendlyWar(0);
+                case 1:
+                    SetWarPublicStatus(1);
+                    break;
+                case 2:
+                    SetFriendlyWar(1);
+                    break;
+                case 3:
+                    SetWarPublicStatus(1);
+                    SetFriendlyWar(1);
+                    break;
+                case 0:
+                    SetWarPublicStatus(0);
+                    SetFriendlyWar(0);
+                    break;
+                default:
+                    break;
             }
         }
     }

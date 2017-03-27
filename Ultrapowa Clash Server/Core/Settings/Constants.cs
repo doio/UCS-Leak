@@ -12,7 +12,7 @@ namespace UCS.Core.Settings
         
         public static readonly bool UseCacheServer   = Utils.ParseConfigBoolean("CacheServer");
 
-        public const int CleanInterval               = 5000;
+        public const int CleanInterval               = 6000;
         public static int MaxOnlinePlayers           = Utils.ParseConfigInt("MaxOnlinePlayers");
 
         internal const int SendBuffer = 2048;

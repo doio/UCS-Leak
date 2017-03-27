@@ -46,7 +46,7 @@ namespace UCS.Logic
                 if (!IsMaxLevel())
                 {
                     var requiredThLevel = m_vHeroData.GetRequiredTownHallLevel(currentLevel + 1);
-                    result = GetParent().Avatar.Avatar.GetTownHallLevel() >= requiredThLevel;
+                    result = GetParent().Avatar.Avatar.m_vTownHallLevel >= requiredThLevel;
                 }
             }
             return result;

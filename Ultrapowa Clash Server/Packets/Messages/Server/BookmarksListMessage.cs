@@ -26,7 +26,7 @@ namespace UCS.Packets.Messages.Server
 
             foreach (var p in Player.BookmarkedClan)
             {
-                Alliance a = await ObjectManager.GetAlliance(p.Value);
+                Alliance a = ObjectManager.GetAlliance(p.Value);
                 if (a != null)
                 {
                     list.AddRange(a.EncodeFullEntry());

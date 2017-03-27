@@ -54,7 +54,7 @@ namespace UCS.Packets.Messages.Client
                                 cm.SetSender(avatar);
                                 cm.SetMessage(m_vChatMessage);
 
-                                Alliance alliance = await ObjectManager.GetAlliance(allianceId);
+                                Alliance alliance = ObjectManager.GetAlliance(allianceId);
                                 if (alliance != null)
                                 {
                                     alliance.AddChatMessage(cm);

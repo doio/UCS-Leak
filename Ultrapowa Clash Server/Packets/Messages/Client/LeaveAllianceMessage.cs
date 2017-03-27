@@ -27,7 +27,7 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 ClientAvatar avatar = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(avatar.AllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(avatar.AllianceId);
 
                 if (await avatar.GetAllianceRole() == 2 && alliance.GetAllianceMembers().Count > 1)
                 {
@@ -95,8 +95,6 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                     eventStreamEntry.SetSender(avatar);
                     eventStreamEntry.SetEventType(4);
-                    eventStreamEntry.SetAvatarId(avatar.UserId);
-                    eventStreamEntry.SetAvatarName(avatar.AvatarName);
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
                         if (onlinePlayer.Avatar.AllianceId == alliance.m_vAllianceId)

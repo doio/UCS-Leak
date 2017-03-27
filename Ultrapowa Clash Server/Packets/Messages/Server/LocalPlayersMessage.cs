@@ -46,7 +46,7 @@ namespace UCS.Packets.Messages.Server
                     {
                         data.Add(1); // 1 = Have an alliance | 0 = No alliance
                         data.AddLong(pl.AllianceId);
-                        Alliance _Alliance = await ObjectManager.GetAlliance(pl.AllianceId);
+                        Alliance _Alliance = ObjectManager.GetAlliance(pl.AllianceId);
                         data.AddString(_Alliance.m_vAllianceName);
                         data.AddInt(_Alliance.m_vAllianceBadgeData);
                     }

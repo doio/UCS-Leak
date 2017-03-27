@@ -32,7 +32,7 @@ namespace UCS.Packets.Messages.Client
             {
                 Level target = await ResourcesManager.GetPlayer(m_vId);
                 ClientAvatar player = this.Device.Player.Avatar;
-                Alliance alliance = await ObjectManager.GetAlliance(player.AllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(player.AllianceId);
                 if (await player.GetAllianceRole() == 2 || await player.GetAllianceRole() == 4)
                     if (player.AllianceId == target.Avatar.AllianceId)
                     {
@@ -43,20 +43,16 @@ namespace UCS.Packets.Messages.Client
                             player.SetAllianceRole(4);
 
                             AllianceEventStreamEntry demote = new AllianceEventStreamEntry();
-                            demote.SetId(alliance.GetChatMessages().Count + 1);
+                            demote.SetId(alliance.m_vChatMessages.Count + 1);
                             demote.SetSender(player);
                             demote.SetEventType(6);
-                            demote.SetAvatarId(player.UserId);
-                            demote.SetAvatarName(player.AvatarName);
 
                             alliance.AddChatMessage(demote);
 
                             AllianceEventStreamEntry promote = new AllianceEventStreamEntry();
-                            promote.SetId(alliance.GetChatMessages().Count + 1);
+                            promote.SetId(alliance.m_vChatMessages.Count + 1);
                             promote.SetSender(target.Avatar);
                             promote.SetEventType(5);
-                            promote.SetAvatarId(player.UserId);
-                            promote.SetAvatarName(player.AvatarName);
 
                             alliance.AddChatMessage(promote);
 
@@ -113,13 +109,6 @@ namespace UCS.Packets.Messages.Client
                         {
                             AllianceRoleUpdateCommand t = new AllianceRoleUpdateCommand(target.Client);
                             AvailableServerCommandMessage ta = new AvailableServerCommandMessage(target.Client, t.Handle());
-                            AllianceEventStreamEntry stream = new AllianceEventStreamEntry();
-
-                            stream.SetId(alliance.GetChatMessages().Count + 1);
-                            stream.SetSender(target.Avatar);
-                            stream.SetAvatarId(player.UserId);
-                            stream.SetAvatarName(player.AvatarName);
-                            stream.SetEventType(m_vRole > oldrole ? 5 : 6);
 
                             t.SetAlliance(alliance);
                             t.SetRole(m_vRole);
@@ -131,13 +120,18 @@ namespace UCS.Packets.Messages.Client
                                 Role =  m_vRole
                             };
 
-                            alliance.AddChatMessage(stream);
-
                             if (ResourcesManager.IsPlayerOnline(target))
                             {
                                 ta.Send();
                                 ru.Send();
                             }
+
+                            AllianceEventStreamEntry stream = new AllianceEventStreamEntry();
+
+                            stream.SetId(alliance.m_vChatMessages.Count + 1);
+                            stream.SetSender(target.Avatar);
+                            stream.SetEventType(m_vRole > oldrole ? 5 : 6);
+                            alliance.AddChatMessage(stream);
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                             {

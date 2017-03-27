@@ -85,7 +85,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     this.Device.PlayerState = Logic.Enums.State.LOGGED;
                     this.Device.Player.Tick();
-                    Alliance alliance = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                    Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                     new OwnHomeDataMessage(Device, this.Device.Player).Send();
                     if (alliance != null)
                     {

@@ -23,23 +23,17 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            var chatMessages = m_vAlliance.GetChatMessages().ToList();
+            var chatMessages = m_vAlliance.m_vChatMessages.ToList();
             this.Data.AddInt(0);
             this.Data.AddInt(chatMessages.Count);
             int count = 0;
-            foreach(StreamEntry chatMessage in chatMessages)
+            foreach (StreamEntry chatMessage in chatMessages)
             {
-                if (chatMessage.GetStreamEntryType() != 12)
+                this.Data.AddRange(chatMessage.Encode());
+                count++;
+                if (count >= 150)
                 {
-                    if (chatMessage.GetStreamEntryType() != 1)
-                    {
-                        this.Data.AddRange(chatMessage.Encode());
-                        count++;
-                        if (count >= 150)
-                        {
-                            break;
-                        }
-                    }
+                    break;
                 }
             }
         }

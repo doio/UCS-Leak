@@ -29,7 +29,7 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                Alliance all = await ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                Alliance all = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                 new AllianceWarHistoryMessage(Device, all).Send();
             }
             catch (Exception)
