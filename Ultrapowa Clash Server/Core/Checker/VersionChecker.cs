@@ -11,6 +11,7 @@ using System.Threading;
 using System.Reflection;
 using UCS.Core.Settings;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace UCS.Core.Web
 {
@@ -29,7 +30,8 @@ namespace UCS.Core.Web
         {
             try
             {
-                JObject obj = JObject.Parse(new WebClient().DownloadString("http://clashoflights.xyz/UCS/version.json"));
+                string Version = new WebClient().DownloadString(new Uri("https://clashoflights.xyz/UCS/version.json"));
+                JObject obj = JObject.Parse(Version);
                 return (string)obj["version"];
             }
             catch (Exception)

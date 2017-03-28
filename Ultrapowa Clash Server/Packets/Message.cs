@@ -23,7 +23,6 @@ namespace UCS.Packets
 {
     internal class Message
     {
-
         internal ushort Identifier;
         internal ushort Length;
         internal ushort Version;

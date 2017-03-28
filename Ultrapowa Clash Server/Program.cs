@@ -22,7 +22,7 @@ namespace UCS
         public static Stopwatch _Stopwatch     = new Stopwatch();
         public static string Version { get; set; }
 
-        static void Main()
+        internal static void Main()
         {
             int GWL_EXSTYLE = -20;
             int WS_EX_LAYERED = 0x80000;

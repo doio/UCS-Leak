@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +32,6 @@ namespace UCS.WebAPI
             }
             catch (Exception)
             {
-                Console.WriteLine();
                 return "File not Found";
             }
         }
@@ -56,6 +57,7 @@ namespace UCS.WebAPI
 
                     Listener = new HttpListener();
                     Listener.Prefixes.Add(URL);
+                    Listener.Prefixes.Add(URL + "api/");
                     Listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
                     Listener.Start();
 
@@ -70,10 +72,34 @@ namespace UCS.WebAPI
                                 try
                                 {
                                     HttpListenerContext ctx = (HttpListenerContext)c;
-                                    byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
-                                    ctx.Response.ContentLength64 = responseBuf.Length;
-                                    ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
-                                    ctx.Response.OutputStream.Close();
+
+                                    foreach (string _URL in Listener.Prefixes.ToList<string>())
+                                    {
+                                        if (ctx.Request.Url.ToString().Contains(_URL))
+                                        {
+                                            if (ctx.Request.Url.ToString() == URL + "api/")
+                                            {
+                                                byte[] responseBuf = Encoding.UTF8.GetBytes(GetjsonAPI());
+                                                ctx.Response.ContentLength64 = responseBuf.Length;
+                                                ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
+                                                ctx.Response.OutputStream.Close();
+                                            }
+                                            else
+                                            {
+                                                byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
+                                                ctx.Response.ContentLength64 = responseBuf.Length;
+                                                ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
+                                                ctx.Response.OutputStream.Close();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            byte[] responseBuf = Encoding.UTF8.GetBytes(GetStatisticHTML());
+                                            ctx.Response.ContentLength64 = responseBuf.Length;
+                                            ctx.Response.OutputStream.Write(responseBuf, 0, responseBuf.Length);
+                                            ctx.Response.OutputStream.Close();
+                                        }
+                                    }
                                 }
                                 catch (Exception)
                                 {
@@ -109,6 +135,18 @@ namespace UCS.WebAPI
             {
                 return "The server encountered an internal error or misconfiguration and was unable to complete your request. (500)";
             }
+        }
+
+        public static string GetjsonAPI()
+        {
+            JObject _Data = new JObject
+            {
+                {"online_players", ResourcesManager.GetOnlinePlayers().Count.ToString()},
+                {"in_mem_players", ResourcesManager.GetInMemoryLevels().Count.ToString()},
+                {"in_mem_alliances", ResourcesManager.GetInMemoryAlliances().Count.ToString()},
+                {"connected_sockets", ResourcesManager.GetConnectedClients().Count.ToString()}
+            };
+            return JsonConvert.SerializeObject(_Data, Formatting.Indented);
         }
     }
 }
