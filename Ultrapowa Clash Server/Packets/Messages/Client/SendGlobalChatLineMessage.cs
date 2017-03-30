@@ -30,7 +30,6 @@ namespace UCS.Packets.Messages.Client
 
         internal override async void Process()
         {
-
             if (Message.Length > 0 && Message.Length < 200)
             {
                 if (Message[0] == '/')

@@ -81,7 +81,7 @@ namespace UCP
 
                 ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
             }
-            /*else if (messageId == 24335)
+            else if (messageId == 24335)
             {
                 using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))
                 {
@@ -116,16 +116,12 @@ namespace UCP
                         Console.WriteLine("PL" + i + " Unknown     : " + _Reader.ReadInt32());
                         Console.WriteLine("PL" + i + " TH Level    : " + (_Reader.ReadInt32() + 1));
                         Console.WriteLine("PL" + i + " Unknown     : " + _Reader.ReadInt32());
-                        Console.WriteLine("PL" + i + " Unknown     : " + _Reader.ReadByte());
-                        Console.WriteLine("PL" + i + " Unknown     : " + _Reader.ReadByte());
-                        Console.WriteLine("PL" + i + " Unknown     : " + _Reader.ReadByte()); // Dataslots?!
-                        Console.WriteLine("PL" + i + " Troop Msg   :" + _Reader.ReadString());
                         Console.WriteLine("PL" + i + " Unknown     : " + BitConverter.ToString(_Reader.ReadBytes()).Replace("-", ""));
                     }
                 }
 
                 ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
-            }*/
+            }
             else if (messageId == 20103)
             {
                 using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))

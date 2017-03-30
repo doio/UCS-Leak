@@ -144,7 +144,9 @@ namespace UCS.WebAPI
                 {"online_players", ResourcesManager.GetOnlinePlayers().Count.ToString()},
                 {"in_mem_players", ResourcesManager.GetInMemoryLevels().Count.ToString()},
                 {"in_mem_alliances", ResourcesManager.GetInMemoryAlliances().Count.ToString()},
-                {"connected_sockets", ResourcesManager.GetConnectedClients().Count.ToString()}
+                {"connected_sockets", ResourcesManager.GetConnectedClients().Count.ToString()},
+                {"all_players", ObjectManager.GetMaxPlayerID()},
+                {"all_clans", ObjectManager.GetMaxAllianceID()}
             };
             return JsonConvert.SerializeObject(_Data, Formatting.Indented);
         }

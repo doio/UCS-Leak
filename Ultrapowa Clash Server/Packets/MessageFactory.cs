@@ -68,6 +68,8 @@ namespace UCS.Packets
                 {15001, typeof(AllianceWarAttackAvatarMessage)}
             };
 
+            // 25006 = Live Clan Battle Notification, 
+
             //Messages.Add(10513, typeof(UnknownFacebookMessage));
             //Messages.Add(14262, typeof(BindGoogleAccount));
         }
