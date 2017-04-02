@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands
                         Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (alliancemembers.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.GetId()).Send();
+                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.m_vId).Send();
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
                             p.SetStreamEntry(cm);
                             p.Send();

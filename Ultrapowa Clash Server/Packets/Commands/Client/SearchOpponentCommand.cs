@@ -59,7 +59,7 @@ namespace UCS.Packets.Commands.Client
 
                     // New Method
                     this.Device.PlayerState = State.SEARCH_BATTLE;
-                    Level Defender = await ObjectManager.GetRandomOnlinePlayerWithoutShield();
+                    Level Defender = ObjectManager.GetRandomOnlinePlayer();
                     if (Defender != null)
                     {
                         Defender.Tick();

@@ -40,7 +40,7 @@ namespace UCS.Logic
         internal int m_vProtectionTime;
         internal int ReportedTimes           = 0;
         internal int m_vDonated;
-        internal int m_vReceived;
+        internal int m_vReceived;      
 
         // Byte
         internal byte m_vNameChangingLeft;
@@ -55,6 +55,7 @@ namespace UCS.Logic
         internal string GoogleId;
         internal string GoogleToken;
         internal string IPAddress;
+        internal string TroopRequestMessage;
 
         // Boolean
         internal bool m_vPremium;
@@ -417,7 +418,10 @@ namespace UCS.Logic
             this.FacebookId = jsonObject["fb_id"].ToObject<string>();
             this.FacebookToken = jsonObject["fb_token"].ToObject<string>();
             this.GoogleId = jsonObject["gg_id"].ToObject<string>();
+            this.m_vReceived = jsonObject["troops_received"].ToObject<int>();
+            this.m_vDonated = jsonObject["troops_donated"].ToObject<int>();
             this.GoogleToken = jsonObject["gg_token"].ToObject<string>();
+            this.TroopRequestMessage = jsonObject["rq_message"].ToObject<string>();
             var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
             foreach (JObject jobject in jsonBookmarkedClan)
             {
@@ -660,7 +664,10 @@ namespace UCS.Logic
                 {"fb_id", this.FacebookId},
                 {"fb_token", this.FacebookToken},
                 {"gg_id", this.GoogleId},
+                {"troops_received", this.m_vReceived},
+                {"troops_donated", this.m_vDonated},
                 {"gg_token", this.GoogleToken},
+                {"rq_message", this.TroopRequestMessage},
                 {"bookmark", jsonBookmarkClan},
                 {"resources", jsonResourcesArray},
                 {"units", jsonUnitsArray},
@@ -761,6 +768,8 @@ namespace UCS.Logic
         public void SetActiveLayout(int layout) => m_vActiveLayout = layout;
 
         public void SetAndroid(bool android) => m_vAndroid = android;
+
+        public void SetReuqestMessage(string msg) => TroopRequestMessage = msg;
 
         public async void SetAllianceRole(int a)
         {

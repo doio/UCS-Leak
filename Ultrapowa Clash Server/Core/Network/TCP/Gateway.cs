@@ -52,7 +52,7 @@ namespace UCS.Core.Network
 
         internal void Initialize()
         {
-            for (int Index = 0; Index < Constants.MaxOnlinePlayers * 2; Index++)
+            for (int Index = 0; Index < Constants.MaxOnlinePlayers + 1; Index++)
             {
                 SocketAsyncEventArgs ReadEvent = new SocketAsyncEventArgs();
                 ReadEvent.SetBuffer(new byte[Constants.ReceiveBuffer], 0, Constants.ReceiveBuffer);

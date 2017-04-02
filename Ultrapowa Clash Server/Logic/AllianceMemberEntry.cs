@@ -56,8 +56,8 @@ namespace UCS.Logic
                 data.AddInt(avatar.Avatar.m_vAvatarLevel);
                 data.AddInt(avatar.Avatar.m_vLeagueId);
                 data.AddInt(avatar.Avatar.GetScore());
-                data.AddInt(DonatedTroops);
-                data.AddInt(ReceivedTroops);
+                data.AddInt(avatar.Avatar.m_vDonated);
+                data.AddInt(avatar.Avatar.m_vReceived);
             }
             else
             {

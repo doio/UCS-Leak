@@ -18,21 +18,21 @@ namespace UCS.Logic.StreamEntry
 
         public List<DonationSlot> m_vUnitDonation;
         public List<BookmarkSlot> m_vDonatorList;
-        private long m_vHomeId;
-        private long m_vSenderId;
-        private int m_vId;
-        private int m_vSenderLeagueId;
-        private int m_vSenderLevel;
-        private int m_vSenderRole;
-        private int m_vType = -1;
-        private string m_vSenderName;
-        private DateTime m_vMessageTime;
-        public string m_vMessage;
-        public int m_vMaxTroop;
+        internal long m_vHomeId;
+        internal long m_vSenderId;
+        internal int m_vId;
+        internal int m_vSenderLeagueId;
+        internal int m_vSenderLevel;
+        internal int m_vSenderRole;
+        internal int m_vType = -1;
+        internal string m_vSenderName;
+        internal DateTime m_vMessageTime;
+        internal string m_vMessage;
+        internal int m_vMaxTroop;
         public int m_vDonatedTroop = 0;
-        public int m_vDonatedSpell = 0;
-        public int m_vState = 1; // 3 Refused - 2 Accepted - 1 Waiting
-        public string m_vJudge;
+        internal int m_vDonatedSpell = 0;
+        internal int m_vState = 1; // 3 Refused - 2 Accepted - 1 Waiting
+        internal string m_vJudge;
 
         public virtual byte[] Encode()
         {
@@ -53,24 +53,6 @@ namespace UCS.Logic.StreamEntry
 
         public int GetAgeSeconds() => (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds -
         (int)m_vMessageTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-
-        public long GetHomeId() => m_vHomeId;
-
-        public int GetId() => m_vId;
-
-        public long GetSenderId() => m_vSenderId;
-
-        public int GetSenderLeagueId() => m_vSenderLeagueId;
-
-        public int GetSenderLevel() => m_vSenderLevel;
-
-        public string GetSenderName() => m_vSenderName;
-
-        public int GetSenderRole() => m_vSenderRole;
-
-        public string GetMessage() => m_vMessage;
-
-        public int GetMaxTroop() => m_vMaxTroop;
 
         public virtual int GetStreamEntryType() => m_vType;
 

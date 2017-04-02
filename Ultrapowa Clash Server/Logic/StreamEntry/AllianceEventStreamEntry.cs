@@ -8,7 +8,7 @@ namespace UCS.Logic.StreamEntry
     internal class AllianceEventStreamEntry : StreamEntry
     {
         long m_vAvatarId;
-        string m_vAvatarName;
+        internal string m_vAvatarName;
         int m_vEventType;
 
         public override byte[] Encode()

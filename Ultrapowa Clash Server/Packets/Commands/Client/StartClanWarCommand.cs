@@ -23,27 +23,33 @@ namespace UCS.Packets.Commands.Client
 
         internal override async void Process()
         {
-            Alliance an = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-            if (an != null)
+            try
             {
-                if(an.GetAllianceMembers().Count >= 10)
+                Alliance an = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
+                if (an != null)
                 {
-                    AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                    eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    eventStreamEntry.SetSender(this.Device.Player.Avatar);
-                    eventStreamEntry.SetEventType(7);
-                    an.AddChatMessage(eventStreamEntry);
-
-                    foreach (AllianceMemberEntry a in an.GetAllianceMembers())
+                    if (an.GetAllianceMembers().Count >= 10)
                     {
-                        Level l = await ResourcesManager.GetPlayer(a.AvatarId);
-                        new AllianceWarMapDataMessage(l.Client).Send();
+                        AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
+                        eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                        eventStreamEntry.SetSender(this.Device.Player.Avatar);
+                        eventStreamEntry.SetEventType(7);
+                        an.AddChatMessage(eventStreamEntry);
 
-                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(l.Client);
-                        p.SetStreamEntry(eventStreamEntry);
-                        p.Send();
+                        foreach (AllianceMemberEntry a in an.GetAllianceMembers())
+                        {
+                            Level l = await ResourcesManager.GetPlayer(a.AvatarId);
+                            new AllianceWarMapDataMessage(l.Client).Send();
+
+                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(l.Client);
+                            p.SetStreamEntry(eventStreamEntry);
+                            p.Send();
+                        }
                     }
                 }
+            }
+            catch (Exception)
+            {
             }
         }
     }

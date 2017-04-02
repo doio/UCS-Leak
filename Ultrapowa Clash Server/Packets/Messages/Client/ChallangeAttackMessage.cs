@@ -42,7 +42,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
                         Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                        Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.GetId() == ID).GetSenderId());
+                        Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.m_vId == ID).m_vSenderId);
                         if (defender != null)
                         {
                             defender.Tick();
@@ -54,7 +54,7 @@ namespace UCS.Packets.Messages.Client
                         }
 
                         Alliance alliance = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                        StreamEntry s = alliance.m_vChatMessages.Find(c => c.GetStreamEntryType() == 12);
+                        StreamEntry s = alliance.m_vChatMessages.Find(c => c.m_vType == 12);
                         if (s != null)
                         {
                             alliance.m_vChatMessages.RemoveAll(t => t == s);

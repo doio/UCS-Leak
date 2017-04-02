@@ -135,7 +135,7 @@ namespace UCS.Core
             return ResourcesManager.GetInMemoryLevels().ElementAt(index);
         }
 
-        public static async Task<Level> GetRandomOnlinePlayerWithoutShield()
+        /*public static Level GetRandomOnlinePlayerWithoutShield()
         {
             try
             {
@@ -160,7 +160,7 @@ namespace UCS.Core
                 }
 
             } catch (Exception) { return null; }
-        }
+        }*/
 
         /*public static Level GetRandomPlayerFromAll()
         {
