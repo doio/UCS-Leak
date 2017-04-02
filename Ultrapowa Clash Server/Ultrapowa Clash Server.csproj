@@ -264,6 +264,7 @@
     <Compile Include="Packets\Commands\Client\RemoveShieldToAttackCommand.cs" />
     <Compile Include="Packets\Commands\Client\RenameQuickTrainCommand.cs" />
     <Compile Include="Packets\Commands\Client\SpeedUpRequestUnitsCommand.cs" />
+    <Compile Include="Packets\Commands\Server\ReceivedAllianceUnitCommand.cs" />
     <Compile Include="Packets\Crypto.cs" />
     <Compile Include="Packets\GameOpCommands\MinRessourcesGameOpCommand.cs" />
     <Compile Include="Packets\Messages\Client\AccountSwitchMessage.cs" />
@@ -1359,7 +1360,7 @@
       <ErrorText>This project refers to one or more NuGet packages that are not on this computer. Use the reset tool of NuGet packages to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets'))" />
- </Target>
+  </Target>
   <PropertyGroup>
     <PreBuildEvent>if not exist "$(TargetDir)Logs" mkdir "$(TargetDir)Logs"
 if not exist "$(TargetDir)Patch" mkdir "$(TargetDir)Patch"

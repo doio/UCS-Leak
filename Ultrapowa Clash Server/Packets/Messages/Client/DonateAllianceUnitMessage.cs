@@ -3,6 +3,7 @@ using System.IO;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Files.Logic;
+using UCS.Helpers;
 using UCS.Helpers.Binary;
 using UCS.Logic;
 using UCS.Logic.StreamEntry;
@@ -29,12 +30,18 @@ namespace UCS.Packets.Messages.Client
             this.Troop = (CombatItemData) this.Reader.ReadDataReference();
             this.Reader.ReadInt32();
             this.MessageID = this.Reader.ReadInt32();
+            this.BuyTroop = this.Reader.ReadByte();
         }
 
         internal override async void Process()
         {
             try
             {
+                /*if (this.BuyTroop >= 1)
+                {     
+                    this.Device.Player.Avatar.SetDiamonds(this.Device.Player.Avatar.m_vCurrentGems - Troop.GetHousingSpace());
+                }*/
+
                 Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
                 StreamEntry stream = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
                 Level _Sender = await ResourcesManager.GetPlayer(stream.m_vSenderId);
@@ -45,23 +52,27 @@ namespace UCS.Packets.Messages.Client
 
                     DonatedAllianceUnitCommand _Donated = new DonatedAllianceUnitCommand(this.Device);
                     _Donated.Tick(_Sender);
-                    _Donated.SetDonator(this.Device.Player.Avatar.AvatarName);
-                    _Donated.SetUnitID(Troop.GetGlobalID());
-                    _Donated.SetUnitLevel(this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    _Donated.MessageID = this.MessageID;
+                    _Donated.TroopID = Troop.GetGlobalID();
 
-                    //new AvailableServerCommandMessage(this.Device, _Donated.Handle()).Send();
+                    new AvailableServerCommandMessage(this.Device, _Donated.Handle()).Send();
+
+                    ReceivedAllianceUnitCommand _Received = new ReceivedAllianceUnitCommand(this.Device);
+                    _Received.Donator_Name = this.Device.Player.Avatar.AvatarName;
+                    _Received.TroopID = this.Troop.GetGlobalID();
+                    _Received.Troop_Level = this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop);
+
+                    new AvailableServerCommandMessage(_Sender.Client, _Received).Send();
 
                     StreamEntry _Stream = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
                     Level _PreviousPlayer = await ResourcesManager.GetPlayer(_Stream.m_vSenderId);
                     ClientAvatar _PreviousPlayerAvatar = _PreviousPlayer.Avatar;
-                    _Stream.AddDonatedTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1,
-                        this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    _Stream.AddDonatedTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1, this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
                     int _Capicity = Troop.GetHousingSpace();
                     _Stream.AddUsedCapicity(_Capicity);
-                    _PreviousPlayerAvatar.SetAllianceCastleUsedCapacity(
-                        _PreviousPlayerAvatar.GetAllianceCastleUsedCapacity() + _Capicity);
-                    _PreviousPlayerAvatar.AddAllianceTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1,
-                        this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    _PreviousPlayerAvatar.SetAllianceCastleUsedCapacity(_PreviousPlayerAvatar.GetAllianceCastleUsedCapacity() + _Capicity);
+                    _PreviousPlayerAvatar.AddAllianceTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1, this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+
                     this.Device.Player.Avatar.m_vDonated++;
                     _Sender.Avatar.m_vReceived++;
 

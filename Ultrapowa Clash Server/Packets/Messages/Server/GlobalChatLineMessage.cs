@@ -41,11 +41,11 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddLong(this.CurrentHomeId);
 
             if (this.HasAlliance)
-            {               
-                    this.Data.Add(1);
-                    this.Data.AddLong(this.AllianceId);
-                    this.Data.AddString(this.AllianceName);
-                    this.Data.AddInt(this.AllianceIcon);
+            {
+                this.Data.Add(1);
+                this.Data.AddLong(this.AllianceId);
+                this.Data.AddString(this.AllianceName);
+                this.Data.AddInt(this.AllianceIcon);
             }
             else
             {
