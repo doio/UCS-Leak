@@ -40,9 +40,8 @@ namespace UCS.Packets.Messages.Server
             this.Data.AddLong(this.HomeId);
             this.Data.AddLong(this.CurrentHomeId);
 
-            if (!this.HasAlliance)
-            {
-                
+            if (this.HasAlliance)
+            {               
                     this.Data.Add(1);
                     this.Data.AddLong(this.AllianceId);
                     this.Data.AddString(this.AllianceName);
