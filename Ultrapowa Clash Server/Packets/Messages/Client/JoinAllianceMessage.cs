@@ -47,7 +47,7 @@ namespace UCS.Packets.Messages.Client
                         c.Tick(this.Device.Player);
 
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                        eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                        eventStreamEntry.SetId(alliance.m_vChatMessages.Count + 1);
                         eventStreamEntry.SetSender(this.Device.Player.Avatar);
                         eventStreamEntry.SetEventType(3);
                         alliance.AddChatMessage(eventStreamEntry);
