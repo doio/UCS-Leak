@@ -21,7 +21,7 @@ namespace UCS.Packets.Messages.Server
                 List<byte> packet1 = new List<byte>();
 
                 int i = 1;
-                foreach (var player in ResourcesManager.GetOnlinePlayers())
+                foreach (var player in ResourcesManager.m_vOnlinePlayers)
                 {
                     try
                     {

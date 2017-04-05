@@ -19,7 +19,7 @@ namespace UCS.Packets.GameOpCommands
         {
             if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
-                foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                 {
                     var p = new ShutdownStartedMessage(onlinePlayer.Client) {Code = 5};
                     p.Send();

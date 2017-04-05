@@ -23,7 +23,7 @@ namespace UCS.Packets.Commands.Client
 
             //if (player.GetShieldTime > 0)
             //{
-                player.SetShieldTime(0);
+                  player.m_vShieldTime = 0;
                 //player.SetProtectionTime(1800);
             //}
             /*else 

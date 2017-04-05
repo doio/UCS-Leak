@@ -46,7 +46,7 @@ namespace UCS.Packets.Commands.Client
                         var targetMember = alliance.m_vAllianceMembers[m_vAvatarId];
                         if (targetMember.HasLowerRoleThan(requesterMember.Role))
                         {
-                            targetAvatar.SetAllianceId(0);
+                            targetAvatar.AllianceId = 0;
                             alliance.RemoveMember(m_vAvatarId);
                             if (ResourcesManager.IsPlayerOnline(targetAccount))
                             {

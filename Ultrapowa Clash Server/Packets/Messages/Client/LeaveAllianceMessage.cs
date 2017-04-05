@@ -87,7 +87,7 @@ namespace UCS.Packets.Messages.Client
                 new AvailableServerCommandMessage(Device, a.Handle()).Send();
 
                 alliance.RemoveMember(avatar.UserId);
-                avatar.SetAllianceId(0);
+                avatar.AllianceId = 0;
 
                 if (alliance.GetAllianceMembers().Count > 0)
                 {
@@ -96,7 +96,7 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.SetSender(avatar);
                     eventStreamEntry.SetEventType(4);
                     alliance.AddChatMessage(eventStreamEntry);
-                    foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                         if (onlinePlayer.Avatar.AllianceId == alliance.m_vAllianceId)
                         {
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.Client);

@@ -8,8 +8,8 @@ namespace UCS.Logic
     {
         readonly long m_vId;
         internal string Village;
-        int m_vShieldTime;
-        int m_vProtectionTime;
+        internal int m_vShieldTime;
+        internal int m_vProtectionTime;
 
         public ClientHome()
         {
@@ -35,9 +35,5 @@ namespace UCS.Logic
         }
 
         public void SetHomeJSON(string json) => Village = json;
-
-        public void SetShieldTime(int seconds) => m_vShieldTime = seconds;
-
-        public void SetProtectionTime(int time) => m_vProtectionTime = time;
     }
 }

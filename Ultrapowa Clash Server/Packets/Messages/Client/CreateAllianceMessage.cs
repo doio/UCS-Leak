@@ -62,15 +62,15 @@ namespace UCS.Packets.Messages.Client
                                         if (m_vWarAndFriendlyStatus < 0 || m_vWarAndFriendlyStatus < 5)
                                         {
                                             Alliance alliance = ObjectManager.CreateAlliance(0);
-                                            alliance.SetAllianceName(m_vAllianceName);
-                                            alliance.SetAllianceDescription(m_vAllianceDescription);
-                                            alliance.SetAllianceType(m_vAllianceType);
-                                            alliance.SetRequiredScore(m_vRequiredScore);
-                                            alliance.SetAllianceBadgeData(m_vAllianceBadgeData);
-                                            alliance.SetAllianceOrigin(m_vAllianceOrigin);
-                                            alliance.SetWarFrequency(m_vWarFrequency);
+                                            alliance.m_vAllianceName        = m_vAllianceName;
+                                            alliance.m_vAllianceDescription = m_vAllianceDescription;
+                                            alliance.m_vAllianceType        = m_vAllianceType;
+                                            alliance.m_vRequiredScore       = m_vRequiredScore;
+                                            alliance.m_vAllianceBadgeData   = m_vAllianceBadgeData;
+                                            alliance.m_vAllianceOrigin      = m_vAllianceOrigin;
+                                            alliance.m_vWarFrequency        = m_vWarFrequency;
                                             alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-                                            this.Device.Player.Avatar.SetAllianceId(alliance.m_vAllianceId);
+                                            this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
 
                                             AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId);
                                             member.SetRole(2);

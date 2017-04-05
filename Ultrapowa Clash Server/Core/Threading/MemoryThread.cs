@@ -43,7 +43,7 @@ namespace UCS.Core.Threading
                     }
                 }
 
-                int c = ResourcesManager.GetOnlinePlayers().Count; 
+                int c = ResourcesManager.m_vOnlinePlayers.Count; 
                 Console.Title = Program.Title + c;
                 Program.OP = c;
 

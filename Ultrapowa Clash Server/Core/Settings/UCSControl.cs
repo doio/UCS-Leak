@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using UCS.Core.Threading;
 using UCS.Core.Web;
@@ -13,11 +14,46 @@ namespace UCS.Core.Settings
     {
         public static void UCSClose()
         {
+            Logger.Say("UCS is shutting down", true);
             new Thread(() =>
             {
-                Say("Closing UCS...");
-                Environment.Exit(0);
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(".");
+                    Thread.Sleep(1000);
+                }
             }).Start();
+
+            try
+            {
+                if (ResourcesManager.GetInMemoryLevels().Count > 0)
+                {
+                    Parallel.ForEach(ResourcesManager.GetInMemoryLevels(), (_Player) =>
+                    {
+                        if (_Player != null)
+                        {
+                            ResourcesManager.LogPlayerOut(_Player);
+                        }
+                    });
+                }
+
+
+                if (ResourcesManager.GetInMemoryAlliances().Count > 0)
+                {
+                    Parallel.ForEach(ResourcesManager.GetInMemoryAlliances(), (_Player) =>
+                    {
+                        if (_Player != null)
+                        {
+                            ResourcesManager.RemoveAllianceFromMemory(_Player.m_vAllianceId);
+                        }
+                    });
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            Environment.Exit(0);
         }
 
         public static void UCSRestart()

@@ -23,8 +23,8 @@ namespace UCS.Packets.Messages.Server
                 ClientAvatar avatar = this.Player.Avatar;
                 ClientHome home = new ClientHome(avatar.UserId);
 
-                home.SetShieldTime(avatar.m_vShieldTime);
-                home.SetProtectionTime(avatar.m_vProtectionTime);
+                home.m_vShieldTime = avatar.m_vShieldTime;
+                home.m_vProtectionTime = avatar.m_vProtectionTime;
                 home.SetHomeJSON(Player.SaveToJSON());
 
                 this.Data.AddInt(0);

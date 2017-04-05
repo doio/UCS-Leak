@@ -60,12 +60,12 @@ namespace UCS.Packets.Messages.Client
                                         {
                                             if (m_vWarAndFriendlyStatus < 0 || m_vWarAndFriendlyStatus < 5)
                                             {
-                                                alliance.SetAllianceDescription(m_vAllianceDescription);
-                                                alliance.SetAllianceBadgeData(m_vAllianceBadgeData);
-                                                alliance.SetAllianceType(m_vAllianceType);
-                                                alliance.SetRequiredScore(m_vRequiredScore);
-                                                alliance.SetWarFrequency(m_vWarFrequency);
-                                                alliance.SetAllianceOrigin(m_vAllianceOrigin);
+                                                alliance.m_vAllianceDescription = m_vAllianceDescription;
+                                                alliance.m_vAllianceBadgeData   = m_vAllianceBadgeData;
+                                                alliance.m_vAllianceType        = m_vAllianceType;
+                                                alliance.m_vRequiredScore       = m_vRequiredScore;
+                                                alliance.m_vWarFrequency        = m_vWarFrequency;
+                                                alliance.m_vAllianceOrigin      = m_vAllianceOrigin;
                                                 alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
 
                                                 ClientAvatar avatar = this.Device.Player.Avatar;

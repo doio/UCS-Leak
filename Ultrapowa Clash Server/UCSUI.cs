@@ -44,7 +44,7 @@ namespace UCS
 			IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
 			labelIP.Text = Convert.ToString(ipHostInfo.AddressList[0]);
             labelPort.Text = ConfigurationManager.AppSettings["ServerPort"];
-            labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.GetOnlinePlayers().Count);
+            labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.m_vOnlinePlayers.Count);
             labelConnectedPlayers.Text = Convert.ToString(ResourcesManager.GetConnectedClients().Count);
             labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.GetInMemoryLevels().Count);
             materialLabel14.Text = Convert.ToString(ObjectManager.GetMaxPlayerID() + ObjectManager.GetMaxAllianceID());
@@ -92,7 +92,7 @@ namespace UCS
 
             listView1.Items.Clear();
             int count = 0;
-            foreach (var acc in ResourcesManager.GetOnlinePlayers())
+            foreach (var acc in ResourcesManager.m_vOnlinePlayers)
             {
                 ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
                 item.SubItems.Add(Convert.ToString(acc.Avatar.UserId));
@@ -153,7 +153,7 @@ namespace UCS
 			IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
 			labelIP.Text = Convert.ToString(ipHostInfo.AddressList[0]);
 			labelPort.Text = ConfigurationManager.AppSettings["ServerPort"];
-            labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.GetOnlinePlayers().Count);
+            labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.m_vOnlinePlayers.Count);
             labelConnectedPlayers.Text = Convert.ToString(ResourcesManager.GetConnectedClients().Count);
             labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.GetInMemoryLevels().Count);
 			//materialLabel14.Text = Convert.ToString(ResourcesManager.GetAllPlayerIds().Count + ResourcesManager.GetAllClanIds().Count);
@@ -172,7 +172,7 @@ namespace UCS
         {
             int count = 0;
             listView1.Items.Clear();
-            foreach (var acc in ResourcesManager.GetOnlinePlayers())
+            foreach (var acc in ResourcesManager.m_vOnlinePlayers)
             {
                 ListViewItem item = new ListViewItem(acc.Avatar.AvatarName);
                 item.SubItems.Add(Convert.ToString(acc.Avatar.UserId));
@@ -257,10 +257,10 @@ namespace UCS
 
             l.Avatar.SetName(txtPlayerName.Text);
             l.Avatar.SetScore(Convert.ToInt32(txtPlayerScore.Text));
-            l.Avatar.SetDiamonds(Convert.ToInt32(txtPlayerGems.Text));
+            l.Avatar.m_vCurrentGems = Convert.ToInt32(txtPlayerGems.Text);
             l.Avatar.SetTownHallLevel(Convert.ToInt32(txtTownHallLevel.Text));
-            l.Avatar.SetAllianceId(Convert.ToInt32(txtAllianceID.Text));
-            l.Avatar.SetAvatarLevel(Convert.ToInt32(txtPlayerLevel.Text));
+            l.Avatar.AllianceId = Convert.ToInt32(txtAllianceID.Text);
+            l.Avatar.m_vAvatarLevel = Convert.ToInt32(txtPlayerLevel.Text);
 
             var title = "Finished!";
             MessageBox.Show("Player has been saved!", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -378,7 +378,7 @@ namespace UCS
         //Send To Gobal Chat Button
         private void materialRaisedButton9_Click(object sender, EventArgs e)
         {
-            foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+            foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
             {
                 var pm = new GlobalChatLineMessage(onlinePlayer.Client)
                 {
@@ -409,7 +409,7 @@ namespace UCS
             mail.SetSenderLevel(300);
             mail.SetSenderLeagueId(22);
 
-            foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+            foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
             {
                 var p = new AvatarStreamEntryMessage(onlinePlayer.Client);
                 p.SetAvatarStreamEntry(mail);
@@ -519,7 +519,7 @@ namespace UCS
             else
             {
 
-                foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                 {
                     var pm = new GlobalChatLineMessage(onlinePlayer.Client)
                     {
@@ -538,7 +538,7 @@ namespace UCS
                 T.Interval = Interval;
                 T.Elapsed += ((s, o) =>
                 {
-                    foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                     {
                         var pm = new GlobalChatLineMessage(onlinePlayer.Client)
                         {
@@ -607,9 +607,9 @@ namespace UCS
             if(!string.IsNullOrEmpty(txtID.Text))
             {
                 Alliance alliance = ObjectManager.GetAlliance(long.Parse(txtID.Text));
-                alliance.SetAllianceName(txtAllianceName.Text);
-                alliance.SetAllianceLevel(Convert.ToInt32(txtAllianceLevel.Text));
-                alliance.SetAllianceDescription(txtAllianceDescription.Text);
+                alliance.m_vAllianceName = txtAllianceName.Text;
+                alliance.m_vAllianceLevel = Convert.ToInt32(txtAllianceLevel.Text);
+                alliance.m_vAllianceDescription = txtAllianceDescription.Text;
                 DatabaseManager.Single().Save(alliance);
             }
             else

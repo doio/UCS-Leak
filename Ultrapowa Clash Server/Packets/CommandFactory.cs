@@ -95,8 +95,6 @@ namespace UCS.Packets
             //Commands.Add(551, typeof(ContinueBarrackBoostCommand));
             //Commands.Add(563, typeof(CollectClanResourcesCommand));
             //Commands.Add(573, typeof(RemoveShieldToAttackCommand));
-
-
         }
     }
 }

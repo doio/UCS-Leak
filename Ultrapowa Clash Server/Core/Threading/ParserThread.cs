@@ -167,7 +167,7 @@ namespace UCS.Helpers
                             Say("IP Address:               " +
                                               Dns.GetHostByName(Dns.GetHostName()).AddressList[0]);
                             Say("Online Players:           " +
-                                              ResourcesManager.GetOnlinePlayers().Count);
+                                              ResourcesManager.m_vOnlinePlayers.Count);
                             Say("Connected Players:        " +
                                               ResourcesManager.GetConnectedClients().Count);
                             Say("In Memory Players:        " +
@@ -195,13 +195,13 @@ namespace UCS.Helpers
                             Clear();
                             break;
 
-                        case "/shutdown":
+                        case "/exit":
                             UCSControl.UCSClose();
                             break;
 
-                        case "/info shutdown":
+                        case "/info exit":
                             Print("---------------------------------------------------------------------------->");
-                            Say(@"/shutdown > Shuts Down UCS instantly after doing the following:");
+                            Say(@"/exit > Shuts Down UCS instantly after doing the following:");
                             Say(@"     - Throws all Players an 'Client Out of Sync Message'");
                             Say(@"     - Disconnects All Players From the Server");
                             Say(@"     - Saves all Players in Database");
@@ -259,7 +259,7 @@ namespace UCS.Helpers
             Say("Maintenance Mode (" + Time + ")");
             Print("------------------------------------------------------------------->");
 
-            foreach (Level p in ResourcesManager.GetOnlinePlayers())
+            foreach (Level p in ResourcesManager.m_vOnlinePlayers)
             {
                 Processor.Send(new ShutdownStartedMessage(p.Client));
             }
@@ -275,7 +275,7 @@ namespace UCS.Helpers
         
         private static void ShutdownMessage(object sender, EventArgs e)
         {
-            foreach(Level p in ResourcesManager.GetOnlinePlayers())
+            foreach(Level p in ResourcesManager.m_vOnlinePlayers)
             {
                 Processor.Send(new ShutdownStartedMessage(p.Client));
             }

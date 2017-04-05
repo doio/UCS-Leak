@@ -16,11 +16,11 @@ namespace UCS.Core
 {
     internal class ResourcesManager : IDisposable
     {
-        public static ConcurrentDictionary<IntPtr, Device> m_vClients            = null;
-        private static ConcurrentDictionary<long, Level> m_vInMemoryLevels       = null;
-        public static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances = null;
-        private static List<Level> m_vOnlinePlayers                              = null;
-        private static DatabaseManager m_vDatabase                               = null;
+        internal static ConcurrentDictionary<IntPtr, Device> m_vClients            = null;
+        internal static ConcurrentDictionary<long, Level> m_vInMemoryLevels        = null;
+        internal static ConcurrentDictionary<long, Alliance> m_vInMemoryAlliances  = null;
+        internal static List<Level> m_vOnlinePlayers                               = null;
+        private static DatabaseManager m_vDatabase                                 = null;
 
         public ResourcesManager()
         {
@@ -39,10 +39,12 @@ namespace UCS.Core
             };
             m_vClients.TryAdd(c.Socket.Handle, c);
         }
+
         public static void AddClient(Device Client)
         {
             m_vClients.TryAdd(Client.Socket.Handle, Client);
         }
+
         public static void DropClient(IntPtr socketHandle)
         {
             try
@@ -58,6 +60,7 @@ namespace UCS.Core
             {
             }
         }
+
         public static void DropClient(Device client)
         {
             try
@@ -80,8 +83,6 @@ namespace UCS.Core
         public static List<Device> GetConnectedClients() => m_vClients.Values.ToList();
 
         public static List<Level> GetInMemoryLevels() => m_vInMemoryLevels.Values.ToList();
-
-        public static List<Level> GetOnlinePlayers() => m_vOnlinePlayers;
 
         public static async Task<Level> GetPlayer(long id, bool persistent = false)
         {
@@ -184,7 +185,7 @@ namespace UCS.Core
         {
             GetInMemoryAlliances().Clear();
             GetInMemoryLevels().Clear();
-            GetOnlinePlayers().Clear();
+            m_vOnlinePlayers.Clear();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         if (badword)
                         {
-                            foreach (Level pl in ResourcesManager.GetOnlinePlayers())
+                            foreach (Level pl in ResourcesManager.m_vOnlinePlayers)
                             {
                                 if (pl.Avatar.Region == this.Device.Player.Avatar.Region)
                                 {
@@ -81,7 +81,7 @@ namespace UCS.Packets.Messages.Client
                         }
                         else
                         {
-                            foreach (Level onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                            foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                             {
                                 if (onlinePlayer.Avatar.Region == this.Device.Player.Avatar.Region)
                                 {

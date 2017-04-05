@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands.Client
                         mail.SetAllianceName(alliance.m_vAllianceName);
                         mail.SetMessage(m_vMailContent);
 
-                        foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                        foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                         {
                             if (onlinePlayer.Avatar.AllianceId == allianceId)
                             {

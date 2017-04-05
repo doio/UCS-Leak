@@ -24,8 +24,8 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 ClientHome ownerHome = new ClientHome(Player.Avatar.UserId);
-                ownerHome.SetShieldTime(Player.Avatar.m_vShieldTime);
-                ownerHome.SetProtectionTime(Player.Avatar.m_vProtectionTime);
+                ownerHome.m_vShieldTime = Player.Avatar.m_vShieldTime;
+                ownerHome.m_vProtectionTime = Player.Avatar.m_vProtectionTime;
                 ownerHome.SetHomeJSON(JsonBase);
 
                 this.Data.AddInt(0);

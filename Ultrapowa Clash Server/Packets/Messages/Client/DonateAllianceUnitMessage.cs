@@ -43,13 +43,13 @@ namespace UCS.Packets.Messages.Client
                 }*/
 
                 Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                StreamEntry stream = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
-                Level _Sender = await ResourcesManager.GetPlayer(stream.m_vSenderId);
-                int upcomingspace = stream.m_vDonatedTroop + Troop.GetHousingSpace();
+                StreamEntry _Stream = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
+                Level _Sender = await ResourcesManager.GetPlayer(_Stream.m_vSenderId);
+                int upcomingspace = _Stream.m_vDonatedTroop + Troop.GetHousingSpace();
 
-                if (upcomingspace <= stream.m_vMaxTroop)
+                if (upcomingspace <= _Stream.m_vMaxTroop)
                 {
-
+                    
                     DonatedAllianceUnitCommand _Donated = new DonatedAllianceUnitCommand(this.Device);
                     _Donated.Tick(_Sender);
                     _Donated.MessageID = this.MessageID;
@@ -64,10 +64,10 @@ namespace UCS.Packets.Messages.Client
 
                     new AvailableServerCommandMessage(_Sender.Client, _Received).Send();
 
-                    StreamEntry _Stream = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
                     Level _PreviousPlayer = await ResourcesManager.GetPlayer(_Stream.m_vSenderId);
                     ClientAvatar _PreviousPlayerAvatar = _PreviousPlayer.Avatar;
                     _Stream.AddDonatedTroop(this.Device.Player.Avatar.UserId, Troop.GetGlobalID(), 1, this.Device.Player.Avatar.GetUnitUpgradeLevel(Troop));
+                    
                     int _Capicity = Troop.GetHousingSpace();
                     _Stream.AddUsedCapicity(_Capicity);
                     _PreviousPlayerAvatar.SetAllianceCastleUsedCapacity(_PreviousPlayerAvatar.GetAllianceCastleUsedCapacity() + _Capicity);

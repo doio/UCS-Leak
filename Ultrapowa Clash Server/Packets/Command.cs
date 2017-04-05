@@ -70,13 +70,5 @@ namespace UCS.Packets
         {
             // Process.
         }
-
-        /// <summary>
-        /// Debugs this instance.
-        /// </summary>
-        internal void Debug()
-        {
-            Console.WriteLine(Utils.Padding(this.GetType().Name, 15) + " : " + BitConverter.ToString(this.Reader.ReadBytes((int)(this.Reader.BaseStream.Length - this.Reader.BaseStream.Position))));
-        }
     }
 }

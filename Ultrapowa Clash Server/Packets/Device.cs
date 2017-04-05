@@ -67,30 +67,34 @@ namespace UCS.Packets
         {
             if (Buffer.Length >= 7)
             {
+                int[] _Header = new int[3];
+
                 using (Reader Reader = new Reader(Buffer))
                 {
-                    ushort Identifier = Reader.ReadUInt16();
+                    _Header[0] = Reader.ReadUInt16(); // Message ID
                     Reader.Seek(1);
-                    ushort Length = Reader.ReadUInt16();
-                    ushort Version = Reader.ReadUInt16();
-                    if (Buffer.Length - 7 >= Length)
+                    _Header[1] = Reader.ReadUInt16(); // Length
+                    _Header[2] = Reader.ReadUInt16(); // Version
+
+                    if (Buffer.Length - 7 >= _Header[1])
                     {
-                        if (MessageFactory.Messages.ContainsKey(Identifier))
+                        if (MessageFactory.Messages.ContainsKey(_Header[0]))
                         {
-                            Message message =  Activator.CreateInstance(MessageFactory.Messages[Identifier], this, Reader) as Message;
+                            Message _Message =  Activator.CreateInstance(MessageFactory.Messages[_Header[0]], this, Reader) as Message;
 
-                            message.Identifier = Identifier;
-                            message.Length = Length;
-                            message.Version = Version;
+                            _Message.Identifier = (ushort)_Header[0];
+                            _Message.Length = (ushort)_Header[1];
+                            _Message.Version = (ushort)_Header[2];
 
-                            message.Reader = Reader;
+                            _Message.Reader = Reader;
 
                             try
                             {
-                                Logger.Write("Message " + message.GetType().Name + " is handled");
-                                message.Decrypt();
-                                message.Decode();
-                                message.Process();
+                                Logger.Write($"Message { _Message.GetType().Name } ({_Header[0]}) is handled");
+
+                                _Message.Decrypt();
+                                _Message.Decode();
+                                _Message.Process();
                             }
                             catch (Exception Exception)
                             {
@@ -98,13 +102,13 @@ namespace UCS.Packets
                         }
                         else
                         {
-                            Logger.Write("Message " + Identifier + " is unhandled");
+                            Logger.Write($"Message { _Header[0] } is unhandled");
                             this.Keys.SNonce.Increment();
                         }
 
-                        if ((Buffer.Length - 7) - Length >= 7)
+                        if ((Buffer.Length - 7) - _Header[1] >= 7)
                         {
-                            this.Process(Reader.ReadBytes((Buffer.Length - 7) - Length));
+                            this.Process(Reader.ReadBytes((Buffer.Length - 7) - _Header[1]));
                         }
                         else
                         {

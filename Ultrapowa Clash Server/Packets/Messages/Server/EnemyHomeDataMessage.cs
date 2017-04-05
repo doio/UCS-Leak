@@ -19,9 +19,9 @@ namespace UCS.Packets.Messages.Server
             try
             {
                 ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserId);
-                ch.SetShieldTime(this.OwnerLevel.Avatar.m_vShieldTime);
+                ch.m_vShieldTime = this.OwnerLevel.Avatar.m_vShieldTime;
                 ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
-                ch.SetProtectionTime(this.OwnerLevel.Avatar.m_vProtectionTime);
+                ch.m_vProtectionTime = this.OwnerLevel.Avatar.m_vProtectionTime;
 
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);
                 this.Data.AddInt(-1);

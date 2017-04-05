@@ -115,7 +115,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (Constants.LicensePlanID == 3)
                     {
-                        if (ResourcesManager.GetOnlinePlayers().Count >= Constants.MaxOnlinePlayers)
+                        if (ResourcesManager.m_vOnlinePlayers.Count >= Constants.MaxOnlinePlayers)
                         {
                             LoginFailedMessage p = new LoginFailedMessage(Device)
                             {
@@ -141,7 +141,7 @@ namespace UCS.Packets.Messages.Client
 
                     if (Constants.LicensePlanID < 1)
                     {
-                        if (ResourcesManager.GetOnlinePlayers().Count >= 350)
+                        if (ResourcesManager.m_vOnlinePlayers.Count >= 350)
                         {
                             LoginFailedMessage p = new LoginFailedMessage(Device)
                             {
@@ -154,7 +154,7 @@ namespace UCS.Packets.Messages.Client
                     }
                     else if (Constants.LicensePlanID < 2)
                     {
-                        if (ResourcesManager.GetOnlinePlayers().Count >= 700)
+                        if (ResourcesManager.m_vOnlinePlayers.Count >= 700)
                         {
                             LoginFailedMessage p = new LoginFailedMessage(Device)
                             {
@@ -340,7 +340,7 @@ namespace UCS.Packets.Messages.Client
 
             level.Avatar.Region = Region.ToUpper();
             level.Avatar.InitializeAccountCreationDate();
-            level.Avatar.SetAndroid(Android);
+            level.Avatar.m_vAndroid = Android;
 
             DatabaseManager.Single().Save(level);
             LogUser();

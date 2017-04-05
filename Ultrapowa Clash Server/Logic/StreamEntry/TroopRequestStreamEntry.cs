@@ -11,7 +11,7 @@ namespace UCS.Logic.StreamEntry
     internal class TroopRequestStreamEntry : StreamEntry
     {
         public static int ID = (int)ObjectManager.m_vDonationSeed;
-        public int m_vMaxSpell = 1;
+        public int m_vMaxSpell = 0;
 
         public TroopRequestStreamEntry()
         {

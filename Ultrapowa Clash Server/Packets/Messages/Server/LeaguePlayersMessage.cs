@@ -19,7 +19,7 @@ namespace UCS.Packets.Messages.Server
             List<byte> packet1 = new List<byte>();
 
             int i = 1;
-            foreach (Level player in  ResourcesManager.GetOnlinePlayers() .Where(t => t.Avatar.m_vLeagueId == this.Device.Player.Avatar.m_vLeagueId) .OrderByDescending(t => t.Avatar.GetScore()))
+            foreach (Level player in  ResourcesManager.m_vOnlinePlayers.Where(t => t.Avatar.m_vLeagueId == this.Device.Player.Avatar.m_vLeagueId) .OrderByDescending(t => t.Avatar.GetScore()))
             {
                 if (i >= 51)
                     break;

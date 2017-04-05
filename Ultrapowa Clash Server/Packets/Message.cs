@@ -40,11 +40,13 @@ namespace UCS.Packets
             this.Device = Device;
             this.Data = new List<byte>(Constants.SendBuffer);
         }
+
         internal Message(Device Device, Reader Reader)
         {
             this.Device = Device;
             this.Reader = Reader;
         }
+
         internal byte[] ToBytes
         {
             get
@@ -70,10 +72,12 @@ namespace UCS.Packets
         {
 
         }
+
         internal virtual void Process()
         {
 
         }
+
         internal virtual void Decrypt()
         {
             if (this.Device.PlayerState >= State.LOGGED)
@@ -102,11 +106,6 @@ namespace UCS.Packets
             }
 
             this.Length = (ushort)this.Data.Count;
-        }
-
-        internal void Debug()
-        {
-            Console.WriteLine(this.GetType().Name + " : " + BitConverter.ToString(this.Reader.ReadBytes((int)(this.Reader.BaseStream.Length - this.Reader.BaseStream.Position))));
         }
     }
 }

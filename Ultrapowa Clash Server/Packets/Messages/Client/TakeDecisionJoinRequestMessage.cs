@@ -39,7 +39,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (!a.IsAllianceFull())
                     {
-                        requester.Avatar.SetAllianceId(a.m_vAllianceId);
+                        requester.Avatar.AllianceId = a.m_vAllianceId;
 
                         AllianceMemberEntry member = new AllianceMemberEntry(requester.Avatar.UserId);
                         member.SetRole(1);

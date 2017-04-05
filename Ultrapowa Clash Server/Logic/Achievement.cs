@@ -2,7 +2,7 @@ namespace UCS.Logic
 {
     internal class Achievement
     {
-        const int m_vType = 0x015EF3C0;
+        const int m_vType = 23000000;
 
         public Achievement()
         {

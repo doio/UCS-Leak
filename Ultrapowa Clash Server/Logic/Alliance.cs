@@ -210,44 +210,23 @@ namespace UCS.Logic
             jsonData.Add("chatMessages", jsonMessageArray);
             return JsonConvert.SerializeObject(jsonData);
         }
-
-        public void SetAllianceBadgeData(int data) => m_vAllianceBadgeData = data;
-
-        public void SetAllianceDescription(string description) => m_vAllianceDescription = description;
-
-        public void SetAllianceLevel(int level) => m_vAllianceLevel = level;
-
-        public void SetAllianceName(string name) => m_vAllianceName = name;
-
-        public void SetAllianceOrigin(int origin) => m_vAllianceOrigin = origin;
-
-        public void SetAllianceType(int status) => m_vAllianceType = status;
-
-        public void SetRequiredScore(int score) => m_vRequiredScore = score;
-
-        public void SetWarFrequency(int frequency) => m_vWarFrequency = frequency;
-
-        public void SetWarPublicStatus(byte log) => m_vWarLogPublic = log;
-
-        public void SetFriendlyWar(byte log) => m_vFriendlyWar = log;
-
         public void SetWarAndFriendlytStatus(byte status)
         {
             switch (status)
             {
                 case 1:
-                    SetWarPublicStatus(1);
+                    m_vWarLogPublic = 1;
                     break;
                 case 2:
-                    SetFriendlyWar(1);
+                    m_vWarLogPublic = 1;
                     break;
                 case 3:
-                    SetWarPublicStatus(1);
-                    SetFriendlyWar(1);
+                    m_vWarLogPublic = 1;
+                    m_vFriendlyWar = 1;
                     break;
                 case 0:
-                    SetWarPublicStatus(0);
-                    SetFriendlyWar(0);
+                    m_vWarLogPublic = 0;
+                    m_vFriendlyWar = 0;
                     break;
                 default:
                     break;

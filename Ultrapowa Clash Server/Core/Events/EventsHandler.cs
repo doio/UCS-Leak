@@ -53,41 +53,6 @@ namespace UCS.Core.Events
                         }
                     });
                 }
-                /*lock (Resources.Players.Gate)
-                {
-                    if (Resources.Players.Count > 0)
-                    {
-                        List<Player> Players = Resources.Players.Values.ToList();
-
-                        Parallel.ForEach(Players, (_Player) =>
-                        {
-                            if (_Player != null)
-                            {
-                                Resources.Players.Save(_Player, Constants.Database);
-                                Resources.Players.Remove(_Player);
-                                Redis.Players.KeyDelete(_Player.LowID.ToString());
-                            }
-                        });
-                    }
-                }
-
-                lock (Resources.Clans.Gate)
-                {
-                    if (Resources.Clans.Count > 0)
-                    {
-                        List<Clan> Clans = Resources.Clans.Values.ToList();
-
-                        foreach (Clan _Clan in Clans)
-                        {
-                            if (_Clan != null)
-                            {
-                                Resources.Clans.Save(_Clan, Constants.Database);
-                                Resources.Clans.Remove(_Clan);
-                                Redis.Clans.KeyDelete(_Clan.LowID.ToString());
-                            }
-                        }
-                    }
-                }*/
             }
             catch (Exception)
             {

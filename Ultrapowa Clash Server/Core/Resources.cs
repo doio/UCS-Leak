@@ -3,6 +3,7 @@ namespace UCS.Core
 {
     using System;
     using UCS.Core.Network;
+
     internal class Resources
     {
         internal static Random Random;

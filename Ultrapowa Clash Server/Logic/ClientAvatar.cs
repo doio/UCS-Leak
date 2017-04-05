@@ -18,7 +18,7 @@ namespace UCS.Logic
     internal class ClientAvatar : Avatar
     {
         // Long
-        internal long AllianceId;
+        internal long AllianceId            = 0;
         internal long CurrentHomeId;
         internal long UserId;
 
@@ -27,7 +27,7 @@ namespace UCS.Logic
         internal int LowID;
         internal int m_vAvatarLevel;
         internal int m_vCurrentGems;
-        internal int m_vExperience;
+        internal int m_vExperience          = 0;
         internal int m_vLeagueId;
         internal int m_vScore;
         internal int m_vDonatedUnits;
@@ -38,14 +38,17 @@ namespace UCS.Logic
         internal int m_vAlliance_DarkElixir = 14400;
         internal int m_vShieldTime;
         internal int m_vProtectionTime;
-        internal int ReportedTimes           = 0;
+        internal int ReportedTimes          = 0;
         internal int m_vDonated;
-        internal int m_vReceived;      
+        internal int m_vReceived;
+
+        // UInt
+        internal uint TutorialStepsCount    = 0x0A;
 
         // Byte
-        internal byte m_vNameChangingLeft;
-        internal byte m_vnameChosenByUser;
-        internal byte AccountPrivileges;
+        internal byte m_vNameChangingLeft   = 0x02;
+        internal byte m_vnameChosenByUser   = 0x00;
+        internal byte AccountPrivileges     = 0x00;
         // String
         internal string AvatarName;
         internal string UserToken;
@@ -58,23 +61,13 @@ namespace UCS.Logic
         internal string TroopRequestMessage;
 
         // Boolean
-        internal bool m_vPremium;
+        internal bool m_vPremium           = false;
         internal bool m_vAndroid;
-        internal bool AccountBanned;
+        internal bool AccountBanned        = false;
+
         //Datetime
         internal DateTime m_vAccountCreationDate;
         internal DateTime LastTickSaved;
-
-        public struct AttackInfo
-        {
-            public Level Defender;
-            public Level Attacker;
-
-            public int Lost;
-            public int Reward;
-
-            public List<DataSlot> UsedTroop;
-        }
 
         public ClientAvatar()
         {
@@ -88,7 +81,6 @@ namespace UCS.Logic
             QuickTrain1          = new List<DataSlot>();
             QuickTrain2          = new List<DataSlot>();
             QuickTrain3          = new List<DataSlot>();
-            AttackingInfo        = new Dictionary<long, AttackInfo>();
         }
 
         public ClientAvatar(long id, string token) : this()
@@ -101,19 +93,11 @@ namespace UCS.Logic
             this.LowID               = (int)(id & 0xffffffffL);
             this.UserToken           = token;
             this.CurrentHomeId       = id;
-            this.AccountPrivileges   = 0;
-            this.AccountBanned       = false;
-            this.m_vnameChosenByUser = 0x00;
-            this.m_vNameChangingLeft = 0x02;
             this.m_vAvatarLevel      = ToInt32(AppSettings["startingLevel"]);
-            this.AllianceId          = 0;
-            this.m_vExperience       = 0;
             this.EndShieldTime       = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             this.m_vCurrentGems      = ToInt32(AppSettings["startingGems"]);
             this.m_vScore            = AppSettings["startingTrophies"] == "random" ? rnd.Next(1500, 4999) : ToInt32(AppSettings["startingTrophies"]);
 
-            this.TutorialStepsCount  = 0x0A;
-            this.m_vPremium          = false;
             this.AvatarName          = "NoNameYet";
 
             SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), ToInt32(AppSettings["startingGold"]));
@@ -132,12 +116,11 @@ namespace UCS.Logic
         public List<DataSlot> NpcLootedGold { get; set; }
         public List<DataSlot> NpcStars { get; set; }
         public List<BookmarkSlot> BookmarkedClan { get; set; }
-        public Dictionary<long, AttackInfo> AttackingInfo { get; set; }
         public List<DataSlot> QuickTrain1 { get; set; }
         public List<DataSlot> QuickTrain2 { get; set; }
         public List<DataSlot> QuickTrain3 { get; set; }
 
-        void updateLeague()
+        private void updateLeague()
         {
             var table = CSVManager.DataTables.GetTable(12);
             int i = 0;
@@ -149,13 +132,11 @@ namespace UCS.Logic
                     m_vScore >= league.BucketPlacementRangeLow[0])
                 {
                     found = true;
-                    SetLeagueId(i);
+                    m_vLeagueId = i;
                 }
                 i++;
             }
         }
-
-        public uint TutorialStepsCount { get; set; }
 
         public void AddDiamonds(int diamondCount)
         {
@@ -694,34 +675,6 @@ namespace UCS.Logic
 
         public void InitializeAccountCreationDate() => m_vAccountCreationDate = DateTime.Now;
 
-        public void AddUsedTroop(CombatItemData cid, int value)
-        {
-            /*if (State == UserState.PVP)
-            { 
-            var info = default(AttackInfo);
-            if (!AttackingInfo.TryGetValue(GetId(), out info))
-            {
-                Logger.Write("Unable to obtain attack info.");
-            }
-            
-            DataSlot e = info.UsedTroop.Find(t => t.Data.GetGlobalID() == cid.GetGlobalID());
-                if (e != null)
-                {
-                    // Troops already exist.
-                    int i = info.UsedTroop.IndexOf(e);
-                    e.Value = e.Value + value;
-                    info.UsedTroop[i] = e;
-                }
-                else
-                {
-                    DataSlot ds = new DataSlot(cid, value);
-                    info.UsedTroop.Add(ds);
-                }
-            }*/
-            //else
-              //  Logger.Write("Unsuppored state! AddUsedTroop only for PVP for now.PVE Comming Soon");
-        }
-
         public void AddAllianceTroop(long did, int id, int value, int level)
         {
             DonationSlot e = AllianceUnits.Find(t => t.ID == id && t.DonatorID == did && t.UnitLevel == level);
@@ -751,25 +704,7 @@ namespace UCS.Logic
             }
         }
 
-        public void SetPremium(bool count) => m_vPremium = count;
-
-        public void SetAlliance_Gold(int gold) => m_vAlliance_Gold = gold;
-
-        public void SetAlliance_Elixir(int elixir) => m_vAlliance_Elixir = elixir;
-
-        public void SetAlliance_DarkElixir(int drkelixir) => m_vAlliance_DarkElixir = drkelixir;
-
-        public void SetShieldTime(int time) => m_vShieldTime = time;
-
-        public void SetProtectionTime(int time) => m_vProtectionTime = time;
-
-        public void SetAllianceId(long id) => this.AllianceId = id;
-
         public void SetActiveLayout(int layout) => m_vActiveLayout = layout;
-
-        public void SetAndroid(bool android) => m_vAndroid = android;
-
-        public void SetReuqestMessage(string msg) => TroopRequestMessage = msg;
 
         public async void SetAllianceRole(int a)
         {
@@ -781,10 +716,6 @@ namespace UCS.Logic
             }
             catch (Exception){}
         }
-
-        public void SetDiamonds(int count) => m_vCurrentGems = count;
-
-        public void SetLeagueId(int id) => m_vLeagueId = id;
 
         public void SetName(string name)
         {
@@ -805,8 +736,6 @@ namespace UCS.Logic
             m_vScore = newScore;
             updateLeague();
         }
-
-        public void SetAvatarLevel(int newlv) => m_vAvatarLevel = newlv;
 
         public void UseDiamonds(int diamondCount) => m_vCurrentGems -= diamondCount;
     }

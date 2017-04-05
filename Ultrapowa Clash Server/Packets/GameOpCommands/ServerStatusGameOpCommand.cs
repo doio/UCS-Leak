@@ -38,7 +38,7 @@ namespace UCS.Packets.GameOpCommands
                     mail.SetAllianceId(0);
                     mail.SetAllianceBadgeData(1526735450);
                     mail.SetAllianceName("UCS Server Information");
-					mail.SetMessage(@"Online Players: " + ResourcesManager.GetOnlinePlayers().Count +
+					mail.SetMessage(@"Online Players: " + ResourcesManager.m_vOnlinePlayers.Count +
 						"\nIn Memory Players: " + ResourcesManager.GetInMemoryLevels().Count +
 						"\nConnected Players: " + ResourcesManager.GetConnectedClients().Count +
 						"\nServer Ram: " + Performances.GetUsedMemory() + "% / " + Performances.GetTotalMemory() + "MB"

@@ -33,7 +33,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (!alliance.IsAllianceFull())
                     {
-                        this.Device.Player.Avatar.SetAllianceId(alliance.m_vAllianceId);
+                        this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
                         AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId);
                         member.SetRole(1);
                         alliance.AddAllianceMember(member);

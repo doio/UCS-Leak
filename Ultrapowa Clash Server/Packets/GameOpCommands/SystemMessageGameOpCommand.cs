@@ -39,7 +39,7 @@ namespace UCS.Packets.GameOpCommands
                     mail.SetSenderLevel(avatar.m_vAvatarLevel);
                     mail.SetSenderLeagueId(avatar.m_vLeagueId);
 
-                    foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                     {
                         var p = new AvatarStreamEntryMessage(onlinePlayer.Client);
                         p.SetAvatarStreamEntry(mail);

@@ -20,7 +20,7 @@ namespace UCS.Packets.GameOpCommands
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Gold"), 999999999);
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("Elixir"), 999999999);
                 p.SetResourceCount(CSVManager.DataTables.GetResourceByName("DarkElixir"), 999999999);
-                p.SetDiamonds(999999999);
+                p.m_vCurrentGems = 999999999;
                 Processor.Send(new OwnHomeDataMessage(level.Client, level));
             }
             else
