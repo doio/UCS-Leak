@@ -38,11 +38,11 @@ namespace UCS.Packets.Commands.Client
                         mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
                         mail.SetAvatar(avatar);
                         mail.SetIsNew(2);
-                        mail.SetSenderId(avatar.UserId);
-                        mail.SetAllianceId(allianceId);
-                        mail.SetAllianceBadgeData(alliance.m_vAllianceBadgeData);
-                        mail.SetAllianceName(alliance.m_vAllianceName);
-                        mail.SetMessage(m_vMailContent);
+                        mail.SenderId = avatar.UserId;
+                        mail.AllianceId = allianceId;
+                        mail.AllianceBadgeData = alliance.m_vAllianceBadgeData;
+                        mail.AllianceName = alliance.m_vAllianceName;
+                        mail.Message = m_vMailContent;
 
                         foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                         {

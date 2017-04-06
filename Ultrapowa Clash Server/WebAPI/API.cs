@@ -127,7 +127,7 @@ namespace UCS.WebAPI
             {
                 return HTML()
                     .Replace("%ONLINEPLAYERS%", ResourcesManager.m_vOnlinePlayers.Count.ToString())
-                    .Replace("%INMEMORYPLAYERS%", ResourcesManager.GetInMemoryLevels().Count.ToString())
+                    .Replace("%INMEMORYPLAYERS%", ResourcesManager.m_vInMemoryLevels.Count.ToString())
                     .Replace("%INMEMORYALLIANCES%", ResourcesManager.GetInMemoryAlliances().Count.ToString())
                     .Replace("%TOTALCONNECTIONS%", ResourcesManager.GetConnectedClients().Count.ToString());
             }
@@ -142,7 +142,7 @@ namespace UCS.WebAPI
             JObject _Data = new JObject
             {
                 {"online_players", ResourcesManager.m_vOnlinePlayers.Count.ToString()},
-                {"in_mem_players", ResourcesManager.GetInMemoryLevels().Count.ToString()},
+                {"in_mem_players", ResourcesManager.m_vInMemoryLevels.Count.ToString()},
                 {"in_mem_alliances", ResourcesManager.GetInMemoryAlliances().Count.ToString()},
                 {"connected_sockets", ResourcesManager.GetConnectedClients().Count.ToString()},
                 {"all_players", ObjectManager.GetMaxPlayerID()},

@@ -245,7 +245,6 @@
     <Compile Include="Core\Resources.cs" />
     <Compile Include="Core\Settings\Constants.cs" />
     <Compile Include="Core\Settings\UCSControl.cs" />
-    <Compile Include="Core\Threading\ChatProcessor.cs" />
     <Compile Include="Database\Player.cs">
       <DependentUpon>ucsdb.tt</DependentUpon>
     </Compile>
@@ -1071,7 +1070,6 @@
     <Compile Include="Core\ResourcesManager.cs" />
     <Compile Include="Core\DatabaseManager.cs" />
     <Compile Include="Core\Threading\MemoryThread.cs" />
-    <Compile Include="Core\Threading\NetworkThread.cs" />
     <Compile Include="Database\ucsdb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1223,7 +1221,7 @@
     <Compile Include="Packets\Messages\Client\TopLocalPlayersMessage.cs" />
     <Compile Include="Packets\Messages\Client\VisitHomeMessage.cs" />
     <Compile Include="Packets\Messages\Client\GoHomeMessage.cs" />
-    <Compile Include="Packets\Messages\Client\Authentication\LoginMessage.cs" />
+    <Compile Include="Packets\Messages\Client\LoginMessage.cs" />
     <Compile Include="Packets\Messages\Client\ExecuteCommandsMessage.cs" />
     <Compile Include="Packets\Messages\Client\SearchAlliancesMessage.cs" />
     <Compile Include="Packets\Messages\Client\JoinAllianceMessage.cs" />

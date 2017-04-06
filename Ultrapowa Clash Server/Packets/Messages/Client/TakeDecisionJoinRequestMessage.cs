@@ -33,8 +33,8 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                StreamEntry message = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
-                Level requester = await ResourcesManager.GetPlayer(message.m_vSenderId);
+                StreamEntry message = a.m_vChatMessages.Find(c => c.ID == MessageID);
+                Level requester = await ResourcesManager.GetPlayer(message.SenderID);
                 if (Choice == 1)
                 {
                     if (!a.IsAllianceFull())
@@ -45,12 +45,12 @@ namespace UCS.Packets.Messages.Client
                         member.SetRole(1);
                         a.AddAllianceMember(member);
 
-                        StreamEntry e = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
+                        StreamEntry e = a.m_vChatMessages.Find(c => c.ID == MessageID);
                         e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                         e.SetState(2);
 
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                        eventStreamEntry.SetId(a.m_vChatMessages.Count + 1);
+                        eventStreamEntry.ID = a.m_vChatMessages.Count + 1;
                         eventStreamEntry.SetSender(requester.Avatar);
                         eventStreamEntry.SetEventType(2);
 
@@ -90,7 +90,7 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    StreamEntry e = a.m_vChatMessages.Find(c => c.m_vId == MessageID);
+                    StreamEntry e = a.m_vChatMessages.Find(c => c.ID == MessageID);
                     e.SetJudgeName(this.Device.Player.Avatar.AvatarName);
                     e.SetState(3);
 

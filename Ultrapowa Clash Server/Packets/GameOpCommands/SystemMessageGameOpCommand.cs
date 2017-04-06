@@ -28,14 +28,14 @@ namespace UCS.Packets.GameOpCommands
                     var avatar = level.Avatar;
                     var mail = new AllianceMailStreamEntry();
                     mail.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    mail.SetSenderId(avatar.UserId);
+                    mail.SenderId = avatar.UserId;
                     mail.SetSenderAvatarId(avatar.UserId);
                     mail.SetSenderName(avatar.AvatarName);
                     mail.SetIsNew(2);
-                    mail.SetAllianceId(0);
-                    mail.SetAllianceBadgeData(1526735450);
-                    mail.SetAllianceName("Administrator");
-                    mail.SetMessage(message);
+                    mail.AllianceId = 0;
+                    mail.AllianceBadgeData = 1526735450;
+                    mail.AllianceName = "Administrator";
+                    mail.Message = message;
                     mail.SetSenderLevel(avatar.m_vAvatarLevel);
                     mail.SetSenderLeagueId(avatar.m_vLeagueId);
 

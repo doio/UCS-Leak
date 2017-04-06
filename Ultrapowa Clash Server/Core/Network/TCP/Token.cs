@@ -18,10 +18,6 @@ namespace UCS.Core.Network
 
         internal bool Aborting;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Token"/> class.
-        /// </summary>
-        /// <param name="Socket">The socket.</param>
         internal Token(SocketAsyncEventArgs Args, Device Device)
         {
             this.Device = Device;
@@ -34,9 +30,6 @@ namespace UCS.Core.Network
             this.Packet = new List<byte>(Constants.ReceiveBuffer);
         }
 
-        /// <summary>
-        /// Sets the data.
-        /// </summary>
         internal void SetData()
         {
             byte[] Data = new byte[this.Args.BytesTransferred];
@@ -44,18 +37,12 @@ namespace UCS.Core.Network
             this.Packet.AddRange(Data);
         }
 
-        /// <summary>
-        /// Processes this instance.
-        /// </summary>
         internal void Process()
         {
             byte[] Data = this.Packet.ToArray();
             this.Device.Process(Data);
         }
 
-        /// <summary>
-        /// Resets this instance.
-        /// </summary>
         internal void Reset()
         {
             this.Offset = 0;

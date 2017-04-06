@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,9 +27,9 @@ namespace UCS.Core.Settings
 
             try
             {
-                if (ResourcesManager.GetInMemoryLevels().Count > 0)
+                if (ResourcesManager.m_vInMemoryLevels.Count > 0)
                 {
-                    Parallel.ForEach(ResourcesManager.GetInMemoryLevels(), (_Player) =>
+                    Parallel.ForEach(ResourcesManager.m_vInMemoryLevels.Values.ToList(), (_Player) =>
                     {
                         if (_Player != null)
                         {

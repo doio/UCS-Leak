@@ -67,12 +67,12 @@ namespace UCS.Core
 
         private static void SaveRedis(object state)
         {
-            m_vDatabase.Save(ResourcesManager.GetInMemoryLevels(), Save.Redis);
+            m_vDatabase.Save(ResourcesManager.m_vInMemoryLevels.Values.ToList(), Save.Redis);
             m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances(), Save.Redis);
         }
         private static async void SaveMysql(object state)
         {
-            m_vDatabase.Save(ResourcesManager.GetInMemoryLevels(), Save.Mysql).Wait();
+            m_vDatabase.Save(ResourcesManager.m_vInMemoryLevels.Values.ToList(), Save.Mysql).Wait();
             m_vDatabase.Save(ResourcesManager.GetInMemoryAlliances(), Save.Mysql).Wait();
         }
 
@@ -131,8 +131,8 @@ namespace UCS.Core
 
         public static Level GetRandomOnlinePlayer()
         {
-            int index = new Random().Next(0, ResourcesManager.GetInMemoryLevels().Count);
-            return ResourcesManager.GetInMemoryLevels().ElementAt(index);
+            int index = new Random().Next(0, ResourcesManager.m_vInMemoryLevels.Count);
+            return ResourcesManager.m_vInMemoryLevels.Values.ToList().ElementAt(index);
         }
 
         /*public static Level GetRandomOnlinePlayerWithoutShield()

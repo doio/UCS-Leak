@@ -92,7 +92,6 @@ namespace UCS.Core.Network
                         Device device = new Device(Socket)
                         {
                             IPAddress = ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()
-
                         };
 
                         Token Token = new Token(ReadEvent, device);

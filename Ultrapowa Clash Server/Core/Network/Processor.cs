@@ -6,10 +6,6 @@ namespace UCS.Core.Network
 {
     internal static class Processor
     {
-        /// <summary>
-        /// Recepts the specified message.
-        /// </summary>
-        /// <param name="Message">The message.</param>
         internal static void Recept(this Message Message)
         {
             Message.Decrypt();
@@ -17,10 +13,6 @@ namespace UCS.Core.Network
             Message.Process();
         }
 
-        /// <summary>
-        /// Sends the specified message.
-        /// </summary>
-        /// <param name="Message">The message.</param>
         internal static void Send(this Message Message)
         {
             try
@@ -36,11 +28,6 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        /// Handles the specified command.
-        /// </summary>
-        /// <param name="Command">The command.</param>
-        /// <returns></returns>
         internal static Command Handle(this Command Command)
         {
             Command.Encode();

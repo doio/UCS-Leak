@@ -54,7 +54,7 @@ namespace UCS.Core
                 */
                 _DataTables = new DataTables();
                 int Count = 0;
-                foreach (var _File in _gameFiles)
+                foreach (Tuple<string, string, int> _File in _gameFiles)
                 {
                     _DataTables.InitDataTable(new CSVTable(_File.Item2), _File.Item3);
                     Count++;

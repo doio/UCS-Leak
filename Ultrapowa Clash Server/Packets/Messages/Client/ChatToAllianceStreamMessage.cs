@@ -50,9 +50,9 @@ namespace UCS.Packets.Messages.Client
                             if (allianceId > 0)
                             {
                                 ChatStreamEntry cm = new ChatStreamEntry();
-                                cm.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                                cm.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                                 cm.SetSender(avatar);
-                                cm.SetMessage(m_vChatMessage);
+                                cm.Message = m_vChatMessage;
 
                                 Alliance alliance = ObjectManager.GetAlliance(allianceId);
                                 if (alliance != null)

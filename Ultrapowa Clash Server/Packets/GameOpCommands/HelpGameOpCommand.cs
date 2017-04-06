@@ -27,14 +27,14 @@ namespace UCS.Packets.GameOpCommands
                     var avatar = level.Avatar;
                     var mail = new AllianceMailStreamEntry();
                     mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    mail.SetSenderId(avatar.UserId);
+                    mail.SenderId = avatar.UserId;
                     mail.SetSenderAvatarId(avatar.UserId);
                     mail.SetSenderName(avatar.AvatarName);
                     mail.SetIsNew(2);
-                    mail.SetAllianceId(0);
-                    mail.SetAllianceBadgeData(1526735450);
-                    mail.SetAllianceName("UCS Server Commands Help");
-                    mail.SetMessage(@"/help" +
+                    mail.AllianceId = 0;
+                    mail.AllianceBadgeData = 1526735450;
+                    mail.AllianceName = "UCS Server Commands Help";
+                    mail.Message = @"/help" +
                         "\n/ban" +
                         "\n/kick" +
                         "\n/rename" +
@@ -48,7 +48,7 @@ namespace UCS.Packets.GameOpCommands
                         "\n/saveacc" +
                         "\n/saveall" +
                         "\n/becomeleader" +
-                        "\n/status");
+                        "\n/status";
                     mail.SetSenderLevel(avatar.m_vAvatarLevel);
                     mail.SetSenderLeagueId(avatar.m_vLeagueId);
 

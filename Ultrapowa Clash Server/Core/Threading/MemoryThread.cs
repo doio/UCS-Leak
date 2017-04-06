@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace UCS.Core.Threading
         {
             try
             {
-                foreach (Level _Player in ResourcesManager.GetInMemoryLevels())
+                foreach (Level _Player in ResourcesManager.m_vInMemoryLevels.Values.ToList())
                 {
                     if (!_Player.Client.IsClientSocketConnected())
                     {

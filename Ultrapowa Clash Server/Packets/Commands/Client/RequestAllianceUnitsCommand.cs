@@ -32,12 +32,12 @@ namespace UCS.Packets.Commands.Client
                 Alliance all = ObjectManager.GetAlliance(player.AllianceId);
                 TroopRequestStreamEntry cm = new TroopRequestStreamEntry();
                 cm.SetSender(player);
-                cm.SetMessage(this.Message);
-                cm.SetId(all.m_vChatMessages.Count + 1);
+                cm.Message = this.Message;
+                cm.ID = all.m_vChatMessages.Count + 1;
                 cm.SetMaxTroop(player.GetAllianceCastleTotalCapacity());
                 cm.m_vDonatedTroop = player.GetAllianceCastleUsedCapacity();
 
-                StreamEntry s = all.m_vChatMessages.Find(c => c.m_vSenderId == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
+                StreamEntry s = all.m_vChatMessages.Find(c => c.SenderID == this.Device.Player.Avatar.UserId && c.GetStreamEntryType() == 1);
                 if (s != null)
                 {
                     all.m_vChatMessages.RemoveAll(t => t == s);
@@ -59,7 +59,7 @@ namespace UCS.Packets.Commands.Client
 
                         if (s != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(aplayer.Client, s.m_vId).Send();
+                            new AllianceStreamEntryRemovedMessage(aplayer.Client, s.ID).Send();
                         }
                     }
                 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using UCS.Core;
 using UCS.Core.Network;
 using UCS.Logic;
@@ -27,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                     PlayerName = "UCS Bot"
                 };
                 Processor.Send(pm);
-                DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
+                DatabaseManager.Single().Save(ResourcesManager.m_vInMemoryLevels.Values.ToList());
                 var p = new GlobalChatLineMessage(level.Client)
                 {
                     Message = "All Players are saved!",

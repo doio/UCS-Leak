@@ -18,6 +18,7 @@ using UCS.Core.Threading;
 using System.Threading.Tasks;
 using UCS.Core.Checker;
 using UCS.Core.Web;
+using System.Linq;
 
 namespace UCS.Helpers
 {
@@ -58,12 +59,12 @@ namespace UCS.Helpers
 
                         case "/info":
                             Console.WriteLine("------------------------------------->");
-                            Say("UCS Version:         " + Constants.Version);
-                            Say("Build:               " + Constants.Build);
-                            Say("LicenseID:           " + Constants.LicensePlanID);
-                            Say("CoC Version from SC: " + VersionChecker.LatestCoCVersion());
+                            Say($"UCS Version:         {Constants.Version}");
+                            Say($"Build:               {Constants.Build}");
+                            Say($"LicenseID:           {Constants.LicensePlanID}");
+                            Say($"CoC Version from SC: {VersionChecker.LatestCoCVersion()}");
                             Say("");
-                            Say("©Ultrapowa 2014 - " + DateTime.Now.Year);
+                            Say($"©Ultrapowa 2014 - {DateTime.Now.Year}");
                             Console.WriteLine("------------------------------------->");
                             break;
 
@@ -77,6 +78,7 @@ namespace UCS.Helpers
                             ConnectionBlocker.GetBannedIPs();
                             Console.WriteLine("------------------------------------->");
                             break;
+
                         case "/addip":
                             Console.WriteLine("------------------------------------->");
                             Console.Write("IP: ");
@@ -84,19 +86,21 @@ namespace UCS.Helpers
                             ConnectionBlocker.AddNewIpToBlackList(s);
                             Console.WriteLine("------------------------------------->");
                             break;
+
                         case "/saveall":
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
-                            Say("Starting saving of all Players... (" + ResourcesManager.GetInMemoryLevels().Count + ")");
-                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels()).Wait();
+                            Say($"Starting saving of all Players... ({ResourcesManager.m_vInMemoryLevels.Count})");
+                            DatabaseManager.Single().Save(ResourcesManager.m_vInMemoryLevels.Values.ToList()).Wait();
                             Say("Finished saving of all Players!");
-                            Say("Starting saving of all Alliances... (" + ResourcesManager.GetInMemoryAlliances().Count + ")");
+                            Say($"Starting saving of all Alliances... ({ResourcesManager.GetInMemoryAlliances().Count})");
                             DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances()).Wait();
                             Say("Finished saving of all Alliances!");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
                             Console.ResetColor();
                             break;
+
                         /*case "/addpremium":
                             Print("------------------------------------->");
                             Say("Type in now the Player ID: ");
@@ -163,18 +167,13 @@ namespace UCS.Helpers
 
                         case "/status":
                             Print("------------------------------------------------------->");
-                            Say("Status:                   " + "ONLINE");
-                            Say("IP Address:               " +
-                                              Dns.GetHostByName(Dns.GetHostName()).AddressList[0]);
-                            Say("Online Players:           " +
-                                              ResourcesManager.m_vOnlinePlayers.Count);
-                            Say("Connected Players:        " +
-                                              ResourcesManager.GetConnectedClients().Count);
-                            Say("In Memory Players:        " +
-                                              ResourcesManager.GetInMemoryLevels().Count);
-                            Say("In Memory Alliances:      " +
-                                            ResourcesManager.GetInMemoryAlliances().Count);
-                            Say("Clash Version:            " + ConfigurationManager.AppSettings["ClientVersion"]);
+                            Say($"Time:                     {DateTime.Now}");
+                            Say($"IP Address:               {Dns.GetHostByName(Dns.GetHostName()).AddressList[0]}");
+                            Say($"Online Players:           {ResourcesManager.m_vOnlinePlayers.Count}");
+                            Say($"Connected Players:        {ResourcesManager.GetConnectedClients().Count}");
+                            Say($"In Memory Players:        {ResourcesManager.m_vInMemoryLevels.Values.ToList().Count}");
+                            Say($"In Memory Alliances:      {ResourcesManager.GetInMemoryAlliances().Count}");
+                            Say($"Client Version:           {ConfigurationManager.AppSettings["ClientVersion"]}");
                             Print("------------------------------------------------------->");
                             break;
 
@@ -302,7 +301,7 @@ namespace UCS.Helpers
                 StartMaintenance();
             }
 
-            foreach(Level p in ResourcesManager.GetInMemoryLevels())
+            foreach(Level p in ResourcesManager.m_vInMemoryLevels.Values.ToList())
             {
                 Processor.Send(new OutOfSyncMessage(p.Client));
                 ResourcesManager.DropClient(p.Client.SocketHandle);

@@ -10,20 +10,11 @@ namespace UCS.Core.Network
 
         private readonly object Gate = new object();
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="SocketAsyncEventArgsPool"/> class.
-        /// </summary>
         internal SocketAsyncEventArgsPool()
         {
             this.Pool = new Stack<SocketAsyncEventArgs>(Constants.MaxOnlinePlayers);
         }
 
-        /// <summary>
-        ///     Dequeues this instance.
-        /// </summary>
-        /// <returns>
-        ///     <see cref="SocketAsyncEventArgs"/>
-        /// </returns>
         internal SocketAsyncEventArgs Dequeue()
         {
             lock (this.Gate)
@@ -37,12 +28,6 @@ namespace UCS.Core.Network
             }
         }
 
-        /// <summary>
-        ///     Enqueues the specified item.
-        /// </summary>
-        /// <param name="Args">
-        ///     The <see cref="SocketAsyncEventArgs"/> instance containing the event data.
-        /// </param>
         internal void Enqueue(SocketAsyncEventArgs Args)
         {
             lock (this.Gate)

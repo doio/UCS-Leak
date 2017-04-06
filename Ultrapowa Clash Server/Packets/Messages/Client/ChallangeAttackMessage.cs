@@ -42,7 +42,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         this.Device.PlayerState = Logic.Enums.State.IN_BATTLE;
                         Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                        Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.m_vId == ID).m_vSenderId);
+                        Level defender = await ResourcesManager.GetPlayer(a.m_vChatMessages.Find(c => c.ID == ID).SenderID);
                         if (defender != null)
                         {
                             defender.Tick();

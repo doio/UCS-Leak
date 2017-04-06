@@ -15,7 +15,7 @@ namespace UCS.Logic.StreamEntry
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddString(m_vMessage);
+            data.AddString(Message);
             data.AddInt(0);
             return data.ToArray();
         }
@@ -25,13 +25,13 @@ namespace UCS.Logic.StreamEntry
         public override void Load(JObject jsonObject)
         {
             base.Load(jsonObject);
-            m_vMessage = jsonObject["message"].ToObject<string>();
+            Message = jsonObject["message"].ToObject<string>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
             jsonObject = base.Save(jsonObject);
-            jsonObject.Add("message", m_vMessage);
+            jsonObject.Add("message", Message);
             return jsonObject;
         }
     }

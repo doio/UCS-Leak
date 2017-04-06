@@ -46,7 +46,7 @@ namespace UCS
             labelPort.Text = ConfigurationManager.AppSettings["ServerPort"];
             labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.m_vOnlinePlayers.Count);
             labelConnectedPlayers.Text = Convert.ToString(ResourcesManager.GetConnectedClients().Count);
-            labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.GetInMemoryLevels().Count);
+            labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.m_vInMemoryLevels.Count);
             materialLabel14.Text = Convert.ToString(ObjectManager.GetMaxPlayerID() + ObjectManager.GetMaxAllianceID());
 			materialLabel15.Text = Convert.ToString(ObjectManager.GetMaxAllianceID());
 			materialLabel16.Text = Convert.ToString(ObjectManager.GetMaxPlayerID());
@@ -155,7 +155,7 @@ namespace UCS
 			labelPort.Text = ConfigurationManager.AppSettings["ServerPort"];
             labelOnlinePlayers.Text = Convert.ToString(ResourcesManager.m_vOnlinePlayers.Count);
             labelConnectedPlayers.Text = Convert.ToString(ResourcesManager.GetConnectedClients().Count);
-            labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.GetInMemoryLevels().Count);
+            labelMemoryPlayers.Text = Convert.ToString(ResourcesManager.m_vInMemoryLevels.Count);
 			//materialLabel14.Text = Convert.ToString(ResourcesManager.GetAllPlayerIds().Count + ResourcesManager.GetAllClanIds().Count);
 			//materialLabel15.Text = Convert.ToString(ResourcesManager.GetAllClanIds().Count);
 			materialLabel16.Text = Convert.ToString(ResourcesManager.GetAllPlayerIds().Count);
@@ -398,14 +398,14 @@ namespace UCS
         {
             var mail = new AllianceMailStreamEntry();
             mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-            mail.SetSenderId(0);
+            mail.SenderId = 0;
             mail.SetSenderAvatarId(0);
             mail.SetSenderName(textBox23.Text);
             mail.SetIsNew(2); // 0 = Seen, 2 = New
-            mail.SetAllianceId(0);
-            mail.SetAllianceBadgeData(1526735450);
-            mail.SetAllianceName("Ultrapowa");
-            mail.SetMessage(textBox24.Text);
+            mail.AllianceId = 0;
+            mail.AllianceBadgeData = 1526735450;
+            mail.AllianceName = "Ultrapowa";
+            mail.Message = textBox24.Text;
             mail.SetSenderLevel(300);
             mail.SetSenderLeagueId(22);
 
@@ -474,7 +474,7 @@ namespace UCS
             }
             else
             {
-                foreach (var n in ResourcesManager.GetInMemoryLevels())
+                foreach (var n in ResourcesManager.m_vInMemoryLevels.Values.ToList())
                 {
                     var l = await ResourcesManager.GetPlayer(n.Avatar.UserId);
                     var na = l.Avatar.AvatarName;

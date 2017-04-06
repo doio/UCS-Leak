@@ -70,7 +70,7 @@ namespace UCS.Packets.Commands.Client
                             }
 
                             var eventStreamEntry = new AllianceEventStreamEntry();
-                            eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                            eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                             eventStreamEntry.SetSender(targetAvatar);
                             eventStreamEntry.m_vAvatarName = this.Device.Player.Avatar.AvatarName;
                             eventStreamEntry.SetEventType(1);

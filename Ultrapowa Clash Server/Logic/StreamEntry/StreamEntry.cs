@@ -19,17 +19,17 @@ namespace UCS.Logic.StreamEntry
         public List<DonationSlot> m_vUnitDonation;
         public List<BookmarkSlot> m_vDonatorList;
         internal long m_vHomeId;
-        internal long m_vSenderId;
-        internal int m_vId;
+        internal long SenderID;
+        internal int ID;
         internal int m_vSenderLeagueId;
         internal int m_vSenderLevel;
         internal int m_vSenderRole;
         internal int m_vType = -1;
         internal string m_vSenderName;
         internal DateTime m_vMessageTime;
-        internal string m_vMessage;
+        internal string Message;
         internal int m_vMaxTroop;
-        public int m_vDonatedTroop = 0;
+        internal int m_vDonatedTroop = 0;
         internal int m_vDonatedSpell = 0;
         internal int m_vState = 1; // 3 Refused - 2 Accepted - 1 Waiting
         internal string m_vJudge;
@@ -39,9 +39,9 @@ namespace UCS.Logic.StreamEntry
             List<byte> data = new List<byte>();
             data.AddInt(GetStreamEntryType());
             data.AddInt(0);
-            data.AddInt(m_vId);
+            data.AddInt(ID);
             data.Add(3);
-            data.AddLong(m_vSenderId);
+            data.AddLong(SenderID);
             data.AddLong(m_vHomeId);
             data.AddString(m_vSenderName);
             data.AddInt(m_vSenderLevel);
@@ -59,8 +59,8 @@ namespace UCS.Logic.StreamEntry
         public virtual void Load(JObject jsonObject)
         {
             m_vType = jsonObject["type"].ToObject<int>();
-            m_vId = jsonObject["id"].ToObject<int>();
-            m_vSenderId = jsonObject["sender_id"].ToObject<long>();
+            ID = jsonObject["id"].ToObject<int>();
+            SenderID = jsonObject["sender_id"].ToObject<long>();
             m_vHomeId = jsonObject["home_id"].ToObject<long>();
             m_vSenderLevel = jsonObject["sender_level"].ToObject<int>();
             m_vSenderName = jsonObject["sender_name"].ToObject<string>();
@@ -72,8 +72,8 @@ namespace UCS.Logic.StreamEntry
         public virtual JObject Save(JObject jsonObject)
         {
             jsonObject.Add("type", GetStreamEntryType());
-            jsonObject.Add("id", m_vId);
-            jsonObject.Add("sender_id", m_vSenderId);
+            jsonObject.Add("id", ID);
+            jsonObject.Add("sender_id", SenderID);
             jsonObject.Add("home_id", m_vHomeId);
             jsonObject.Add("sender_level", m_vSenderLevel);
             jsonObject.Add("sender_name", m_vSenderName);
@@ -86,19 +86,13 @@ namespace UCS.Logic.StreamEntry
 
         internal async void SetSender(ClientAvatar avatar)
         {
-            m_vSenderId = avatar.UserId;
+            SenderID = avatar.UserId;
             m_vHomeId = avatar.UserId;
             m_vSenderName = avatar.AvatarName;
             m_vSenderLeagueId = avatar.m_vLeagueId;
             m_vSenderLevel = avatar.m_vAvatarLevel;
             m_vSenderRole = await avatar.GetAllianceRole();
         }
-
-        public void SetHomeId(long id) => m_vHomeId = id;
-
-        public void SetId(int id) => m_vId = id;
-
-        public void SetMessage(string message) => m_vMessage = message;
 
         public void SetState(int status) => m_vState = status;
 

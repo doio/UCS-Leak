@@ -10,7 +10,7 @@ namespace UCS.Logic.StreamEntry
 {
     internal class TroopRequestStreamEntry : StreamEntry
     {
-        public static int ID = (int)ObjectManager.m_vDonationSeed;
+        private static int ID = (int)ObjectManager.m_vDonationSeed;
         public int m_vMaxSpell = 0;
 
         public TroopRequestStreamEntry()
@@ -45,14 +45,14 @@ namespace UCS.Logic.StreamEntry
                     data.AddInt(tp.UnitLevel);
                 }
             }
-            if (string.IsNullOrEmpty(m_vMessage))
+            if (string.IsNullOrEmpty(Message))
             {
                 data.Add(0);
             }
             else
             {
                 data.Add(1);
-                data.AddString(m_vMessage);
+                data.AddString(Message);
             }
             data.AddInt(m_vUnitDonation.Count); // Components Count
             foreach (DonationSlot i in m_vUnitDonation) // Components
@@ -74,7 +74,7 @@ namespace UCS.Logic.StreamEntry
             m_vMaxSpell = jsonObject["max_spells"].ToObject<int>();
             m_vDonatedTroop = jsonObject["donated_troops"].ToObject<int>();
             m_vDonatedSpell = jsonObject["donated_spell"].ToObject<int>();
-            m_vMessage = jsonObject["message"].ToObject<string>();
+            Message = jsonObject["message"].ToObject<string>();
             JArray jsonDonaterID = (JArray)jsonObject["donater_list"];
             foreach (JToken jToken in jsonDonaterID)
             {
@@ -101,7 +101,7 @@ namespace UCS.Logic.StreamEntry
             jsonObject.Add("max_spells", m_vMaxSpell);
             jsonObject.Add("donated_troops", m_vDonatedTroop);
             jsonObject.Add("donated_spell", m_vDonatedSpell);
-            jsonObject.Add("message", m_vMessage);
+            jsonObject.Add("message", Message);
             JArray jsonDonaterID = new JArray();
             foreach (BookmarkSlot id in m_vDonatorList)
             {

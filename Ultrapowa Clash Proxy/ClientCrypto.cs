@@ -137,6 +137,41 @@ namespace UCP
 
                 ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
             }
+            else if (messageId == 24310)
+            {
+                using (PacketReader _Reader = new PacketReader(new MemoryStream(plainText)))
+                {
+                    Console.WriteLine("Search String   : " + _Reader.ReadString());
+                    int Count = _Reader.ReadInt32();
+
+                    Console.WriteLine("Count: " + Count);
+
+                    for (int i = 0; i < Count; i++)
+                    {
+                        Console.WriteLine("Alliance ID     : " + _Reader.ReadInt64());
+                        Console.WriteLine("Alliance Name   : " + _Reader.ReadString());
+                        Console.WriteLine("Alliance Badge  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Type   : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance M Count: " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Score  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance R Score: " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance W Wars : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance L Wars : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance D Wars : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Region : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance War F  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Orgin  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Exp    : " + _Reader.ReadInt32());
+                        Console.WriteLine("Alliance Level  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Unknown         : " + _Reader.ReadInt32());
+                        Console.WriteLine("Unknown         : " + _Reader.ReadInt32());
+                        Console.WriteLine("War Log Public  : " + _Reader.ReadInt32());
+                        Console.WriteLine("Friendly War    : " + _Reader.ReadInt32());
+                    }
+                }
+
+                ServerCrypto.EncryptPacket(state.serverState.socket, state.serverState, messageId, unknown, plainText);
+            }
             else
             {
 

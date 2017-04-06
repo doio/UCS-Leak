@@ -23,7 +23,7 @@ namespace UCS.Packets.Messages.Client
             try
             {
                 Alliance a = ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId);
-                StreamEntry s = a.m_vChatMessages.Find(c => c.m_vSenderId == this.Device.Player.Avatar.AllianceId && c.GetStreamEntryType() == 12);
+                StreamEntry s = a.m_vChatMessages.Find(c => c.SenderID == this.Device.Player.Avatar.AllianceId && c.GetStreamEntryType() == 12);
 
                 if (s != null)
                 {
@@ -33,7 +33,7 @@ namespace UCS.Packets.Messages.Client
                         Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (player.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(Device, s.m_vId).Send();
+                            new AllianceStreamEntryRemovedMessage(Device, s.ID).Send();
                         }
                     }
                 }

@@ -30,6 +30,7 @@ namespace UCS.Packets.Messages.Client
             else
             {
                 this.Device.Player.Avatar.SetName(PlayerName);
+                this.Device.Player.Avatar.m_vNameChangingLeft--;
                 AvatarNameChangeOkMessage p = new AvatarNameChangeOkMessage(this.Device)
                 {
                     AvatarName = this.Device.Player.Avatar.AvatarName

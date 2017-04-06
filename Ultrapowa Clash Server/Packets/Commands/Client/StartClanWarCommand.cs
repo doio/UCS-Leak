@@ -31,7 +31,7 @@ namespace UCS.Packets.Commands.Client
                     if (an.GetAllianceMembers().Count >= 10)
                     {
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                        eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                        eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                         eventStreamEntry.SetSender(this.Device.Player.Avatar);
                         eventStreamEntry.SetEventType(7);
                         an.AddChatMessage(eventStreamEntry);

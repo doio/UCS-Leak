@@ -82,8 +82,6 @@ namespace UCS.Core
 
         public static List<Device> GetConnectedClients() => m_vClients.Values.ToList();
 
-        public static List<Level> GetInMemoryLevels() => m_vInMemoryLevels.Values.ToList();
-
         public static async Task<Level> GetPlayer(long id, bool persistent = false)
         {
             Level result = GetInMemoryPlayer(id);
@@ -184,7 +182,7 @@ namespace UCS.Core
         public void Dispose()
         {
             GetInMemoryAlliances().Clear();
-            GetInMemoryLevels().Clear();
+            m_vInMemoryLevels.Clear();
             m_vOnlinePlayers.Clear();
         }
     }

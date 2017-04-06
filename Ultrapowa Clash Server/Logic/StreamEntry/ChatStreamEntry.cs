@@ -7,31 +7,29 @@ namespace UCS.Logic.StreamEntry
 {
     internal class ChatStreamEntry : StreamEntry
     {
-        string m_vMessage;
-
+        internal string Message;
+    
         public override byte[] Encode()
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddString(m_vMessage);
+            data.AddString(Message);
             return data.ToArray();
         }
 
-        public string GetMessage() => m_vMessage;
+        public string GetMessage() => Message;
 
         public override int GetStreamEntryType() => 2;
 
         public override void Load(JObject jsonObject)
         {
-            m_vMessage = jsonObject["message"].ToObject<string>();
+            Message = jsonObject["message"].ToObject<string>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
-            jsonObject.Add("message", m_vMessage);
+            jsonObject.Add("message", Message);
             return jsonObject;
         }
-
-        public void SetMessage(string message) => m_vMessage = message;
     }
 }

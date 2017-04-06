@@ -29,9 +29,9 @@ namespace UCS.Packets.Commands
                 long allianceID = player.AllianceId;
                 Alliance alliance = ObjectManager.GetAlliance(allianceID);
 
-                ChallengeStreamEntry cm = new ChallengeStreamEntry() { m_vMessage = Message };
+                ChallengeStreamEntry cm = new ChallengeStreamEntry() { Message = Message };
                 cm.SetSender(player);
-                cm.SetId(alliance.m_vChatMessages.Count + 1);
+                cm.ID = alliance.m_vChatMessages.Count + 1;
                 alliance.AddChatMessage((ChallengeStreamEntry)cm);
 
                 StreamEntry s = alliance.m_vChatMessages.Find(c => c.GetStreamEntryType() == 12);
@@ -44,7 +44,7 @@ namespace UCS.Packets.Commands
                         Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (alliancemembers.Client != null)
                         {
-                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.m_vId).Send();
+                            new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.ID).Send();
                             AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
                             p.SetStreamEntry(cm);
                             p.Send();

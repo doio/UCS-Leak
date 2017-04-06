@@ -71,7 +71,7 @@ namespace UCS.Packets.Messages.Client
                                                 ClientAvatar avatar = this.Device.Player.Avatar;
                                                 long allianceId = avatar.AllianceId;
                                                 AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                                                eventStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                                                eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                                                 eventStreamEntry.SetSender(avatar);
                                                 eventStreamEntry.SetEventType(10);
                                                 eventStreamEntry.SetSender(avatar);

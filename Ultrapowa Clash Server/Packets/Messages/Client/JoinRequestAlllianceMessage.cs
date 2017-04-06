@@ -35,7 +35,7 @@ namespace UCS.Packets.Messages.Client
                 Alliance all = ObjectManager.GetAlliance(ID);
 
                 InvitationStreamEntry cm = new InvitationStreamEntry();
-                cm.SetId(all.m_vChatMessages.Count + 1);
+                cm.ID = all.m_vChatMessages.Count + 1;
                 cm.SetSender(player);
                 cm.SetMessage(Message);
                 cm.SetState(1);

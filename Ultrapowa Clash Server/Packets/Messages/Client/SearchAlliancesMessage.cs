@@ -43,34 +43,25 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Process()
         {
-            if (m_vSearchString.Length > 15)
+            if (m_vSearchString.Length < 15)
             {
                 ResourcesManager.DisconnectClient(Device);
             }
             else
             {
-                List<Alliance> alliances = ObjectManager.GetInMemoryAlliances();
-
                 List<Alliance> joinableAlliances = new List<Alliance>();
-                int i = 0;
-                int j = 0;
-                while (j < m_vAllianceLimit && i < alliances.Count)
+
+                foreach (Alliance _Alliance in ResourcesManager.m_vInMemoryAlliances.Values)
                 {
-                    if (alliances[i].GetAllianceMembers().Count != 0)
+                    if (_Alliance.m_vAllianceName.Contains(m_vSearchString, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (alliances[i].m_vAllianceName.Contains(m_vSearchString, StringComparison.OrdinalIgnoreCase))
-                        {
-                            joinableAlliances.Add(alliances[i]);
-                            j++;
-                        }
-                        i++;
+                        joinableAlliances.Add(_Alliance);
                     }
                 }
-                joinableAlliances = joinableAlliances.ToList();
 
                 AllianceListMessage p = new AllianceListMessage(Device);
-                p.SetAlliances(joinableAlliances);
-                p.SetSearchString(m_vSearchString);
+                p.m_vAlliances = joinableAlliances;
+                p.m_vSearchString = m_vSearchString;
                 p.Send();
             }
         }
