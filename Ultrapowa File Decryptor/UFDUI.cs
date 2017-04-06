@@ -23,31 +23,27 @@ namespace UFD
         private void UFDUI_Load(object sender, System.EventArgs e)
         {
             UFDUI UI = (UFDUI)Application.OpenForms["UFDUI"];
-            UI.Text = "Ultrapowa File Decryptor v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - © 2017";
+            UI.Text = "Ultrapowa File De/Compressor v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - © 2017";
             CheckerThread.Start();
         }
 
         private void BtnDecCsv_Click(object sender, System.EventArgs e)
         {
-            //Decrypt CSV Files
             ActionThread.Start(CsvDecrypt);
         }
 
         private void BtnEncCsv_Click(object sender, System.EventArgs e)
         {
-            //Encrypt CSV Files
             ActionThread.Start(CsvEncrypt);
         }
 
         private void BtnDecSC_Click(object sender, System.EventArgs e)
         {
-            //Decrypt SC Files
-            ActionThread.Start(ScDecrypt);
+             ActionThread.Start(ScDecrypt);
         }
 
         private void BtnEncSC_Click(object sender, System.EventArgs e)
         {
-            //Encrypt SC Files
             ActionThread.Start(ScEncrypt);
         }
 

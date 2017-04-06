@@ -38,7 +38,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblScVersion = new MaterialSkin.Controls.MaterialLabel();
-            this.RadioHigher = new MaterialSkin.Controls.MaterialRadioButton();
             this.RadioVersion7Lower = new MaterialSkin.Controls.MaterialRadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblCopy = new MaterialSkin.Controls.MaterialLabel();
@@ -55,9 +54,9 @@
             this.BtnDecCsv.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnDecCsv.Name = "BtnDecCsv";
             this.BtnDecCsv.Primary = true;
-            this.BtnDecCsv.Size = new System.Drawing.Size(123, 40);
+            this.BtnDecCsv.Size = new System.Drawing.Size(146, 40);
             this.BtnDecCsv.TabIndex = 0;
-            this.BtnDecCsv.Text = "Decrypt CSV";
+            this.BtnDecCsv.Text = "Decompress CSV";
             this.BtnDecCsv.UseVisualStyleBackColor = true;
             this.BtnDecCsv.Click += new System.EventHandler(this.BtnDecCsv_Click);
             // 
@@ -70,20 +69,20 @@
             this.BtnDecSC.Primary = true;
             this.BtnDecSC.Size = new System.Drawing.Size(123, 40);
             this.BtnDecSC.TabIndex = 1;
-            this.BtnDecSC.Text = "Decrypt SC";
+            this.BtnDecSC.Text = "Decompress SC";
             this.BtnDecSC.UseVisualStyleBackColor = true;
             this.BtnDecSC.Click += new System.EventHandler(this.BtnDecSC_Click);
             // 
             // BtnEncCsv
             // 
             this.BtnEncCsv.Depth = 0;
-            this.BtnEncCsv.Location = new System.Drawing.Point(213, 45);
+            this.BtnEncCsv.Location = new System.Drawing.Point(187, 45);
             this.BtnEncCsv.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnEncCsv.Name = "BtnEncCsv";
             this.BtnEncCsv.Primary = true;
-            this.BtnEncCsv.Size = new System.Drawing.Size(123, 40);
+            this.BtnEncCsv.Size = new System.Drawing.Size(149, 40);
             this.BtnEncCsv.TabIndex = 2;
-            this.BtnEncCsv.Text = "Encrypt CSV";
+            this.BtnEncCsv.Text = "Compress CSV";
             this.BtnEncCsv.UseVisualStyleBackColor = true;
             this.BtnEncCsv.Click += new System.EventHandler(this.BtnEncCsv_Click);
             // 
@@ -96,7 +95,7 @@
             this.BtnEncSC.Primary = true;
             this.BtnEncSC.Size = new System.Drawing.Size(123, 40);
             this.BtnEncSC.TabIndex = 3;
-            this.BtnEncSC.Text = "Encrypt SC";
+            this.BtnEncSC.Text = "Compress SC";
             this.BtnEncSC.UseVisualStyleBackColor = true;
             this.BtnEncSC.Click += new System.EventHandler(this.BtnEncSC_Click);
             // 
@@ -139,7 +138,6 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.lblScVersion);
-            this.tabPage2.Controls.Add(this.RadioHigher);
             this.tabPage2.Controls.Add(this.BtnDecSC);
             this.tabPage2.Controls.Add(this.RadioVersion7Lower);
             this.tabPage2.Controls.Add(this.BtnEncSC);
@@ -164,40 +162,23 @@
             this.lblScVersion.TabIndex = 6;
             this.lblScVersion.Text = "Version: ";
             // 
-            // RadioHigher
-            // 
-            this.RadioHigher.AutoSize = true;
-            this.RadioHigher.Depth = 0;
-            this.RadioHigher.Enabled = false;
-            this.RadioHigher.Font = new System.Drawing.Font("Roboto", 10F);
-            this.RadioHigher.Location = new System.Drawing.Point(201, 3);
-            this.RadioHigher.Margin = new System.Windows.Forms.Padding(0);
-            this.RadioHigher.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RadioHigher.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RadioHigher.Name = "RadioHigher";
-            this.RadioHigher.Ripple = true;
-            this.RadioHigher.Size = new System.Drawing.Size(141, 30);
-            this.RadioHigher.TabIndex = 5;
-            this.RadioHigher.TabStop = true;
-            this.RadioHigher.Text = "Higher than 7.2XX";
-            this.RadioHigher.UseVisualStyleBackColor = true;
-            this.RadioHigher.CheckedChanged += new System.EventHandler(this.RadioHigher_CheckedChanged);
-            // 
             // RadioVersion7Lower
             // 
+            this.RadioVersion7Lower.AutoCheck = false;
             this.RadioVersion7Lower.AutoSize = true;
+            this.RadioVersion7Lower.Checked = true;
             this.RadioVersion7Lower.Depth = 0;
             this.RadioVersion7Lower.Font = new System.Drawing.Font("Roboto", 10F);
-            this.RadioVersion7Lower.Location = new System.Drawing.Point(69, 3);
+            this.RadioVersion7Lower.Location = new System.Drawing.Point(284, 3);
             this.RadioVersion7Lower.Margin = new System.Windows.Forms.Padding(0);
             this.RadioVersion7Lower.MouseLocation = new System.Drawing.Point(-1, -1);
             this.RadioVersion7Lower.MouseState = MaterialSkin.MouseState.HOVER;
             this.RadioVersion7Lower.Name = "RadioVersion7Lower";
             this.RadioVersion7Lower.Ripple = true;
-            this.RadioVersion7Lower.Size = new System.Drawing.Size(123, 30);
+            this.RadioVersion7Lower.Size = new System.Drawing.Size(52, 30);
             this.RadioVersion7Lower.TabIndex = 4;
             this.RadioVersion7Lower.TabStop = true;
-            this.RadioVersion7Lower.Text = "7.2XX or Below";
+            this.RadioVersion7Lower.Text = "Any";
             this.RadioVersion7Lower.UseVisualStyleBackColor = true;
             this.RadioVersion7Lower.CheckedChanged += new System.EventHandler(this.RadioVersion7Lower_CheckedChanged);
             // 
@@ -259,7 +240,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private MaterialSkin.Controls.MaterialRadioButton RadioHigher;
         private MaterialSkin.Controls.MaterialLabel lblScVersion;
         private MaterialSkin.Controls.MaterialLabel lblCopy;
     }
