@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Clash Server", "Ultrapowa Clash Server\Ultrapowa Clash Server.csproj", "{0E72C402-09B2-4545-AAEB-6AB58971D2FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Client", "Ultrapowa Client\Ultrapowa Client.csproj", "{C0788D62-CC4C-41AC-A850-3511963D8C38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa Clash of Clans Proxy", "Ultrapowa Clash Proxy\Ultrapowa Clash of Clans Proxy.csproj", "{012F96AC-A584-408D-A0C8-E246B8FC55CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ultrapowa File Decryptor", "Ultrapowa File Decryptor\Ultrapowa File Decryptor.csproj", "{752889A0-95FB-4D46-A3F9-ACB021CF8368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{012F96AC-A584-408D-A0C8-E246B8FC55CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{012F96AC-A584-408D-A0C8-E246B8FC55CF}.Release|x64.ActiveCfg = Release|Any CPU
 		{012F96AC-A584-408D-A0C8-E246B8FC55CF}.Release|x64.Build.0 = Release|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Debug|x64.Build.0 = Debug|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Release|x64.ActiveCfg = Release|Any CPU
+		{752889A0-95FB-4D46-A3F9-ACB021CF8368}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
