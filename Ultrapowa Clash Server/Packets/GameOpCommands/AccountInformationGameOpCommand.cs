@@ -66,15 +66,14 @@ namespace UCS.Packets.GameOpCommands
                             var avatar = level.Avatar;
                             AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
                             mail.SenderId = avatar.UserId;
-                            mail.SetSenderAvatarId(avatar.UserId);
-                            mail.SetSenderName(avatar.AvatarName);
+                            mail.m_vSenderName = avatar.AvatarName;
                             mail.SetIsNew(2);
                             mail.AllianceId = 0;
                             mail.AllianceBadgeData = 1526735450;
                             mail.AllianceName = "UCS Server Information";
                             mail.Message = Message;
-                            mail.SetSenderLevel(avatar.m_vAvatarLevel);
-                            mail.SetSenderLeagueId(avatar.m_vLeagueId);
+                            mail.m_vSenderLevel = avatar.m_vAvatarLevel;
+                            mail.m_vSenderLeagueId = avatar.m_vLeagueId;
 
                             AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.Client);
                             p.SetAvatarStreamEntry(mail);

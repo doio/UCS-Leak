@@ -7,7 +7,7 @@ namespace UCS.Logic.Manager
     {
         readonly List<GameObject> m_vGameObjectReferences;
        
-        int m_vWorkerCount;
+        internal int m_vWorkerCount;
 
         public WorkerManager()
         {
@@ -114,8 +114,6 @@ namespace UCS.Logic.Manager
 			});
             return shortestTaskGO;
         }
-
-        public int GetTotalWorkers() => m_vWorkerCount;
 
         public void IncreaseWorkerCount() => m_vWorkerCount++;
     }

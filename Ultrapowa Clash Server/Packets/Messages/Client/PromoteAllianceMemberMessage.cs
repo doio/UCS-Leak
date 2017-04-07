@@ -45,14 +45,14 @@ namespace UCS.Packets.Messages.Client
                             AllianceEventStreamEntry demote = new AllianceEventStreamEntry();
                             demote.ID = alliance.m_vChatMessages.Count + 1;
                             demote.SetSender(player);
-                            demote.SetEventType(6);
+                            demote.EventType = 6;
 
                             alliance.AddChatMessage(demote);
 
                             AllianceEventStreamEntry promote = new AllianceEventStreamEntry();
                             promote.ID = alliance.m_vChatMessages.Count + 1;
                             promote.SetSender(target.Avatar);
-                            promote.SetEventType(5);
+                            promote.EventType = 5;
 
                             alliance.AddChatMessage(promote);
 
@@ -130,7 +130,7 @@ namespace UCS.Packets.Messages.Client
 
                             stream.ID = alliance.m_vChatMessages.Count + 1;
                             stream.SetSender(target.Avatar);
-                            stream.SetEventType(m_vRole > oldrole ? 5 : 6);
+                            stream.EventType = m_vRole > oldrole ? 5 : 6;
                             alliance.AddChatMessage(stream);
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())

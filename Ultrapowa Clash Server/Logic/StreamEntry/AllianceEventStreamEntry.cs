@@ -9,13 +9,13 @@ namespace UCS.Logic.StreamEntry
     {
         long m_vAvatarId;
         internal string m_vAvatarName;
-        int m_vEventType;
+        internal int EventType;
 
         public override byte[] Encode()
         {
             List<byte> data = new List<byte>();
             data.AddRange(base.Encode());
-            data.AddInt(m_vEventType);
+            data.AddInt(EventType);
             data.AddLong(m_vAvatarId);
             data.AddString(m_vAvatarName);
             return data.ToArray();
@@ -38,18 +38,16 @@ namespace UCS.Logic.StreamEntry
         public override void Load(JObject jsonObject)
         {
             m_vAvatarName = jsonObject["avatar_name"].ToObject<string>();
-            m_vEventType  = jsonObject["event_type"].ToObject<int>();
+            EventType  = jsonObject["event_type"].ToObject<int>();
             m_vAvatarId   = jsonObject["avatar_id"].ToObject<long>();
         }
 
         public override JObject Save(JObject jsonObject)
         {
             jsonObject.Add("avatar_name", m_vAvatarName);
-            jsonObject.Add("event_type", m_vEventType);
+            jsonObject.Add("event_type", EventType);
             jsonObject.Add("avatar_id", m_vAvatarId);
             return jsonObject;
         }
-
-        public void SetEventType(int type) => m_vEventType = type;
     }
 }

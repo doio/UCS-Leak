@@ -56,8 +56,8 @@ namespace UCS.Packets.Commands.Client
                                 new AvailableServerCommandMessage(targetAccount.Client, leaveAllianceCommand.Handle()).Send();
 
                                 var kickOutStreamEntry = new AllianceKickOutStreamEntry();
-                                kickOutStreamEntry.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                                kickOutStreamEntry.SetAvatar(requesterAvatar);
+                                kickOutStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                                kickOutStreamEntry.SetSender(requesterAvatar);
                                 kickOutStreamEntry.SetIsNew(0);
                                 kickOutStreamEntry.SetAllianceId(alliance.m_vAllianceId);
                                 kickOutStreamEntry.SetAllianceBadgeData(alliance.m_vAllianceBadgeData);
@@ -73,7 +73,7 @@ namespace UCS.Packets.Commands.Client
                             eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                             eventStreamEntry.SetSender(targetAvatar);
                             eventStreamEntry.m_vAvatarName = this.Device.Player.Avatar.AvatarName;
-                            eventStreamEntry.SetEventType(1);
+                            eventStreamEntry.EventType = 1;
                             alliance.AddChatMessage(eventStreamEntry);
 
                             foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())

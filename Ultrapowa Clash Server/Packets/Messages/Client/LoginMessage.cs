@@ -257,19 +257,18 @@ namespace UCS.Packets.Messages.Client
             if (ResourcesManager.IsPlayerOnline(level))
             {
                 AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
-                mail.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                mail.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                 mail.SenderId = 0;
-                mail.SetSenderAvatarId(0);
                 //mail.SetSenderName("Clash Of Heroes Team");
-                mail.SetSenderName("Server Manager");
+                mail.m_vSenderName = "Server Manager";
                 mail.SetIsNew(2);
                 mail.AllianceId = 0;
-                mail.SetSenderLeagueId(22);
+                mail.m_vSenderLeagueId = 22;
                 mail.AllianceBadgeData = 1526735450;
                 //mail.SetAllianceName("COH-TEAM");
                 mail.AllianceName = "Server Admin";
                 mail.Message = ConfigurationManager.AppSettings["AdminMessage"];
-                mail.SetSenderLevel(500);
+                mail.m_vSenderLevel = 500;
                 AvatarStreamEntryMessage p = new AvatarStreamEntryMessage(level.Client);
                 p.SetAvatarStreamEntry(mail);
                 p.Send();

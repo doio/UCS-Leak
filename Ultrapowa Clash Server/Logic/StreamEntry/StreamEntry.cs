@@ -86,12 +86,16 @@ namespace UCS.Logic.StreamEntry
 
         internal async void SetSender(ClientAvatar avatar)
         {
-            SenderID = avatar.UserId;
-            m_vHomeId = avatar.UserId;
-            m_vSenderName = avatar.AvatarName;
-            m_vSenderLeagueId = avatar.m_vLeagueId;
-            m_vSenderLevel = avatar.m_vAvatarLevel;
-            m_vSenderRole = await avatar.GetAllianceRole();
+            try
+            {
+                SenderID = avatar.UserId;
+                m_vHomeId = avatar.UserId;
+                m_vSenderName = avatar.AvatarName;
+                m_vSenderLeagueId = avatar.m_vLeagueId;
+                m_vSenderLevel = avatar.m_vAvatarLevel;
+                m_vSenderRole = await avatar.GetAllianceRole();
+            }
+            catch(Exception){}
         }
 
         public void SetState(int status) => m_vState = status;

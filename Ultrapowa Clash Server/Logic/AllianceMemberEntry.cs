@@ -103,18 +103,7 @@ namespace UCS.Logic
             return jsonObject;
         }
 
-        public void SetAvatarId(long id)
-        {
-            AvatarId = id;
-        }
-
-        public void SetOrder(int order) => Order = order;
-
         public void ToggleStatus() => WarOptInStatus = WarOptInStatus == 1 ? 0 : 1;
-
-        public void SetPreviousOrder(int order) => PreviousOrder = order;
-
-        public void SetRole(int role) => Role = role;
 
         public void SetStatus(bool x) => WarOptInStatus = (byte)(x ? 0x01 : 0x00);
     }

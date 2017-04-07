@@ -122,7 +122,7 @@ namespace UCS.Logic
 
         private void updateLeague()
         {
-            var table = CSVManager.DataTables.GetTable(12);
+            DataTable table = CSVManager.DataTables.GetTable(12);
             int i = 0;
             bool found = false;
             while (!found)
@@ -338,7 +338,7 @@ namespace UCS.Logic
         {
             try
             {
-                var alliance = ObjectManager.GetAlliance(this.AllianceId);
+                Alliance alliance = ObjectManager.GetAlliance(this.AllianceId);
                 return alliance?.m_vAllianceMembers[this.UserId];
             } catch (Exception) { return null; }
         }
@@ -403,7 +403,7 @@ namespace UCS.Logic
             this.m_vDonated = jsonObject["troops_donated"].ToObject<int>();
             this.GoogleToken = jsonObject["gg_token"].ToObject<string>();
             this.TroopRequestMessage = jsonObject["rq_message"].ToObject<string>();
-            var jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
+            JArray jsonBookmarkedClan = (JArray)jsonObject["bookmark"];
             foreach (JObject jobject in jsonBookmarkedClan)
             {
                 JObject data = (JObject)jobject;
@@ -412,7 +412,7 @@ namespace UCS.Logic
                 BookmarkedClan.Add(ds);
             }
 
-            var jsonResources = (JArray) jsonObject["resources"];
+            JArray jsonResources = (JArray) jsonObject["resources"];
             foreach (JObject resource in jsonResources)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -420,7 +420,7 @@ namespace UCS.Logic
                 GetResources().Add(ds);
             }
 
-            var jsonUnits = (JArray) jsonObject["units"];
+            JArray jsonUnits = (JArray) jsonObject["units"];
             foreach (JObject unit in jsonUnits)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -428,7 +428,7 @@ namespace UCS.Logic
                 m_vUnitCount.Add(ds);
             }
 
-            var jsonSpells = (JArray) jsonObject["spells"];
+            JArray jsonSpells = (JArray) jsonObject["spells"];
             foreach (JObject spell in jsonSpells)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -436,7 +436,7 @@ namespace UCS.Logic
                 m_vSpellCount.Add(ds);
             }
 
-            var jsonUnitLevels = (JArray) jsonObject["unit_upgrade_levels"];
+            JArray jsonUnitLevels = (JArray) jsonObject["unit_upgrade_levels"];
             foreach (JObject unitLevel in jsonUnitLevels)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -444,7 +444,7 @@ namespace UCS.Logic
                 m_vUnitUpgradeLevel.Add(ds);
             }
 
-            var jsonSpellLevels = (JArray) jsonObject["spell_upgrade_levels"];
+            JArray jsonSpellLevels = (JArray) jsonObject["spell_upgrade_levels"];
             foreach (JObject data in jsonSpellLevels)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -452,7 +452,7 @@ namespace UCS.Logic
                 m_vSpellUpgradeLevel.Add(ds);
             }
 
-            var jsonHeroLevels = (JArray) jsonObject["hero_upgrade_levels"];
+            JArray jsonHeroLevels = (JArray) jsonObject["hero_upgrade_levels"];
             foreach (JObject data in jsonHeroLevels)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -460,7 +460,7 @@ namespace UCS.Logic
                 m_vHeroUpgradeLevel.Add(ds);
             }
 
-            var jsonHeroHealth = (JArray) jsonObject["hero_health"];
+            JArray jsonHeroHealth = (JArray) jsonObject["hero_health"];
             foreach (JObject data in jsonHeroHealth)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -468,7 +468,7 @@ namespace UCS.Logic
                 m_vHeroHealth.Add(ds);
             }
 
-            var jsonHeroState = (JArray) jsonObject["hero_state"];
+            JArray jsonHeroState = (JArray) jsonObject["hero_state"];
             foreach (JObject data in jsonHeroState)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -476,7 +476,7 @@ namespace UCS.Logic
                 m_vHeroState.Add(ds);
             }
 
-            var jsonAllianceUnits = (JArray) jsonObject["alliance_units"];
+            JArray jsonAllianceUnits = (JArray) jsonObject["alliance_units"];
             foreach (JObject data in jsonAllianceUnits)
             {
                 DonationSlot ds = new DonationSlot(0, 0, 0, 0);
@@ -485,7 +485,7 @@ namespace UCS.Logic
             }
             TutorialStepsCount = jsonObject["tutorial_step"].ToObject<uint>();
 
-            var jsonAchievementsProgress = (JArray) jsonObject["achievements_progress"];
+            JArray jsonAchievementsProgress = (JArray) jsonObject["achievements_progress"];
             foreach (JObject data in jsonAchievementsProgress)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -493,7 +493,7 @@ namespace UCS.Logic
                 Achievements.Add(ds);
             }
 
-            var jsonNpcStars = (JArray) jsonObject["npc_stars"];
+            JArray jsonNpcStars = (JArray) jsonObject["npc_stars"];
             foreach (JObject data in jsonNpcStars)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -501,7 +501,7 @@ namespace UCS.Logic
                 NpcStars.Add(ds);
             }
 
-            var jsonNpcLootedGold = (JArray) jsonObject["npc_looted_gold"];
+            JArray jsonNpcLootedGold = (JArray) jsonObject["npc_looted_gold"];
             foreach (JObject data in jsonNpcLootedGold)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -509,28 +509,28 @@ namespace UCS.Logic
                 NpcLootedGold.Add(ds);
             }
 
-            var jsonNpcLootedElixir = (JArray) jsonObject["npc_looted_elixir"];
+            JArray jsonNpcLootedElixir = (JArray) jsonObject["npc_looted_elixir"];
             foreach (JObject data in jsonNpcLootedElixir)
             {
                 DataSlot ds = new DataSlot(null, 0);
                 ds.Load(data);
                 NpcLootedElixir.Add(ds);
             }
-            var jsonQuickTrain1 = (JArray)jsonObject["quick_train_1"];
+            JArray jsonQuickTrain1 = (JArray)jsonObject["quick_train_1"];
             foreach (JObject data in jsonQuickTrain1)
             {
                 DataSlot ds = new DataSlot(null, 0);
                 ds.Load(data);
                 QuickTrain1.Add(ds);
             }
-            var jsonQuickTrain2 = (JArray)jsonObject["quick_train_2"];
+            JArray jsonQuickTrain2 = (JArray)jsonObject["quick_train_2"];
             foreach (JObject data in jsonQuickTrain2)
             {
                 DataSlot ds = new DataSlot(null, 0);
                 ds.Load(data);
                 QuickTrain2.Add(ds);
             }
-            var jsonQuickTrain3 = (JArray)jsonObject["quick_train_3"];
+            JArray jsonQuickTrain3 = (JArray)jsonObject["quick_train_3"];
             foreach (JObject data in jsonQuickTrain3)
             {
                 DataSlot ds = new DataSlot(null, 0);
@@ -544,72 +544,72 @@ namespace UCS.Logic
         {
             #region Foreach Stuff
             JArray jsonBookmarkClan = new JArray();
-            foreach (var clan in BookmarkedClan)
+            foreach (BookmarkSlot clan in BookmarkedClan)
                 jsonBookmarkClan.Add(clan.Save(new JObject()));
 
             JArray jsonResourcesArray = new JArray();
-            foreach (var resource in GetResources())
+            foreach (DataSlot resource in GetResources())
                 jsonResourcesArray.Add(resource.Save(new JObject()));
 
             JArray jsonUnitsArray = new JArray();
-            foreach (var unit in GetUnits())
+            foreach (DataSlot unit in GetUnits())
                 jsonUnitsArray.Add(unit.Save(new JObject()));
 
             JArray jsonSpellsArray = new JArray();
-            foreach (var spell in GetSpells())
+            foreach (DataSlot spell in GetSpells())
                 jsonSpellsArray.Add(spell.Save(new JObject()));
 
             JArray jsonUnitUpgradeLevelsArray = new JArray();
-            foreach (var unitUpgradeLevel in m_vUnitUpgradeLevel)
+            foreach (DataSlot unitUpgradeLevel in m_vUnitUpgradeLevel)
                 jsonUnitUpgradeLevelsArray.Add(unitUpgradeLevel.Save(new JObject()));
 
 
             JArray jsonSpellUpgradeLevelsArray = new JArray();
-            foreach (var spellUpgradeLevel in m_vSpellUpgradeLevel)
+            foreach (DataSlot spellUpgradeLevel in m_vSpellUpgradeLevel)
                 jsonSpellUpgradeLevelsArray.Add(spellUpgradeLevel.Save(new JObject()));
 
             JArray jsonHeroUpgradeLevelsArray = new JArray();
-            foreach (var heroUpgradeLevel in m_vHeroUpgradeLevel)
+            foreach (DataSlot heroUpgradeLevel in m_vHeroUpgradeLevel)
                 jsonHeroUpgradeLevelsArray.Add(heroUpgradeLevel.Save(new JObject()));
 
             JArray jsonHeroHealthArray = new JArray();
-            foreach (var heroHealth in m_vHeroHealth)
+            foreach (DataSlot heroHealth in m_vHeroHealth)
                 jsonHeroHealthArray.Add(heroHealth.Save(new JObject()));
 
             JArray jsonHeroStateArray = new JArray();
-            foreach (var heroState in m_vHeroState)
+            foreach (DataSlot heroState in m_vHeroState)
                 jsonHeroStateArray.Add(heroState.Save(new JObject()));
 
              JArray jsonAllianceUnitsArray = new JArray();
-            foreach (var allianceUnit in AllianceUnits)
+            foreach (DonationSlot allianceUnit in AllianceUnits)
                 jsonAllianceUnitsArray.Add(allianceUnit.Save(new JObject()));
 
             JArray jsonAchievementsProgressArray = new JArray();
-            foreach (var achievement in Achievements)
+            foreach (DataSlot achievement in Achievements)
                 jsonAchievementsProgressArray.Add(achievement.Save(new JObject()));
 
             JArray jsonNpcStarsArray = new JArray();
-            foreach (var npcLevel in NpcStars)
+            foreach (DataSlot npcLevel in NpcStars)
                 jsonNpcStarsArray.Add(npcLevel.Save(new JObject()));
 
             JArray jsonNpcLootedGoldArray = new JArray();
-            foreach (var npcLevel in NpcLootedGold)
+            foreach (DataSlot npcLevel in NpcLootedGold)
                 jsonNpcLootedGoldArray.Add(npcLevel.Save(new JObject()));
   
             JArray jsonNpcLootedElixirArray = new JArray();
-            foreach (var npcLevel in NpcLootedElixir)
+            foreach (DataSlot npcLevel in NpcLootedElixir)
                 jsonNpcLootedElixirArray.Add(npcLevel.Save(new JObject()));
 
             JArray jsonQuickTrain1Array = new JArray();
-            foreach (var quicktrain1 in QuickTrain1)
+            foreach (DataSlot quicktrain1 in QuickTrain1)
                 jsonQuickTrain1Array.Add(quicktrain1.Save(new JObject()));
 
             JArray jsonQuickTrain2Array = new JArray();
-            foreach (var quicktrain2 in QuickTrain2)
+            foreach (DataSlot quicktrain2 in QuickTrain2)
                 jsonQuickTrain1Array.Add(quicktrain2.Save(new JObject()));
 
             JArray jsonQuickTrain3Array = new JArray();
-            foreach (var quicktrain3 in QuickTrain3)
+            foreach (DataSlot quicktrain3 in QuickTrain3)
                 jsonQuickTrain3Array.Add(quicktrain3.Save(new JObject()));
         #endregion
 
@@ -693,7 +693,7 @@ namespace UCS.Logic
 
         public void SetAchievment(AchievementData ad, bool finished)
         {
-            var index = GetDataIndex(Achievements, ad);
+            int index = GetDataIndex(Achievements, ad);
             int value = finished ? 1 : 0;
             if (index != -1)
                 Achievements[index].Value = value;
@@ -704,15 +704,13 @@ namespace UCS.Logic
             }
         }
 
-        public void SetActiveLayout(int layout) => m_vActiveLayout = layout;
-
         public async void SetAllianceRole(int a)
         {
             try
             {
                 AllianceMemberEntry ame = await GetAllianceMemberEntry();
                 if (ame != null)
-                    ame.SetRole(a);
+                    ame.Role = a;
             }
             catch (Exception){}
         }

@@ -73,7 +73,7 @@ namespace UCS.Packets.Messages.Client
                                             this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
 
                                             AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId);
-                                            member.SetRole(2);
+                                            member.Role = 2;
                                             alliance.AddAllianceMember(member);
 
                                             JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);

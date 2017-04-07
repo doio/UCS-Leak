@@ -35,7 +35,7 @@ namespace UCS.Packets.Messages.Client
                     {
                         this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
                         AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId);
-                        member.SetRole(1);
+                        member.Role = 1;
                         alliance.AddAllianceMember(member);
 
                         JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);
@@ -49,7 +49,7 @@ namespace UCS.Packets.Messages.Client
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                         eventStreamEntry.ID = alliance.m_vChatMessages.Count + 1;
                         eventStreamEntry.SetSender(this.Device.Player.Avatar);
-                        eventStreamEntry.SetEventType(3);
+                        eventStreamEntry.EventType = 3;
                         alliance.AddChatMessage(eventStreamEntry);
 
                         new AvailableServerCommandMessage(this.Device, b.Handle()).Send();

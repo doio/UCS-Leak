@@ -35,8 +35,8 @@ namespace UCS.Packets.Commands.Client
                     if (alliance != null)
                     {
                         var mail = new AllianceMailStreamEntry();
-                        mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                        mail.SetAvatar(avatar);
+                        mail.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                        mail.SetSender(avatar);
                         mail.SetIsNew(2);
                         mail.SenderId = avatar.UserId;
                         mail.AllianceId = allianceId;

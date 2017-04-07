@@ -24,20 +24,16 @@ namespace UCS.Packets.GameOpCommands
             {
                 if (m_vArgs.Length >= 1)
                 {
-                    var message = string.Join(" ", m_vArgs.Skip(1));
-                    var avatar = level.Avatar;
+                    string message = string.Join(" ", m_vArgs.Skip(1));
+                    ClientAvatar avatar = level.Avatar;
                     var mail = new AllianceMailStreamEntry();
-                    mail.SetId((int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    mail.SenderId = avatar.UserId;
-                    mail.SetSenderAvatarId(avatar.UserId);
-                    mail.SetSenderName(avatar.AvatarName);
+                    mail.ID = (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                    mail.SetSender(avatar);
                     mail.SetIsNew(2);
                     mail.AllianceId = 0;
                     mail.AllianceBadgeData = 1526735450;
                     mail.AllianceName = "Administrator";
                     mail.Message = message;
-                    mail.SetSenderLevel(avatar.m_vAvatarLevel);
-                    mail.SetSenderLeagueId(avatar.m_vLeagueId);
 
                     foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                     {

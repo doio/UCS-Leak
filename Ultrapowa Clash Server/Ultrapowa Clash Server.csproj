@@ -251,7 +251,7 @@
     <Compile Include="Helpers\Binary\Reader.cs" />
     <Compile Include="Helpers\List\Writter.cs" />
     <Compile Include="Logic\API\FacebookApi.cs" />
-    <Compile Include="Logic\Clan_Wars.cs" />
+    <Compile Include="Logic\ClanWars.cs" />
     <Compile Include="Logic\Enums\Database.cs" />
     <Compile Include="Logic\Enums\Exits.cs" />
     <Compile Include="Logic\Enums\Save.cs" />

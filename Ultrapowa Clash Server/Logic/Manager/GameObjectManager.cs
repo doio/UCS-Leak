@@ -13,7 +13,7 @@ namespace UCS.Logic.Manager
             m_vGameObjects          = new List<List<GameObject>>();
             m_vGameObjectRemoveList = new List<GameObject>();
             m_vGameObjectsIndex     = new List<int>();
-            for (var i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 m_vGameObjects.Add(new List<GameObject>());
                 m_vGameObjectsIndex.Add(0);

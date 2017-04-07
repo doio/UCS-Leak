@@ -25,8 +25,6 @@ namespace UCS.Logic.AvatarStreamEntry
             return data.ToArray();
         }
 
-        public string GetMessage() => Message;
-
         public override int GetStreamEntryType() => 6;
     }
 }

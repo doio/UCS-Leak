@@ -42,7 +42,7 @@ namespace UCS.Packets.Messages.Client
                         requester.Avatar.AllianceId = a.m_vAllianceId;
 
                         AllianceMemberEntry member = new AllianceMemberEntry(requester.Avatar.UserId);
-                        member.SetRole(1);
+                        member.Role = 1;
                         a.AddAllianceMember(member);
 
                         StreamEntry e = a.m_vChatMessages.Find(c => c.ID == MessageID);
@@ -52,7 +52,7 @@ namespace UCS.Packets.Messages.Client
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                         eventStreamEntry.ID = a.m_vChatMessages.Count + 1;
                         eventStreamEntry.SetSender(requester.Avatar);
-                        eventStreamEntry.SetEventType(2);
+                        eventStreamEntry.EventType = 2;
 
                         a.AddChatMessage(eventStreamEntry);
 

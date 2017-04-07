@@ -33,7 +33,7 @@ namespace UCS.Packets.Commands.Client
                         AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                         eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                         eventStreamEntry.SetSender(this.Device.Player.Avatar);
-                        eventStreamEntry.SetEventType(7);
+                        eventStreamEntry.EventType = 7;
                         an.AddChatMessage(eventStreamEntry);
 
                         foreach (AllianceMemberEntry a in an.GetAllianceMembers())

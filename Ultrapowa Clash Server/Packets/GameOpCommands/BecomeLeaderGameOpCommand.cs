@@ -28,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                     {
                         if (pl.Role == 2)
                         {
-                            pl.SetRole(4);
+                            pl.Role = 4;
                             break;
                         }
                     }

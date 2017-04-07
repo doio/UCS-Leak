@@ -17,8 +17,6 @@ namespace UCS.Logic.StreamEntry
             return data.ToArray();
         }
 
-        public string GetMessage() => Message;
-
         public override int GetStreamEntryType() => 2;
 
         public override void Load(JObject jsonObject)

@@ -210,6 +210,7 @@ namespace UCS.Logic
             jsonData.Add("chatMessages", jsonMessageArray);
             return JsonConvert.SerializeObject(jsonData);
         }
+
         public void SetWarAndFriendlytStatus(byte status)
         {
             switch (status)

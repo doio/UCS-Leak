@@ -397,17 +397,17 @@ namespace UCS
         private void materialRaisedButton10_Click(object sender, EventArgs e)
         {
             var mail = new AllianceMailStreamEntry();
-            mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+            mail.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             mail.SenderId = 0;
-            mail.SetSenderAvatarId(0);
-            mail.SetSenderName(textBox23.Text);
+            mail.SenderId = 0;
+            mail.m_vSenderName = textBox23.Text;
             mail.SetIsNew(2); // 0 = Seen, 2 = New
             mail.AllianceId = 0;
             mail.AllianceBadgeData = 1526735450;
             mail.AllianceName = "Ultrapowa";
             mail.Message = textBox24.Text;
-            mail.SetSenderLevel(300);
-            mail.SetSenderLeagueId(22);
+            mail.m_vSenderLevel = 300;
+            mail.m_vSenderLeagueId = 22;
 
             foreach (var onlinePlayer in ResourcesManager.m_vOnlinePlayers)
             {

@@ -34,7 +34,7 @@ namespace UCS.Packets.Messages.Client
                     List<AllianceMemberEntry> members = alliance.GetAllianceMembers();
                     foreach (AllianceMemberEntry player in members.Where(player => player.Role >= 3))
                     {
-                        player.SetRole(2);
+                        player.Role = 2;
 
                         if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarId)))
                         {
@@ -64,7 +64,7 @@ namespace UCS.Packets.Messages.Client
                             loop++;
                             if (loop == id)
                             {
-                                player.SetRole(2);
+                                player.Role = 2;
                                 if (ResourcesManager.IsPlayerOnline(await ResourcesManager.GetPlayer(player.AvatarId)))
                                 {
                                     Level l2 = await ResourcesManager.GetPlayer(player.AvatarId);
@@ -94,7 +94,7 @@ namespace UCS.Packets.Messages.Client
                     AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                     eventStreamEntry.ID = alliance.m_vChatMessages.Count + 1;
                     eventStreamEntry.SetSender(avatar);
-                    eventStreamEntry.SetEventType(4);
+                    eventStreamEntry.EventType = 4;
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
                         if (onlinePlayer.Avatar.AllianceId == alliance.m_vAllianceId)

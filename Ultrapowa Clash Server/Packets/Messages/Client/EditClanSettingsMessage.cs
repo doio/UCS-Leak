@@ -73,7 +73,7 @@ namespace UCS.Packets.Messages.Client
                                                 AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
                                                 eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                                                 eventStreamEntry.SetSender(avatar);
-                                                eventStreamEntry.SetEventType(10);
+                                                eventStreamEntry.EventType = 10;
                                                 eventStreamEntry.SetSender(avatar);
                                                 alliance.AddChatMessage(eventStreamEntry);
 

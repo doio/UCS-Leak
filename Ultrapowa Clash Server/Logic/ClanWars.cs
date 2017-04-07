@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace UCS.Logic
 {
-    internal class Clan_Wars
+    internal class ClanWars
     {
         internal long WarID;
+        internal int State;
 
-        public Clan_Wars()
+        public ClanWars()
         {
 
         }
