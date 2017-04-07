@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SevenZip.SDK;
+using SevenZip.SDK.Compress.LZMA;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,7 +86,8 @@ namespace UCS.Core
                 string _DownloadString = "http://b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com/" + ObjectManager.FingerPrint.sha + "/";
                 bool DownloadOnlyCSV;
                 back:
-                Console.WriteLine("Do you want to download only CSV Files or all (Includes SC...)? Y = Yes, N = No.");
+                Say("Do you want to download only CSV Files or all (Includes SC...)? Y = Yes, N = No.");
+                Say("", true);
                 string answer = Console.ReadLine().ToUpper();
 
                 if (answer == "Y")
@@ -115,11 +118,11 @@ namespace UCS.Core
                     {
                         if (_Folder[0] == "csv")
                         {
-                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1]);
+                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1], false, true);
                         }
                         else if (_Folder[0] == "logic")
                         {
-                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1]);
+                            DownloadFile(_DownloadString, _CSV, _Folder[0], _Folder[1], false, true);
                         }
                     }
                     else
@@ -130,14 +133,14 @@ namespace UCS.Core
                         }
                     }
                 }
-                Console.WriteLine("All Files has been succesfully downloaded!");
+                Say("All Files has been succesfully downloaded!");
             }
             catch (Exception)
             { 
             }
         } 
 
-        public static void DownloadFile(string _Link, string _Sublink, string _Folder, string _FileName, bool HasSubFolder = false)
+        public static void DownloadFile(string _Link, string _Sublink, string _Folder, string _FileName, bool HasSubFolder = false, bool IsCSV = false)
         {
             try
             {
@@ -149,22 +152,54 @@ namespace UCS.Core
                 }
                 else
                 {
-                    if (!Directory.Exists("Gamefiles/update/" + _Folder))
+                    if (!Directory.Exists($"Gamefiles/update/compressed/{_Folder}"))
                     {
-                        Directory.CreateDirectory("Gamefiles/update/" + _Folder);
+                        Directory.CreateDirectory($"Gamefiles/update/compressed/{_Folder}");
                     }
 
                     WebClient _WC = new WebClient();
+                    Say($"Downloading '{_FileName}'... ", true);
+                    _WC.DownloadFile(new Uri(_FileLink), $"Gamefiles/update/compressed/{ _Folder}/{_FileName}");
+
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write("Downloading '" + _FileName + "'... ");
-                    _WC.DownloadFile(new Uri(_FileLink), "Gamefiles/update/" + _Folder + "/" + _FileName);
-                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("DONE");
                     Console.ResetColor();
+
+                    Decoder _Decoder = new Decoder();
+                    using (FileStream _FS = new FileStream($"Gamefiles/update/compressed/{ _Folder}/{_FileName}", FileMode.Open))
+                    {
+                        if (!Directory.Exists($"Gamefiles/update/decompressed/{_Folder}"))
+                        {
+                            Directory.CreateDirectory($"Gamefiles/update/decompressed/{_Folder}");
+                        }
+
+                        if (IsCSV)
+                        {
+                            Say($"Decompressing '{_FileName}'... ", true);
+                            using (FileStream _Stream = new FileStream($"Gamefiles/update/decompressed/{ _Folder}/{_FileName}", FileMode.Create))
+                            {
+                                byte[] numArray = new byte[5];
+                                _FS.Read(numArray, 0, 5);
+                                byte[] buffer = new byte[4];
+                                _FS.Read(buffer, 0, 4);
+                                int int32 = BitConverter.ToInt32(buffer, 0);
+                                _Decoder.SetDecoderProperties(numArray);
+                                _Decoder.Code((Stream)_FS, (Stream)_Stream, _FS.Length, (long)int32, (ICodeProgress)null);
+                                _Stream.Flush();
+                                _Stream.Close();
+                            }
+                            _FS.Close();
+
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine("DONE");
+                            Console.ResetColor();
+                        }
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
             }
         }
     }

@@ -50,6 +50,14 @@ namespace UCS.Helpers
             return _String;
         }
 
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
         public static byte[] CreateRandomByteArray()
         {
             byte[] buffer = new byte[Resources.Random.Next(20)];
