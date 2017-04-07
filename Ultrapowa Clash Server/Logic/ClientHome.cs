@@ -33,7 +33,5 @@ namespace UCS.Logic
             data.AddCompressed("{\"event\":[]}");
             return data.ToArray();
         }
-
-        public void SetHomeJSON(string json) => Village = json;
     }
 }

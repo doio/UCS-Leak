@@ -20,7 +20,7 @@ namespace UCS.Packets.Messages.Server
             {
                 ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserId);
                 ch.m_vShieldTime = this.OwnerLevel.Avatar.m_vShieldTime;
-                ch.SetHomeJSON(this.OwnerLevel.SaveToJSON());
+                ch.Village = this.OwnerLevel.SaveToJSON();
                 ch.m_vProtectionTime = this.OwnerLevel.Avatar.m_vProtectionTime;
 
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);

@@ -26,7 +26,6 @@ namespace UCS.Packets
                 {10212, typeof(ChangeAvatarNameMessage)},
                 {10502, typeof(AddClashFriendMessage)},
                 {10905, typeof(NewsSeenMessage)},
-                {14100, typeof(AttackResultMessage)},
                 {14101, typeof(GoHomeMessage)},
                 {14102, typeof(ExecuteCommandsMessage)},
                 {14106, typeof(RetributionAttackerMessage)},

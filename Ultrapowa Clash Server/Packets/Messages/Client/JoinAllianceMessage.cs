@@ -61,9 +61,7 @@ namespace UCS.Packets.Messages.Client
                         foreach (AllianceMemberEntry a in alliance.GetAllianceMembers())
                         {
                             Level l = await ResourcesManager.GetPlayer(a.AvatarId);
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(l.Client);
-                            p.SetStreamEntry(eventStreamEntry);
-                            p.Send();
+                            new AllianceStreamEntryMessage(l.Client) { StreamEntry = eventStreamEntry }.Send();
                         }
                     }
                 }

@@ -88,9 +88,7 @@ namespace UCS.Packets.Messages.Client
                                                     Level user = await ResourcesManager.GetPlayer(op.AvatarId);
                                                     if (ResourcesManager.IsPlayerOnline(user))
                                                     {
-                                                        AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(user.Client);
-                                                        p.SetStreamEntry(eventStreamEntry);
-                                                        p.Send();
+                                                        new AllianceStreamEntryMessage(user.Client) { StreamEntry = eventStreamEntry }.Send();
                                                     }
                                                 }
 

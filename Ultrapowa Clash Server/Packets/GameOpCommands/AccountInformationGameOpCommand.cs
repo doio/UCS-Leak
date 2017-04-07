@@ -67,7 +67,7 @@ namespace UCS.Packets.GameOpCommands
                             AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
                             mail.SenderId = avatar.UserId;
                             mail.m_vSenderName = avatar.AvatarName;
-                            mail.SetIsNew(2);
+                            mail.IsNew = 2;
                             mail.AllianceId = 0;
                             mail.AllianceBadgeData = 1526735450;
                             mail.AllianceName = "UCS Server Information";

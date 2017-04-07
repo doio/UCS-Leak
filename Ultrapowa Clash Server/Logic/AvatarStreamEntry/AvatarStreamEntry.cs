@@ -14,7 +14,7 @@ namespace UCS.Logic.AvatarStreamEntry
 
         internal DateTime m_vCreationTime;
         internal int ID;
-        internal byte m_vIsNew;
+        internal byte IsNew;
         internal long m_vSenderId;
         internal int m_vSenderLeagueId;
         internal int m_vSenderLevel;
@@ -31,15 +31,13 @@ namespace UCS.Logic.AvatarStreamEntry
             data.AddInt(m_vSenderLevel);
             data.AddInt(m_vSenderLeagueId);
             data.AddInt(10);
-            data.Add(m_vIsNew);
+            data.Add(IsNew);
             return data.ToArray();
         }
 
         public int GetAgeSeconds() => (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds - (int)m_vCreationTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
         public virtual int GetStreamEntryType() => -1;
-
-        public byte IsNew() => m_vIsNew;
 
         public void SetSender(ClientAvatar avatar)
         {
@@ -48,7 +46,5 @@ namespace UCS.Logic.AvatarStreamEntry
             m_vSenderLevel = avatar.m_vAvatarLevel;
             m_vSenderLeagueId = avatar.m_vLeagueId;
         }
-
-        public void SetIsNew(byte isNew) => m_vIsNew = isNew;
     }
 }

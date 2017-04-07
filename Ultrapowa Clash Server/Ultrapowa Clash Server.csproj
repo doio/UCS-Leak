@@ -1205,7 +1205,6 @@
     <Compile Include="Packets\Messages\Client\AskForAllianceWarDataMessage.cs" />
     <Compile Include="Packets\Messages\Client\AskForAvatarProfileMessage.cs" />
     <Compile Include="Packets\Messages\Client\AskForBookmarkMessage.cs" />
-    <Compile Include="Packets\Messages\Client\AttackResultMessage.cs" />
     <Compile Include="Packets\Messages\Client\ChangeAllianceMemberRoleMessage.cs" />
     <Compile Include="Packets\Messages\Client\DonateAllianceUnitMessage.cs" />
     <Compile Include="Packets\Messages\Client\EditClanSettingsMessage.cs" />
@@ -1221,7 +1220,7 @@
     <Compile Include="Packets\Messages\Client\TopLocalPlayersMessage.cs" />
     <Compile Include="Packets\Messages\Client\VisitHomeMessage.cs" />
     <Compile Include="Packets\Messages\Client\GoHomeMessage.cs" />
-    <Compile Include="Packets\Messages\Client\LoginMessage.cs" />
+    <Compile Include="Packets\Messages\Client\Authentication\LoginMessage.cs" />
     <Compile Include="Packets\Messages\Client\ExecuteCommandsMessage.cs" />
     <Compile Include="Packets\Messages\Client\SearchAlliancesMessage.cs" />
     <Compile Include="Packets\Messages\Client\JoinAllianceMessage.cs" />

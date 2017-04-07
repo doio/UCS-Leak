@@ -41,9 +41,7 @@ namespace UCS.Packets.Commands.Client
                             Level l = await ResourcesManager.GetPlayer(a.AvatarId);
                             new AllianceWarMapDataMessage(l.Client).Send();
 
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(l.Client);
-                            p.SetStreamEntry(eventStreamEntry);
-                            p.Send();
+                            new AllianceStreamEntryMessage(l.Client) { StreamEntry = eventStreamEntry }.Send();
                         }
                     }
                 }

@@ -20,18 +20,16 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientAvatar avatar = this.Player.Avatar;
-                ClientHome home = new ClientHome(avatar.UserId);
-
-                home.m_vShieldTime = avatar.m_vShieldTime;
-                home.m_vProtectionTime = avatar.m_vProtectionTime;
-                home.SetHomeJSON(Player.SaveToJSON());
+                ClientHome _Home = new ClientHome(this.Player.Avatar.UserId);
+                _Home.m_vShieldTime = this.Player.Avatar.m_vShieldTime;
+                _Home.m_vProtectionTime = this.Player.Avatar.m_vProtectionTime;
+                _Home.Village = this.Player.SaveToJSON();
 
                 this.Data.AddInt(0);
                 this.Data.AddInt(-1);
                 this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                this.Data.AddRange(home.Encode());
-                this.Data.AddRange(await avatar.Encode());
+                this.Data.AddRange(_Home.Encode());
+                this.Data.AddRange(await this.Player.Avatar.Encode());
                 this.Data.AddInt(this.Device.PlayerState == State.WAR_EMODE ? 1 : 0);
                 this.Data.AddInt(0);
                 this.Data.AddLong(0);

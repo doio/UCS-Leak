@@ -58,7 +58,7 @@ namespace UCS.Packets.Commands.Client
                                 var kickOutStreamEntry = new AllianceKickOutStreamEntry();
                                 kickOutStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                                 kickOutStreamEntry.SetSender(requesterAvatar);
-                                kickOutStreamEntry.SetIsNew(0);
+                                kickOutStreamEntry.IsNew = 2;
                                 kickOutStreamEntry.SetAllianceId(alliance.m_vAllianceId);
                                 kickOutStreamEntry.SetAllianceBadgeData(alliance.m_vAllianceBadgeData);
                                 kickOutStreamEntry.SetAllianceName(alliance.m_vAllianceName);
@@ -81,9 +81,7 @@ namespace UCS.Packets.Commands.Client
                                 Level alliancemembers = await ResourcesManager.GetPlayer(op.AvatarId);
                                 if (alliancemembers.Client != null)
                                 {
-                                    AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
-                                    p.SetStreamEntry(eventStreamEntry);
-                                    p.Send();
+                                    new AllianceStreamEntryMessage(alliancemembers.Client) {StreamEntry = eventStreamEntry}.Send();
                                 }
                             }
                         }

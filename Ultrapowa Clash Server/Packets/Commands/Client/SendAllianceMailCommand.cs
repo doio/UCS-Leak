@@ -37,7 +37,7 @@ namespace UCS.Packets.Commands.Client
                         var mail = new AllianceMailStreamEntry();
                         mail.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                         mail.SetSender(avatar);
-                        mail.SetIsNew(2);
+                        mail.IsNew = 2;
                         mail.SenderId = avatar.UserId;
                         mail.AllianceId = allianceId;
                         mail.AllianceBadgeData = alliance.m_vAllianceBadgeData;

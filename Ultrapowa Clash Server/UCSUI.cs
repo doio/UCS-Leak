@@ -401,7 +401,7 @@ namespace UCS
             mail.SenderId = 0;
             mail.SenderId = 0;
             mail.m_vSenderName = textBox23.Text;
-            mail.SetIsNew(2); // 0 = Seen, 2 = New
+            mail.IsNew = 2; // 0 = Seen, 2 = New
             mail.AllianceId = 0;
             mail.AllianceBadgeData = 1526735450;
             mail.AllianceName = "Ultrapowa";

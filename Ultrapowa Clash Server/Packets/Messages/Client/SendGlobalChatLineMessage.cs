@@ -59,23 +59,21 @@ namespace UCS.Packets.Messages.Client
                             {
                                 if (pl.Avatar.Region == this.Device.Player.Avatar.Region)
                                 {
-                                string NewMessage = "";
+                                    string NewMessage = "";
 
-                                for (int i = 0; i < Message.Length; i++)
-                                {
-                                    NewMessage += "*";
-                                }
-                                GlobalChatLineMessage p = new GlobalChatLineMessage(pl.Client)
-                                {
-                                    PlayerName = senderName,
-                                    Message = NewMessage,
-                                    HomeId = senderId,
-                                    CurrentHomeId = senderId,
-                                    LeagueId = this.Device.Player.Avatar.m_vLeagueId
-                                };
+                                    for (int i = 0; i < Message.Length; i++){NewMessage += "*";}
 
-                                p.SetAlliance(ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
-                                p.Send();
+                                    GlobalChatLineMessage p = new GlobalChatLineMessage(pl.Client)
+                                    {
+                                        PlayerName = senderName,
+                                        Message = NewMessage,
+                                        HomeId = senderId,
+                                        CurrentHomeId = senderId,
+                                        LeagueId = this.Device.Player.Avatar.m_vLeagueId
+                                    };
+
+                                    p.SetAlliance(ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
+                                    p.Send();
                                 }
                             }
                         }
@@ -95,7 +93,7 @@ namespace UCS.Packets.Messages.Client
                                     };
                                     p.SetAlliance(ObjectManager.GetAlliance(this.Device.Player.Avatar.AllianceId));
                                     p.Send();
-                                    Logger.Write("Chat Message: '" + Message + "' from '" + senderName + "':'" + senderId + "'");
+                                    Logger.Write($"Chat Message: '{Message}' from '{senderName}':'{senderId}'");
                                 }
                             }
                         }

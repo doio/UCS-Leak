@@ -7,7 +7,6 @@ namespace UCS.Packets.Messages.Client
     {
         public AllianceWarAttackAvatarMessage(Device device, Reader reader) : base(device, reader)
         {
-
             int PacketID = 15001;
         }
     }

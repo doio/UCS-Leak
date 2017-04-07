@@ -61,8 +61,8 @@ namespace UCS.Core
             //LoadRandomBase(); // Useless atm
 
             TimerReferenceRedis = new Timer(SaveRedis, null, 10000, 40000);
-            TimerReferenceMysql = new Timer(SaveMysql, null, 40000, Convert.ToInt32(2.7e+6));
-            Say("UCS Database has been succesfully loaded. (" + Convert.ToInt32(MaxAllianceID + MaxPlayerID) + "_Tables)");
+            TimerReferenceMysql = new Timer(SaveMysql, null, 40000, 27000);
+            Say($"UCS Database has been succesfully loaded. ({Convert.ToInt32(MaxAllianceID + MaxPlayerID)} Tables)");
         }
 
         private static void SaveRedis(object state)
@@ -135,39 +135,6 @@ namespace UCS.Core
             return ResourcesManager.m_vInMemoryLevels.Values.ToList().ElementAt(index);
         }
 
-        /*public static Level GetRandomOnlinePlayerWithoutShield()
-        {
-            try
-            {
-                loop:
-                Level l = GetRandomOnlinePlayer();
-                ClientAvatar ca = l.Avatar;
-
-                if (ResourcesManager.GetOnlinePlayers().Count >= 500)
-                {
-                    if (l != null && l.Avatar.m_vAvatarLevel > 90)
-                    {
-                        return l;
-                    }
-                    else
-                    {
-                        goto loop;
-                    }
-                }
-                else
-                {
-                    return l;
-                }
-
-            } catch (Exception) { return null; }
-        }*/
-
-        /*public static Level GetRandomPlayerFromAll()
-        {
-            int index = new Random().Next(0, ResourcesManager.GetAllPlayerIds().Count);
-            return ResourcesManager.GetPlayer(ResourcesManager.GetAllPlayerIds()[index]);
-        }*/
-
         public static void LoadNpcLevels()
         {
             int Count = 0;
@@ -183,7 +150,7 @@ namespace UCS.Core
                 Count++;
             }
 
-            Say("NPC Levels  have been succesfully loaded. (" + Count + ")");
+            Say($"NPC Levels  have been succesfully loaded. ({Count})");
         }
 
         /*public static void LoadRandomBase()

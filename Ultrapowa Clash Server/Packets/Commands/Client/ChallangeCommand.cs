@@ -45,9 +45,7 @@ namespace UCS.Packets.Commands
                         if (alliancemembers.Client != null)
                         {
                             new AllianceStreamEntryRemovedMessage(alliancemembers.Client, s.ID).Send();
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(alliancemembers.Client);
-                            p.SetStreamEntry(cm);
-                            p.Send();
+                            new AllianceStreamEntryMessage(alliancemembers.Client) { StreamEntry = cm }.Send();
                         }
                     }
                 }

@@ -61,13 +61,8 @@ namespace UCS.Packets.Messages.Client
                             Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                             if (player.Client != null)
                             {
-                                AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.Client);
-                                AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.Client);
-                                p.SetStreamEntry(eventStreamEntry);
-                                c.SetStreamEntry(e);
-
-                                p.Send();
-                                c.Send();
+                                new AllianceStreamEntryMessage(player.Client) { StreamEntry = eventStreamEntry }.Send();
+                                new AllianceStreamEntryMessage(player.Client) { StreamEntry = e }.Send();
                             }
                         }
                         if (ResourcesManager.IsPlayerOnline(requester))
@@ -99,9 +94,7 @@ namespace UCS.Packets.Messages.Client
                         Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                         if (player.Client != null)
                         {
-                            AllianceStreamEntryMessage c = new AllianceStreamEntryMessage(player.Client);
-                            c.SetStreamEntry(e);
-                            c.Send();
+                            new AllianceStreamEntryMessage(player.Client) { StreamEntry = e }.Send();
                         }
                     }
                 }

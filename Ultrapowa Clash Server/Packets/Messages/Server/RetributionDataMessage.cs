@@ -21,14 +21,9 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ownerHome = new ClientHome(Player.Avatar.UserId);
-                ownerHome.m_vShieldTime = Player.Avatar.m_vShieldTime;
-                ownerHome.m_vProtectionTime = Player.Avatar.m_vProtectionTime;
-                ownerHome.SetHomeJSON(JsonBase);
-
                 this.Data.AddInt(0);
                 this.Data.AddInt((int)Player.Avatar.LastTickSaved.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                this.Data.AddRange(ownerHome.Encode());
+                this.Data.AddRange(new ClientHome(Player.Avatar.UserId) { m_vShieldTime = this.Player.Avatar.m_vShieldTime, m_vProtectionTime = this.Player.Avatar.m_vProtectionTime, Village = this.JsonBase }.Encode());
                 this.Data.AddRange(await Player.Avatar.Encode());
                 this.Data.AddInt(LevelId);
             }

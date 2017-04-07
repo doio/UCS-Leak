@@ -24,7 +24,6 @@ namespace UCS.Packets.Messages.Client
             this.m_vAvatarId = this.Reader.ReadInt64();
             if (this.Reader.ReadBoolean())
                 this.m_vCurrentHomeId = this.Reader.ReadInt64();
-
         }
 
         internal override async void Process()
@@ -35,8 +34,7 @@ namespace UCS.Packets.Messages.Client
                 if (targetLevel != null)
                 {
                     targetLevel.Tick();
-                    AvatarProfileMessage p = new AvatarProfileMessage(this.Device) { Level = targetLevel };
-                    p.Send();
+                    new AvatarProfileMessage(this.Device) { Level = targetLevel }.Send();
                 }
             }
             catch (Exception)

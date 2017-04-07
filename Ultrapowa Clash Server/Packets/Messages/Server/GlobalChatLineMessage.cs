@@ -51,10 +51,9 @@ namespace UCS.Packets.Messages.Server
             {
                 this.Data.Add(0);
             }
-
         }
 
-        public void SetAlliance(Alliance alliance)
+        internal void SetAlliance(Alliance alliance)
         {
             if(alliance?.m_vAllianceId > 0)
             {

@@ -93,14 +93,8 @@ namespace UCS.Packets.Messages.Client
                                 Level aplayer = await ResourcesManager.GetPlayer(op.AvatarId);
                                 if (aplayer.Client != null)
                                 {
-                                    AllianceStreamEntryMessage a = new AllianceStreamEntryMessage(aplayer.Client);
-                                    AllianceStreamEntryMessage b = new AllianceStreamEntryMessage(aplayer.Client);
-
-                                    a.SetStreamEntry(demote);
-                                    b.SetStreamEntry(promote);
-
-                                    a.Send();
-                                    b.Send();
+                                    new AllianceStreamEntryMessage(aplayer.Client) { StreamEntry = demote }.Send();
+                                    new AllianceStreamEntryMessage(aplayer.Client) { StreamEntry = promote }.Send();
                                 }
 
                             }
@@ -138,9 +132,7 @@ namespace UCS.Packets.Messages.Client
                                 Level aplayer = await ResourcesManager.GetPlayer(op.AvatarId);
                                 if (aplayer.Client != null)
                                 {
-                                    AllianceStreamEntryMessage b = new AllianceStreamEntryMessage(aplayer.Client);
-                                    b.SetStreamEntry(stream);
-                                    b.Send();
+                                    new AllianceStreamEntryMessage(aplayer.Client) { StreamEntry = stream }.Send();
                                 }
                             }
                         }

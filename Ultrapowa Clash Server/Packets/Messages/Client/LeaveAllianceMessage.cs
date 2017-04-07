@@ -97,12 +97,12 @@ namespace UCS.Packets.Messages.Client
                     eventStreamEntry.EventType = 4;
                     alliance.AddChatMessage(eventStreamEntry);
                     foreach (Level onlinePlayer in ResourcesManager.m_vOnlinePlayers)
+                    {
                         if (onlinePlayer.Avatar.AllianceId == alliance.m_vAllianceId)
                         {
-                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(onlinePlayer.Client);
-                            p.SetStreamEntry(eventStreamEntry);
-                            p.Send();
+                            new AllianceStreamEntryMessage(onlinePlayer.Client) { StreamEntry = eventStreamEntry }.Send();
                         }
+                    }
                 }
                 else
                 {

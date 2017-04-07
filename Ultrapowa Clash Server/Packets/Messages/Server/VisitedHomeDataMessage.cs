@@ -12,17 +12,17 @@ namespace UCS.Packets.Messages.Server
             this.Identifier = 24113;
             m_vOwnerLevel = ownerLevel;
             m_vVisitorLevel = visitorLevel;
+            this.Device.PlayerState = Logic.Enums.State.VISIT;
         }
 
         internal override async void Encode()
         {
             try
             {
-                this.Device.PlayerState = Logic.Enums.State.VISIT;
                 ClientHome ownerHome = new ClientHome(m_vOwnerLevel.Avatar.UserId);
                 ownerHome.m_vShieldTime = m_vOwnerLevel.Avatar.m_vShieldTime;
                 ownerHome.m_vProtectionTime = m_vOwnerLevel.Avatar.m_vProtectionTime;
-                ownerHome.SetHomeJSON(m_vOwnerLevel.SaveToJSON());
+                ownerHome.Village = m_vOwnerLevel.SaveToJSON();
 
                 this.Data.AddInt(-1);
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);

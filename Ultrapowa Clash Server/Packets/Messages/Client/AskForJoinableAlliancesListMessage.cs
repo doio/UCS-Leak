@@ -35,8 +35,7 @@ namespace UCS.Packets.Messages.Client
             }
             joinableAlliances = joinableAlliances.ToList();
 
-            JoinableAllianceListMessage p = new JoinableAllianceListMessage(Device) {Alliances = joinableAlliances};
-            p.Send();
+            new JoinableAllianceListMessage(Device) {Alliances = joinableAlliances}.Send();
         }
     }
 }

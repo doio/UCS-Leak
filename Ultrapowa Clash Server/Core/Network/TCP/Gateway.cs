@@ -41,7 +41,7 @@ namespace UCS.Core.Network
             this.Listener.Listen(200);
 
             Logger.Say();
-            Logger.Say("UCS has been started on " + this.Listener.LocalEndPoint + " in " + Program._Stopwatch.ElapsedMilliseconds + " Milliseconds !");
+            Logger.Say($"UCS has been started on {this.Listener.LocalEndPoint} in {Program._Stopwatch.ElapsedMilliseconds} Milliseconds !");
             Program._Stopwatch.Stop();
 
             SocketAsyncEventArgs AcceptEvent = new SocketAsyncEventArgs();
@@ -83,7 +83,7 @@ namespace UCS.Core.Network
             {
                 if (!ConnectionBlocker.Banned_IPs.Contains(((IPEndPoint)Socket.RemoteEndPoint).Address.ToString()))
                 {
-                    Logger.Write("New client connected -> " + ((IPEndPoint)Socket.RemoteEndPoint).Address);
+                    Logger.Write($"New client connected -> {((IPEndPoint)Socket.RemoteEndPoint).Address}");
 
                     SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
 

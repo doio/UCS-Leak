@@ -64,9 +64,7 @@ namespace UCS.Packets.Messages.Client
                                         Level player = await ResourcesManager.GetPlayer(op.AvatarId);
                                         if (player.Client != null)
                                         {
-                                            AllianceStreamEntryMessage p = new AllianceStreamEntryMessage(player.Client);
-                                            p.SetStreamEntry(cm);
-                                            p.Send();
+                                            new AllianceStreamEntryMessage(player.Client) { StreamEntry = cm }.Send();
                                         }
                                     }
                                 }

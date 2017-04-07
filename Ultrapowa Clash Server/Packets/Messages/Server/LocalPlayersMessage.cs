@@ -20,7 +20,7 @@ namespace UCS.Packets.Messages.Server
             List<byte> data = new List<byte>();
             var i = 0;
 
-            foreach (var player in ResourcesManager.m_vInMemoryLevels.Values.ToList().OrderByDescending(t => t.Avatar.GetScore()))
+            foreach (Level player in ResourcesManager.m_vInMemoryLevels.Values.ToList().OrderByDescending(t => t.Avatar.GetScore()))
             {
                 try
                 {

@@ -70,8 +70,7 @@ namespace UCS.Packets.Messages.Server
             blake.Update(Key.PublicKey);
 
             byte[] Nonce = blake.Finish();
-            byte[] encrypted =
-                this.Device.Keys.RNonce.Concat(this.Device.Keys.PublicKey).Concat(this.Data).ToArray();
+            byte[] encrypted = this.Device.Keys.RNonce.Concat(this.Device.Keys.PublicKey).Concat(this.Data).ToArray();
 
             this.Data =  new List<byte>(Sodium.Encrypt(encrypted, Nonce, Key.PrivateKey, this.Device.Keys.PublicKey));
 

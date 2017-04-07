@@ -117,25 +117,23 @@ namespace UCS.Packets.Messages.Client
                     {
                         if (ResourcesManager.m_vOnlinePlayers.Count >= Constants.MaxOnlinePlayers)
                         {
-                            LoginFailedMessage p = new LoginFailedMessage(Device)
+                            new LoginFailedMessage(Device)
                             {
                                 ErrorCode = 12,
                                 Reason = "Sorry the Server is currently full! \n\nPlease try again in a few Minutes.\n"
-                            };
-                            p.Send();
+                            }.Send();
                             return;
                         }
                     }
 
                     if (ParserThread.GetMaintenanceMode())
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 10,
                             RemainingTime = ParserThread.GetMaintenanceTime(),
                             Version = 8
-                        };
-                        p.Send();
+                        }.Send();
                         return;
                     }
 
@@ -143,12 +141,11 @@ namespace UCS.Packets.Messages.Client
                     {
                         if (ResourcesManager.m_vOnlinePlayers.Count >= 350)
                         {
-                            LoginFailedMessage p = new LoginFailedMessage(Device)
+                            new LoginFailedMessage(Device)
                             {
                                 ErrorCode = 11,
                                 Reason = "This is a Free Version of UCS. Please Upgrade on https://ultrapowa.com/forum"
-                            };
-                            p.Send();
+                            }.Send();
                             return;
                         }
                     }
@@ -156,12 +153,11 @@ namespace UCS.Packets.Messages.Client
                     {
                         if (ResourcesManager.m_vOnlinePlayers.Count >= 700)
                         {
-                            LoginFailedMessage p = new LoginFailedMessage(Device)
+                            new LoginFailedMessage(Device)
                             {
                                 ErrorCode = 11,
                                 Reason = "This is a Pro Version of UCS. Please Upgrade to Ultra on https://ultrapowa.com/forum"
-                            };
-                            p.Send();
+                            }.Send();
                             return;
                         }
                     }
@@ -169,24 +165,22 @@ namespace UCS.Packets.Messages.Client
                     int time = Convert.ToInt32(ConfigurationManager.AppSettings["maintenanceTimeleft"]);
                     if (time != 0)
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 10,
                             RemainingTime = time,
                             Version = 8
-                        };
-                        p.Send();
+                        }.Send();
                         return;
                     }
 
                     if (ConfigurationManager.AppSettings["CustomMaintenance"] != string.Empty)
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 10,
                             Reason = Utils.ParseConfigString("CustomMaintenance")
-                        };
-                        p.Send();
+                        }.Send();
                         return;
                     }
 
@@ -194,27 +188,23 @@ namespace UCS.Packets.Messages.Client
                     string[] cv = ClientVersion.Split('.');
                     if (cv[0] != cv2[0] || cv[1] != cv2[1] || cv[2] != cv2[2])
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 8,
                             UpdateUrl = Utils.ParseConfigString("UpdateUrl")
-                        };
-                        /*FOR FHX*/
-                        //p.SetReason("Please re-downoad the APK on the Official FHX Site! \n Official Site: \n\n https://fhx-server.com, or \nhttp://fhxservercoc.com \n\n Or click the Update Button below!");
-                        p.Send();
+                        }.Send();
                         return;
                     }
 
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 7,
                             ResourceFingerprintData = ObjectManager.FingerPrint.SaveToJson(),
                             ContentUrl = Utils.ParseConfigString("patchingServer"),
                             UpdateUrl = Utils.ParseConfigString("UpdateUrl")
-                        };
-                        p.Send();
+                        }.Send();
                         return;
                     }
                     CheckClient();
@@ -227,13 +217,13 @@ namespace UCS.Packets.Messages.Client
             ResourcesManager.LogPlayerIn(level, Device);
             level.Tick();
             level.Avatar.IPAddress = Device.IPAddress;
-            LoginOkMessage l = new LoginOkMessage(this.Device)
+
+            new LoginOkMessage(this.Device)
             {
                 ServerMajorVersion = MajorVersion,
                 ServerBuild = MinorVersion,
                 ContentVersion = ContentVersion
-            };
-            l.Send();
+            }.Send();
 
             if (level.Avatar.AllianceId > 0)
             {
@@ -261,7 +251,7 @@ namespace UCS.Packets.Messages.Client
                 mail.SenderId = 0;
                 //mail.SetSenderName("Clash Of Heroes Team");
                 mail.m_vSenderName = "Server Manager";
-                mail.SetIsNew(2);
+                mail.IsNew = 2;
                 mail.AllianceId = 0;
                 mail.m_vSenderLeagueId = 22;
                 mail.AllianceBadgeData = 1526735450;
@@ -290,8 +280,7 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (level.Avatar.AccountBanned)
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device) {ErrorCode = 11};
-                        p.Send();
+                        new LoginFailedMessage(Device) {ErrorCode = 11}.Send();
                         return;
                     }
                     if (string.Equals(level.Avatar.UserToken, UserToken, StringComparison.Ordinal))
@@ -300,32 +289,27 @@ namespace UCS.Packets.Messages.Client
                     }
                     else
                     {
-                        LoginFailedMessage p = new LoginFailedMessage(Device)
+                        new LoginFailedMessage(Device)
                         {
                             ErrorCode = 11,
-                            Reason = "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
-                        };
-                        // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                  
-                        p.Send();
+                            Reason = "We have some Problems with your Account. Please clean your App Data."
+                        }.Send();
                         return;
                     }
                 }
                 else
                 {
-                    LoginFailedMessage p = new LoginFailedMessage(Device)
+                    new LoginFailedMessage(Device)
                     {
                         ErrorCode = 11,
-                        Reason =
-                            "We have some Problems with your Account. Please clean your App Data. https://ultrapowa.com/forum"
-                    };
-                    /*FOR FHX*/     // p.SetReason("Please clean the Data of your CoH app. \n\nSettings -> Application Manager -> Clear Data.(#1)\n\nMore Info, please check our official Website.\nOfficial Site: http://www.clashofheroes.net");                                  
-                    p.Send();
+                        Reason = "We have some Problems with your Account. Please clean your App Data."
+                    }.Send();
                     return;
                 }
             } catch (Exception) { }
         }
 
-        void NewUser()
+        private void NewUser()
         {
             level = ObjectManager.CreateAvatar(0, null);
             if (string.IsNullOrEmpty(UserToken))
@@ -337,9 +321,9 @@ namespace UCS.Packets.Messages.Client
                 }
             }
 
-            level.Avatar.Region = Region.ToUpper();
+            level.Avatar.Region = this.Region.ToUpper();
             level.Avatar.InitializeAccountCreationDate();
-            level.Avatar.m_vAndroid = Android;
+            level.Avatar.m_vAndroid = this.Android;
 
             DatabaseManager.Single().Save(level);
             LogUser();

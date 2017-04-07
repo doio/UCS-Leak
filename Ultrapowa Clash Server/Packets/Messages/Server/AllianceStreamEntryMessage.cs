@@ -5,7 +5,7 @@ namespace UCS.Packets.Messages.Server
     // Packet 24312
     internal class AllianceStreamEntryMessage : Message
     {
-        StreamEntry m_vStreamEntry;
+        internal StreamEntry StreamEntry;
 
         public AllianceStreamEntryMessage(Device client) : base(client)
         {
@@ -14,12 +14,7 @@ namespace UCS.Packets.Messages.Server
 
         internal override void Encode()
         {
-            this.Data.AddRange(m_vStreamEntry.Encode());
-        }
-
-        public void SetStreamEntry(StreamEntry entry)
-        {
-            m_vStreamEntry = entry;
+            this.Data.AddRange(StreamEntry.Encode());
         }
     }
 }
