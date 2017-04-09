@@ -28,7 +28,7 @@ namespace UCS.Packets.GameOpCommands
                     PlayerName = "UCS Bot"
                 };
                 Processor.Send(pm);
-                DatabaseManager.Single().Save(ResourcesManager.m_vInMemoryLevels.Values.ToList());
+                Resources.DatabaseManager.Save(ResourcesManager.m_vInMemoryLevels.Values.ToList());
                 var p = new GlobalChatLineMessage(level.Client)
                 {
                     Message = "All Players are saved!",
@@ -50,7 +50,7 @@ namespace UCS.Packets.GameOpCommands
                 };
                 Processor.Send(pmm);
                 /* Confirmation */
-                //var clans = DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
+                //var clans = Resources.DatabaseManager.Save(ResourcesManager.GetInMemoryAlliances());
                 //clans.Wait();
                 var pmp = new GlobalChatLineMessage(level.Client)
                 {

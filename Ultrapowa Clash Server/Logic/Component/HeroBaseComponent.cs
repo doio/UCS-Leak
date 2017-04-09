@@ -91,9 +91,11 @@ namespace UCS.Logic
         {
             if (m_vTimer != null)
             {
-                var unitUpgradeObject = new JObject();
-                unitUpgradeObject.Add("level", m_vUpgradeLevelInProgress);
-                unitUpgradeObject.Add("t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved));
+                var unitUpgradeObject = new JObject
+                {
+                    {"level", m_vUpgradeLevelInProgress},
+                    {"t", m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved)}
+                };
                 jsonObject.Add("hero_upg", unitUpgradeObject);
             }
             return jsonObject;
@@ -128,12 +130,9 @@ namespace UCS.Logic
 
         public override void Tick()
         {
-            if (m_vTimer != null)
+            if (m_vTimer?.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
-                {
-                    FinishUpgrading();
-                }
+                FinishUpgrading();
             }
         }
     }

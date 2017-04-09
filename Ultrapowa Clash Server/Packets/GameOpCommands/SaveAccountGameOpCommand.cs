@@ -17,7 +17,7 @@ namespace UCS.Packets.GameOpCommands
         {
             if (level.Avatar.AccountPrivileges >= GetRequiredAccountPrivileges())
             {
-                DatabaseManager.Single().Save(level);
+                Resources.DatabaseManager.Save(level);
                 var p = new GlobalChatLineMessage(level.Client)
                 {
                     Message = "Game Successfuly Saved!",

@@ -106,7 +106,7 @@ namespace UCS.Packets.Messages.Client
                 }
                 else
                 {
-                    DatabaseManager.Single().RemoveAlliance(alliance);
+                    Resources.DatabaseManager.RemoveAlliance(alliance);
                 }
                 new LeaveAllianceOkMessage(Device, alliance).Send();
             } catch (Exception) { }

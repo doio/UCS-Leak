@@ -1,4 +1,450 @@
-﻿using System;
+﻿namespace UCS.Core.Network.TCP
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using UCS.Core.Settings;
+    using UCS.Packets;
+    using System.Net;
+    using System.Net.Sockets;
+
+    internal class Gateway : IDisposable
+    {
+        private bool _disposed;
+        private bool _started;
+
+        private volatile bool _stopAccept;
+        private readonly List<Tuple<Socket, EndPoint>> _listeners;
+
+        private readonly Pool<SocketAsyncEventArgs> _argsPool;
+
+        internal SocketAsyncEventArgsPool ReadPool;
+        internal SocketAsyncEventArgsPool WritePool;
+        internal Gateway()
+        {
+            this.ReadPool = new SocketAsyncEventArgsPool();
+            this.WritePool = new SocketAsyncEventArgsPool();
+
+            this._listeners = new List<Tuple<Socket, EndPoint>>();
+            this._argsPool = new Pool<SocketAsyncEventArgs>(() =>
+            {
+                var args = new SocketAsyncEventArgs();
+                args.Completed += OnAcceptCompleted;
+                return args;
+            });
+            this.Initialize();
+
+            this.Start(new IPEndPoint(IPAddress.Any, 9339));
+
+            Logger.Say();
+            Program._Stopwatch.Stop();
+            Logger.Say($"UCS has been started in {Program._Stopwatch.ElapsedMilliseconds} Milliseconds !");
+        }
+        public void Start(params EndPoint[] endPoints)
+        {
+            if (_disposed)
+                throw new ObjectDisposedException(null, "Can't access disposed Listener object.");
+            if (_started)
+                throw new InvalidOperationException("Listener instance has already been started.");
+
+            if (endPoints == null || endPoints.Length == 0)
+                throw new ArgumentNullException(nameof(endPoints));
+
+            foreach (EndPoint t in endPoints)
+            {
+                var startEx = (Exception)null;
+                var endPoint = t;
+                var listener = StartListener(endPoint, ref startEx);
+                if (listener == null)
+                    throw new InvalidOperationException("Failed to start listener; check inner exception", startEx);
+
+                _listeners.Add(Tuple.Create(listener, endPoint));
+            }
+
+            _started = true;
+        }
+
+        internal void Initialize()
+        {
+            for (int Index = 0; Index < Constants.MaxOnlinePlayers + 1; Index++)
+            {
+                SocketAsyncEventArgs ReadEvent = new SocketAsyncEventArgs();
+                ReadEvent.SetBuffer(new byte[Constants.ReceiveBuffer], 0, Constants.ReceiveBuffer);
+                ReadEvent.Completed += this.OnReceiveCompleted;
+                this.ReadPool.Enqueue(ReadEvent);
+
+                SocketAsyncEventArgs WriterEvent = new SocketAsyncEventArgs();
+                WriterEvent.Completed += this.OnSendCompleted;
+                this.WritePool.Enqueue(WriterEvent);
+            }
+        }
+
+        public void Close()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                _stopAccept = true;
+
+                // Dispose our list of listeners.
+                foreach (var t in _listeners)
+                {
+                    var listener = t.Item1;
+
+                    try
+                    {
+                        listener.Close();
+                    }
+                    catch
+                    {
+                        /*Swallow*/
+                    }
+                    try
+                    {
+                        listener.Dispose();
+                    }
+                    catch
+                    {
+                        /*Swallow*/
+                    }
+                }
+
+                // Dispose our pool of SocketAsyncEventArgs objects.
+                for (int i = 0; i < _argsPool.Count; i++)
+                {
+                    var e = _argsPool.Get();
+
+                    try
+                    {
+                        e.Dispose();
+                    }
+                    catch
+                    {
+                        /*Swallow*/
+                    }
+                }
+                lock (this.ReadPool.Gate)
+                {
+                    lock (this.WritePool.Gate)
+                    {
+                        this.ReadPool.Dispose();
+                        this.WritePool.Dispose();
+                    }
+                }
+            }
+
+            _disposed = true;
+        }
+
+        internal void OnAcceptCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
+        {
+            this.ProcessAccept(AsyncEvent);
+        }
+
+        internal void OnReceiveCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
+        {
+            this.ProcessReceive(AsyncEvent);
+        }
+
+        private Socket StartListener(EndPoint endPoint, ref Exception ex)
+        {
+            try
+            {
+
+                var listener = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp)
+                {
+                    ReceiveBufferSize = Constants.ReceiveBuffer,
+                    SendBufferSize = Constants.SendBuffer,
+                    Blocking = false,
+                    NoDelay = true,
+                };
+                listener.Bind(endPoint);
+                listener.Listen(200);
+
+                var args = _argsPool.Get();
+                args.UserToken = listener;
+                StartAccept(args);
+
+
+                Logger.Say("Server stated listening on " + endPoint + ", let's play !");
+                return listener;
+            }
+            catch (Exception iex)
+            {
+
+                Logger.Say("Server failed to stat listening socket on " + iex);
+                ex = iex;
+                return null;
+            }
+        }
+        private void StartAccept(SocketAsyncEventArgs e)
+        {
+            var listener = (Socket)e.UserToken;
+
+            try
+            {
+                if (!listener.AcceptAsync(e))
+                    ProcessAccept(e);
+            }
+            catch //(Exception ex)
+            {
+                if (_disposed)
+                    return;
+
+                lock (_listeners)
+                {
+                    for (int i = 0; i < _listeners.Count; i++)
+                    {
+                        var tmpListener = _listeners[i].Item1;
+                        if (tmpListener != listener)
+                            break;
+
+                        var tmpEndPoint = _listeners[i].Item2;
+
+                        var startEx = (Exception)null;
+                        var newListener = StartListener(tmpEndPoint, ref startEx);
+                        _listeners[i] = Tuple.Create(newListener, tmpEndPoint);
+                    }
+                }
+            }
+        }
+
+        internal void ProcessReceive(SocketAsyncEventArgs AsyncEvent)
+        {
+            if (AsyncEvent.BytesTransferred > 0 && AsyncEvent.SocketError == SocketError.Success)
+            {
+                Token Token = AsyncEvent.UserToken as Token;
+
+                if (Token != null)
+                {
+                    Token.SetData();
+
+                    try
+                    {
+                        if (Token.Device.Socket.Available == 0)
+                        {
+                            Token.Process();
+
+                            if (!Token.Aborting)
+                            {
+                                if (!Token.Device.Socket.ReceiveAsync(AsyncEvent))
+                                {
+                                    this.ProcessReceive(AsyncEvent);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!Token.Device.Socket.ReceiveAsync(AsyncEvent))
+                            {
+                                this.ProcessReceive(AsyncEvent);
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        this.Disconnect(AsyncEvent);
+                    }
+                }
+            }
+            else
+            {
+                this.Disconnect(AsyncEvent);
+            }
+        }
+
+        private void ProcessAccept(SocketAsyncEventArgs AsyncEvent)
+        {
+            var Socket = AsyncEvent.AcceptSocket;
+
+            try
+            {
+                if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
+                {
+                    Console.WriteLine("New Connection");
+                    if (Constants.Local)
+                    {
+                        if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
+                        {
+                            Socket.Close();
+
+                            AsyncEvent.AcceptSocket = null;
+                            this.StartAccept(AsyncEvent);
+                            return;
+                        }
+                    }
+
+                    SocketAsyncEventArgs ReadEvent = this.ReadPool.Dequeue();
+
+                    if (ReadEvent == null)
+                    {
+                        ReadEvent = new SocketAsyncEventArgs();
+                        ReadEvent.SetBuffer(new byte[Constants.ReceiveBuffer], 0, Constants.ReceiveBuffer);
+                        ReadEvent.Completed += this.OnReceiveCompleted;
+                    }
+
+                    // Accept only if the listener haven't been stopped.
+                    if (!_stopAccept)
+                    {
+                        Device Device = new Device(Socket);
+                        Token Token = new Token(ReadEvent, Device);
+
+                        try
+                        {
+                            if (!Socket.ReceiveAsync(ReadEvent))
+                            {
+                                this.ProcessReceive(ReadEvent);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            this.Disconnect(AsyncEvent);
+                        }
+                    }
+                    else
+                    {
+                        this.Disconnect(AsyncEvent);
+                    }
+                }
+                else
+                {
+                    this.Disconnect(AsyncEvent);
+                    StartAccept(AsyncEvent);
+
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine(" processing of accept failed: {0}", ex);
+#endif
+                this.Disconnect(AsyncEvent);
+
+                StartAccept(AsyncEvent);
+
+            }
+            AsyncEvent.AcceptSocket = null;
+            this.StartAccept(AsyncEvent);
+        }
+
+        internal void Disconnect(SocketAsyncEventArgs AsyncEvent)
+        {
+            Token Token = AsyncEvent.UserToken as Token;
+
+            if (Token != null)
+            {
+                Token.Aborting = true;
+
+                if (Token.Device.Player != null)
+                {
+                    Resources.DatabaseManager.Save(Token.Device.Player);
+                    ResourcesManager.DropClient(Token.Device);
+                }
+                else if (Token.Device.Connected)
+                {
+                    try
+                    {
+                        Token.Device.Socket.Shutdown(SocketShutdown.Send);
+                    }
+                    catch (Exception)
+                    {
+                        // Already Closed.
+                    }
+
+                    Token.Device.Socket.Close();
+                    Token.Device.Socket.Dispose();
+                }
+            }
+
+            this.ReadPool.Enqueue(AsyncEvent);
+        }
+
+        internal void Send(Message Message)
+        {
+            SocketAsyncEventArgs WriteEvent = this.WritePool.Dequeue();
+
+            if (this.WritePool.Dequeue() == null)
+            {
+                WriteEvent = new SocketAsyncEventArgs();
+            }
+
+            WriteEvent.SetBuffer(Message.ToBytes, Message.Offset, Message.Length + 7 - Message.Offset);
+
+            WriteEvent.AcceptSocket = Message.Device.Socket;
+            WriteEvent.RemoteEndPoint = Message.Device.Socket.RemoteEndPoint;
+
+            if (!Message.Device.Socket.SendAsync(WriteEvent))
+            {
+                this.ProcessSend(Message, WriteEvent);
+            }
+        }
+
+        /// <summary>
+        /// Sends the specified message.
+        /// </summary>
+        internal void Send(Device Device, byte[] Buffer)
+        {
+            SocketAsyncEventArgs WriteEvent = this.WritePool.Dequeue();
+
+            if (this.WritePool.Dequeue() == null)
+            {
+                WriteEvent = new SocketAsyncEventArgs();
+            }
+
+            WriteEvent.SetBuffer(Buffer, 0, Buffer.Length);
+
+            WriteEvent.AcceptSocket = Device.Socket;
+            WriteEvent.RemoteEndPoint = Device.Socket.RemoteEndPoint;
+
+            if (!Device.Socket.SendAsync(WriteEvent))
+            {
+                // Rip
+            }
+        }
+
+        internal void ProcessSend(Message Message, SocketAsyncEventArgs Args)
+        {
+            while (true)
+            {
+                Message.Offset += Args.BytesTransferred;
+
+                if (Message.Length + 7 > Message.Offset)
+                {
+                    if (Message.Device.Connected)
+                    {
+                        Args.SetBuffer(Message.Offset, Message.Length + 7 - Message.Offset);
+
+                        if (!Message.Device.Socket.SendAsync(Args))
+                        {
+                            continue;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        internal void OnSendCompleted(object Sender, SocketAsyncEventArgs AsyncEvent)
+        {
+            this.WritePool.Enqueue(AsyncEvent);
+        }
+    }
+}
+
+
+/*using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -241,3 +687,4 @@ namespace UCS.Core.Network
         }
     }
 }
+*/

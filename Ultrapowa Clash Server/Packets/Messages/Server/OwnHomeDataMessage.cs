@@ -12,6 +12,7 @@ namespace UCS.Packets.Messages.Server
         {
             this.Identifier = 24101;
             this.Player = level;
+            this.Player.Tick();
         }
 
         public Level Player;
@@ -20,10 +21,13 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome _Home = new ClientHome(this.Player.Avatar.UserId);
-                _Home.m_vShieldTime = this.Player.Avatar.m_vShieldTime;
-                _Home.m_vProtectionTime = this.Player.Avatar.m_vProtectionTime;
-                _Home.Village = this.Player.SaveToJSON();
+                var _Home =
+                    new ClientHome(this.Player.Avatar.UserId)
+                    {
+                        m_vShieldTime = this.Player.Avatar.m_vShieldTime,
+                        m_vProtectionTime = this.Player.Avatar.m_vProtectionTime,
+                        Village = this.Player.SaveToJSON()
+                    };
 
                 this.Data.AddInt(0);
                 this.Data.AddInt(-1);

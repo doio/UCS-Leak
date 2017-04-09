@@ -92,7 +92,7 @@ namespace UCS.Packets.Messages.Client
                                                     }
                                                 }
 
-                                                DatabaseManager.Single().Save(alliance);
+                                                Resources.DatabaseManager.Save(alliance);
                                             }
                                             else
                                             {

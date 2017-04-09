@@ -131,7 +131,7 @@ namespace UCS.Core
 
         public static void LogPlayerOut(Level level)
         {
-            DatabaseManager.Single().Save(level);
+            Resources.DatabaseManager.Save(level);
             m_vOnlinePlayers.Remove(level);
             m_vInMemoryLevels.TryRemove(level.Avatar.UserId);
             m_vClients.TryRemove(level.Client.SocketHandle);

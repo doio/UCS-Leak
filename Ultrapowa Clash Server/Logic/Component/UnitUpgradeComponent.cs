@@ -26,11 +26,7 @@ namespace UCS.Logic
                 var b = (Building) GetParent();
                 var ca = GetParent().Avatar.Avatar;
                 var cm = GetParent().Avatar.GetComponentManager();
-                int maxProductionBuildingLevel;
-                if (cid.GetCombatItemType() == 1)
-                    maxProductionBuildingLevel = cm.GetMaxSpellForgeLevel();
-                else
-                    maxProductionBuildingLevel = cm.GetMaxBarrackLevel();
+                var  maxProductionBuildingLevel = cid.GetCombatItemType() == 1 ? cm.GetMaxSpellForgeLevel() : cm.GetMaxBarrackLevel();
                 if (ca.GetUnitUpgradeLevel(cid) < cid.GetUpgradeLevelCount() - 1)
                 {
                     if (maxProductionBuildingLevel >= cid.GetRequiredProductionHouseLevel() - 1)
@@ -138,12 +134,9 @@ namespace UCS.Logic
 
         public override void Tick()
         {
-            if (m_vTimer != null)
+            if (m_vTimer?.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
             {
-                if (m_vTimer.GetRemainingSeconds(GetParent().Avatar.Avatar.LastTickSaved) <= 0)
-                {
-                    FinishUpgrading();
-                }
+                FinishUpgrading();
             }
         }
     }

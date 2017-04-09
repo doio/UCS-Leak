@@ -4,15 +4,15 @@ using UCS.Core.Settings;
 
 namespace UCS.Core.Network
 {
-    internal class SocketAsyncEventArgsPool
+  internal class SocketAsyncEventArgsPool
     {
         internal readonly Stack<SocketAsyncEventArgs> Pool;
 
-        private readonly object Gate = new object();
+        internal readonly object Gate = new object();
 
         internal SocketAsyncEventArgsPool()
         {
-            this.Pool = new Stack<SocketAsyncEventArgs>(Constants.MaxOnlinePlayers);
+            this.Pool = new Stack<SocketAsyncEventArgs>();
         }
 
         internal SocketAsyncEventArgs Dequeue()
@@ -30,12 +30,20 @@ namespace UCS.Core.Network
 
         internal void Enqueue(SocketAsyncEventArgs Args)
         {
-            lock (this.Gate)
+             lock (this.Gate)
             {
-                if (this.Pool.Count < Constants.MaxOnlinePlayers + 1)
+                // if (this.Pool.Count < Constants.MaxPlayers)
                 {
                     this.Pool.Push(Args);
                 }
+            }
+        }
+
+        internal void Dispose()
+        {
+            lock (this.Gate)
+            {
+                this.Pool.Clear();
             }
         }
     }

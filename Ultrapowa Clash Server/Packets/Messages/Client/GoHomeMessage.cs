@@ -66,8 +66,8 @@ namespace UCS.Packets.Messages.Client
                         attacker.Avatar.AttackingInfo.Clear(); //Since we use userid for now,We need to clear to prevent overlapping
                         Resources(attacker);
 
-                        DatabaseManager.Single().Save(attacker);
-                        DatabaseManager.Single().Save(defender);
+                        Resources.DatabaseManager.Save(attacker);
+                        Resources.DatabaseManager.Save(defender);
                     } 
                     player.State = UserState.Home;
                 }*/

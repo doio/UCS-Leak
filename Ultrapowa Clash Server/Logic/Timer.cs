@@ -4,60 +4,54 @@ namespace UCS.Logic
 {
     internal class Timer
     {
-        int m_vSeconds;
-        DateTime m_vStartTime;
+        internal int Seconds;
+        internal DateTime StartTime;
 
-        public Timer()
+        internal Timer()
         {
-            m_vStartTime = new DateTime(1970, 1, 1);
-            m_vSeconds   = 0;
+            this.StartTime = new DateTime(1970, 1, 1);
+            this.Seconds = 0;
         }
+        internal void FastForward(int seconds) => this.Seconds -= seconds;
 
-        public void FastForward(int seconds)
+        internal int GetRemainingSeconds(DateTime time, bool boost, DateTime boostEndTime = default(DateTime), float multiplier = 0f)
         {
-            m_vSeconds -= seconds;
-        }
-
-        public int GetRemainingSeconds(DateTime time, bool boost = false, DateTime boostEndTime = default(DateTime), float multiplier = 0f)
-        {
-            int result = int.MaxValue;
+            int result;
             if (!boost)
             {
-                result = m_vSeconds - (int)time.Subtract(m_vStartTime).TotalSeconds;
+                result = this.Seconds - (int)time.Subtract(this.StartTime).TotalSeconds;
             }
             else
             {
                 if (boostEndTime >= time)
-                    result = m_vSeconds - (int)(time.Subtract(m_vStartTime).TotalSeconds * multiplier);
+                    result = this.Seconds - (int)(time.Subtract(this.StartTime).TotalSeconds * multiplier);
                 else
                 {
-                    Single boostedTime = (float)time.Subtract(m_vStartTime).TotalSeconds - (float)(time - boostEndTime).TotalSeconds;
-                    Single notBoostedTime = (float)time.Subtract(m_vStartTime).TotalSeconds - boostedTime;
+                    var boostedTime = (float)time.Subtract(this.StartTime).TotalSeconds - (float)(time - boostEndTime).TotalSeconds;
+                    var notBoostedTime = (float)time.Subtract(this.StartTime).TotalSeconds - boostedTime;
 
-                    result = m_vSeconds - (int)(boostedTime * multiplier + notBoostedTime);
+                    result = this.Seconds - (int)(boostedTime * multiplier + notBoostedTime);
                 }
             }
             if (result <= 0)
                 result = 0;
             return result;
         }
-
-        public int GetRemainingSeconds(DateTime time)
+        internal int GetRemainingSeconds(DateTime time)
         {
-            int result = m_vSeconds - (int) time.Subtract(m_vStartTime).TotalSeconds;
+            int result = this.Seconds - (int)time.Subtract(this.StartTime).TotalSeconds;
             if (result <= 0)
             {
                 result = 0;
             }
             return result;
         }
+        internal DateTime GetStartTime() => this.StartTime;
 
-        public DateTime GetStartTime() => m_vStartTime;
-
-        public void StartTimer(int seconds, DateTime time)
+        internal void StartTimer(int seconds, DateTime time)
         {
-            m_vStartTime = time;
-            m_vSeconds = seconds;
+            this.StartTime = time;
+            this.Seconds = seconds;
         }
     }
 }

@@ -444,7 +444,7 @@ namespace UCS
                 long id = Convert.ToInt64(txtPlayerID.Text);
                 Level player = await ResourcesManager.GetPlayer(id);
                 player.Avatar.AccountBanned = true;
-                DatabaseManager.Single().Save(player);
+                Resources.DatabaseManager.Save(player);
                 new OutOfSyncMessage(player.Client).Send();
             }
         }
@@ -460,7 +460,7 @@ namespace UCS
                 var id = Convert.ToInt64(txtPlayerID.Text);
                 var player = await ResourcesManager.GetPlayer(id);
                 player.Avatar.AccountBanned = true;
-                DatabaseManager.Single().Save(player);
+                Resources.DatabaseManager.Save(player);
             }
         }
 
@@ -610,7 +610,7 @@ namespace UCS
                 alliance.m_vAllianceName = txtAllianceName.Text;
                 alliance.m_vAllianceLevel = Convert.ToInt32(txtAllianceLevel.Text);
                 alliance.m_vAllianceDescription = txtAllianceDescription.Text;
-                DatabaseManager.Single().Save(alliance);
+                Resources.DatabaseManager.Save(alliance);
             }
             else
             {

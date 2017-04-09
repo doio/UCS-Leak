@@ -156,7 +156,8 @@ namespace UCS.Packets.Messages.Client
                             new LoginFailedMessage(Device)
                             {
                                 ErrorCode = 11,
-                                Reason = "This is a Pro Version of UCS. Please Upgrade to Ultra on https://ultrapowa.com/forum"
+                                Reason =
+                                    "This is a Pro Version of UCS. Please Upgrade to Ultra on https://ultrapowa.com/forum"
                             }.Send();
                             return;
                         }
@@ -196,7 +197,8 @@ namespace UCS.Packets.Messages.Client
                         return;
                     }
 
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) && MasterHash != ObjectManager.FingerPrint.sha)
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]) &&
+                        MasterHash != ObjectManager.FingerPrint.sha)
                     {
                         new LoginFailedMessage(Device)
                         {
@@ -209,13 +211,16 @@ namespace UCS.Packets.Messages.Client
                     }
                     CheckClient();
                 }
-            } catch (Exception) { }
+            }
+            catch
+            {
+                
+            }
         }
 
         private async void LogUser()
         {
             ResourcesManager.LogPlayerIn(level, Device);
-            level.Tick();
             level.Avatar.IPAddress = Device.IPAddress;
 
             new LoginOkMessage(this.Device)
@@ -325,7 +330,7 @@ namespace UCS.Packets.Messages.Client
             level.Avatar.InitializeAccountCreationDate();
             level.Avatar.m_vAndroid = this.Android;
 
-            DatabaseManager.Single().Save(level);
+            Resources.DatabaseManager.Save(level);
             LogUser();
         }
     }

@@ -11,6 +11,8 @@ namespace UCS.Logic
         internal long WarID;
         internal int State;
 
+
+
         public ClanWars()
         {
 

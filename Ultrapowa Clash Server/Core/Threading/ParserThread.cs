@@ -91,10 +91,10 @@ namespace UCS.Helpers
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
                             Say($"Starting saving of all Players... ({ResourcesManager.m_vInMemoryLevels.Count})");
-                            DatabaseManager.Single().Save(ResourcesManager.m_vInMemoryLevels.Values.ToList()).Wait();
+                            Resources.DatabaseManager.Save(ResourcesManager.m_vInMemoryLevels.Values.ToList()).Wait();
                             Say("Finished saving of all Players!");
                             Say($"Starting saving of all Alliances... ({ResourcesManager.GetInMemoryAlliances().Count})");
-                            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances()).Wait();
+                            Resources.DatabaseManager.Save(ResourcesManager.GetInMemoryAlliances()).Wait();
                             Say("Finished saving of all Alliances!");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("----------------------------------------------------->");
@@ -126,7 +126,7 @@ namespace UCS.Helpers
                                     {
                                         ResourcesManager.GetPlayer(playerID).Avatar.SetPremium(true);
                                         Say("Privileges set succesfully for: '" + avatar.AvatarName + "' ID: '" + avatar.GetId() + "'");
-                                        DatabaseManager.Single().Save(ResourcesManager.GetInMemoryLevels());
+                                        Resources.DatabaseManager.Save(ResourcesManager.GetInMemoryLevels());
                                     }
                                 }
                                 else if (a == "n")
@@ -306,7 +306,7 @@ namespace UCS.Helpers
                 Processor.Send(new OutOfSyncMessage(p.Client));
                 ResourcesManager.DropClient(p.Client.SocketHandle);
             }
-            DatabaseManager.Single().Save(ResourcesManager.GetInMemoryAlliances());
+            Resources.DatabaseManager.Save(ResourcesManager.GetInMemoryAlliances());
         }
 
         private static void DisableMaintenance(object sender, EventArgs e)
