@@ -7,6 +7,7 @@
     using UCS.Packets;
     using System.Net;
     using System.Net.Sockets;
+    using UCS.Helpers;
 
     internal class Gateway : IDisposable
     {
@@ -34,7 +35,7 @@
             });
             this.Initialize();
 
-            this.Start(new IPEndPoint(IPAddress.Any, 9339));
+            this.Start(new IPEndPoint(IPAddress.Any, Utils.ParseConfigInt("ServerPort")));
 
             Logger.Say();
             Program._Stopwatch.Stop();
@@ -273,7 +274,7 @@
             {
                 if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
                 {
-                    Console.WriteLine("New Connection");
+                    Logger.Write($"New client connected -> {((IPEndPoint)Socket.RemoteEndPoint).Address}");
                     if (Constants.Local)
                     {
                         if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
