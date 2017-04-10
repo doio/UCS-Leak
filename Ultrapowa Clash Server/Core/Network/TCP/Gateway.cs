@@ -226,21 +226,21 @@
         {
             if (AsyncEvent.BytesTransferred > 0 && AsyncEvent.SocketError == SocketError.Success)
             {
-                Token Token = AsyncEvent.UserToken as Token;
+                Token token = AsyncEvent.UserToken as Token;
 
-                if (Token != null)
+                if (token != null)
                 {
-                    Token.SetData();
+                    token.SetData();
 
                     try
                     {
-                        if (Token.Device.Socket.Available == 0)
+                        if (token.Device.Socket.Available == 0)
                         {
-                            Token.Process();
+                            token.Process();
 
-                            if (!Token.Aborting)
+                            if (!token.Aborting)
                             {
-                                if (!Token.Device.Socket.ReceiveAsync(AsyncEvent))
+                                if (!token.Device.Socket.ReceiveAsync(AsyncEvent))
                                 {
                                     this.ProcessReceive(AsyncEvent);
                                 }
@@ -248,7 +248,7 @@
                         }
                         else
                         {
-                            if (!Token.Device.Socket.ReceiveAsync(AsyncEvent))
+                            if (!token.Device.Socket.ReceiveAsync(AsyncEvent))
                             {
                                 this.ProcessReceive(AsyncEvent);
                             }
@@ -269,12 +269,12 @@
         private void ProcessAccept(SocketAsyncEventArgs AsyncEvent)
         {
             var Socket = AsyncEvent.AcceptSocket;
-
+            AsyncEvent.AcceptSocket = null;
             try
             {
                 if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
                 {
-                    Logger.Write($"New client connected -> {((IPEndPoint)Socket.RemoteEndPoint).Address}");
+                    Console.WriteLine("New Connection");
                     if (Constants.Local)
                     {
                         if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
@@ -299,8 +299,9 @@
                     // Accept only if the listener haven't been stopped.
                     if (!_stopAccept)
                     {
-                        Device Device = new Device(Socket);
-                        Token Token = new Token(ReadEvent, Device);
+                        var device = new Device(Socket);
+                        var token = new Token(ReadEvent, device);
+
 
                         try
                         {
@@ -321,9 +322,8 @@
                 }
                 else
                 {
+                    Logger.Write("Client seems to be disconnected at ProcessAccept. Probably an attack to the serevr");
                     this.Disconnect(AsyncEvent);
-                    StartAccept(AsyncEvent);
-
                 }
             }
             catch (Exception ex)
@@ -332,40 +332,36 @@
                 Console.WriteLine(" processing of accept failed: {0}", ex);
 #endif
                 this.Disconnect(AsyncEvent);
-
-                StartAccept(AsyncEvent);
-
             }
-            AsyncEvent.AcceptSocket = null;
             this.StartAccept(AsyncEvent);
         }
 
         internal void Disconnect(SocketAsyncEventArgs AsyncEvent)
         {
-            Token Token = AsyncEvent.UserToken as Token;
+            var token = AsyncEvent.UserToken as Token;
 
-            if (Token != null)
+            if (token != null)
             {
-                Token.Aborting = true;
+                token.Aborting = true;
 
-                if (Token.Device.Player != null)
+                if (token.Device.Player != null)
                 {
-                    Resources.DatabaseManager.Save(Token.Device.Player);
-                    ResourcesManager.DropClient(Token.Device);
+                    Resources.DatabaseManager.Save(token.Device.Player);
+                    ResourcesManager.DropClient(token.Device);
                 }
-                else if (Token.Device.Connected)
+                else if (token.Device.Connected)
                 {
                     try
                     {
-                        Token.Device.Socket.Shutdown(SocketShutdown.Send);
+                        token.Device.Socket.Shutdown(SocketShutdown.Send);
                     }
                     catch (Exception)
                     {
                         // Already Closed.
                     }
 
-                    Token.Device.Socket.Close();
-                    Token.Device.Socket.Dispose();
+                    token.Device.Socket.Close();
+                    token.Device.Socket.Dispose();
                 }
             }
 
@@ -397,19 +393,19 @@
         /// </summary>
         internal void Send(Device Device, byte[] Buffer)
         {
-            SocketAsyncEventArgs WriteEvent = this.WritePool.Dequeue();
+            SocketAsyncEventArgs writeEvent = this.WritePool.Dequeue();
 
             if (this.WritePool.Dequeue() == null)
             {
-                WriteEvent = new SocketAsyncEventArgs();
+                writeEvent = new SocketAsyncEventArgs();
             }
 
-            WriteEvent.SetBuffer(Buffer, 0, Buffer.Length);
+            writeEvent.SetBuffer(Buffer, 0, Buffer.Length);
 
-            WriteEvent.AcceptSocket = Device.Socket;
-            WriteEvent.RemoteEndPoint = Device.Socket.RemoteEndPoint;
+            writeEvent.AcceptSocket = Device.Socket;
+            writeEvent.RemoteEndPoint = Device.Socket.RemoteEndPoint;
 
-            if (!Device.Socket.SendAsync(WriteEvent))
+            if (!Device.Socket.SendAsync(writeEvent))
             {
                 // Rip
             }
