@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using UCS.Core;
@@ -221,7 +222,7 @@ namespace UCS.Packets.Messages.Client
         private async void LogUser()
         {
             ResourcesManager.LogPlayerIn(level, Device);
-            level.Avatar.IPAddress = Device.IPAddress;
+            level.Avatar.Region = Resources.Region.GetIpCountry(level.Avatar.IPAddress = Device.IPAddress);
 
             new LoginOkMessage(this.Device)
             {
@@ -321,12 +322,11 @@ namespace UCS.Packets.Messages.Client
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    char Letter = (char)Core.Resources.Random.Next('A', 'Z');
-                    this.level.Avatar.UserToken = this.level.Avatar.UserToken + Letter;
+                    char letter = (char)Resources.Random.Next('A', 'Z');
+                    this.level.Avatar.UserToken +=  letter;
                 }
             }
-
-            level.Avatar.Region = this.Region.ToUpper();
+            
             level.Avatar.InitializeAccountCreationDate();
             level.Avatar.m_vAndroid = this.Android;
 

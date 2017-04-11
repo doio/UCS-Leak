@@ -31,23 +31,29 @@ namespace UCS.Packets.Messages.Client
         {
             try
             {
-                ClientAvatar player = this.Device.Player.Avatar;
-                Alliance all = ObjectManager.GetAlliance(ID);
-
-                InvitationStreamEntry cm = new InvitationStreamEntry();
-                cm.ID = all.m_vChatMessages.Count + 1;
-                cm.SetSender(player);
-                cm.SetMessage(Message);
-                cm.SetState(1);
-                all.AddChatMessage(cm);
-
-                foreach (AllianceMemberEntry op in all.GetAllianceMembers())
+                if (Message.Length > 0 && Message.Length < 100)
                 {
-                    Level playera = await ResourcesManager.GetPlayer(op.AvatarId);
-                    if (playera.Client != null)
+                    ClientAvatar player = this.Device.Player.Avatar;
+                    Alliance all = ObjectManager.GetAlliance(ID);
+
+                    InvitationStreamEntry cm = new InvitationStreamEntry {ID = all.m_vChatMessages.Count + 1};
+                    cm.SetSender(player);
+                    cm.SetMessage(Message);
+                    cm.SetState(1);
+                    all.AddChatMessage(cm);
+
+                    foreach (AllianceMemberEntry op in all.GetAllianceMembers())
                     {
-                        new AllianceStreamEntryMessage(playera.Client) { StreamEntry = cm }.Send();
+                        Level playera = await ResourcesManager.GetPlayer(op.AvatarId);
+                        if (playera.Client != null)
+                        {
+                            new AllianceStreamEntryMessage(playera.Client) {StreamEntry = cm}.Send();
+                        }
                     }
+                }
+                else
+                {
+                    ResourcesManager.DisconnectClient(this.Device);
                 }
             } catch (Exception) { }
         }

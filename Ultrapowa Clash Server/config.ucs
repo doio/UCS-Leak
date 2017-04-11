@@ -25,7 +25,7 @@
       <!-- The AdminMessage will be shown in the Inbox of the Players-->
   <add key="CustomMaintenance" value=""/>
       <!-- Custom Maintenance Message -->
- <add key="ClientVersion" value="8.709.23"/>
+ <add key="ClientVersion" value="8.709.16"/>
       <!-- Required Client Version to connect -->
   <add key="MaxOnlinePlayers" value="1000"/>
   <!-- (Max 2000) This Function is only available for Ultra Users -->

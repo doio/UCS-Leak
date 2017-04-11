@@ -44,13 +44,17 @@ namespace UCS.Core.Threading
                     }
                 }
 
-                int c = ResourcesManager.m_vOnlinePlayers.Count; 
+                int c = ResourcesManager.m_vOnlinePlayers.Count;
                 Console.Title = Program.Title + c;
                 Program.OP = c;
 
                 GC.Collect(GC.MaxGeneration);
                 GC.WaitForPendingFinalizers();
-            } catch (Exception) { }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         public void Dispose()

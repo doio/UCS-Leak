@@ -48,88 +48,61 @@ namespace UCS.Packets.Messages.Client
                 {
                     if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
                     {
-                        if (m_vAllianceBadgeData < 1 || m_vAllianceBadgeData < 10000000000)
+                        alliance.m_vAllianceDescription = m_vAllianceDescription;
+                        alliance.m_vAllianceBadgeData = m_vAllianceBadgeData;
+                        alliance.m_vAllianceType = m_vAllianceType;
+                        alliance.m_vRequiredScore = m_vRequiredScore;
+                        alliance.m_vWarFrequency = m_vWarFrequency;
+                        alliance.m_vAllianceOrigin = m_vAllianceOrigin;
+                        alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
+
+                        ClientAvatar avatar = this.Device.Player.Avatar;
+                        long allianceId = avatar.AllianceId;
+                        AllianceEventStreamEntry eventStreamEntry =
+                            new AllianceEventStreamEntry
+                            {
+                                ID =
+                                    (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))
+                                        .TotalSeconds
+                            };
+                        eventStreamEntry.SetSender(avatar);
+                        eventStreamEntry.EventType = 10;
+                        eventStreamEntry.SetSender(avatar);
+                        alliance.AddChatMessage(eventStreamEntry);
+
+                        AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand(this.Device);
+                        edit.SetAlliance(alliance);
+                        edit.SetPlayer(this.Device.Player);
+
+                        new AvailableServerCommandMessage(this.Device, edit.Handle()).Send();
+
+                        foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
                         {
-                            if (m_vAllianceType < 0 || m_vAllianceType < 10)
+                            Level user = await ResourcesManager.GetPlayer(op.AvatarId);
+                            if (ResourcesManager.IsPlayerOnline(user))
                             {
-                                if (m_vRequiredScore < 0 || m_vRequiredScore < 4201)
-                                {
-                                    if (m_vWarFrequency < 0 || m_vWarFrequency < 10)
-                                    {
-                                        if (m_vAllianceOrigin < 0 || m_vAllianceOrigin < 42000000)
-                                        {
-                                            if (m_vWarAndFriendlyStatus < 0 || m_vWarAndFriendlyStatus < 5)
-                                            {
-                                                alliance.m_vAllianceDescription = m_vAllianceDescription;
-                                                alliance.m_vAllianceBadgeData   = m_vAllianceBadgeData;
-                                                alliance.m_vAllianceType        = m_vAllianceType;
-                                                alliance.m_vRequiredScore       = m_vRequiredScore;
-                                                alliance.m_vWarFrequency        = m_vWarFrequency;
-                                                alliance.m_vAllianceOrigin      = m_vAllianceOrigin;
-                                                alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-
-                                                ClientAvatar avatar = this.Device.Player.Avatar;
-                                                long allianceId = avatar.AllianceId;
-                                                AllianceEventStreamEntry eventStreamEntry = new AllianceEventStreamEntry();
-                                                eventStreamEntry.ID = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-                                                eventStreamEntry.SetSender(avatar);
-                                                eventStreamEntry.EventType = 10;
-                                                eventStreamEntry.SetSender(avatar);
-                                                alliance.AddChatMessage(eventStreamEntry);
-
-                                                AllianceSettingChangedCommand edit = new AllianceSettingChangedCommand(this.Device);
-                                                edit.SetAlliance(alliance);
-                                                edit.SetPlayer(this.Device.Player);
-
-                                                new AvailableServerCommandMessage(this.Device, edit.Handle()).Send();
-
-                                                foreach (AllianceMemberEntry op in alliance.GetAllianceMembers())
-                                                {
-                                                    Level user = await ResourcesManager.GetPlayer(op.AvatarId);
-                                                    if (ResourcesManager.IsPlayerOnline(user))
-                                                    {
-                                                        new AllianceStreamEntryMessage(user.Client) { StreamEntry = eventStreamEntry }.Send();
-                                                    }
-                                                }
-
-                                                Resources.DatabaseManager.Save(alliance);
-                                            }
-                                            else
-                                            {
-                                                ResourcesManager.DisconnectClient(Device);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            ResourcesManager.DisconnectClient(Device);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ResourcesManager.DisconnectClient(Device);
-                                    }
-                                }
-                                else
-                                {
-                                    ResourcesManager.DisconnectClient(Device);
-                                }
-                            }
-                            else
-                            {
-                                ResourcesManager.DisconnectClient(Device);
+                                new AllianceStreamEntryMessage(user.Client) {StreamEntry = eventStreamEntry}.Send();
                             }
                         }
-                        else
-                        {
-                            ResourcesManager.DisconnectClient(Device);
-                        }
+
+                        Resources.DatabaseManager.Save(alliance);
                     }
                     else
                     {
                         ResourcesManager.DisconnectClient(Device);
                     }
                 }
-            } catch (Exception) { }
+                else
+                {
+                    ResourcesManager.DisconnectClient(Device);
+                }
+
+
+            }
+            catch 
+            {
+                //Exception
+            }
         }
     }
 }

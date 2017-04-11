@@ -29,15 +29,15 @@ namespace UCS.Packets.Messages.Client
 
         internal override void Decode()
         {
-                this.m_vAllianceName = this.Reader.ReadString();
-                this.m_vAllianceDescription = this.Reader.ReadString();
-                this.m_vAllianceBadgeData = this.Reader.ReadInt32();
-                this.m_vAllianceType = this.Reader.ReadInt32();
-                this.m_vRequiredScore = this.Reader.ReadInt32();
-                this.m_vWarFrequency = this.Reader.ReadInt32();
-                this.m_vAllianceOrigin = this.Reader.ReadInt32();
-                this.m_vWarAndFriendlyStatus = this.Reader.ReadByte();
-            
+            this.m_vAllianceName = this.Reader.ReadString();
+            this.m_vAllianceDescription = this.Reader.ReadString();
+            this.m_vAllianceBadgeData = this.Reader.ReadInt32();
+            this.m_vAllianceType = this.Reader.ReadInt32();
+            this.m_vRequiredScore = this.Reader.ReadInt32();
+            this.m_vWarFrequency = this.Reader.ReadInt32();
+            this.m_vAllianceOrigin = this.Reader.ReadInt32();
+            this.m_vWarAndFriendlyStatus = this.Reader.ReadByte();
+
         }
 
         internal override void Process()
@@ -49,75 +49,33 @@ namespace UCS.Packets.Messages.Client
             {
                 if (m_vAllianceDescription.Length < 259 || m_vAllianceDescription.Length < 0)
                 {
-                    if (m_vAllianceBadgeData < 1 || m_vAllianceBadgeData < 10000000000)
-                    {
-                        if (m_vAllianceType < 0 || m_vAllianceType < 10)
-                        {
-                            if (m_vRequiredScore < 0 || m_vRequiredScore < 4201)
-                            {
-                                if (m_vWarFrequency < 0 || m_vWarFrequency < 10)
-                                {
-                                    if (m_vAllianceOrigin < 0 || m_vAllianceOrigin < 42000000)
-                                    {
-                                        if (m_vWarAndFriendlyStatus < 0 || m_vWarAndFriendlyStatus < 5)
-                                        {
-                                            Alliance alliance = ObjectManager.CreateAlliance(0);
-                                            alliance.m_vAllianceName        = m_vAllianceName;
-                                            alliance.m_vAllianceDescription = m_vAllianceDescription;
-                                            alliance.m_vAllianceType        = m_vAllianceType;
-                                            alliance.m_vRequiredScore       = m_vRequiredScore;
-                                            alliance.m_vAllianceBadgeData   = m_vAllianceBadgeData;
-                                            alliance.m_vAllianceOrigin      = m_vAllianceOrigin;
-                                            alliance.m_vWarFrequency        = m_vWarFrequency;
-                                            alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
-                                            this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
 
-                                            AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId);
-                                            member.Role = 2;
-                                            alliance.AddAllianceMember(member);
+                    Alliance alliance = ObjectManager.CreateAlliance(0);
+                    alliance.m_vAllianceName = m_vAllianceName;
+                    alliance.m_vAllianceDescription = m_vAllianceDescription;
+                    alliance.m_vAllianceType = m_vAllianceType;
+                    alliance.m_vRequiredScore = m_vRequiredScore;
+                    alliance.m_vAllianceBadgeData = m_vAllianceBadgeData;
+                    alliance.m_vAllianceOrigin = m_vAllianceOrigin;
+                    alliance.m_vWarFrequency = m_vWarFrequency;
+                    alliance.SetWarAndFriendlytStatus(m_vWarAndFriendlyStatus);
+                    this.Device.Player.Avatar.AllianceId = alliance.m_vAllianceId;
 
-                                            JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);
-                                            b.SetAlliance(alliance);
+                    AllianceMemberEntry member = new AllianceMemberEntry(this.Device.Player.Avatar.UserId) {Role = 2};
+                    alliance.AddAllianceMember(member);
 
-                                            AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand(this.Device);
-                                            d.SetAlliance(alliance);
-                                            d.SetRole(2);
-                                            d.Tick(this.Device.Player);
+                    JoinedAllianceCommand b = new JoinedAllianceCommand(this.Device);
+                    b.SetAlliance(alliance);
 
-                                            new AvailableServerCommandMessage(this.Device, b.Handle()).Send();
+                    AllianceRoleUpdateCommand d = new AllianceRoleUpdateCommand(this.Device);
+                    d.SetAlliance(alliance);
+                    d.SetRole(2);
+                    d.Tick(this.Device.Player);
 
-                                            new AvailableServerCommandMessage(this.Device, d.Handle()).Send();
-  
-                                        }
-                                        else
-                                        {
-                                            ResourcesManager.DisconnectClient(Device);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ResourcesManager.DisconnectClient(Device);
-                                    }
-                                }
-                                else
-                                {
-                                    ResourcesManager.DisconnectClient(Device);
-                                }
-                            }
-                            else
-                            {
-                                ResourcesManager.DisconnectClient(Device);
-                            }
-                        }
-                        else
-                        {
-                            ResourcesManager.DisconnectClient(Device);
-                        }
-                    }
-                    else
-                    {
-                        ResourcesManager.DisconnectClient(Device);
-                    }
+                    new AvailableServerCommandMessage(this.Device, b.Handle()).Send();
+
+                    new AvailableServerCommandMessage(this.Device, d.Handle()).Send();
+
                 }
                 else
                 {
