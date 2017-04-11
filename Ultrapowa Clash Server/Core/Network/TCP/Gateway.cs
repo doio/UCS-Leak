@@ -1,4 +1,4 @@
-﻿namespace UCS.Core.Network.TCP
+﻿/*namespace UCS.Core.Network.TCP
 {
     using System;
     using System.Collections.Generic;
@@ -36,10 +36,6 @@
             this.Initialize();
 
             this.Start(new IPEndPoint(IPAddress.Any, Utils.ParseConfigInt("ServerPort")));
-
-            Logger.Say();
-            Program._Stopwatch.Stop();
-            Logger.Say($"UCS has been started in {Program._Stopwatch.ElapsedMilliseconds} Milliseconds !");
         }
         public void Start(params EndPoint[] endPoints)
         {
@@ -110,7 +106,7 @@
                     }
                     catch
                     {
-                        /*Swallow*/
+                        
                     }
                     try
                     {
@@ -118,7 +114,7 @@
                     }
                     catch
                     {
-                        /*Swallow*/
+                       
                     }
                 }
 
@@ -133,7 +129,7 @@
                     }
                     catch
                     {
-                        /*Swallow*/
+                        
                     }
                 }
                 lock (this.ReadPool.Gate)
@@ -178,8 +174,9 @@
                 args.UserToken = listener;
                 StartAccept(args);
 
-
-                Logger.Say("Server stated listening on " + endPoint + ", let's play !");
+                Logger.Say();
+                Program._Stopwatch.Stop();
+                Logger.Say($"UCS has been started on {endPoint} in {Program._Stopwatch.ElapsedMilliseconds / 1000} Seconds !");
                 return listener;
             }
             catch (Exception iex)
@@ -192,33 +189,39 @@
         }
         private void StartAccept(SocketAsyncEventArgs e)
         {
-            var listener = (Socket)e.UserToken;
-
             try
             {
-                if (!listener.AcceptAsync(e))
-                    ProcessAccept(e);
-            }
-            catch //(Exception ex)
-            {
-                if (_disposed)
-                    return;
+                var listener = (Socket)e.UserToken;
 
-                lock (_listeners)
+                try
                 {
-                    for (int i = 0; i < _listeners.Count; i++)
+                    if (!listener.AcceptAsync(e))
+                        ProcessAccept(e);
+                }
+                catch //(Exception ex)
+                {
+                    if (_disposed)
+                        return;
+
+                    lock (_listeners)
                     {
-                        var tmpListener = _listeners[i].Item1;
-                        if (tmpListener != listener)
-                            break;
+                        for (int i = 0; i < _listeners.Count; i++)
+                        {
+                            var tmpListener = _listeners[i].Item1;
+                            if (tmpListener != listener)
+                                break;
 
-                        var tmpEndPoint = _listeners[i].Item2;
+                            var tmpEndPoint = _listeners[i].Item2;
 
-                        var startEx = (Exception)null;
-                        var newListener = StartListener(tmpEndPoint, ref startEx);
-                        _listeners[i] = Tuple.Create(newListener, tmpEndPoint);
+                            var startEx = (Exception)null;
+                            var newListener = StartListener(tmpEndPoint, ref startEx);
+                            _listeners[i] = Tuple.Create(newListener, tmpEndPoint);
+                        }
                     }
                 }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -274,7 +277,7 @@
             {
                 if (Socket.Connected && AsyncEvent.SocketError == SocketError.Success)
                 {
-                    Console.WriteLine("New Connection");
+                    Logger.Write($"New client connected -> {((IPEndPoint)Socket.RemoteEndPoint).Address}");
                     if (Constants.Local)
                     {
                         if (!Constants.AuthorizedIP.Contains(Socket.RemoteEndPoint.ToString().Split(':')[0]))
@@ -438,10 +441,9 @@
             this.WritePool.Enqueue(AsyncEvent);
         }
     }
-}
+}*/
 
-
-/*using System;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -454,7 +456,7 @@ using System.Configuration;
 using UCS.Helpers;
 using UCS.Core.Checker;
 
-namespace UCS.Core.Network
+namespace UCS.Core.Network.TCP
 {
     internal class Gateway
     {
@@ -684,4 +686,3 @@ namespace UCS.Core.Network
         }
     }
 }
-*/
