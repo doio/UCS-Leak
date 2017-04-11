@@ -11,11 +11,13 @@ using UCS.Core.Settings;
 using static UCS.Core.Logger;
 using System.Threading.Tasks;
 using UCS.Logic.Enums;
+using UCS.Helpers;
 
 namespace UCS.Core
 {
     internal class DatabaseManager 
     {
+        internal string Mysql;
 
         public void CreateAccount(Level l)
         {
@@ -195,52 +197,68 @@ namespace UCS.Core
 
         public long GetMaxAllianceId()
         {
-            try
+            const string SQL = "SELECT coalesce(MAX(ClanId), 0) FROM Clan";
+            int Seed = -1;
+
+            using (MySqlConnection Conn = new MySqlConnection(this.Mysql))
             {
-                using (Mysql db = new Mysql())
-                    return (from alliance in db.Clan select (long?) alliance.ClanId ?? 0).DefaultIfEmpty().Max();
+                Conn.Open();
+
+                using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
+                {
+                    CMD.Prepare();
+                    Seed = Convert.ToInt32(CMD.ExecuteScalar());
+                }
             }
-            catch
-            {
-                return 0;
-            }
+
+            return Seed;
         }
 
         public long GetMaxPlayerId()
         {
             try
             {
-                using (Mysql db = new Mysql())
-                    return (from ep in db.Player select (long?) ep.PlayerId ?? 0).DefaultIfEmpty().Max();
-            }
-            catch (EntityException ex)
-            {
-                Error("An exception occured when connecting to the MySQL Server.");
-                Error("Please check your database configuration !");
-                Error(Convert.ToString(ex));
-                Console.ReadKey();
-                Environment.Exit(0);
+                const string SQL = "SELECT coalesce(MAX(PlayerId), 0) FROM Player";
+                int Seed = -1;
 
-            }
-            catch (MySqlException)
-            {
-                Say();
-                Error("An exception occured when reconnecting to the MySQL Server.");
-                Error("Please check your database configuration !");
-                //Reason
-                //Username is wrong
-                //Password is wrong
-                //IP Address is unauthorized
+                MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder()
+                {
+                    Server = Utils.ParseConfigString("MysqlIPAddress"),
+                    UserID = Utils.ParseConfigString("MysqlUsername"),
+                    Port = (uint)Utils.ParseConfigInt("MysqlPort"),
+                    Pooling = false,
+                    Database = Utils.ParseConfigString("MysqlDatabase"),
+                    MinimumPoolSize = 1
+                };
 
-                UCSControl.UCSRestart();
+                if (!string.IsNullOrWhiteSpace(Utils.ParseConfigString("MysqlPassword")))
+                {
+                    builder.Password = Utils.ParseConfigString("MysqlPassword");
+                }
+
+                Mysql = builder.ToString();
+
+                using (MySqlConnection Conn = new MySqlConnection(Mysql))
+                {
+                    Conn.Open();
+
+                    using (MySqlCommand CMD = new MySqlCommand(SQL, Conn))
+                    {
+                        CMD.Prepare();
+                        Seed = Convert.ToInt32(CMD.ExecuteScalar());
+                    }
+                }
+
+                return Seed;
             }
             catch (Exception ex)
             {
-                Error("An unknown exception occured when trying to connect to the sql server.");
-                Error("Please check your database configuration !");
-                Error(Convert.ToString(ex));
+                Say();
+                Error("An exception occured when reconnecting to the MySQL Server.");
+                Error("Please check your database configuration!");
+                Error(ex.Message);
                 Console.ReadKey();
-                Environment.Exit(0);
+                UCSControl.UCSRestart();
             }
             return 0;
         }
