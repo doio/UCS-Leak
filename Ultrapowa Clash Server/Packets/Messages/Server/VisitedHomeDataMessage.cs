@@ -19,14 +19,17 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ownerHome = new ClientHome(m_vOwnerLevel.Avatar.UserId);
-                ownerHome.m_vShieldTime = m_vOwnerLevel.Avatar.m_vShieldTime;
-                ownerHome.m_vProtectionTime = m_vOwnerLevel.Avatar.m_vProtectionTime;
-                ownerHome.Village = m_vOwnerLevel.SaveToJSON();
+                ClientHome ownerHome = new ClientHome
+                {
+                    Id = m_vOwnerLevel.Avatar.UserId,
+                    ShieldTime = m_vOwnerLevel.Avatar.m_vShieldTime,
+                    ProtectionTime = m_vOwnerLevel.Avatar.m_vProtectionTime,
+                    Village = m_vOwnerLevel.SaveToJSON()
+                };
 
                 this.Data.AddInt(-1);
                 this.Data.AddInt((int)TimeSpan.FromSeconds(100).TotalSeconds);
-                this.Data.AddRange(ownerHome.Encode());
+                this.Data.AddRange(ownerHome.Encode);
                 this.Data.AddRange(await this.m_vOwnerLevel.Avatar.Encode());
                 this.Data.AddInt(0);
                 this.Data.Add(1);

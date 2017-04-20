@@ -106,14 +106,16 @@ namespace UCS.Packets
                             this.Keys.SNonce.Increment();
                         }
 
+                        this.Token.Packet.RemoveRange(0, _Header[1] + 7);
+
                         if ((Buffer.Length - 7) - _Header[1] >= 7)
                         {
                             this.Process(Reader.ReadBytes((Buffer.Length - 7) - _Header[1]));
                         }
-                        else
-                        {
-                            this.Token.Reset();
-                        }
+                        // else
+                        //{
+                        //   this.Token.Reset();
+                        //}
                     }
                 }
             }

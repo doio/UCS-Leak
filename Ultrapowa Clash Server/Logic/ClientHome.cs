@@ -4,34 +4,33 @@ using UCS.Helpers.List;
 
 namespace UCS.Logic
 {
-    internal class ClientHome : Base
+    internal class ClientHome
     {
-        readonly long m_vId;
+        internal long Id;
         internal string Village;
-        internal int m_vShieldTime;
-        internal int m_vProtectionTime;
+        internal int ShieldTime;
+        internal int ProtectionTime;
 
         public ClientHome()
         {
         }
 
-        public ClientHome(long id)
+
+        public byte[] Encode
         {
-            m_vId = id;
-        }
+            get
+            {
+                List<byte> data = new List<byte>();
+                data.AddLong(this.Id);
 
-        public override byte[] Encode()
-        {
-            List<byte> data = new List<byte>();
-            data.AddLong(m_vId);
+                data.AddInt(this.ShieldTime); // Shield
+                data.AddInt(this.ProtectionTime); // Protection
 
-            data.AddInt(m_vShieldTime); // Shield
-            data.AddInt(m_vProtectionTime); // Protection
-
-            data.AddInt(0);
-            data.AddCompressed(Village);
-            data.AddCompressed("{\"event\":[]}");
-            return data.ToArray();
+                data.AddInt(0);
+                data.AddCompressed(Village);
+                data.AddCompressed("{\"event\":[]}");
+                return data.ToArray();
+            }
         }
     }
 }

@@ -20,11 +20,14 @@ namespace UCS.Packets.Messages.Server
         {
             try
             {
-                ClientHome ch = new ClientHome(this.OwnerLevel.Avatar.UserId);
-                ch.Village = this.OwnerLevel.SaveToJSON();
+                ClientHome ch = new ClientHome
+                {
+                    Id = this.OwnerLevel.Avatar.UserId,
+                    Village = this.OwnerLevel.SaveToJSON()
+                };
 
                 this.Data.AddRange(new byte[]{0x00, 0x00, 0x00, 0xF0,0xFF, 0xFF, 0xFF, 0xFF,0x54, 0xCE, 0x5C, 0x4A});
-                this.Data.AddRange(ch.Encode());
+                this.Data.AddRange(ch.Encode);
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
                 this.Data.AddRange(await this.OwnerLevel.Avatar.Encode());
                 this.Data.AddRange(new byte[]{0x00, 0x00, 0x00, 0x03, 0x00});

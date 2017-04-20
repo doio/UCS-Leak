@@ -14,14 +14,17 @@ namespace UCS.Logic
                 HeroData hd = CSVManager.DataTables.GetHeroByName(GetBuildingData().HeroType);
                 AddComponent(new HeroBaseComponent(this, hd));
             }
+
             if (GetBuildingData().UpgradesUnits)
             {
                 AddComponent(new UnitUpgradeComponent(this));
+
             }
             if (GetBuildingData().UnitProduction[0] > 0)
             {
                 AddComponent(new UnitProductionComponent(this));
             }
+
             if (GetBuildingData().HousingSpace[0] > 0)
             {
                 if (GetBuildingData().Bunker)
